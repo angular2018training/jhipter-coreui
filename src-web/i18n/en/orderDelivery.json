@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "orderDelivery" : {
+            "home": {
+                "title": "Order Deliveries",
+                "createLabel": "Create a new Order Delivery",
+                "createOrEditLabel": "Create or edit a Order Delivery",
+                "search": "Search for Order Delivery"
+            },
+            "created": "A new Order Delivery is created with identifier {{ param }}",
+            "updated": "A Order Delivery is updated with identifier {{ param }}",
+            "deleted": "A Order Delivery is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Delivery {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Delivery"
+            },
+            "receiver": "Receiver",
+            "note": "Note",
+            "receiveTime": "Receive Time",
+            "createDate": "Create Date",
+            "createUser": "Create User",
+            "orderStatus": "Order Status"
+        }
+    }
+}

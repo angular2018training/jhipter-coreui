@@ -1,0 +1,31 @@
+
+{
+    "nextlogixApp": {
+        "customerPayment" : {
+            "home": {
+                "title": "Customer Payments",
+                "createLabel": "Create a new Customer Payment",
+                "createOrEditLabel": "Create or edit a Customer Payment",
+                "search": "Search for Customer Payment"
+            },
+            "created": "A new Customer Payment is created with identifier {{ param }}",
+            "updated": "A Customer Payment is updated with identifier {{ param }}",
+            "deleted": "A Customer Payment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Payment {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Payment"
+            },
+            "branchName": "Branch Name",
+            "accountNumber": "Account Number",
+            "accountName": "Account Name",
+            "cardNumber": "Card Number",
+            "isVerify": "Is Verify",
+            "dateVerify": "Date Verify",
+            "paymentType": "Payment Type",
+            "bank": "Bank",
+            "userVerify": "User Verify"
+        }
+    }
+}

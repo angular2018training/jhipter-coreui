@@ -1,0 +1,54 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "quotation",
+            "otherEntityName": "quotation",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "deliveryFee",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pickupFee",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "codFee",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "insuranceFee",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "otherFee",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "totalFee",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180614034642",
+    "entityTableName": "order_fee",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

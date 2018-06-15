@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "position" : {
+            "home": {
+                "title": "Positions",
+                "createLabel": "Thêm mới một Position",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Position",
+                "search": "Tìm Position"
+            },
+            "created": "Một Position mới được tạo với định danh {{ param }}",
+            "updated": "Một Position cập nhật với định danh {{ param }}",
+            "deleted": "Một Position đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Position {{ id }}?"
+            },
+            "detail": {
+                "title": "Position"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

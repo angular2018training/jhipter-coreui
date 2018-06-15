@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "quotationItem" : {
+            "home": {
+                "title": "Quotation Items",
+                "createLabel": "Create a new Quotation Item",
+                "createOrEditLabel": "Create or edit a Quotation Item",
+                "search": "Search for Quotation Item"
+            },
+            "created": "A new Quotation Item is created with identifier {{ param }}",
+            "updated": "A Quotation Item is updated with identifier {{ param }}",
+            "deleted": "A Quotation Item is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Item {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Item"
+            },
+            "itemType": "Item Type",
+            "quotationFile": "Quotation File",
+            "createDate": "Create Date",
+            "quotation": "Quotation"
+        }
+    }
+}

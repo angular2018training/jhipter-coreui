@@ -26,21 +26,17 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             ],
             target: 'http://127.0.0.1:8080',
             secure: false
-        },{
-            context: [
-                '/websocket'
-            ],
-            target: 'ws://127.0.0.1:8080',
-            ws: true
         }],
         watchOptions: {
             ignored: /node_modules/
         }
     },
     entry: {
-        polyfills: './src/main/webapp/app/polyfills',
-        global: './src/main/webapp/content/scss/global.scss',
-        main: './src/main/webapp/app/app.main'
+        polyfills: './src-web/polyfills',
+        global: './src-web/content/scss/global.scss',
+        style: './src-web/scss/style.scss',
+        main: './src-web/main',
+
     },
     output: {
         path: utils.root('target/www'),
@@ -84,10 +80,9 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     plugins: [
         new BrowserSyncPlugin({
             host: 'localhost',
-            port: 9000,
+            port: 9010,
             proxy: {
-                target: 'http://localhost:9060',
-                ws: true
+                target: 'http://localhost:9070'
             }
         }, {
             reload: false
@@ -96,7 +91,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         new webpack.NamedModulesPlugin(),
         new writeFilePlugin(),
         new webpack.WatchIgnorePlugin([
-            utils.root('src/test'),
+            utils.root('src-web/test'),
         ]),
         new WebpackNotifierPlugin({
             title: 'JHipster',

@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "district" : {
+            "home": {
+                "title": "Districts",
+                "createLabel": "Create a new District",
+                "createOrEditLabel": "Create or edit a District",
+                "search": "Search for District"
+            },
+            "created": "A new District is created with identifier {{ param }}",
+            "updated": "A District is updated with identifier {{ param }}",
+            "deleted": "A District is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete District {{ id }}?"
+            },
+            "detail": {
+                "title": "District"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "province": "Province"
+        }
+    }
+}

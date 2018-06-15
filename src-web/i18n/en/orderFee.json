@@ -1,0 +1,30 @@
+
+{
+    "nextlogixApp": {
+        "orderFee" : {
+            "home": {
+                "title": "Order Fees",
+                "createLabel": "Create a new Order Fee",
+                "createOrEditLabel": "Create or edit a Order Fee",
+                "search": "Search for Order Fee"
+            },
+            "created": "A new Order Fee is created with identifier {{ param }}",
+            "updated": "A Order Fee is updated with identifier {{ param }}",
+            "deleted": "A Order Fee is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Fee {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Fee"
+            },
+            "deliveryFee": "Delivery Fee",
+            "pickupFee": "Pickup Fee",
+            "codFee": "Cod Fee",
+            "insuranceFee": "Insurance Fee",
+            "otherFee": "Other Fee",
+            "discount": "Discount",
+            "totalFee": "Total Fee",
+            "quotation": "Quotation"
+        }
+    }
+}

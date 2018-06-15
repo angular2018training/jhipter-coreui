@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "fileUpload",
+            "otherEntityName": "fileUpload",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "contractCustomerName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "contractContactName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contractContactPhone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "taxCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contractExpirationDate",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180614034634",
+    "entityTableName": "customer_legal",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

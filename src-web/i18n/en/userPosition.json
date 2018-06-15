@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "userPosition" : {
+            "home": {
+                "title": "User Positions",
+                "createLabel": "Create a new User Position",
+                "createOrEditLabel": "Create or edit a User Position",
+                "search": "Search for User Position"
+            },
+            "created": "A new User Position is created with identifier {{ param }}",
+            "updated": "A User Position is updated with identifier {{ param }}",
+            "deleted": "A User Position is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete User Position {{ id }}?"
+            },
+            "detail": {
+                "title": "User Position"
+            },
+            "postOffice": "Post Office",
+            "position": "Position",
+            "userExtraInfo": "User Extra Info"
+        }
+    }
+}

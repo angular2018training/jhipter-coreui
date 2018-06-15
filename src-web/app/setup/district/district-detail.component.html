@@ -1,0 +1,40 @@
+
+<div *ngIf="district">
+    <h2><span jhiTranslate="nextlogixApp.district.detail.title">District</span> {{district.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.district.code">Code</span></dt>
+        <dd>
+            <span>{{district.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.district.name">Name</span></dt>
+        <dd>
+            <span>{{district.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.district.description">Description</span></dt>
+        <dd>
+            <span>{{district.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.district.province">Province</span></dt>
+        <dd>
+            <div *ngIf="district.provinceId">
+                <a [routerLink]="['/province', district.provinceId]">{{district.provinceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'district/'+ district.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

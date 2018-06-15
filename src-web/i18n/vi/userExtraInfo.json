@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "userExtraInfo" : {
+            "home": {
+                "title": "User Extra Infos",
+                "createLabel": "Thêm mới một User Extra Info",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật User Extra Info",
+                "search": "Tìm User Extra Info"
+            },
+            "created": "Một User Extra Info mới được tạo với định danh {{ param }}",
+            "updated": "Một User Extra Info cập nhật với định danh {{ param }}",
+            "deleted": "Một User Extra Info đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa User Extra Info {{ id }}?"
+            },
+            "detail": {
+                "title": "User Extra Info"
+            },
+            "email": "Email",
+            "phone": "Phone",
+            "address": "Address",
+            "userPosition": "User Position",
+            "role": "Role",
+            "userGroup": "User Group"
+        }
+    }
+}

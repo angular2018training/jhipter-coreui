@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "postOffice" : {
+            "home": {
+                "title": "Post Offices",
+                "createLabel": "Create a new Post Office",
+                "createOrEditLabel": "Create or edit a Post Office",
+                "search": "Search for Post Office"
+            },
+            "created": "A new Post Office is created with identifier {{ param }}",
+            "updated": "A Post Office is updated with identifier {{ param }}",
+            "deleted": "A Post Office is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Post Office {{ id }}?"
+            },
+            "detail": {
+                "title": "Post Office"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "province": "Province"
+        }
+    }
+}

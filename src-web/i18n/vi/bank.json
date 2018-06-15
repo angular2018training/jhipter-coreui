@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "bank" : {
+            "home": {
+                "title": "Banks",
+                "createLabel": "Thêm mới một Bank",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Bank",
+                "search": "Tìm Bank"
+            },
+            "created": "Một Bank mới được tạo với định danh {{ param }}",
+            "updated": "Một Bank cập nhật với định danh {{ param }}",
+            "deleted": "Một Bank đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Bank {{ id }}?"
+            },
+            "detail": {
+                "title": "Bank"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

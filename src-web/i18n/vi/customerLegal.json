@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "customerLegal" : {
+            "home": {
+                "title": "Customer Legals",
+                "createLabel": "Thêm mới một Customer Legal",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer Legal",
+                "search": "Tìm Customer Legal"
+            },
+            "created": "Một Customer Legal mới được tạo với định danh {{ param }}",
+            "updated": "Một Customer Legal cập nhật với định danh {{ param }}",
+            "deleted": "Một Customer Legal đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Customer Legal {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Legal"
+            },
+            "contractCustomerName": "Contract Customer Name",
+            "contractContactName": "Contract Contact Name",
+            "contractContactPhone": "Contract Contact Phone",
+            "taxCode": "Tax Code",
+            "contractExpirationDate": "Contract Expiration Date",
+            "fileUpload": "File Upload"
+        }
+    }
+}

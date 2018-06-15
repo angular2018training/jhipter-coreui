@@ -1,0 +1,44 @@
+
+{
+    "nextlogixApp": {
+        "orderMain" : {
+            "home": {
+                "title": "Order Mains",
+                "createLabel": "Thêm mới một Order Main",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Main",
+                "search": "Tìm Order Main"
+            },
+            "created": "Một Order Main mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Main cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Main đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Main {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Main"
+            },
+            "orderNumber": "Order Number",
+            "createDate": "Create Date",
+            "sendDate": "Send Date",
+            "weight": "Weight",
+            "width": "Width",
+            "height": "Height",
+            "depth": "Depth",
+            "quantityItem": "Quantity Item",
+            "orderPrice": "Order Price",
+            "finalWeight": "Final Weight",
+            "customerOrderNumber": "Customer Order Number",
+            "codAmount": "Cod Amount",
+            "orderPickup": "Order Pickup",
+            "orderConsignee": "Order Consignee",
+            "orderFee": "Order Fee",
+            "orderDelivery": "Order Delivery",
+            "createUser": "Create User",
+            "orderStatus": "Order Status",
+            "customer": "Customer",
+            "mainService": "Main Service",
+            "createPostOffice": "Create Post Office",
+            "currentPostOffice": "Current Post Office"
+        }
+    }
+}

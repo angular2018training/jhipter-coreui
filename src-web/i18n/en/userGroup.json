@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "userGroup" : {
+            "home": {
+                "title": "User Groups",
+                "createLabel": "Create a new User Group",
+                "createOrEditLabel": "Create or edit a User Group",
+                "search": "Search for User Group"
+            },
+            "created": "A new User Group is created with identifier {{ param }}",
+            "updated": "A User Group is updated with identifier {{ param }}",
+            "deleted": "A User Group is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete User Group {{ id }}?"
+            },
+            "detail": {
+                "title": "User Group"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "role": "Role"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "nextlogixApp": {
+        "CustomerType" : {
+            "null": "",
+            "NORMAL": "NORMAL",
+            "VIP": "VIP",
+            "CLIENT": "CLIENT",
+            "SUPPER_VIP": "SUPPER_VIP"
+        }
+    }
+}

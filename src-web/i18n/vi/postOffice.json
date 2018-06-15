@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "postOffice" : {
+            "home": {
+                "title": "Post Offices",
+                "createLabel": "Thêm mới một Post Office",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Post Office",
+                "search": "Tìm Post Office"
+            },
+            "created": "Một Post Office mới được tạo với định danh {{ param }}",
+            "updated": "Một Post Office cập nhật với định danh {{ param }}",
+            "deleted": "Một Post Office đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Post Office {{ id }}?"
+            },
+            "detail": {
+                "title": "Post Office"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "province": "Province"
+        }
+    }
+}

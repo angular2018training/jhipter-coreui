@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "orderConsignee" : {
+            "home": {
+                "title": "Order Consignees",
+                "createLabel": "Create a new Order Consignee",
+                "createOrEditLabel": "Create or edit a Order Consignee",
+                "search": "Search for Order Consignee"
+            },
+            "created": "A new Order Consignee is created with identifier {{ param }}",
+            "updated": "A Order Consignee is updated with identifier {{ param }}",
+            "deleted": "A Order Consignee is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Consignee {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Consignee"
+            },
+            "address": "Address",
+            "consigneePhone": "Consignee Phone",
+            "consigneeName": "Consignee Name",
+            "district": "District",
+            "province": "Province"
+        }
+    }
+}

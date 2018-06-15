@@ -1,0 +1,31 @@
+
+{
+    "nextlogixApp": {
+        "orderPickup" : {
+            "home": {
+                "title": "Order Pickups",
+                "createLabel": "Create a new Order Pickup",
+                "createOrEditLabel": "Create or edit a Order Pickup",
+                "search": "Search for Order Pickup"
+            },
+            "created": "A new Order Pickup is created with identifier {{ param }}",
+            "updated": "A Order Pickup is updated with identifier {{ param }}",
+            "deleted": "A Order Pickup is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Pickup {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Pickup"
+            },
+            "address": "Address",
+            "contactPhone": "Contact Phone",
+            "contactName": "Contact Name",
+            "assignDate": "Assign Date",
+            "pickupDate": "Pickup Date",
+            "ward": "Ward",
+            "district": "District",
+            "province": "Province",
+            "pickupUser": "Pickup User"
+        }
+    }
+}

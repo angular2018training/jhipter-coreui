@@ -1,0 +1,11 @@
+{
+    "nextlogixApp": {
+        "PaymentType" : {
+            "null": "",
+            "ONE_PER_WEEK": "ONE_PER_WEEK",
+            "TWO_PER_WEEK": "TWO_PER_WEEK",
+            "THREE_PER_WEEK": "THREE_PER_WEEK",
+            "DAILY": "DAILY"
+        }
+    }
+}

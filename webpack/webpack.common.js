@@ -2,8 +2,8 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const rxPaths = require('rxjs/_esm5/path-mapping');
-const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 
+const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 const utils = require('./utils.js');
 
 module.exports = (options) => ({
@@ -28,16 +28,21 @@ module.exports = (options) => ({
                     minifyJS:false,
                     minifyCSS:false
                 },
-                exclude: ['./src/main/webapp/index.html']
+                exclude: ['./src-web/index.html']
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
                 loaders: ['file-loader?hash=sha512&digest=hex&name=content/[hash].[ext]']
             },
+
             {
                 test: /manifest.webapp$/,
                 loader: 'file-loader?name=manifest.webapp!web-app-manifest-loader'
-            }
+            },
+          {
+            test: /manifest.webapp$/,
+            loader: 'file-loader?name=manifest.webapp!web-app-manifest-loader'
+          }
         ]
     },
     plugins: [
@@ -75,33 +80,33 @@ module.exports = (options) => ({
          */
         new webpack.ContextReplacementPlugin(
             /(.+)?angular(\\|\/)core(.+)?/,
-            utils.root('src/main/webapp/app'), {}
+            utils.root('src-web/app'), {}
         ),
         new CopyWebpackPlugin([
             { from: './node_modules/swagger-ui/dist/css', to: 'swagger-ui/dist/css' },
             { from: './node_modules/swagger-ui/dist/lib', to: 'swagger-ui/dist/lib' },
             { from: './node_modules/swagger-ui/dist/swagger-ui.min.js', to: 'swagger-ui/dist/swagger-ui.min.js' },
-            { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
-            { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
-            { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
+            { from: './src-web/swagger-ui/', to: 'swagger-ui' },
+            { from: './src-web/favicon.ico', to: 'favicon.ico' },
+            { from: './src-web/manifest.webapp', to: 'manifest.webapp' },
             // jhipster-needle-add-assets-to-webpack - JHipster will add/remove third-party resources in this array
-            { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
+            { from: './src-web/robots.txt', to: 'robots.txt' }
         ]),
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
         }),
         new MergeJsonWebpackPlugin({
-            output: {
-                groupBy: [
-                    { pattern: "./src/main/webapp/i18n/en/*.json", fileName: "./i18n/en.json" },
-                    { pattern: "./src/main/webapp/i18n/vi/*.json", fileName: "./i18n/vi.json" }
-                    // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
-                ]
-            }
+          output: {
+            groupBy: [
+              { pattern: "./src-web/i18n/en/*.json", fileName: "./i18n/en.json" },
+              { pattern: "./src-web/i18n/vi/*.json", fileName: "./i18n/vi.json" }
+              // jhipster-needle-i18n-language-webpack - JHipster will add/remove languages in this array
+            ]
+          }
         }),
         new HtmlWebpackPlugin({
-            template: './src/main/webapp/index.html',
+            template: './src-web/index.html',
             chunksSortMode: 'dependency',
             inject: 'body'
         })

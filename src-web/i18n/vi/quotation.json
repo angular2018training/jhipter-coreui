@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "quotation" : {
+            "home": {
+                "title": "Quotations",
+                "createLabel": "Thêm mới một Quotation",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation",
+                "search": "Tìm Quotation"
+            },
+            "created": "Một Quotation mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation"
+            },
+            "name": "Name",
+            "isActive": "Is Active",
+            "createDate": "Create Date",
+            "quotationItem": "Quotation Item"
+        }
+    }
+}

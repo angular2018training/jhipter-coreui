@@ -1,0 +1,31 @@
+
+{
+    "nextlogixApp": {
+        "customerPayment" : {
+            "home": {
+                "title": "Customer Payments",
+                "createLabel": "Thêm mới một Customer Payment",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer Payment",
+                "search": "Tìm Customer Payment"
+            },
+            "created": "Một Customer Payment mới được tạo với định danh {{ param }}",
+            "updated": "Một Customer Payment cập nhật với định danh {{ param }}",
+            "deleted": "Một Customer Payment đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Customer Payment {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Payment"
+            },
+            "branchName": "Branch Name",
+            "accountNumber": "Account Number",
+            "accountName": "Account Name",
+            "cardNumber": "Card Number",
+            "isVerify": "Is Verify",
+            "dateVerify": "Date Verify",
+            "paymentType": "Payment Type",
+            "bank": "Bank",
+            "userVerify": "User Verify"
+        }
+    }
+}

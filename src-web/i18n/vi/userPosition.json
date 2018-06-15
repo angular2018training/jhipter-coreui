@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "userPosition" : {
+            "home": {
+                "title": "User Positions",
+                "createLabel": "Thêm mới một User Position",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật User Position",
+                "search": "Tìm User Position"
+            },
+            "created": "Một User Position mới được tạo với định danh {{ param }}",
+            "updated": "Một User Position cập nhật với định danh {{ param }}",
+            "deleted": "Một User Position đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa User Position {{ id }}?"
+            },
+            "detail": {
+                "title": "User Position"
+            },
+            "postOffice": "Post Office",
+            "position": "Position",
+            "userExtraInfo": "User Extra Info"
+        }
+    }
+}
