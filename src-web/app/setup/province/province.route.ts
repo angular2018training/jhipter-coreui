@@ -17,7 +17,7 @@ export const provinceRoute: Routes = [
         canActivate: [UserRouteAccessService],
 
     }, {
-        path: 'province/:id',
+        path: 'province/detail/:id',
         component: ProvinceDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -26,7 +26,7 @@ export const provinceRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-      path: 'province-new',
+      path: 'province/new',
       component: ProvinceDialogComponent,
       data: {
         authorities: ['ROLE_USER'],
@@ -35,17 +35,8 @@ export const provinceRoute: Routes = [
       canActivate: [UserRouteAccessService]
     },
     {
-      path: 'province/:id/edit',
+      path: 'province/edit/:id',
       component: ProvinceDialogComponent,
-      data: {
-        authorities: ['ROLE_USER'],
-        pageTitle: 'Provinces'
-      },
-      canActivate: [UserRouteAccessService]
-    },
-    {
-      path: 'province/:id/delete',
-      component: ProvinceDeletePopupComponent,
       data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'Provinces'

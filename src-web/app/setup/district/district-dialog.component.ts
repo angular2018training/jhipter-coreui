@@ -11,6 +11,7 @@ import { DistrictPopupService } from './district-popup.service';
 import { DistrictService } from './district.service';
 import { Province, ProvinceService } from '../province';
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
+import {Subscription} from "rxjs/Rx";
 
 @Component({
     selector: 'jhi-district-dialog',
@@ -22,6 +23,7 @@ export class DistrictDialogComponent implements OnInit {
     isSaving: boolean;
 
     provinces: Province[];
+  private subscription: Subscription;
 
     constructor(
         //public activeModal: NgbActiveModal,
@@ -29,7 +31,8 @@ export class DistrictDialogComponent implements OnInit {
         private districtService: DistrictService,
         private provinceService: ProvinceService,
         private eventManager: JhiEventManager,
-        private languageService: JhiLanguageService
+        private route: ActivatedRoute
+
     ) {
     }
 
@@ -38,7 +41,18 @@ export class DistrictDialogComponent implements OnInit {
         this.district = new District();
         this.provinceService.query()
             .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+      this.subscription = this.route.params.subscribe((params) => {
+        this.load(params['id']);
+      });
     }
+  load(id) {
+    if (id != null) {
+      this.districtService.find(id).subscribe((response) => {
+        this.district = response.body;
+      });
+    }
+
+  }
 
     clear() {
         //this.activeModal.dismiss('cancel');

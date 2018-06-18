@@ -6,7 +6,7 @@
     <div>
       <h2>
         <button class="btn btn-primary float-right jh-create-entity"
-                [routerLink]="['../', { outlets: { popup: ['user-management-new'] } }]">
+                >
           <span class="fa fa-plus"></span> <span>Create a new User</span>
         </button>
       </h2>
@@ -28,7 +28,7 @@
           </thead>
           <tbody *ngIf="users">
           <tr *ngFor="let user of users; trackBy: trackIdentity">
-            <td><a [routerLink]="['../user-management', user.login]">{{user.id}}</a></td>
+            <td><a >{{user.id}}</a></td>
             <td>{{user.login}}</td>
             <td>{{user.email}}</td>
             <td>
@@ -51,13 +51,11 @@
             <td class="text-right">
               <div class="btn-group flex-btn-group-container">
                 <button type="submit"
-                        [routerLink]="[ user.login]"
                         class="btn btn-info btn-sm">
                   <span class="fa fa-eye"></span>
                   <span class="d-none d-md-inline">View</span>
                 </button>
                 <button type="submit"
-                        [routerLink]="[user.login,'edit']"
                         replaceUrl="true"
                         queryParamsHandling="merge"
                         class="btn btn-primary btn-sm">
@@ -65,7 +63,6 @@
                   <span class="d-none d-md-inline">Edit</span>
                 </button>
                 <button type="submit"
-                        [routerLink]="['../', { outlets: { popup: 'user-management/'+ user.login + '/delete'} }]"
                         replaceUrl="true"
                         queryParamsHandling="merge"
                         class="btn btn-danger btn-sm" [disabled]="currentAccount.login === user.login">

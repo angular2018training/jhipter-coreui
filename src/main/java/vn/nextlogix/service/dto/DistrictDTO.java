@@ -23,6 +23,8 @@ public class DistrictDTO implements Serializable {
     private String description;
 
     private Long provinceId;
+    
+    private ProvinceDTO provinceDTO;
 
     public Long getId() {
         return id;
@@ -63,8 +65,18 @@ public class DistrictDTO implements Serializable {
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
     }
+    
+    
 
-    @Override
+    public ProvinceDTO getProvinceDTO() {
+		return provinceDTO;
+	}
+
+	public void setProvinceDTO(ProvinceDTO provinceDTO) {
+		this.provinceDTO = provinceDTO;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -85,13 +97,11 @@ public class DistrictDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "DistrictDTO{" +
-            "id=" + getId() +
-            ", code='" + getCode() + "'" +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "DistrictDTO [id=" + id + ", code=" + code + ", name=" + name + ", description=" + description
+				+ ", provinceId=" + provinceId + ", provinceDTO=" + provinceDTO + "]";
+	}
+
+    
 }

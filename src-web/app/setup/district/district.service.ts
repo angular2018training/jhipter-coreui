@@ -5,6 +5,7 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { District } from './district.model';
 import { createRequestOption } from '../../shared';
+import {DistrictSearch} from "./district.search.model";
 
 export type EntityResponseType = HttpResponse<District>;
 
@@ -13,8 +14,9 @@ export class DistrictService {
 
     private resourceUrl =  SERVER_API_URL + 'api/districts';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/districts';
+    private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/districts';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
     create(district: District): Observable<EntityResponseType> {
         const copy = this.convert(district);
@@ -48,6 +50,11 @@ export class DistrictService {
         return this.http.get<District[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<District[]>) => this.convertArrayResponse(res));
     }
+    searchExample(req? : any): Observable<HttpResponse<District[]>> {
+      const options = createRequestOption(req);
+      return this.http.get<District[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
+        .map((res: HttpResponse<District[]>) => this.convertArrayResponse(res));
+    }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: District = this.convertItemFromServer(res.body);
@@ -77,5 +84,9 @@ export class DistrictService {
     private convert(district: District): District {
         const copy: District = Object.assign({}, district);
         return copy;
+    }
+    private convertSearch(district: DistrictSearch): DistrictSearch {
+      const copy: DistrictSearch = Object.assign({}, district);
+      return copy;
     }
 }

@@ -15,6 +15,7 @@ import {
     districtPopupRoute,
 } from './';
 import {NgJhipsterModule} from "ng-jhipster";
+import {NextlogixProvinceModule} from "../province/province.module";
 
 const ENTITY_STATES = [
     ...districtRoute,
@@ -25,6 +26,7 @@ const ENTITY_STATES = [
     imports: [
         NextlogixSharedModule,
         RouterModule.forChild(ENTITY_STATES),
+        NextlogixProvinceModule
 
     ],
     declarations: [

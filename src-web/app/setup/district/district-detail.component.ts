@@ -25,6 +25,7 @@ export class DistrictDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.district = new District();
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });

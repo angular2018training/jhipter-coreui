@@ -75,7 +75,7 @@ import {NextlogixSetupModule} from "./setup/setup.module";
     NextlogixSharedLibsModule.forRoot(),
     NextlogixSetupModule,
 
-    //NextlogixAdminModule,
+    NextlogixAdminModule,
     Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'})
   ],
   declarations: [

@@ -1,25 +1,42 @@
 package vn.nextlogix.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import vn.nextlogix.service.DistrictService;
-import vn.nextlogix.web.rest.errors.BadRequestAlertException;
-import vn.nextlogix.web.rest.util.HeaderUtil;
-import vn.nextlogix.service.dto.DistrictDTO;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
+
+import io.github.jhipster.web.util.ResponseUtil;
+import vn.nextlogix.service.DistrictService;
+import vn.nextlogix.service.dto.DistrictDTO;
+import vn.nextlogix.service.dto.DistrictSearchDTO;
+import vn.nextlogix.web.rest.errors.BadRequestAlertException;
+import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing District.
@@ -133,5 +150,18 @@ public class DistrictResource {
         log.debug("REST request to search Districts for query {}", query);
         return districtService.search(query);
     }
+
+  @GetMapping(path="/_search_example/districts")
+  @Timed
+  public ResponseEntity<List<DistrictDTO> > searchDistrictsExample( @RequestParam(value = "code",required=false) String code,
+	        @RequestParam(value = "name",required=false) String name, @RequestParam(value = "description",required=false) String description, @RequestParam(value = "provinceId",required=false) Long provinceId, Pageable pageable) {
+	  DistrictSearchDTO districtSearchDTO = new DistrictSearchDTO(code,name,description,provinceId);
+    log.debug("REST request to search example Districts for query {}", districtSearchDTO);
+    //Pageable pageable = new PageRequest(0, 10);
+    Page<DistrictDTO> page =districtService.searchByExample(districtSearchDTO,pageable);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/_search_example/districts");
+    return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    
+  }
 
 }

@@ -35,7 +35,7 @@ export const districtRoute: Routes = [
   },
   {
     path: 'district/edit/:id',
-    component: DistrictPopupComponent,
+    component: DistrictDialogComponent,
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'nextlogixApp.district.home.title'
@@ -49,7 +49,8 @@ export const districtRoute: Routes = [
       authorities: ['ROLE_USER'],
       pageTitle: 'nextlogixApp.district.home.title'
     },
-    canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
   }
 ];
 

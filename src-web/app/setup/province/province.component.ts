@@ -7,6 +7,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Province } from './province.model';
 import { ProvinceService } from './province.service';
 import { Principal } from '../../shared';
+import {ProvincePopupService} from "./province-popup.service";
+import {ProvinceDeleteDialogComponent} from "./province-delete-dialog.component";
 
 @Component({
   selector: 'jhi-province',
@@ -23,7 +25,9 @@ export class ProvinceComponent implements OnInit, OnDestroy {
     private jhiAlertService: JhiAlertService,
     private eventManager: JhiEventManager,
     private activatedRoute: ActivatedRoute,
-    private principal: Principal
+    private principal: Principal,
+
+    private provincePopupService: ProvincePopupService
   ) {
     this.currentSearch = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ?
       this.activatedRoute.snapshot.params['search'] : '';
@@ -81,5 +85,10 @@ export class ProvinceComponent implements OnInit, OnDestroy {
 
   private onError(error) {
     this.jhiAlertService.error(error.message, null, null);
+  }
+
+  public deleteItem(id:number){
+    this.provincePopupService
+      .open(ProvinceDeleteDialogComponent as Component, id);
   }
 }

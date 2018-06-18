@@ -19,6 +19,7 @@ export class DefaultLayoutComponent implements OnInit{
   constructor( private loginService: LoginService, private router: Router,private titleService: Title, private jhiLanguageHelper: JhiLanguageHelper,
                private languageService: JhiLanguageService) {
     console.log('languageService'+languageService);
+    this.languages = new Array();
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized')
     });

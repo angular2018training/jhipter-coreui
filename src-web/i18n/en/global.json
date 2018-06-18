@@ -110,6 +110,19 @@
         },
         "item-count": "Showing {{first}} - {{second}} of {{total}} items."
     },
+    "common":{
+      "filter" :{
+        "header":"Filter"
+      },
+      "button":{
+        "search":"Search",
+        "reset":"Reset",
+        "export":{
+          "excel":"Export Excel"
+        },
+        "create" :"Create"
+      }
+    },
     "entity": {
         "action": {
             "addblob": "Add blob",
