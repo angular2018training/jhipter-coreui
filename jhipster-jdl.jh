@@ -1,0 +1,275 @@
+// Danh muc
+entity Position {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity PostOffice {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity Ward {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity District {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity Province {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity UserGroup {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+
+entity Role {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity Bank {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity OrderStatus {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity OrderService {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+// Enum
+enum CustomerType {
+    NORMAL, VIP, CLIENT, SUPPER_VIP
+}
+
+enum PaymentType {
+    ONE_PER_WEEK, TWO_PER_WEEK, THREE_PER_WEEK, DAILY
+}
+
+enum QuotationItemType {
+    ONE
+}
+
+// File upload
+entity FileUpload {
+	id Long,
+    name String required,
+    content Blob required,
+    uploadTime Instant required,
+    contentType String required
+}
+
+// System
+entity UserPosition {
+	id Long,
+}
+
+entity UserExtraInfo {
+	id Long,
+    email String,
+    phone String,
+    address String
+}
+
+// Customer
+entity Customer {
+	id Long,
+    code String required,
+    name String required,
+    address String,
+    email String required,
+    phone String required,
+    password String required,
+    isActive Boolean required,
+    customerType CustomerType,
+    createDate Instant required
+}
+
+entity CustomerLegal {
+	id Long,
+    contractCustomerName String required,
+    contractContactName String,
+    contractContactPhone String,
+    taxCode String,
+    contractExpirationDate String required
+}
+
+entity CustomerPayment {
+	id Long,
+    branchName String,
+    accountNumber String,
+    accountName String required,
+    cardNumber String,
+    isVerify Boolean required,
+    dateVerify Instant,
+    paymentType PaymentType required
+}
+
+entity CustomerPostOffice {
+	id Long,
+    code String required,
+    createDate Instant required
+}
+
+// Quotation
+entity Quotation {
+	id Long,
+    name String required,
+    isActive Boolean,
+    createDate Instant
+}
+
+entity QuotationItem {
+	id Long,
+    itemType QuotationItemType required,
+    quotationFile Blob required,
+    createDate Instant required
+}
+
+// Order
+entity OrderMain {
+	id Long,
+    orderNumber String required,
+    createDate Instant required,
+    sendDate Instant,
+    weight Double,
+    width Integer,
+    height Integer,
+    depth Integer,
+    quantityItem Integer,
+    orderPrice Double,
+    finalWeight Double required,
+    customerOrderNumber String,
+    codAmount Double
+}
+
+entity OrderPickup {
+	id Long,
+    address String required,
+    contactPhone String required,
+    contactName String,
+    assignDate Instant,
+    pickupDate Instant 
+}
+
+entity OrderConsignee {
+	id Long,
+    address String required,
+    consigneePhone String required,
+    consigneeName String
+}
+
+entity OrderFee {
+	id Long,
+    deliveryFee Double required,
+    pickupFee Double,
+    codFee Double,
+    insuranceFee Double,
+    otherFee Double,
+    discount Double,
+    totalFee Double required
+}
+
+entity OrderDelivery {
+	id Long,
+    receiver String,
+    note String,
+    receiveTime Instant,
+    createDate Instant required
+}
+
+// defining multiple relationships with comments
+relationship ManyToMany {
+    UserExtraInfo{role} to Role
+    UserGroup{role} to Role
+    UserExtraInfo{userGroup} to UserGroup
+    CustomerLegal{fileUpload} to FileUpload
+}
+
+relationship ManyToOne {
+    Customer{manageUser} to UserExtraInfo
+    Customer{saleUser} to UserExtraInfo
+    Customer{debtUser} to UserExtraInfo
+    Customer{province} to Province
+    Customer{district} to District
+    Ward{district required} to District
+    District{province required} to Province
+    PostOffice{province required} to Province
+    UserPosition{postOffice required} to PostOffice
+    UserPosition{position required} to Position
+    CustomerPayment{bank required} to Bank
+    CustomerPayment{userVerify} to UserExtraInfo
+    CustomerPostOffice{postOffice required} to PostOffice
+  	OrderMain{createUser} to UserExtraInfo
+    OrderMain{orderStatus required} to OrderStatus
+    OrderMain{customer required} to Customer
+    OrderMain{mainService required} to OrderService
+    OrderMain{createPostOffice required} to PostOffice
+    OrderMain{currentPostOffice required} to PostOffice
+    OrderPickup{ward required} to Ward
+    OrderPickup{district required} to District
+    OrderPickup{province required} to Province
+    OrderPickup{pickupUser} to UserExtraInfo
+    OrderConsignee{district required} to District
+    OrderConsignee{province required} to Province
+    OrderFee{quotation required} to Quotation
+    OrderDelivery{createUser} to UserExtraInfo
+    OrderDelivery{orderStatus} to OrderStatus
+}
+
+relationship OneToMany {
+	Customer{customerPostOffice} to CustomerPostOffice
+    UserExtraInfo{userPosition} to UserPosition
+    Quotation{quotationItem} to QuotationItem
+}
+
+relationship OneToOne {
+    Customer{legal} to CustomerLegal
+    Customer{payment} to CustomerPayment
+    OrderMain{orderPickup} to OrderPickup
+    OrderMain{orderConsignee} to OrderConsignee
+    OrderMain{orderFee} to OrderFee
+    OrderMain{orderDelivery} to OrderDelivery
+}
+filter Province
+// Set pagination options
+paginate Customer with infinite-scroll
+paginate UserExtraInfo with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl

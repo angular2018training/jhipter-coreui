@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "customerLegal" : {
+            "home": {
+                "title": "Customer Legals",
+                "createLabel": "Create a new Customer Legal",
+                "createOrEditLabel": "Create or edit a Customer Legal",
+                "search": "Search for Customer Legal"
+            },
+            "created": "A new Customer Legal is created with identifier {{ param }}",
+            "updated": "A Customer Legal is updated with identifier {{ param }}",
+            "deleted": "A Customer Legal is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Legal {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Legal"
+            },
+            "contractCustomerName": "Contract Customer Name",
+            "contractContactName": "Contract Contact Name",
+            "contractContactPhone": "Contract Contact Phone",
+            "taxCode": "Tax Code",
+            "contractExpirationDate": "Contract Expiration Date",
+            "fileUpload": "File Upload"
+        }
+    }
+}

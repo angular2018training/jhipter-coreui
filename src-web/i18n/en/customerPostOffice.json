@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "customerPostOffice" : {
+            "home": {
+                "title": "Customer Post Offices",
+                "createLabel": "Create a new Customer Post Office",
+                "createOrEditLabel": "Create or edit a Customer Post Office",
+                "search": "Search for Customer Post Office"
+            },
+            "created": "A new Customer Post Office is created with identifier {{ param }}",
+            "updated": "A Customer Post Office is updated with identifier {{ param }}",
+            "deleted": "A Customer Post Office is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Post Office {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Post Office"
+            },
+            "code": "Code",
+            "createDate": "Create Date",
+            "customer": "Customer",
+            "postOffice": "Post Office"
+        }
+    }
+}

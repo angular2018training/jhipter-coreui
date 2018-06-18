@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "orderConsignee" : {
+            "home": {
+                "title": "Order Consignees",
+                "createLabel": "Thêm mới một Order Consignee",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Consignee",
+                "search": "Tìm Order Consignee"
+            },
+            "created": "Một Order Consignee mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Consignee cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Consignee đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Consignee {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Consignee"
+            },
+            "address": "Address",
+            "consigneePhone": "Consignee Phone",
+            "consigneeName": "Consignee Name",
+            "district": "District",
+            "province": "Province"
+        }
+    }
+}

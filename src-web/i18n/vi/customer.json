@@ -1,0 +1,39 @@
+
+{
+    "nextlogixApp": {
+        "customer" : {
+            "home": {
+                "title": "Customers",
+                "createLabel": "Thêm mới một Customer",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer",
+                "search": "Tìm Customer"
+            },
+            "created": "Một Customer mới được tạo với định danh {{ param }}",
+            "updated": "Một Customer cập nhật với định danh {{ param }}",
+            "deleted": "Một Customer đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Customer {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer"
+            },
+            "code": "Code",
+            "name": "Name",
+            "address": "Address",
+            "email": "Email",
+            "phone": "Phone",
+            "password": "Password",
+            "isActive": "Is Active",
+            "customerType": "Customer Type",
+            "createDate": "Create Date",
+            "legal": "Legal",
+            "payment": "Payment",
+            "customerPostOffice": "Customer Post Office",
+            "manageUser": "Manage User",
+            "saleUser": "Sale User",
+            "debtUser": "Debt User",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}

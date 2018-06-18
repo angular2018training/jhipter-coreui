@@ -1,0 +1,31 @@
+
+{
+    "nextlogixApp": {
+        "orderPickup" : {
+            "home": {
+                "title": "Order Pickups",
+                "createLabel": "Thêm mới một Order Pickup",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Pickup",
+                "search": "Tìm Order Pickup"
+            },
+            "created": "Một Order Pickup mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Pickup cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Pickup đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Pickup {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Pickup"
+            },
+            "address": "Address",
+            "contactPhone": "Contact Phone",
+            "contactName": "Contact Name",
+            "assignDate": "Assign Date",
+            "pickupDate": "Pickup Date",
+            "ward": "Ward",
+            "district": "District",
+            "province": "Province",
+            "pickupUser": "Pickup User"
+        }
+    }
+}

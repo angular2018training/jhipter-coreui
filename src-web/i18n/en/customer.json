@@ -1,0 +1,39 @@
+
+{
+    "nextlogixApp": {
+        "customer" : {
+            "home": {
+                "title": "Customers",
+                "createLabel": "Create a new Customer",
+                "createOrEditLabel": "Create or edit a Customer",
+                "search": "Search for Customer"
+            },
+            "created": "A new Customer is created with identifier {{ param }}",
+            "updated": "A Customer is updated with identifier {{ param }}",
+            "deleted": "A Customer is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer"
+            },
+            "code": "Code",
+            "name": "Name",
+            "address": "Address",
+            "email": "Email",
+            "phone": "Phone",
+            "password": "Password",
+            "isActive": "Is Active",
+            "customerType": "Customer Type",
+            "createDate": "Create Date",
+            "legal": "Legal",
+            "payment": "Payment",
+            "customerPostOffice": "Customer Post Office",
+            "manageUser": "Manage User",
+            "saleUser": "Sale User",
+            "debtUser": "Debt User",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}

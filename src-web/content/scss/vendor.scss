@@ -1,0 +1,27 @@
+/* after changing this file run 'yarn run webpack:build' */
+$fa-font-path: '~font-awesome/fonts';
+
+/***************************
+put Sass variables here:
+eg $input-color: red;
+****************************/
+// Override Boostrap variables
+@import "bootstrap-variables";
+// Import Bootstrap source files from node_modules
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/font-awesome/scss/font-awesome';
+@import  url('../../../node_modules/flag-icon-css/css/flag-icon.css');
+@import  url('../../../node_modules/@coreui/icons/css/coreui-icons.css');
+@import  url('../../../node_modules/flag-icon-css/css/flag-icon.css');
+@import  url('../../../node_modules/font-awesome/css/font-awesome.css');
+@import  url('../../../node_modules/simple-line-icons/css/simple-line-icons.css');
+// If you want to override variables do it here
+@import "../../scss/variables";
+
+// Import styles
+@import url('../../../node_modules/@coreui/coreui/dist/css/coreui.css');
+
+// If you want to add something do it here
+@import "../../scss/custom";
+
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */

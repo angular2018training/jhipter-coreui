@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "orderDelivery" : {
+            "home": {
+                "title": "Order Deliveries",
+                "createLabel": "Thêm mới một Order Delivery",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Delivery",
+                "search": "Tìm Order Delivery"
+            },
+            "created": "Một Order Delivery mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Delivery cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Delivery đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Delivery {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Delivery"
+            },
+            "receiver": "Receiver",
+            "note": "Note",
+            "receiveTime": "Receive Time",
+            "createDate": "Create Date",
+            "createUser": "Create User",
+            "orderStatus": "Order Status"
+        }
+    }
+}

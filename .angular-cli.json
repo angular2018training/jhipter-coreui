@@ -4,25 +4,33 @@
         "name": "nextlogix"
     },
     "apps": [{
-        "root": "src/main/webapp",
+        "root": "src-web/",
         "outDir": "target/www/app",
         "assets": [
             "content",
-            "i18n",
+             "assets",
+             "i18n",
             "favicon.ico"
         ],
         "index": "index.html",
-        "main": "app/app.main.ts",
-        "polyfills": "app/polyfills.ts",
+        "main": "main.ts",
+        "polyfills": "polyfills.ts",
         "test": "src/test/javascript/spec/entry.ts",
         "tsconfig": "../../../tsconfig.json",
         "prefix": "jhi",
         "mobile": false,
         "styles": [
             "content/scss/vendor.scss",
-            "content/scss/global.scss"
+            "content/scss/global.scss",
+            "scss/style.scss",
+            "node_modules/@coreui/icons/css/coreui-icons.css",
+            "node_modules/flag-icon-css/css/flag-icon.css",
+            "node_modules/font-awesome/css/font-awesome.css",
+            "node_modules/simple-line-icons/css/simple-line-icons.css"
         ],
-        "scripts": []
+        "scripts": [
+          "node_modules/chart.js/dist/Chart.min.js"
+        ]
     }],
     "lint": [{
             "project": "../../../tsconfig.json"

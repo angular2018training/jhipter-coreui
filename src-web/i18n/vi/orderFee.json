@@ -1,0 +1,30 @@
+
+{
+    "nextlogixApp": {
+        "orderFee" : {
+            "home": {
+                "title": "Order Fees",
+                "createLabel": "Thêm mới một Order Fee",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Fee",
+                "search": "Tìm Order Fee"
+            },
+            "created": "Một Order Fee mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Fee cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Fee đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Fee {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Fee"
+            },
+            "deliveryFee": "Delivery Fee",
+            "pickupFee": "Pickup Fee",
+            "codFee": "Cod Fee",
+            "insuranceFee": "Insurance Fee",
+            "otherFee": "Other Fee",
+            "discount": "Discount",
+            "totalFee": "Total Fee",
+            "quotation": "Quotation"
+        }
+    }
+}

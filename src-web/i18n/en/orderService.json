@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "orderService" : {
+            "home": {
+                "title": "Order Services",
+                "createLabel": "Create a new Order Service",
+                "createOrEditLabel": "Create or edit a Order Service",
+                "search": "Search for Order Service"
+            },
+            "created": "A new Order Service is created with identifier {{ param }}",
+            "updated": "A Order Service is updated with identifier {{ param }}",
+            "deleted": "A Order Service is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Service {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Service"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "role" : {
+            "home": {
+                "title": "Roles",
+                "createLabel": "Thêm mới một Role",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Role",
+                "search": "Tìm Role"
+            },
+            "created": "Một Role mới được tạo với định danh {{ param }}",
+            "updated": "Một Role cập nhật với định danh {{ param }}",
+            "deleted": "Một Role đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Role {{ id }}?"
+            },
+            "detail": {
+                "title": "Role"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

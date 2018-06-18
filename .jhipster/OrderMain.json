@@ -1,0 +1,143 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "orderPickup",
+            "otherEntityName": "orderPickup",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "orderMain"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "orderConsignee",
+            "otherEntityName": "orderConsignee",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "orderMain"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "orderFee",
+            "otherEntityName": "orderFee",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "orderMain"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "orderDelivery",
+            "otherEntityName": "orderDelivery",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "orderMain"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "createUser",
+            "otherEntityName": "userExtraInfo",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "orderStatus",
+            "otherEntityName": "orderStatus",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "mainService",
+            "otherEntityName": "orderService",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "createPostOffice",
+            "otherEntityName": "postOffice",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "currentPostOffice",
+            "otherEntityName": "postOffice",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "orderNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "createDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sendDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "weight",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "width",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "height",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "depth",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "quantityItem",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "orderPrice",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "finalWeight",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "customerOrderNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "codAmount",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20180614034639",
+    "entityTableName": "order_main",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

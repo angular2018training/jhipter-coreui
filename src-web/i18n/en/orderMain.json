@@ -1,0 +1,44 @@
+
+{
+    "nextlogixApp": {
+        "orderMain" : {
+            "home": {
+                "title": "Order Mains",
+                "createLabel": "Create a new Order Main",
+                "createOrEditLabel": "Create or edit a Order Main",
+                "search": "Search for Order Main"
+            },
+            "created": "A new Order Main is created with identifier {{ param }}",
+            "updated": "A Order Main is updated with identifier {{ param }}",
+            "deleted": "A Order Main is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Main {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Main"
+            },
+            "orderNumber": "Order Number",
+            "createDate": "Create Date",
+            "sendDate": "Send Date",
+            "weight": "Weight",
+            "width": "Width",
+            "height": "Height",
+            "depth": "Depth",
+            "quantityItem": "Quantity Item",
+            "orderPrice": "Order Price",
+            "finalWeight": "Final Weight",
+            "customerOrderNumber": "Customer Order Number",
+            "codAmount": "Cod Amount",
+            "orderPickup": "Order Pickup",
+            "orderConsignee": "Order Consignee",
+            "orderFee": "Order Fee",
+            "orderDelivery": "Order Delivery",
+            "createUser": "Create User",
+            "orderStatus": "Order Status",
+            "customer": "Customer",
+            "mainService": "Main Service",
+            "createPostOffice": "Create Post Office",
+            "currentPostOffice": "Current Post Office"
+        }
+    }
+}
