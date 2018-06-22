@@ -24,6 +24,9 @@ public class WardDTO implements Serializable {
 
     private Long districtId;
 
+    private DistrictDTO  districtDTO;
+
+
     public Long getId() {
         return id;
     }
@@ -56,13 +59,21 @@ public class WardDTO implements Serializable {
         this.description = description;
     }
 
+    public DistrictDTO getDistrictDTO() {
+        return this.districtDTO;
+    }
+
+    public void setDistrictDTO(DistrictDTO districtDTO ) {
+        this.districtDTO = districtDTO;
+    }
     public Long getDistrictId() {
         return districtId;
-    }
+        }
 
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

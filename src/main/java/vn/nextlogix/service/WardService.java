@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.WardDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.WardSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing Ward.
@@ -19,9 +21,10 @@ public interface WardService {
     /**
      * Get all the wards.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<WardDTO> findAll();
+    Page<WardDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" ward.
@@ -43,7 +46,12 @@ public interface WardService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<WardDTO> search(String query);
-}
+    Page<WardDTO> search(String query, Pageable pageable);
+
+    Page<WardDTO> searchExample( WardSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

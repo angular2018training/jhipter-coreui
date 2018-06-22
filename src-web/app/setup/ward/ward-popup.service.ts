@@ -2,17 +2,17 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { District } from './district.model';
-import { DistrictService } from './district.service';
+import { Ward } from './ward.model';
+import { WardService } from './ward.service';
 
-@Injectable({ providedIn: 'root' })
-export class DistrictPopupService {
+@Injectable()
+export class WardPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private districtService: DistrictService
+        private wardService: WardService
 
     ) {
         this.ngbModalRef = null;
@@ -26,25 +26,25 @@ export class DistrictPopupService {
             }
 
             if (id) {
-                this.districtService.find(id)
-                    .subscribe((districtResponse: HttpResponse<District>) => {
-                        const district: District = districtResponse.body;
-                        this.ngbModalRef = this.districtModalRef(component, district);
+                this.wardService.find(id)
+                    .subscribe((wardResponse: HttpResponse<Ward>) => {
+                        const ward: Ward = wardResponse.body;
+                        this.ngbModalRef = this.wardModalRef(component, ward);
                         resolve(this.ngbModalRef);
                     });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.districtModalRef(component, new District());
+                    this.ngbModalRef = this.wardModalRef(component, new Ward());
                     resolve(this.ngbModalRef);
                 }, 0);
             }
         });
     }
 
-    districtModalRef(component: Component, district: District): NgbModalRef {
+    wardModalRef(component: Component, ward: Ward): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-        modalRef.componentInstance.district = district;
+        modalRef.componentInstance.ward = ward;
         modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;

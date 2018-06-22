@@ -1,11 +1,16 @@
 package vn.nextlogix.web.rest.util;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.net.URLEncoder;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 /**
  * Utility class for handling pagination.
@@ -70,6 +75,44 @@ public final class PaginationUtil {
         }
         link += "<" + generateUri(baseUrl, lastPage, page.getSize()) + "&query=" + escapedQuery + ">; rel=\"last\",";
         link += "<" + generateUri(baseUrl, 0, page.getSize()) + "&query=" + escapedQuery + ">; rel=\"first\"";
+        headers.add(HttpHeaders.LINK, link);
+        return headers;
+    }
+    public static HttpHeaders generateSearchPaginationHttpHeaders(Object searchDto, Page page, String baseUrl) throws IllegalAccessException, UnsupportedEncodingException, IntrospectionException {
+    	
+    	Field[] fields = searchDto.getClass().getDeclaredFields();
+        String escapedQuery="";
+        for (Field field: fields) {
+        	field.setAccessible(true);
+            //if(field.getDeclaringClass(). instanceof Integer){
+                Object data = field.get(searchDto);
+                if(data == null){
+                    escapedQuery+=("&"+field.getName()+"=");
+                }else {
+                    escapedQuery+=("&"+field.getName()+"="+ URLEncoder.encode(data.toString(), "UTF-8"));
+                }
+            //}
+
+
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Total-Count", Long.toString(page.getTotalElements()));
+        String link = "";
+        if ((page.getNumber() + 1) < page.getTotalPages()) {
+            link = "<" + generateUri(baseUrl, page.getNumber() + 1, page.getSize()) +  escapedQuery + ">; rel=\"next\",";
+        }
+        // prev link
+        if ((page.getNumber()) > 0) {
+            link += "<" + generateUri(baseUrl, page.getNumber() - 1, page.getSize())+ escapedQuery + ">; rel=\"prev\",";
+        }
+        // last and first link
+        int lastPage = 0;
+        if (page.getTotalPages() > 0) {
+            lastPage = page.getTotalPages() - 1;
+        }
+        link += "<" + generateUri(baseUrl, lastPage, page.getSize())  + escapedQuery + ">; rel=\"last\",";
+        link += "<" + generateUri(baseUrl, 0, page.getSize())  + escapedQuery + ">; rel=\"first\"";
         headers.add(HttpHeaders.LINK, link);
         return headers;
     }

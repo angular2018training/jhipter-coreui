@@ -1,0 +1,49 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.ward.detail.title">Ward</span> {{ward.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="ward">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.ward.code">Code</span></dt>
+        <dd>
+            <span>{{ward.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.ward.name">Name</span></dt>
+        <dd>
+            <span>{{ward.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.ward.description">Description</span></dt>
+        <dd>
+            <span>{{ward.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.ward.district">District</span></dt>
+        <dd>
+            <div *ngIf="ward.districtId">
+                <a [routerLink]="['/district', ward.districtId]">{{ward.districtId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'ward', ward.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

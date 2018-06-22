@@ -5,17 +5,30 @@ import vn.nextlogix.domain.Ward;
 import vn.nextlogix.repository.WardRepository;
 import vn.nextlogix.repository.search.WardSearchRepository;
 import vn.nextlogix.service.dto.WardDTO;
+import vn.nextlogix.service.dto.WardSearchDTO;
+import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.District;
 import vn.nextlogix.service.mapper.WardMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+    import java.util.stream.StreamSupport;
+
+    import java.util.List;
+    import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+    import vn.nextlogix.repository.search.DistrictSearchRepository;
+    import vn.nextlogix.service.mapper.DistrictMapper;
+    import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -33,10 +46,19 @@ public class WardServiceImpl implements WardService {
 
     private final WardSearchRepository wardSearchRepository;
 
-    public WardServiceImpl(WardRepository wardRepository, WardMapper wardMapper, WardSearchRepository wardSearchRepository) {
+
+        private final DistrictSearchRepository districtSearchRepository;
+        private final DistrictMapper districtMapper;
+
+
+    public WardServiceImpl(WardRepository wardRepository, WardMapper wardMapper, WardSearchRepository wardSearchRepository     ,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
+) {
         this.wardRepository = wardRepository;
         this.wardMapper = wardMapper;
         this.wardSearchRepository = wardSearchRepository;
+                                    this.districtSearchRepository = districtSearchRepository;
+                                     this.districtMapper = districtMapper;
+
     }
 
     /**
@@ -58,15 +80,15 @@ public class WardServiceImpl implements WardService {
     /**
      * Get all the wards.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<WardDTO> findAll() {
+    public Page<WardDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Wards");
-        return wardRepository.findAll().stream()
-            .map(wardMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return wardRepository.findAll(pageable)
+            .map(wardMapper::toDto);
     }
 
     /**
@@ -99,15 +121,45 @@ public class WardServiceImpl implements WardService {
      * Search for the ward corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<WardDTO> search(String query) {
-        log.debug("Request to search Wards for query {}", query);
-        return StreamSupport
-            .stream(wardSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+    public Page<WardDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Wards for query {}", query);
+        Page<Ward> result = wardSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(wardMapper::toDto);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<WardDTO> searchExample(WardSearchDTO searchDto, Pageable pageable) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getCode())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getName())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getDescription())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+            }
+            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            Page<Ward> wardPage= wardSearchRepository.search(query);
+            List<WardDTO> wardList =  StreamSupport
+            .stream(wardPage.spliterator(), false)
             .map(wardMapper::toDto)
             .collect(Collectors.toList());
-    }
+            wardList.forEach(wardDto -> {
+            if(wardDto.getDistrictId()!=null) {
+                District district= districtSearchRepository.findOne(wardDto.getDistrictId());
+                wardDto.setDistrictDTO(districtMapper.toDto(district));
+            }
+            });
+            return new PageImpl<>(wardList,pageable,wardPage.getTotalElements());
+        }
 }

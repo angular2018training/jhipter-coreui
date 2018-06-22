@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import {NextlogixProvinceModule} from "./province/province.module";
 import {NextlogixDistrictModule} from "./district/district.module";
 import {NextlogixSharedLibsModule} from "../shared/shared-libs.module";
+import {NextlogixWardModule} from "./ward/ward.module";
 @NgModule({
   imports: [
     CommonModule,
     NextlogixProvinceModule,
     NextlogixDistrictModule,
+    NextlogixWardModule,
     NextlogixSharedLibsModule
     //RouterModule.forChild(setupState)
   ],
