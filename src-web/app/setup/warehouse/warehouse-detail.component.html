@@ -1,0 +1,75 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.warehouse.detail.title">Warehouse</span> {{warehouse.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="warehouse">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.warehouse.name">Name</span></dt>
+        <dd>
+            <span>{{warehouse.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.contactName">Contact Name</span></dt>
+        <dd>
+            <span>{{warehouse.contactName}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.contactPhone">Contact Phone</span></dt>
+        <dd>
+            <span>{{warehouse.contactPhone}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.address">Address</span></dt>
+        <dd>
+            <span>{{warehouse.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{warehouse.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.company">Company</span></dt>
+        <dd>
+            <div *ngIf="warehouse.companyId">
+                <a [routerLink]="['/company', warehouse.companyId]">{{warehouse.companyId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.province">Province</span></dt>
+        <dd>
+            <div *ngIf="warehouse.provinceId">
+                <a [routerLink]="['/province', warehouse.provinceId]">{{warehouse.provinceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.district">District</span></dt>
+        <dd>
+            <div *ngIf="warehouse.districtId">
+                <a [routerLink]="['/district', warehouse.districtId]">{{warehouse.districtId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.ward">Ward</span></dt>
+        <dd>
+            <div *ngIf="warehouse.wardId">
+                <a [routerLink]="['/ward', warehouse.wardId]">{{warehouse.wardId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'warehouse', warehouse.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

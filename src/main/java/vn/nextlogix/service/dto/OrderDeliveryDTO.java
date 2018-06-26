@@ -24,9 +24,20 @@ public class OrderDeliveryDTO implements Serializable {
     @NotNull
     private Instant createDate;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long createUserId;
 
+    private UserExtraInfoDTO  createUserDTO;
+
+
     private Long orderStatusId;
+
+    private OrderStatusDTO  orderStatusDTO;
+
 
     public Long getId() {
         return id;
@@ -68,21 +79,53 @@ public class OrderDeliveryDTO implements Serializable {
         this.createDate = createDate;
     }
 
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public UserExtraInfoDTO getCreateUserDTO() {
+        return this.createUserDTO;
+    }
+
+    public void setCreateUserDTO(UserExtraInfoDTO createUserDTO ) {
+        this.createUserDTO = createUserDTO;
+    }
     public Long getCreateUserId() {
         return createUserId;
-    }
+        }
 
     public void setCreateUserId(Long userExtraInfoId) {
         this.createUserId = userExtraInfoId;
+        }
+
+
+    public OrderStatusDTO getOrderStatusDTO() {
+        return this.orderStatusDTO;
     }
 
+    public void setOrderStatusDTO(OrderStatusDTO orderStatusDTO ) {
+        this.orderStatusDTO = orderStatusDTO;
+    }
     public Long getOrderStatusId() {
         return orderStatusId;
-    }
+        }
 
     public void setOrderStatusId(Long orderStatusId) {
         this.orderStatusId = orderStatusId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

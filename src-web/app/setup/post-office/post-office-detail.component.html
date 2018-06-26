@@ -1,0 +1,55 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.postOffice.detail.title">Post Office</span> {{postOffice.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="postOffice">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.postOffice.code">Code</span></dt>
+        <dd>
+            <span>{{postOffice.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.name">Name</span></dt>
+        <dd>
+            <span>{{postOffice.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.description">Description</span></dt>
+        <dd>
+            <span>{{postOffice.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.company">Company</span></dt>
+        <dd>
+            <div *ngIf="postOffice.companyId">
+                <a [routerLink]="['/company', postOffice.companyId]">{{postOffice.companyId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.province">Province</span></dt>
+        <dd>
+            <div *ngIf="postOffice.provinceId">
+                <a [routerLink]="['/province', postOffice.provinceId]">{{postOffice.provinceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'post-office', postOffice.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

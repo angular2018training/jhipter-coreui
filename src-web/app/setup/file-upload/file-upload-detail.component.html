@@ -1,0 +1,56 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.fileUpload.detail.title">File Upload</span> {{fileUpload.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="fileUpload">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.fileUpload.name">Name</span></dt>
+        <dd>
+            <span>{{fileUpload.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.fileUpload.content">Content</span></dt>
+        <dd>
+            <div *ngIf="fileUpload.content">
+                <a (click)="openFile(fileUpload.contentContentType, fileUpload.content)" jhiTranslate="entity.action.open">open</a>
+                {{fileUpload.contentContentType}}, {{byteSize(fileUpload.content)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.fileUpload.uploadTime">Upload Time</span></dt>
+        <dd>
+            <span>{{fileUpload.uploadTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.fileUpload.contentType">Content Type</span></dt>
+        <dd>
+            <span>{{fileUpload.contentType}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.fileUpload.company">Company</span></dt>
+        <dd>
+            <div *ngIf="fileUpload.companyId">
+                <a [routerLink]="['/company', fileUpload.companyId]">{{fileUpload.companyId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'file-upload', fileUpload.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

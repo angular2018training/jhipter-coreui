@@ -1,11 +1,15 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.CustomerService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
 import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.CustomerDTO;
+import vn.nextlogix.service.dto.CustomerSearchDTO;
+import vn.nextlogix.service.dto.CustomerCriteria;
+import vn.nextlogix.service.CustomerQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +43,13 @@ public class CustomerResource {
 
     private final CustomerService customerService;
 
-    public CustomerResource(CustomerService customerService) {
+    private final CustomerQueryService customerQueryService;
+
+    public CustomerResource(CustomerService customerService, CustomerQueryService customerQueryService     ) {
         this.customerService = customerService;
+        this.customerQueryService = customerQueryService;
+
+
     }
 
     /**
@@ -89,13 +98,14 @@ public class CustomerResource {
      * GET  /customers : get all the customers.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of customers in body
      */
     @GetMapping("/customers")
     @Timed
-    public ResponseEntity<List<CustomerDTO>> getAllCustomers(Pageable pageable) {
-        log.debug("REST request to get a page of Customers");
-        Page<CustomerDTO> page = customerService.findAll(pageable);
+    public ResponseEntity<List<CustomerDTO>> getAllCustomers(CustomerCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Customers by criteria: {}", criteria);
+        Page<CustomerDTO> page = customerQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -144,5 +154,16 @@ public class CustomerResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/customers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/customers")
+    @Timed
+    public ResponseEntity<List<CustomerDTO>> searchExampleCustomers(CustomerSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of Customers for searchDTO {}", searchDTO);
+        Page<CustomerDTO> page = customerService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/customers");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

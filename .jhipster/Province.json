@@ -24,7 +24,8 @@
     "changelogDate": "20180614034624",
     "entityTableName": "province",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": true
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

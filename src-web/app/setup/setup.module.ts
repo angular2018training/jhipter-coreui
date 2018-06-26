@@ -4,12 +4,14 @@ import {NextlogixProvinceModule} from "./province/province.module";
 import {NextlogixDistrictModule} from "./district/district.module";
 import {NextlogixSharedLibsModule} from "../shared/shared-libs.module";
 import {NextlogixWardModule} from "./ward/ward.module";
+import {NextlogixWarehouseModule} from "./warehouse/warehouse.module";
 @NgModule({
   imports: [
     CommonModule,
     NextlogixProvinceModule,
     NextlogixDistrictModule,
     NextlogixWardModule,
+    NextlogixWarehouseModule,
     NextlogixSharedLibsModule
     //RouterModule.forChild(setupState)
   ],

@@ -1,8 +1,26 @@
+
 {
     "nextlogixApp": {
-        "QuotationItemType" : {
-            "null": "",
-            "ONE": "ONE"
+        "quotationItemType" : {
+            "home": {
+                "title": "Quotation Item Types",
+                "createLabel": "Thêm mới một Quotation Item Type",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Item Type",
+                "search": "Tìm Quotation Item Type"
+            },
+            "created": "Một Quotation Item Type mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Item Type cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Item Type đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Item Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Item Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
         }
     }
 }

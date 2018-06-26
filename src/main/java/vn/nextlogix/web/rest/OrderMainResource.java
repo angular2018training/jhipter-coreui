@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.OrderMainService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.OrderMainDTO;
+import vn.nextlogix.service.dto.OrderMainSearchDTO;
+import vn.nextlogix.service.dto.OrderMainCriteria;
+import vn.nextlogix.service.OrderMainQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class OrderMainResource {
 
     private final OrderMainService orderMainService;
 
-    public OrderMainResource(OrderMainService orderMainService) {
+    private final OrderMainQueryService orderMainQueryService;
+
+    public OrderMainResource(OrderMainService orderMainService, OrderMainQueryService orderMainQueryService     ) {
         this.orderMainService = orderMainService;
+        this.orderMainQueryService = orderMainQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class OrderMainResource {
     /**
      * GET  /order-mains : get all the orderMains.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of orderMains in body
      */
     @GetMapping("/order-mains")
     @Timed
-    public List<OrderMainDTO> getAllOrderMains() {
-        log.debug("REST request to get all OrderMains");
-        return orderMainService.findAll();
-        }
+    public ResponseEntity<List<OrderMainDTO>> getAllOrderMains(OrderMainCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get OrderMains by criteria: {}", criteria);
+        Page<OrderMainDTO> page = orderMainQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order-mains");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /order-mains/:id : get the "id" orderMain.
@@ -125,13 +143,27 @@ public class OrderMainResource {
      * to the query.
      *
      * @param query the query of the orderMain search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/order-mains")
     @Timed
-    public List<OrderMainDTO> searchOrderMains(@RequestParam String query) {
-        log.debug("REST request to search OrderMains for query {}", query);
-        return orderMainService.search(query);
+    public ResponseEntity<List<OrderMainDTO>> searchOrderMains(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of OrderMains for query {}", query);
+        Page<OrderMainDTO> page = orderMainService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/order-mains");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/order-mains")
+    @Timed
+    public ResponseEntity<List<OrderMainDTO>> searchExampleOrderMains(OrderMainSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of OrderMains for searchDTO {}", searchDTO);
+        Page<OrderMainDTO> page = orderMainService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/order-mains");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.QuotationItemDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.QuotationItemSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing QuotationItem.
@@ -19,9 +21,10 @@ public interface QuotationItemService {
     /**
      * Get all the quotationItems.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<QuotationItemDTO> findAll();
+    Page<QuotationItemDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" quotationItem.
@@ -43,7 +46,12 @@ public interface QuotationItemService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<QuotationItemDTO> search(String query);
-}
+    Page<QuotationItemDTO> search(String query, Pageable pageable);
+
+    Page<QuotationItemDTO> searchExample( QuotationItemSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

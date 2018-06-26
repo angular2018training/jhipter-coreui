@@ -37,6 +37,10 @@ public class OrderService implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -83,6 +87,19 @@ public class OrderService implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public OrderService company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

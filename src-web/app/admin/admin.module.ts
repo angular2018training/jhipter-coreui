@@ -31,11 +31,13 @@ import {
 import {ElasticsearchReindexComponent} from "./elasticsearch-reindex/elasticsearch-reindex.component";
 import {ElasticsearchReindexModalComponent} from "./elasticsearch-reindex/elasticsearch-reindex-modal.component";
 import {ElasticsearchReindexService} from "./elasticsearch-reindex/elasticsearch-reindex.service";
+import {NextlogixUserGroupModule} from "./user-group/user-group.module";
 
 @NgModule({
   imports: [
 
     NextlogixSharedModule,
+    NextlogixUserGroupModule
     //RouterModule.forChild(adminState)
     /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
   ],

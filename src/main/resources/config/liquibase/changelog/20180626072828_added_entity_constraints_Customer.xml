@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Customer.
+    -->
+    <changeSet id="20180626072828-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="legal_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_legal_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer_legal"/>
+
+        <addForeignKeyConstraint baseColumnNames="payment_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_payment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer_payment"/>
+
+        <addForeignKeyConstraint baseColumnNames="warehouse_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_warehouse_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="warehouse"/>
+
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="manage_user_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_manage_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="sale_user_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_sale_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="district_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_type_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_customer_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_source_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer_customer_source_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer_source"/>
+
+    </changeSet>
+</databaseChangeLog>

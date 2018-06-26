@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OrderFeeRepository extends JpaRepository<OrderFee, Long> {
+public interface OrderFeeRepository extends JpaRepository<OrderFee, Long>, JpaSpecificationExecutor<OrderFee> {
 
 }

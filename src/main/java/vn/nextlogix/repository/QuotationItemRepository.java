@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface QuotationItemRepository extends JpaRepository<QuotationItem, Long> {
+public interface QuotationItemRepository extends JpaRepository<QuotationItem, Long>, JpaSpecificationExecutor<QuotationItem> {
 
 }

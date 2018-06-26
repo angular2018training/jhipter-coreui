@@ -6,22 +6,6 @@
             "relationshipName": "userPosition",
             "otherEntityName": "userPosition",
             "otherEntityRelationshipName": "userExtraInfo"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "role",
-            "otherEntityName": "role",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "userGroup",
-            "otherEntityName": "userGroup",
-            "otherEntityField": "id",
-            "ownerSide": true
         }
     ],
     "fields": [
@@ -36,6 +20,26 @@
         {
             "fieldName": "address",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "validDate",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastLoginDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "contractFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "contractExpirationDate",
+            "fieldType": "Instant"
         }
     ],
     "changelogDate": "20180614034632",
@@ -43,5 +47,6 @@
     "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

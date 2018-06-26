@@ -1,12 +1,15 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.WardService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
 import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.WardDTO;
 import vn.nextlogix.service.dto.WardSearchDTO;
+import vn.nextlogix.service.dto.WardCriteria;
+import vn.nextlogix.service.WardQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-import java.beans.IntrospectionException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,8 +43,11 @@ public class WardResource {
 
     private final WardService wardService;
 
-    public WardResource(WardService wardService     ) {
+    private final WardQueryService wardQueryService;
+
+    public WardResource(WardService wardService, WardQueryService wardQueryService     ) {
         this.wardService = wardService;
+        this.wardQueryService = wardQueryService;
 
 
     }
@@ -95,13 +98,14 @@ public class WardResource {
      * GET  /wards : get all the wards.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of wards in body
      */
     @GetMapping("/wards")
     @Timed
-    public ResponseEntity<List<WardDTO>> getAllWards(Pageable pageable) {
-        log.debug("REST request to get a page of Wards");
-        Page<WardDTO> page = wardService.findAll(pageable);
+    public ResponseEntity<List<WardDTO>> getAllWards(WardCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Wards by criteria: {}", criteria);
+        Page<WardDTO> page = wardQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/wards");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -154,19 +158,11 @@ public class WardResource {
 
     @GetMapping("/_search_example/wards")
     @Timed
-    public ResponseEntity<List<WardDTO>> searchExampleWards(WardSearchDTO searchDTO , Pageable pageable) {
+    public ResponseEntity<List<WardDTO>> searchExampleWards(WardSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
         log.debug("REST request to search example for a page of Wards for searchDTO {}", searchDTO);
         Page<WardDTO> page = wardService.searchExample(searchDTO, pageable);
-        HttpHeaders headers;
-		try {
-			headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/wards");
-			return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-		} catch (IllegalAccessException | UnsupportedEncodingException | IntrospectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-        
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/wards");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 

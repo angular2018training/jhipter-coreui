@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.OrderServiceDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.OrderServiceSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing OrderService.
@@ -19,9 +21,10 @@ public interface OrderServiceService {
     /**
      * Get all the orderServices.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderServiceDTO> findAll();
+    Page<OrderServiceDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" orderService.
@@ -43,7 +46,12 @@ public interface OrderServiceService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderServiceDTO> search(String query);
-}
+    Page<OrderServiceDTO> search(String query, Pageable pageable);
+
+    Page<OrderServiceDTO> searchExample( OrderServiceSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

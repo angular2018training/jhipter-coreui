@@ -1,6 +1,7 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.UserExtraInfoDTO;
+import vn.nextlogix.service.dto.UserExtraInfoSearchDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -49,4 +50,8 @@ public interface UserExtraInfoService {
      * @return the list of entities
      */
     Page<UserExtraInfoDTO> search(String query, Pageable pageable);
-}
+
+    Page<UserExtraInfoDTO> searchExample( UserExtraInfoSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

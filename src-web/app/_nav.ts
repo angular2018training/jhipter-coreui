@@ -48,6 +48,12 @@ export const navItems = [
         url: '/docs',
         icon: 'icon-cursor'
       },
+      {
+        name: 'Elastic search Reindex',
+        url: '/admin/elasticsearch-reindex',
+        icon: 'icon-cursor'
+      },
+
 
     ]
   },

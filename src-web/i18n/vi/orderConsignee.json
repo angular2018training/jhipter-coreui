@@ -20,6 +20,7 @@
             "address": "Address",
             "consigneePhone": "Consignee Phone",
             "consigneeName": "Consignee Name",
+            "company": "Company",
             "district": "District",
             "province": "Province"
         }

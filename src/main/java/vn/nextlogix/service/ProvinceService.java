@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.ProvinceDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.ProvinceSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing Province.
@@ -19,9 +21,10 @@ public interface ProvinceService {
     /**
      * Get all the provinces.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<ProvinceDTO> findAll();
+    Page<ProvinceDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" province.
@@ -42,9 +45,13 @@ public interface ProvinceService {
      * Search for the province corresponding to the query.
      *
      * @param query the query of the search
-     *
+     * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<ProvinceDTO> search(String query);
+    Page<ProvinceDTO> search(String query, Pageable pageable);
 
-}
+    Page<ProvinceDTO> searchExample( ProvinceSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

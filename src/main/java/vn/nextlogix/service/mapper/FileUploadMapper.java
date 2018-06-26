@@ -8,10 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity FileUpload and its DTO FileUploadDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class})
 public interface FileUploadMapper extends EntityMapper<FileUploadDTO, FileUpload> {
 
+    @Mapping(source = "company.id", target = "companyId")
+    FileUploadDTO toDto(FileUpload fileUpload);
 
+    @Mapping(source = "companyId", target = "company")
+    FileUpload toEntity(FileUploadDTO fileUploadDTO);
 
     default FileUpload fromId(Long id) {
         if (id == null) {

@@ -63,9 +63,14 @@ currentAccount: any;
          this.districts =[];
 
         this.wardSearch = new WardSearch();
-
-        this.currentSearch = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ?
-            this.activatedRoute.snapshot.params['search'] : '';
+        this.wardSearch.code = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['code'] ?
+        this.activatedRoute.snapshot.params['code'] : '';
+        this.wardSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
+        this.activatedRoute.snapshot.params['name'] : '';
+        this.wardSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
+        this.activatedRoute.snapshot.params['description'] : '';
+        this.wardSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
+        this.activatedRoute.snapshot.params['districtId'] : '';
     }
 
     loadAll() {
@@ -91,27 +96,35 @@ currentAccount: any;
             this.transition();
         }
     }
+  searchInForm(){
+      this.page = 0;
+      this.transition();
+
+    }
     transition() {
-        this.router.navigate(['../ward'], {queryParams:
-            {
-                page: this.page,
-                size: this.itemsPerPage,
-                search: this.currentSearch,
-                code : this.wardSearch.code,
-                name : this.wardSearch.name,
-                description : this.wardSearch.description,
-                districtId : this.wardSearch.districtId,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        });
+      this.router.navigate(['/setup/ward', {
+        page: this.page,
+        size: this.itemsPerPage,
+        code : this.wardSearch.code!=null?this.wardSearch.code:'',
+        name : this.wardSearch.name!=null?this.wardSearch.name:'',
+        description : this.wardSearch.description!=null?this.wardSearch.description:'',
+        districtId : this.wardSearch.districtId!=null?this.wardSearch.districtId:'',
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }]);
         this.loadAll();
     }
 
     clear() {
         this.page = 0;
         this.currentSearch = '';
-        this.router.navigate(['.', {
+        this.wardSearch = new WardSearch();
+        this.router.navigate(['/setup/ward', {
             page: this.page,
+            size: this.itemsPerPage,
+            code : this.wardSearch.code!=null?this.wardSearch.code:'',
+            name : this.wardSearch.name!=null?this.wardSearch.name:'',
+            description : this.wardSearch.description!=null?this.wardSearch.description:'',
+            districtId : this.wardSearch.districtId!=null?this.wardSearch.districtId:'',
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
         this.loadAll();

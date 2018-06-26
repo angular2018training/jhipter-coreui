@@ -7,6 +7,7 @@ import vn.nextlogix.repository.search.WardSearchRepository;
 import vn.nextlogix.service.dto.WardDTO;
 import vn.nextlogix.service.dto.WardSearchDTO;
 import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.Company;
     import vn.nextlogix.domain.District;
 import vn.nextlogix.service.mapper.WardMapper;
 import org.slf4j.Logger;
@@ -20,6 +21,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
 
     import vn.nextlogix.repository.search.DistrictSearchRepository;
     import vn.nextlogix.service.mapper.DistrictMapper;
@@ -47,15 +51,21 @@ public class WardServiceImpl implements WardService {
     private final WardSearchRepository wardSearchRepository;
 
 
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
         private final DistrictSearchRepository districtSearchRepository;
         private final DistrictMapper districtMapper;
 
 
-    public WardServiceImpl(WardRepository wardRepository, WardMapper wardMapper, WardSearchRepository wardSearchRepository     ,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
+    public WardServiceImpl(WardRepository wardRepository, WardMapper wardMapper, WardSearchRepository wardSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
 ) {
         this.wardRepository = wardRepository;
         this.wardMapper = wardMapper;
         this.wardSearchRepository = wardSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
                                     this.districtSearchRepository = districtSearchRepository;
                                      this.districtMapper = districtMapper;
 
@@ -155,7 +165,11 @@ public class WardServiceImpl implements WardService {
             .map(wardMapper::toDto)
             .collect(Collectors.toList());
             wardList.forEach(wardDto -> {
-            if(wardDto.getDistrictId()!=null) {
+            if(wardDto.getCompanyId()!=null){
+                Company company= companySearchRepository.findOne(wardDto.getCompanyId());
+                wardDto.setCompanyDTO(companyMapper.toDto(company));
+            }
+            if(wardDto.getDistrictId()!=null){
                 District district= districtSearchRepository.findOne(wardDto.getDistrictId());
                 wardDto.setDistrictDTO(districtMapper.toDto(district));
             }

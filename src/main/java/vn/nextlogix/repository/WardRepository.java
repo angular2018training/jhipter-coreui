@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface WardRepository extends JpaRepository<Ward, Long> {
+public interface WardRepository extends JpaRepository<Ward, Long>, JpaSpecificationExecutor<Ward> {
 
 }

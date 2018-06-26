@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.PositionService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.PositionDTO;
+import vn.nextlogix.service.dto.PositionSearchDTO;
+import vn.nextlogix.service.dto.PositionCriteria;
+import vn.nextlogix.service.PositionQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class PositionResource {
 
     private final PositionService positionService;
 
-    public PositionResource(PositionService positionService) {
+    private final PositionQueryService positionQueryService;
+
+    public PositionResource(PositionService positionService, PositionQueryService positionQueryService     ) {
         this.positionService = positionService;
+        this.positionQueryService = positionQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class PositionResource {
     /**
      * GET  /positions : get all the positions.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of positions in body
      */
     @GetMapping("/positions")
     @Timed
-    public List<PositionDTO> getAllPositions() {
-        log.debug("REST request to get all Positions");
-        return positionService.findAll();
-        }
+    public ResponseEntity<List<PositionDTO>> getAllPositions(PositionCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Positions by criteria: {}", criteria);
+        Page<PositionDTO> page = positionQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/positions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /positions/:id : get the "id" position.
@@ -125,13 +143,27 @@ public class PositionResource {
      * to the query.
      *
      * @param query the query of the position search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/positions")
     @Timed
-    public List<PositionDTO> searchPositions(@RequestParam String query) {
-        log.debug("REST request to search Positions for query {}", query);
-        return positionService.search(query);
+    public ResponseEntity<List<PositionDTO>> searchPositions(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Positions for query {}", query);
+        Page<PositionDTO> page = positionService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/positions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/positions")
+    @Timed
+    public ResponseEntity<List<PositionDTO>> searchExamplePositions(PositionSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of Positions for searchDTO {}", searchDTO);
+        Page<PositionDTO> page = positionService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/positions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

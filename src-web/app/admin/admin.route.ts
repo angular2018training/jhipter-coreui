@@ -13,6 +13,7 @@ import {
 
 import { UserRouteAccessService } from '../shared';
 import {elasticsearchReindexRoute} from "./elasticsearch-reindex/elasticsearch-reindex.route";
+import {userGroupRoute} from "./user-group/user-group.route";
 
 const ADMIN_ROUTES = [
   auditsRoute,
@@ -22,7 +23,8 @@ const ADMIN_ROUTES = [
   logsRoute,
   ...userMgmtRoute,
   metricsRoute,
-  elasticsearchReindexRoute
+  elasticsearchReindexRoute,
+  ...userGroupRoute
 ];
 
 export const adminState: Routes = [{

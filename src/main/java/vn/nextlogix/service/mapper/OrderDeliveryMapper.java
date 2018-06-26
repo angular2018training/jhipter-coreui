@@ -8,13 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity OrderDelivery and its DTO OrderDeliveryDTO.
  */
-@Mapper(componentModel = "spring", uses = {UserExtraInfoMapper.class, OrderStatusMapper.class})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class, UserExtraInfoMapper.class, OrderStatusMapper.class})
 public interface OrderDeliveryMapper extends EntityMapper<OrderDeliveryDTO, OrderDelivery> {
 
+    @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "createUser.id", target = "createUserId")
     @Mapping(source = "orderStatus.id", target = "orderStatusId")
     OrderDeliveryDTO toDto(OrderDelivery orderDelivery);
 
+    @Mapping(source = "companyId", target = "company")
     @Mapping(source = "createUserId", target = "createUser")
     @Mapping(source = "orderStatusId", target = "orderStatus")
     OrderDelivery toEntity(OrderDeliveryDTO orderDeliveryDTO);

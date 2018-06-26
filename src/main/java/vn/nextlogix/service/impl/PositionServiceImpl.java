@@ -5,17 +5,30 @@ import vn.nextlogix.domain.Position;
 import vn.nextlogix.repository.PositionRepository;
 import vn.nextlogix.repository.search.PositionSearchRepository;
 import vn.nextlogix.service.dto.PositionDTO;
+import vn.nextlogix.service.dto.PositionSearchDTO;
+import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.Company;
 import vn.nextlogix.service.mapper.PositionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+    import java.util.stream.StreamSupport;
+
+    import java.util.List;
+    import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
+    import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -33,10 +46,19 @@ public class PositionServiceImpl implements PositionService {
 
     private final PositionSearchRepository positionSearchRepository;
 
-    public PositionServiceImpl(PositionRepository positionRepository, PositionMapper positionMapper, PositionSearchRepository positionSearchRepository) {
+
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
+
+    public PositionServiceImpl(PositionRepository positionRepository, PositionMapper positionMapper, PositionSearchRepository positionSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+) {
         this.positionRepository = positionRepository;
         this.positionMapper = positionMapper;
         this.positionSearchRepository = positionSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
+
     }
 
     /**
@@ -58,15 +80,15 @@ public class PositionServiceImpl implements PositionService {
     /**
      * Get all the positions.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<PositionDTO> findAll() {
+    public Page<PositionDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Positions");
-        return positionRepository.findAll().stream()
-            .map(positionMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return positionRepository.findAll(pageable)
+            .map(positionMapper::toDto);
     }
 
     /**
@@ -99,15 +121,45 @@ public class PositionServiceImpl implements PositionService {
      * Search for the position corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<PositionDTO> search(String query) {
-        log.debug("Request to search Positions for query {}", query);
-        return StreamSupport
-            .stream(positionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+    public Page<PositionDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Positions for query {}", query);
+        Page<Position> result = positionSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(positionMapper::toDto);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<PositionDTO> searchExample(PositionSearchDTO searchDto, Pageable pageable) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getCode())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getName())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getDescription())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+            }
+            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            Page<Position> positionPage= positionSearchRepository.search(query);
+            List<PositionDTO> positionList =  StreamSupport
+            .stream(positionPage.spliterator(), false)
             .map(positionMapper::toDto)
             .collect(Collectors.toList());
-    }
+            positionList.forEach(positionDto -> {
+            if(positionDto.getCompanyId()!=null){
+                Company company= companySearchRepository.findOne(positionDto.getCompanyId());
+                positionDto.setCompanyDTO(companyMapper.toDto(company));
+            }
+            });
+            return new PageImpl<>(positionList,pageable,positionPage.getTotalElements());
+        }
 }

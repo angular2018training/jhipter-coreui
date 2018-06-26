@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "customerSource" : {
+            "home": {
+                "title": "Customer Sources",
+                "createLabel": "Create a new Customer Source",
+                "createOrEditLabel": "Create or edit a Customer Source",
+                "search": "Search for Customer Source"
+            },
+            "created": "A new Customer Source is created with identifier {{ param }}",
+            "updated": "A Customer Source is updated with identifier {{ param }}",
+            "deleted": "A Customer Source is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Source {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Source"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

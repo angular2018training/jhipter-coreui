@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.OrderConsigneeService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.OrderConsigneeDTO;
+import vn.nextlogix.service.dto.OrderConsigneeSearchDTO;
+import vn.nextlogix.service.dto.OrderConsigneeCriteria;
+import vn.nextlogix.service.OrderConsigneeQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class OrderConsigneeResource {
 
     private final OrderConsigneeService orderConsigneeService;
 
-    public OrderConsigneeResource(OrderConsigneeService orderConsigneeService) {
+    private final OrderConsigneeQueryService orderConsigneeQueryService;
+
+    public OrderConsigneeResource(OrderConsigneeService orderConsigneeService, OrderConsigneeQueryService orderConsigneeQueryService     ) {
         this.orderConsigneeService = orderConsigneeService;
+        this.orderConsigneeQueryService = orderConsigneeQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class OrderConsigneeResource {
     /**
      * GET  /order-consignees : get all the orderConsignees.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of orderConsignees in body
      */
     @GetMapping("/order-consignees")
     @Timed
-    public List<OrderConsigneeDTO> getAllOrderConsignees() {
-        log.debug("REST request to get all OrderConsignees");
-        return orderConsigneeService.findAll();
-        }
+    public ResponseEntity<List<OrderConsigneeDTO>> getAllOrderConsignees(OrderConsigneeCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get OrderConsignees by criteria: {}", criteria);
+        Page<OrderConsigneeDTO> page = orderConsigneeQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order-consignees");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /order-consignees/:id : get the "id" orderConsignee.
@@ -125,13 +143,27 @@ public class OrderConsigneeResource {
      * to the query.
      *
      * @param query the query of the orderConsignee search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/order-consignees")
     @Timed
-    public List<OrderConsigneeDTO> searchOrderConsignees(@RequestParam String query) {
-        log.debug("REST request to search OrderConsignees for query {}", query);
-        return orderConsigneeService.search(query);
+    public ResponseEntity<List<OrderConsigneeDTO>> searchOrderConsignees(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of OrderConsignees for query {}", query);
+        Page<OrderConsigneeDTO> page = orderConsigneeService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/order-consignees");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/order-consignees")
+    @Timed
+    public ResponseEntity<List<OrderConsigneeDTO>> searchExampleOrderConsignees(OrderConsigneeSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of OrderConsignees for searchDTO {}", searchDTO);
+        Page<OrderConsigneeDTO> page = orderConsigneeService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/order-consignees");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

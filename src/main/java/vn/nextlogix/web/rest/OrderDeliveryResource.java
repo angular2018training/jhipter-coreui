@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.OrderDeliveryService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.OrderDeliveryDTO;
+import vn.nextlogix.service.dto.OrderDeliverySearchDTO;
+import vn.nextlogix.service.dto.OrderDeliveryCriteria;
+import vn.nextlogix.service.OrderDeliveryQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class OrderDeliveryResource {
 
     private final OrderDeliveryService orderDeliveryService;
 
-    public OrderDeliveryResource(OrderDeliveryService orderDeliveryService) {
+    private final OrderDeliveryQueryService orderDeliveryQueryService;
+
+    public OrderDeliveryResource(OrderDeliveryService orderDeliveryService, OrderDeliveryQueryService orderDeliveryQueryService     ) {
         this.orderDeliveryService = orderDeliveryService;
+        this.orderDeliveryQueryService = orderDeliveryQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class OrderDeliveryResource {
     /**
      * GET  /order-deliveries : get all the orderDeliveries.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of orderDeliveries in body
      */
     @GetMapping("/order-deliveries")
     @Timed
-    public List<OrderDeliveryDTO> getAllOrderDeliveries() {
-        log.debug("REST request to get all OrderDeliveries");
-        return orderDeliveryService.findAll();
-        }
+    public ResponseEntity<List<OrderDeliveryDTO>> getAllOrderDeliveries(OrderDeliveryCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get OrderDeliveries by criteria: {}", criteria);
+        Page<OrderDeliveryDTO> page = orderDeliveryQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order-deliveries");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /order-deliveries/:id : get the "id" orderDelivery.
@@ -125,13 +143,27 @@ public class OrderDeliveryResource {
      * to the query.
      *
      * @param query the query of the orderDelivery search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/order-deliveries")
     @Timed
-    public List<OrderDeliveryDTO> searchOrderDeliveries(@RequestParam String query) {
-        log.debug("REST request to search OrderDeliveries for query {}", query);
-        return orderDeliveryService.search(query);
+    public ResponseEntity<List<OrderDeliveryDTO>> searchOrderDeliveries(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of OrderDeliveries for query {}", query);
+        Page<OrderDeliveryDTO> page = orderDeliveryService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/order-deliveries");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/order-deliveries")
+    @Timed
+    public ResponseEntity<List<OrderDeliveryDTO>> searchExampleOrderDeliveries(OrderDeliverySearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of OrderDeliveries for searchDTO {}", searchDTO);
+        Page<OrderDeliveryDTO> page = orderDeliveryService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/order-deliveries");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

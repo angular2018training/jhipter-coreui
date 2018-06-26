@@ -1,6 +1,7 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.CustomerDTO;
+import vn.nextlogix.service.dto.CustomerSearchDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -49,4 +50,8 @@ public interface CustomerService {
      * @return the list of entities
      */
     Page<CustomerDTO> search(String query, Pageable pageable);
-}
+
+    Page<CustomerDTO> searchExample( CustomerSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

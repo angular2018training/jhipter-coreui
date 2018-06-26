@@ -1,11 +1,26 @@
+
 {
     "nextlogixApp": {
-        "CustomerType" : {
-            "null": "",
-            "NORMAL": "NORMAL",
-            "VIP": "VIP",
-            "CLIENT": "CLIENT",
-            "SUPPER_VIP": "SUPPER_VIP"
+        "customerType" : {
+            "home": {
+                "title": "Customer Types",
+                "createLabel": "Create a new Customer Type",
+                "createOrEditLabel": "Create or edit a Customer Type",
+                "search": "Search for Customer Type"
+            },
+            "created": "A new Customer Type is created with identifier {{ param }}",
+            "updated": "A Customer Type is updated with identifier {{ param }}",
+            "deleted": "A Customer Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
         }
     }
 }

@@ -17,6 +17,10 @@ import vn.nextlogix.domain.Province;
 import vn.nextlogix.domain.*; // for static metamodels
 import vn.nextlogix.repository.ProvinceRepository;
 import vn.nextlogix.repository.search.ProvinceSearchRepository;
+
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
+
 import vn.nextlogix.service.dto.ProvinceCriteria;
 
 import vn.nextlogix.service.dto.ProvinceDTO;
@@ -41,10 +45,19 @@ public class ProvinceQueryService extends QueryService<Province> {
 
     private final ProvinceSearchRepository provinceSearchRepository;
 
-    public ProvinceQueryService(ProvinceRepository provinceRepository, ProvinceMapper provinceMapper, ProvinceSearchRepository provinceSearchRepository) {
+
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
+
+    public ProvinceQueryService(ProvinceRepository provinceRepository, ProvinceMapper provinceMapper, ProvinceSearchRepository provinceSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+) {
         this.provinceRepository = provinceRepository;
         this.provinceMapper = provinceMapper;
         this.provinceSearchRepository = provinceSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
+
     }
 
     /**
@@ -90,6 +103,9 @@ public class ProvinceQueryService extends QueryService<Province> {
             }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Province_.description));
+            }
+            if (criteria.getCompanyId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), Province_.company, Company_.id));
             }
         }
         return specification;

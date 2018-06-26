@@ -18,8 +18,10 @@
                 "title": "Customer Post Office"
             },
             "code": "Code",
+            "isActive": "Is Active",
             "createDate": "Create Date",
             "customer": "Customer",
+            "company": "Company",
             "postOffice": "Post Office"
         }
     }

@@ -14,8 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import vn.nextlogix.domain.enumeration.CustomerType;
-
 /**
  * A Customer.
  */
@@ -59,13 +57,15 @@ public class Customer implements Serializable {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "customer_type")
-    private CustomerType customerType;
-
     @NotNull
     @Column(name = "create_date", nullable = false)
     private Instant createDate;
+
+    @Column(name = "last_login_date")
+    private Instant lastLoginDate;
+
+    @Column(name = "api_token")
+    private String apiToken;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -75,10 +75,18 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private CustomerPayment payment;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Warehouse warehouse;
+
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CustomerPostOffice> customerPostOffices = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
 
     @ManyToOne
     private UserExtraInfo manageUser;
@@ -86,14 +94,21 @@ public class Customer implements Serializable {
     @ManyToOne
     private UserExtraInfo saleUser;
 
-    @ManyToOne
-    private UserExtraInfo debtUser;
-
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Province province;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private District district;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private CustomerType customerType;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private CustomerSource customerSource;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -195,19 +210,6 @@ public class Customer implements Serializable {
         this.isActive = isActive;
     }
 
-    public CustomerType getCustomerType() {
-        return customerType;
-    }
-
-    public Customer customerType(CustomerType customerType) {
-        this.customerType = customerType;
-        return this;
-    }
-
-    public void setCustomerType(CustomerType customerType) {
-        this.customerType = customerType;
-    }
-
     public Instant getCreateDate() {
         return createDate;
     }
@@ -219,6 +221,32 @@ public class Customer implements Serializable {
 
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
+    }
+
+    public Instant getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public Customer lastLoginDate(Instant lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+        return this;
+    }
+
+    public void setLastLoginDate(Instant lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public String getApiToken() {
+        return apiToken;
+    }
+
+    public Customer apiToken(String apiToken) {
+        this.apiToken = apiToken;
+        return this;
+    }
+
+    public void setApiToken(String apiToken) {
+        this.apiToken = apiToken;
     }
 
     public CustomerLegal getLegal() {
@@ -247,6 +275,19 @@ public class Customer implements Serializable {
         this.payment = customerPayment;
     }
 
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public Customer warehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+        return this;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
     public Set<CustomerPostOffice> getCustomerPostOffices() {
         return customerPostOffices;
     }
@@ -270,6 +311,19 @@ public class Customer implements Serializable {
 
     public void setCustomerPostOffices(Set<CustomerPostOffice> customerPostOffices) {
         this.customerPostOffices = customerPostOffices;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public Customer company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public UserExtraInfo getManageUser() {
@@ -298,19 +352,6 @@ public class Customer implements Serializable {
         this.saleUser = userExtraInfo;
     }
 
-    public UserExtraInfo getDebtUser() {
-        return debtUser;
-    }
-
-    public Customer debtUser(UserExtraInfo userExtraInfo) {
-        this.debtUser = userExtraInfo;
-        return this;
-    }
-
-    public void setDebtUser(UserExtraInfo userExtraInfo) {
-        this.debtUser = userExtraInfo;
-    }
-
     public Province getProvince() {
         return province;
     }
@@ -335,6 +376,32 @@ public class Customer implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public Customer customerType(CustomerType customerType) {
+        this.customerType = customerType;
+        return this;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public CustomerSource getCustomerSource() {
+        return customerSource;
+    }
+
+    public Customer customerSource(CustomerSource customerSource) {
+        this.customerSource = customerSource;
+        return this;
+    }
+
+    public void setCustomerSource(CustomerSource customerSource) {
+        this.customerSource = customerSource;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -369,8 +436,9 @@ public class Customer implements Serializable {
             ", phone='" + getPhone() + "'" +
             ", password='" + getPassword() + "'" +
             ", isActive='" + isIsActive() + "'" +
-            ", customerType='" + getCustomerType() + "'" +
             ", createDate='" + getCreateDate() + "'" +
+            ", lastLoginDate='" + getLastLoginDate() + "'" +
+            ", apiToken='" + getApiToken() + "'" +
             "}";
     }
 }

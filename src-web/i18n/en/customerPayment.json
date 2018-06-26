@@ -21,11 +21,14 @@
             "accountNumber": "Account Number",
             "accountName": "Account Name",
             "cardNumber": "Card Number",
+            "paymentAmountMoney": "Payment Amount Money",
+            "idImage": "Id Image",
             "isVerify": "Is Verify",
             "dateVerify": "Date Verify",
-            "paymentType": "Payment Type",
+            "company": "Company",
             "bank": "Bank",
-            "userVerify": "User Verify"
+            "userVerify": "User Verify",
+            "paymentType": "Payment Type"
         }
     }
 }

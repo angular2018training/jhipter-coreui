@@ -11,8 +11,6 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import vn.nextlogix.domain.enumeration.PaymentType;
-
 /**
  * A CustomerPayment.
  */
@@ -42,6 +40,16 @@ public class CustomerPayment implements Serializable {
     @Column(name = "card_number")
     private String cardNumber;
 
+    @Column(name = "payment_amount_money")
+    private Double paymentAmountMoney;
+
+    @Lob
+    @Column(name = "id_image")
+    private byte[] idImage;
+
+    @Column(name = "id_image_content_type")
+    private String idImageContentType;
+
     @NotNull
     @Column(name = "is_verify", nullable = false)
     private Boolean isVerify;
@@ -49,10 +57,9 @@ public class CustomerPayment implements Serializable {
     @Column(name = "date_verify")
     private Instant dateVerify;
 
+    @ManyToOne(optional = false)
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_type", nullable = false)
-    private PaymentType paymentType;
+    private Company company;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -60,6 +67,9 @@ public class CustomerPayment implements Serializable {
 
     @ManyToOne
     private UserExtraInfo userVerify;
+
+    @ManyToOne
+    private PaymentType paymentType;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -122,6 +132,45 @@ public class CustomerPayment implements Serializable {
         this.cardNumber = cardNumber;
     }
 
+    public Double getPaymentAmountMoney() {
+        return paymentAmountMoney;
+    }
+
+    public CustomerPayment paymentAmountMoney(Double paymentAmountMoney) {
+        this.paymentAmountMoney = paymentAmountMoney;
+        return this;
+    }
+
+    public void setPaymentAmountMoney(Double paymentAmountMoney) {
+        this.paymentAmountMoney = paymentAmountMoney;
+    }
+
+    public byte[] getIdImage() {
+        return idImage;
+    }
+
+    public CustomerPayment idImage(byte[] idImage) {
+        this.idImage = idImage;
+        return this;
+    }
+
+    public void setIdImage(byte[] idImage) {
+        this.idImage = idImage;
+    }
+
+    public String getIdImageContentType() {
+        return idImageContentType;
+    }
+
+    public CustomerPayment idImageContentType(String idImageContentType) {
+        this.idImageContentType = idImageContentType;
+        return this;
+    }
+
+    public void setIdImageContentType(String idImageContentType) {
+        this.idImageContentType = idImageContentType;
+    }
+
     public Boolean isIsVerify() {
         return isVerify;
     }
@@ -148,17 +197,17 @@ public class CustomerPayment implements Serializable {
         this.dateVerify = dateVerify;
     }
 
-    public PaymentType getPaymentType() {
-        return paymentType;
+    public Company getCompany() {
+        return company;
     }
 
-    public CustomerPayment paymentType(PaymentType paymentType) {
-        this.paymentType = paymentType;
+    public CustomerPayment company(Company company) {
+        this.company = company;
         return this;
     }
 
-    public void setPaymentType(PaymentType paymentType) {
-        this.paymentType = paymentType;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Bank getBank() {
@@ -185,6 +234,19 @@ public class CustomerPayment implements Serializable {
 
     public void setUserVerify(UserExtraInfo userExtraInfo) {
         this.userVerify = userExtraInfo;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public CustomerPayment paymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+        return this;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -216,9 +278,11 @@ public class CustomerPayment implements Serializable {
             ", accountNumber='" + getAccountNumber() + "'" +
             ", accountName='" + getAccountName() + "'" +
             ", cardNumber='" + getCardNumber() + "'" +
+            ", paymentAmountMoney=" + getPaymentAmountMoney() +
+            ", idImage='" + getIdImage() + "'" +
+            ", idImageContentType='" + getIdImageContentType() + "'" +
             ", isVerify='" + isIsVerify() + "'" +
             ", dateVerify='" + getDateVerify() + "'" +
-            ", paymentType='" + getPaymentType() + "'" +
             "}";
     }
 }

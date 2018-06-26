@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CustomerPaymentRepository extends JpaRepository<CustomerPayment, Long> {
+public interface CustomerPaymentRepository extends JpaRepository<CustomerPayment, Long>, JpaSpecificationExecutor<CustomerPayment> {
 
 }

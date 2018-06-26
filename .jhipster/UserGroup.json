@@ -1,15 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "role",
-            "otherEntityName": "role",
-            "otherEntityField": "id",
-            "ownerSide": true
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "code",
@@ -33,7 +24,8 @@
     "changelogDate": "20180614034625",
     "entityTableName": "user_group",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

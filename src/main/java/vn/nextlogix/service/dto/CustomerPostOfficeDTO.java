@@ -19,11 +19,25 @@ public class CustomerPostOfficeDTO implements Serializable {
     private String code;
 
     @NotNull
+    private Boolean isActive;
+
+    @NotNull
     private Instant createDate;
 
     private Long customerId;
 
+    private CustomerDTO  customerDTO;
+
+
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long postOfficeId;
+
+    private PostOfficeDTO  postOfficeDTO;
+
 
     public Long getId() {
         return id;
@@ -41,6 +55,14 @@ public class CustomerPostOfficeDTO implements Serializable {
         this.code = code;
     }
 
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public Instant getCreateDate() {
         return createDate;
     }
@@ -49,21 +71,53 @@ public class CustomerPostOfficeDTO implements Serializable {
         this.createDate = createDate;
     }
 
+    public CustomerDTO getCustomerDTO() {
+        return this.customerDTO;
+    }
+
+    public void setCustomerDTO(CustomerDTO customerDTO ) {
+        this.customerDTO = customerDTO;
+    }
     public Long getCustomerId() {
         return customerId;
-    }
+        }
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+        }
+
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
     }
 
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public PostOfficeDTO getPostOfficeDTO() {
+        return this.postOfficeDTO;
+    }
+
+    public void setPostOfficeDTO(PostOfficeDTO postOfficeDTO ) {
+        this.postOfficeDTO = postOfficeDTO;
+    }
     public Long getPostOfficeId() {
         return postOfficeId;
-    }
+        }
 
     public void setPostOfficeId(Long postOfficeId) {
         this.postOfficeId = postOfficeId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {
@@ -91,6 +145,7 @@ public class CustomerPostOfficeDTO implements Serializable {
         return "CustomerPostOfficeDTO{" +
             "id=" + getId() +
             ", code='" + getCode() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             "}";
     }

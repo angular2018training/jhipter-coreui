@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.PostOfficeService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.PostOfficeDTO;
+import vn.nextlogix.service.dto.PostOfficeSearchDTO;
+import vn.nextlogix.service.dto.PostOfficeCriteria;
+import vn.nextlogix.service.PostOfficeQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class PostOfficeResource {
 
     private final PostOfficeService postOfficeService;
 
-    public PostOfficeResource(PostOfficeService postOfficeService) {
+    private final PostOfficeQueryService postOfficeQueryService;
+
+    public PostOfficeResource(PostOfficeService postOfficeService, PostOfficeQueryService postOfficeQueryService     ) {
         this.postOfficeService = postOfficeService;
+        this.postOfficeQueryService = postOfficeQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class PostOfficeResource {
     /**
      * GET  /post-offices : get all the postOffices.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of postOffices in body
      */
     @GetMapping("/post-offices")
     @Timed
-    public List<PostOfficeDTO> getAllPostOffices() {
-        log.debug("REST request to get all PostOffices");
-        return postOfficeService.findAll();
-        }
+    public ResponseEntity<List<PostOfficeDTO>> getAllPostOffices(PostOfficeCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get PostOffices by criteria: {}", criteria);
+        Page<PostOfficeDTO> page = postOfficeQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/post-offices");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /post-offices/:id : get the "id" postOffice.
@@ -125,13 +143,27 @@ public class PostOfficeResource {
      * to the query.
      *
      * @param query the query of the postOffice search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/post-offices")
     @Timed
-    public List<PostOfficeDTO> searchPostOffices(@RequestParam String query) {
-        log.debug("REST request to search PostOffices for query {}", query);
-        return postOfficeService.search(query);
+    public ResponseEntity<List<PostOfficeDTO>> searchPostOffices(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of PostOffices for query {}", query);
+        Page<PostOfficeDTO> page = postOfficeService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/post-offices");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/post-offices")
+    @Timed
+    public ResponseEntity<List<PostOfficeDTO>> searchExamplePostOffices(PostOfficeSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of PostOffices for searchDTO {}", searchDTO);
+        Page<PostOfficeDTO> page = postOfficeService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/post-offices");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

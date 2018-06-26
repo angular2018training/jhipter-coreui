@@ -8,10 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity OrderService and its DTO OrderServiceDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class})
 public interface OrderServiceMapper extends EntityMapper<OrderServiceDTO, OrderService> {
 
+    @Mapping(source = "company.id", target = "companyId")
+    OrderServiceDTO toDto(OrderService orderService);
 
+    @Mapping(source = "companyId", target = "company")
+    OrderService toEntity(OrderServiceDTO orderServiceDTO);
 
     default OrderService fromId(Long id) {
         if (id == null) {

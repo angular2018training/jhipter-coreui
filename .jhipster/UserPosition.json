@@ -16,6 +16,14 @@
             "otherEntityField": "id"
         },
         {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "userGroup",
+            "otherEntityName": "userGroup",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
             "relationshipName": "userExtraInfo",
             "otherEntityName": "userExtraInfo",
             "relationshipType": "many-to-one",
@@ -26,7 +34,8 @@
     "changelogDate": "20180614034631",
     "entityTableName": "user_position",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

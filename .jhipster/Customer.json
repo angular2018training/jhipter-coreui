@@ -18,6 +18,14 @@
             "otherEntityRelationshipName": "customer"
         },
         {
+            "relationshipType": "one-to-one",
+            "relationshipName": "warehouse",
+            "otherEntityName": "warehouse",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "customer"
+        },
+        {
             "relationshipType": "one-to-many",
             "relationshipName": "customerPostOffice",
             "otherEntityName": "customerPostOffice",
@@ -37,18 +45,14 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "debtUser",
-            "otherEntityName": "userExtraInfo",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "province",
             "otherEntityName": "province",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "district",
             "otherEntityName": "district",
             "otherEntityField": "id"
@@ -104,7 +108,18 @@
         {
             "fieldName": "customerType",
             "fieldType": "CustomerType",
-            "fieldValues": "NORMAL,VIP,CLIENT,SUPPER_VIP"
+            "fieldValues": "NORMAL,VIP,CLIENT,SUPPER_VIP",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "customerSource",
+            "fieldType": "CustomerSource",
+            "fieldValues": "WEB,FACEBOOK,APP,SALE",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "createDate",
@@ -112,12 +127,21 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "lastLoginDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "apiToken",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180614034633",
     "entityTableName": "customer",
     "dto": "mapstruct",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

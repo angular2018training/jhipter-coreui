@@ -1,0 +1,200 @@
+
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_email"
+                       jhiTranslate="nextlogixApp.userExtraInfo.email">Email:</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           [(ngModel)]="userExtraInfoSearch.email" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_phone"
+                       jhiTranslate="nextlogixApp.userExtraInfo.phone">Phone:</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           [(ngModel)]="userExtraInfoSearch.phone" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_address"
+                       jhiTranslate="nextlogixApp.userExtraInfo.address">Address:</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="address" id="field_address"
+                           [(ngModel)]="userExtraInfoSearch.address" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_validDate"
+                       jhiTranslate="nextlogixApp.userExtraInfo.validDate">Valid Date:</label>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <input id="field_validDate" type="datetime-local" class="form-control" name="validDate" [(ngModel)]="userExtraInfoSearch.validDate"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_lastLoginDate"
+                       jhiTranslate="nextlogixApp.userExtraInfo.lastLoginDate">Last Login Date:</label>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <input id="field_lastLoginDate" type="datetime-local" class="form-control" name="lastLoginDate" [(ngModel)]="userExtraInfoSearch.lastLoginDate"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_contractFile"
+                       jhiTranslate="nextlogixApp.userExtraInfo.contractFile">Contract File:</label>
+                <div class="col-md-4">
+                    <div>
+                        <div *ngIf="userExtraInfo.contractFile" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(userExtraInfo.contractFileContentType, userExtraInfo.contractFile)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{userExtraInfo.contractFileContentType}}, {{byteSize(userExtraInfo.contractFile)}}</span>
+                                <button type="button" (click)="userExtraInfo.contractFile=null;userExtraInfo.contractFileContentType=null;"
+                                        class="btn btn-secondary btn-xs pull-right">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                        </div>
+                        <input type="file" id="file_contractFile" (change)="setFileData($event, userExtraInfo, 'contractFile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="contractFile" id="field_contractFile"
+                           [(ngModel)]="userExtraInfoSearch.contractFile" />
+                    <input type="hidden" class="form-control" name="contractFileContentType" id="field_contractFileContentType"
+                           [(ngModel)]="userExtraInfoSearch.contractFileContentType" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_contractExpirationDate"
+                       jhiTranslate="nextlogixApp.userExtraInfo.contractExpirationDate">Contract Expiration Date:</label>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <input id="field_contractExpirationDate" type="datetime-local" class="form-control" name="contractExpirationDate" [(ngModel)]="userExtraInfoSearch.contractExpirationDate"
+                        />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_company"
+                       jhiTranslate="nextlogixApp.userExtraInfo.company">>Company:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="userExtraInfoSearch.companyId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.userExtraInfo.home.title">Kết quả tìm kiếm</strong>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="userExtraInfos">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="email"><span jhiTranslate="nextlogixApp.userExtraInfo.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="phone"><span jhiTranslate="nextlogixApp.userExtraInfo.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="address"><span jhiTranslate="nextlogixApp.userExtraInfo.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="validDate"><span jhiTranslate="nextlogixApp.userExtraInfo.validDate">Valid Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="lastLoginDate"><span jhiTranslate="nextlogixApp.userExtraInfo.lastLoginDate">Last Login Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="contractFile"><span jhiTranslate="nextlogixApp.userExtraInfo.contractFile">Contract File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="contractExpirationDate"><span jhiTranslate="nextlogixApp.userExtraInfo.contractExpirationDate">Contract Expiration Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.userExtraInfo.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let userExtraInfo of userExtraInfos ;trackBy: trackId">
+                    <td><a [routerLink]="[ userExtraInfo.id,'view']">{{userExtraInfo.id}}</a></td>
+                    <td>{{userExtraInfo.email}}</td>
+                    <td>{{userExtraInfo.phone}}</td>
+                    <td>{{userExtraInfo.address}}</td>
+                    <td>{{userExtraInfo.validDate | date:'medium'}}</td>
+                    <td>{{userExtraInfo.lastLoginDate | date:'medium'}}</td>
+                    <td>
+                        <a *ngIf="userExtraInfo.contractFile" (click)="openFile(userExtraInfo.contractFileContentType, userExtraInfo.contractFile)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="userExtraInfo.contractFile">{{userExtraInfo.contractFileContentType}}, {{byteSize(userExtraInfo.contractFile)}}</span>
+                    </td>
+                    <td>{{userExtraInfo.contractExpirationDate | date:'medium'}}</td>
+                    <td>
+        <div *ngIf="userExtraInfo.companyId">
+        <a [routerLink]="['../company', 'detail',userExtraInfo.companyId ]" >{{userExtraInfo.companyDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[userExtraInfo.id,'view' ]"
+                    class="btn btn-info btn-sm">
+                <i class="fa fa-eye"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+            </button>
+            <button type="submit"
+                    [routerLink]="[userExtraInfo.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button (click)="deleteItem(userExtraInfo.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="userExtraInfos && userExtraInfos.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>
+
+

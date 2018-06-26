@@ -8,14 +8,16 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity UserPosition and its DTO UserPositionDTO.
  */
-@Mapper(componentModel = "spring", uses = {PostOfficeMapper.class, PositionMapper.class, UserExtraInfoMapper.class})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class, PostOfficeMapper.class, PositionMapper.class, UserGroupMapper.class, UserExtraInfoMapper.class})
 public interface UserPositionMapper extends EntityMapper<UserPositionDTO, UserPosition> {
 
+    @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "postOffice.id", target = "postOfficeId")
     @Mapping(source = "position.id", target = "positionId")
     @Mapping(source = "userExtraInfo.id", target = "userExtraInfoId")
     UserPositionDTO toDto(UserPosition userPosition);
 
+    @Mapping(source = "companyId", target = "company")
     @Mapping(source = "postOfficeId", target = "postOffice")
     @Mapping(source = "positionId", target = "position")
     @Mapping(source = "userExtraInfoId", target = "userExtraInfo")

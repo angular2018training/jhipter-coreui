@@ -27,6 +27,9 @@ public class Authority implements Serializable {
     @Column(length = 50)
     private String name;
 
+    @Column(length = 100)
+    private String description;
+    
     public String getName() {
         return name;
     }
@@ -34,8 +37,18 @@ public class Authority implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    
 
-    @Override
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

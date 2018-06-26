@@ -1,0 +1,29 @@
+
+{
+    "nextlogixApp": {
+        "orderUserRoute" : {
+            "home": {
+                "title": "Order User Routes",
+                "createLabel": "Thêm mới một Order User Route",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order User Route",
+                "search": "Tìm Order User Route"
+            },
+            "created": "Một Order User Route mới được tạo với định danh {{ param }}",
+            "updated": "Một Order User Route cập nhật với định danh {{ param }}",
+            "deleted": "Một Order User Route đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order User Route {{ id }}?"
+            },
+            "detail": {
+                "title": "Order User Route"
+            },
+            "company": "Company",
+            "user": "User",
+            "province": "Province",
+            "district": "District",
+            "orderUserRouteType": "Order User Route Type",
+            "ward": "Ward",
+            "customer": "Customer"
+        }
+    }
+}

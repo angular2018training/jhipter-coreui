@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.OrderFeeService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.OrderFeeDTO;
+import vn.nextlogix.service.dto.OrderFeeSearchDTO;
+import vn.nextlogix.service.dto.OrderFeeCriteria;
+import vn.nextlogix.service.OrderFeeQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class OrderFeeResource {
 
     private final OrderFeeService orderFeeService;
 
-    public OrderFeeResource(OrderFeeService orderFeeService) {
+    private final OrderFeeQueryService orderFeeQueryService;
+
+    public OrderFeeResource(OrderFeeService orderFeeService, OrderFeeQueryService orderFeeQueryService     ) {
         this.orderFeeService = orderFeeService;
+        this.orderFeeQueryService = orderFeeQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class OrderFeeResource {
     /**
      * GET  /order-fees : get all the orderFees.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of orderFees in body
      */
     @GetMapping("/order-fees")
     @Timed
-    public List<OrderFeeDTO> getAllOrderFees() {
-        log.debug("REST request to get all OrderFees");
-        return orderFeeService.findAll();
-        }
+    public ResponseEntity<List<OrderFeeDTO>> getAllOrderFees(OrderFeeCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get OrderFees by criteria: {}", criteria);
+        Page<OrderFeeDTO> page = orderFeeQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order-fees");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /order-fees/:id : get the "id" orderFee.
@@ -125,13 +143,27 @@ public class OrderFeeResource {
      * to the query.
      *
      * @param query the query of the orderFee search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/order-fees")
     @Timed
-    public List<OrderFeeDTO> searchOrderFees(@RequestParam String query) {
-        log.debug("REST request to search OrderFees for query {}", query);
-        return orderFeeService.search(query);
+    public ResponseEntity<List<OrderFeeDTO>> searchOrderFees(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of OrderFees for query {}", query);
+        Page<OrderFeeDTO> page = orderFeeService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/order-fees");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/order-fees")
+    @Timed
+    public ResponseEntity<List<OrderFeeDTO>> searchExampleOrderFees(OrderFeeSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of OrderFees for searchDTO {}", searchDTO);
+        Page<OrderFeeDTO> page = orderFeeService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/order-fees");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

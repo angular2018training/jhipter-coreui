@@ -24,6 +24,7 @@
             "otherFee": "Other Fee",
             "discount": "Discount",
             "totalFee": "Total Fee",
+            "company": "Company",
             "quotation": "Quotation"
         }
     }

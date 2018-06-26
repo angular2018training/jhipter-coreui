@@ -24,16 +24,20 @@
             "phone": "Phone",
             "password": "Password",
             "isActive": "Is Active",
-            "customerType": "Customer Type",
             "createDate": "Create Date",
+            "lastLoginDate": "Last Login Date",
+            "apiToken": "Api Token",
             "legal": "Legal",
             "payment": "Payment",
+            "warehouse": "Warehouse",
             "customerPostOffice": "Customer Post Office",
+            "company": "Company",
             "manageUser": "Manage User",
             "saleUser": "Sale User",
-            "debtUser": "Debt User",
             "province": "Province",
-            "district": "District"
+            "district": "District",
+            "customerType": "Customer Type",
+            "customerSource": "Customer Source"
         }
     }
 }

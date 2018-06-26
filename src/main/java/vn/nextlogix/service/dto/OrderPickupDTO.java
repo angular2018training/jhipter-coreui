@@ -27,13 +27,30 @@ public class OrderPickupDTO implements Serializable {
 
     private Instant pickupDate;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long wardId;
+
+    private WardDTO  wardDTO;
+
 
     private Long districtId;
 
+    private DistrictDTO  districtDTO;
+
+
     private Long provinceId;
 
+    private ProvinceDTO  provinceDTO;
+
+
     private Long pickupUserId;
+
+    private UserExtraInfoDTO  pickupUserDTO;
+
 
     public Long getId() {
         return id;
@@ -83,37 +100,85 @@ public class OrderPickupDTO implements Serializable {
         this.pickupDate = pickupDate;
     }
 
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public WardDTO getWardDTO() {
+        return this.wardDTO;
+    }
+
+    public void setWardDTO(WardDTO wardDTO ) {
+        this.wardDTO = wardDTO;
+    }
     public Long getWardId() {
         return wardId;
-    }
+        }
 
     public void setWardId(Long wardId) {
         this.wardId = wardId;
+        }
+
+
+    public DistrictDTO getDistrictDTO() {
+        return this.districtDTO;
     }
 
+    public void setDistrictDTO(DistrictDTO districtDTO ) {
+        this.districtDTO = districtDTO;
+    }
     public Long getDistrictId() {
         return districtId;
-    }
+        }
 
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
+        }
+
+
+    public ProvinceDTO getProvinceDTO() {
+        return this.provinceDTO;
     }
 
+    public void setProvinceDTO(ProvinceDTO provinceDTO ) {
+        this.provinceDTO = provinceDTO;
+    }
     public Long getProvinceId() {
         return provinceId;
-    }
+        }
 
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
+        }
+
+
+    public UserExtraInfoDTO getPickupUserDTO() {
+        return this.pickupUserDTO;
     }
 
+    public void setPickupUserDTO(UserExtraInfoDTO pickupUserDTO ) {
+        this.pickupUserDTO = pickupUserDTO;
+    }
     public Long getPickupUserId() {
         return pickupUserId;
-    }
+        }
 
     public void setPickupUserId(Long userExtraInfoId) {
         this.pickupUserId = userExtraInfoId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

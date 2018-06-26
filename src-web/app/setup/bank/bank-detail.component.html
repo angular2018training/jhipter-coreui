@@ -1,0 +1,49 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.bank.detail.title">Bank</span> {{bank.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="bank">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.bank.code">Code</span></dt>
+        <dd>
+            <span>{{bank.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.bank.name">Name</span></dt>
+        <dd>
+            <span>{{bank.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.bank.description">Description</span></dt>
+        <dd>
+            <span>{{bank.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.bank.company">Company</span></dt>
+        <dd>
+            <div *ngIf="bank.companyId">
+                <a [routerLink]="['/company', bank.companyId]">{{bank.companyId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'bank', bank.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

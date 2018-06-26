@@ -17,8 +17,10 @@
             "detail": {
                 "title": "User Position"
             },
+            "company": "Company",
             "postOffice": "Post Office",
             "position": "Position",
+            "userGroup": "User Group",
             "userExtraInfo": "User Extra Info"
         }
     }

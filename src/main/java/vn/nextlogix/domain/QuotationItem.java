@@ -11,8 +11,6 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import vn.nextlogix.domain.enumeration.QuotationItemType;
-
 /**
  * A QuotationItem.
  */
@@ -30,11 +28,6 @@ public class QuotationItem implements Serializable {
     private Long id;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "item_type", nullable = false)
-    private QuotationItemType itemType;
-
-    @NotNull
     @Lob
     @Column(name = "quotation_file", nullable = false)
     private byte[] quotationFile;
@@ -49,6 +42,10 @@ public class QuotationItem implements Serializable {
     @ManyToOne
     private Quotation quotation;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -56,19 +53,6 @@ public class QuotationItem implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public QuotationItemType getItemType() {
-        return itemType;
-    }
-
-    public QuotationItem itemType(QuotationItemType itemType) {
-        this.itemType = itemType;
-        return this;
-    }
-
-    public void setItemType(QuotationItemType itemType) {
-        this.itemType = itemType;
     }
 
     public byte[] getQuotationFile() {
@@ -122,6 +106,19 @@ public class QuotationItem implements Serializable {
     public void setQuotation(Quotation quotation) {
         this.quotation = quotation;
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public QuotationItem company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -148,7 +145,6 @@ public class QuotationItem implements Serializable {
     public String toString() {
         return "QuotationItem{" +
             "id=" + getId() +
-            ", itemType='" + getItemType() + "'" +
             ", quotationFile='" + getQuotationFile() + "'" +
             ", quotationFileContentType='" + getQuotationFileContentType() + "'" +
             ", createDate='" + getCreateDate() + "'" +

@@ -1,8 +1,26 @@
+
 {
     "nextlogixApp": {
-        "QuotationItemType" : {
-            "null": "",
-            "ONE": "ONE"
+        "quotationItemType" : {
+            "home": {
+                "title": "Quotation Item Types",
+                "createLabel": "Create a new Quotation Item Type",
+                "createOrEditLabel": "Create or edit a Quotation Item Type",
+                "search": "Search for Quotation Item Type"
+            },
+            "created": "A new Quotation Item Type is created with identifier {{ param }}",
+            "updated": "A Quotation Item Type is updated with identifier {{ param }}",
+            "deleted": "A Quotation Item Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Item Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Item Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
         }
     }
 }

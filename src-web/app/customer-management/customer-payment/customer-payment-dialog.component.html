@@ -1,0 +1,104 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCustomerPaymentLabel" jhiTranslate="nextlogixApp.customerPayment.home.createOrEditLabel">Create or edit a Customer Payment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!customerPayment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="customerPayment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.branchName" for="field_branchName">Branch Name</label>
+            <input type="text" class="form-control" name="branchName" id="field_branchName"
+                [(ngModel)]="customerPayment.branchName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.accountNumber" for="field_accountNumber">Account Number</label>
+            <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                [(ngModel)]="customerPayment.accountNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.accountName" for="field_accountName">Account Name</label>
+            <input type="text" class="form-control" name="accountName" id="field_accountName"
+                [(ngModel)]="customerPayment.accountName" required/>
+            <div [hidden]="!(editForm.controls.accountName?.dirty && editForm.controls.accountName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.accountName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.cardNumber" for="field_cardNumber">Card Number</label>
+            <input type="text" class="form-control" name="cardNumber" id="field_cardNumber"
+                [(ngModel)]="customerPayment.cardNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.isVerify" for="field_isVerify">Is Verify</label>
+            <input type="checkbox" class="form-control" name="isVerify" id="field_isVerify"
+                [(ngModel)]="customerPayment.isVerify" />
+            <div [hidden]="!(editForm.controls.isVerify?.dirty && editForm.controls.isVerify?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.isVerify?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.dateVerify" for="field_dateVerify">Date Verify</label>
+            <div class="d-flex">
+                <input id="field_dateVerify" type="datetime-local" class="form-control" name="dateVerify" [(ngModel)]="customerPayment.dateVerify"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.paymentType" for="field_paymentType">Payment Type</label>
+            <select class="form-control" name="paymentType" [(ngModel)]="customerPayment.paymentType" id="field_paymentType"  required>
+                <option value="ONE_PER_WEEK">{{'nextlogixApp.PaymentType.ONE_PER_WEEK' | translate}}</option>
+                <option value="TWO_PER_WEEK">{{'nextlogixApp.PaymentType.TWO_PER_WEEK' | translate}}</option>
+                <option value="THREE_PER_WEEK">{{'nextlogixApp.PaymentType.THREE_PER_WEEK' | translate}}</option>
+                <option value="DAILY">{{'nextlogixApp.PaymentType.DAILY' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.paymentType?.dirty && editForm.controls.paymentType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paymentType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.bank" for="field_bank">Bank</label>
+            <select class="form-control" id="field_bank" name="bank" [(ngModel)]="customerPayment.bankId"  required>
+                <option *ngIf="!editForm.value.bank" [ngValue]="null" selected></option>
+                <option [ngValue]="bankOption.id" *ngFor="let bankOption of banks; trackBy: trackBankById">{{bankOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.bank?.dirty && editForm.controls.bank?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.bank?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.userVerify" for="field_userVerify">User Verify</label>
+            <select class="form-control" id="field_userVerify" name="userVerify" [(ngModel)]="customerPayment.userVerifyId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

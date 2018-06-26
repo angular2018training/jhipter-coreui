@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.UserPositionService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.UserPositionDTO;
+import vn.nextlogix.service.dto.UserPositionSearchDTO;
+import vn.nextlogix.service.dto.UserPositionCriteria;
+import vn.nextlogix.service.UserPositionQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class UserPositionResource {
 
     private final UserPositionService userPositionService;
 
-    public UserPositionResource(UserPositionService userPositionService) {
+    private final UserPositionQueryService userPositionQueryService;
+
+    public UserPositionResource(UserPositionService userPositionService, UserPositionQueryService userPositionQueryService     ) {
         this.userPositionService = userPositionService;
+        this.userPositionQueryService = userPositionQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class UserPositionResource {
     /**
      * GET  /user-positions : get all the userPositions.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of userPositions in body
      */
     @GetMapping("/user-positions")
     @Timed
-    public List<UserPositionDTO> getAllUserPositions() {
-        log.debug("REST request to get all UserPositions");
-        return userPositionService.findAll();
-        }
+    public ResponseEntity<List<UserPositionDTO>> getAllUserPositions(UserPositionCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get UserPositions by criteria: {}", criteria);
+        Page<UserPositionDTO> page = userPositionQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-positions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /user-positions/:id : get the "id" userPosition.
@@ -125,13 +143,27 @@ public class UserPositionResource {
      * to the query.
      *
      * @param query the query of the userPosition search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/user-positions")
     @Timed
-    public List<UserPositionDTO> searchUserPositions(@RequestParam String query) {
-        log.debug("REST request to search UserPositions for query {}", query);
-        return userPositionService.search(query);
+    public ResponseEntity<List<UserPositionDTO>> searchUserPositions(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of UserPositions for query {}", query);
+        Page<UserPositionDTO> page = userPositionService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/user-positions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/user-positions")
+    @Timed
+    public ResponseEntity<List<UserPositionDTO>> searchExampleUserPositions(UserPositionSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of UserPositions for searchDTO {}", searchDTO);
+        Page<UserPositionDTO> page = userPositionService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/user-positions");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

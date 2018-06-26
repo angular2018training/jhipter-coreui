@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.QuotationService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.QuotationDTO;
+import vn.nextlogix.service.dto.QuotationSearchDTO;
+import vn.nextlogix.service.dto.QuotationCriteria;
+import vn.nextlogix.service.QuotationQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class QuotationResource {
 
     private final QuotationService quotationService;
 
-    public QuotationResource(QuotationService quotationService) {
+    private final QuotationQueryService quotationQueryService;
+
+    public QuotationResource(QuotationService quotationService, QuotationQueryService quotationQueryService     ) {
         this.quotationService = quotationService;
+        this.quotationQueryService = quotationQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class QuotationResource {
     /**
      * GET  /quotations : get all the quotations.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of quotations in body
      */
     @GetMapping("/quotations")
     @Timed
-    public List<QuotationDTO> getAllQuotations() {
-        log.debug("REST request to get all Quotations");
-        return quotationService.findAll();
-        }
+    public ResponseEntity<List<QuotationDTO>> getAllQuotations(QuotationCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Quotations by criteria: {}", criteria);
+        Page<QuotationDTO> page = quotationQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/quotations");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /quotations/:id : get the "id" quotation.
@@ -125,13 +143,27 @@ public class QuotationResource {
      * to the query.
      *
      * @param query the query of the quotation search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/quotations")
     @Timed
-    public List<QuotationDTO> searchQuotations(@RequestParam String query) {
-        log.debug("REST request to search Quotations for query {}", query);
-        return quotationService.search(query);
+    public ResponseEntity<List<QuotationDTO>> searchQuotations(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Quotations for query {}", query);
+        Page<QuotationDTO> page = quotationService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/quotations");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/quotations")
+    @Timed
+    public ResponseEntity<List<QuotationDTO>> searchExampleQuotations(QuotationSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of Quotations for searchDTO {}", searchDTO);
+        Page<QuotationDTO> page = quotationService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/quotations");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

@@ -20,7 +20,8 @@
             "name": "Name",
             "isActive": "Is Active",
             "createDate": "Create Date",
-            "quotationItem": "Quotation Item"
+            "quotationItem": "Quotation Item",
+            "company": "Company"
         }
     }
 }

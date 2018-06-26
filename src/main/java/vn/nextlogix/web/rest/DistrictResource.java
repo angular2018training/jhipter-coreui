@@ -1,42 +1,34 @@
 package vn.nextlogix.web.rest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
+import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
+import vn.nextlogix.service.DistrictService;
+import vn.nextlogix.web.rest.errors.BadRequestAlertException;
+import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
+import vn.nextlogix.service.dto.DistrictDTO;
+import vn.nextlogix.service.dto.DistrictSearchDTO;
+import vn.nextlogix.service.dto.DistrictCriteria;
+import vn.nextlogix.service.DistrictQueryService;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.codahale.metrics.annotation.Timed;
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-import io.github.jhipster.web.util.ResponseUtil;
-import vn.nextlogix.service.DistrictService;
-import vn.nextlogix.service.dto.DistrictDTO;
-import vn.nextlogix.service.dto.DistrictSearchDTO;
-import vn.nextlogix.web.rest.errors.BadRequestAlertException;
-import vn.nextlogix.web.rest.util.HeaderUtil;
-import vn.nextlogix.web.rest.util.PaginationUtil;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing District.
@@ -51,8 +43,13 @@ public class DistrictResource {
 
     private final DistrictService districtService;
 
-    public DistrictResource(DistrictService districtService) {
+    private final DistrictQueryService districtQueryService;
+
+    public DistrictResource(DistrictService districtService, DistrictQueryService districtQueryService     ) {
         this.districtService = districtService;
+        this.districtQueryService = districtQueryService;
+
+
     }
 
     /**
@@ -100,14 +97,18 @@ public class DistrictResource {
     /**
      * GET  /districts : get all the districts.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of districts in body
      */
     @GetMapping("/districts")
     @Timed
-    public List<DistrictDTO> getAllDistricts() {
-        log.debug("REST request to get all Districts");
-        return districtService.findAll();
-        }
+    public ResponseEntity<List<DistrictDTO>> getAllDistricts(DistrictCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Districts by criteria: {}", criteria);
+        Page<DistrictDTO> page = districtQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/districts");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /districts/:id : get the "id" district.
@@ -142,26 +143,27 @@ public class DistrictResource {
      * to the query.
      *
      * @param query the query of the district search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/districts")
     @Timed
-    public List<DistrictDTO> searchDistricts(@RequestParam String query) {
-        log.debug("REST request to search Districts for query {}", query);
-        return districtService.search(query);
+    public ResponseEntity<List<DistrictDTO>> searchDistricts(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Districts for query {}", query);
+        Page<DistrictDTO> page = districtService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/districts");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-  @GetMapping(path="/_search_example/districts")
-  @Timed
-  public ResponseEntity<List<DistrictDTO> > searchDistrictsExample( @RequestParam(value = "code",required=false) String code,
-	        @RequestParam(value = "name",required=false) String name, @RequestParam(value = "description",required=false) String description, @RequestParam(value = "provinceId",required=false) Long provinceId, Pageable pageable) {
-	  DistrictSearchDTO districtSearchDTO = new DistrictSearchDTO(code,name,description,provinceId);
-    log.debug("REST request to search example Districts for query {}", districtSearchDTO);
-    //Pageable pageable = new PageRequest(0, 10);
-    Page<DistrictDTO> page =districtService.searchByExample(districtSearchDTO,pageable);
-    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/_search_example/districts");
-    return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    
-  }
+
+    @GetMapping("/_search_example/districts")
+    @Timed
+    public ResponseEntity<List<DistrictDTO>> searchExampleDistricts(DistrictSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of Districts for searchDTO {}", searchDTO);
+        Page<DistrictDTO> page = districtService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/districts");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

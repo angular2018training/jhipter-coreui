@@ -8,8 +8,6 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -39,12 +37,9 @@ public class UserGroup implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "user_group_role",
-               joinColumns = @JoinColumn(name="user_groups_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="roles_id", referencedColumnName="id"))
-    private Set<Role> roles = new HashSet<>();
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -94,27 +89,17 @@ public class UserGroup implements Serializable {
         this.description = description;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Company getCompany() {
+        return company;
     }
 
-    public UserGroup roles(Set<Role> roles) {
-        this.roles = roles;
+    public UserGroup company(Company company) {
+        this.company = company;
         return this;
     }
 
-    public UserGroup addRole(Role role) {
-        this.roles.add(role);
-        return this;
-    }
-
-    public UserGroup removeRole(Role role) {
-        this.roles.remove(role);
-        return this;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setCompany(Company company) {
+        this.company = company;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

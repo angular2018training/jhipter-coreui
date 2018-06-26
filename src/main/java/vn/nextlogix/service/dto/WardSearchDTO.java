@@ -23,6 +23,10 @@ private String name;
 
 private String description;
 
+private Long companyId;
+
+
+
 private Long districtId;
 
 
@@ -58,6 +62,16 @@ public String getDescription() {
 public void setDescription(String description) {
     this.description = description;
     }
+
+
+public Long getCompanyId() {
+    return companyId;
+    }
+
+public void setCompanyId(Long companyId) {
+    this.companyId = companyId;
+    }
+
 
 
 public Long getDistrictId() {

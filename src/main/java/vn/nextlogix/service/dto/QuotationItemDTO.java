@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 import javax.persistence.Lob;
-import vn.nextlogix.domain.enumeration.QuotationItemType;
 
 /**
  * A DTO for the QuotationItem entity.
@@ -16,9 +15,6 @@ import vn.nextlogix.domain.enumeration.QuotationItemType;
 public class QuotationItemDTO implements Serializable {
 
     private Long id;
-
-    @NotNull
-    private QuotationItemType itemType;
 
     @NotNull
     @Lob
@@ -30,20 +26,20 @@ public class QuotationItemDTO implements Serializable {
 
     private Long quotationId;
 
+    private QuotationDTO  quotationDTO;
+
+
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public QuotationItemType getItemType() {
-        return itemType;
-    }
-
-    public void setItemType(QuotationItemType itemType) {
-        this.itemType = itemType;
     }
 
     public byte[] getQuotationFile() {
@@ -70,13 +66,37 @@ public class QuotationItemDTO implements Serializable {
         this.createDate = createDate;
     }
 
+    public QuotationDTO getQuotationDTO() {
+        return this.quotationDTO;
+    }
+
+    public void setQuotationDTO(QuotationDTO quotationDTO ) {
+        this.quotationDTO = quotationDTO;
+    }
     public Long getQuotationId() {
         return quotationId;
-    }
+        }
 
     public void setQuotationId(Long quotationId) {
         this.quotationId = quotationId;
+        }
+
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
     }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
 
     @Override
     public boolean equals(Object o) {
@@ -103,7 +123,6 @@ public class QuotationItemDTO implements Serializable {
     public String toString() {
         return "QuotationItemDTO{" +
             "id=" + getId() +
-            ", itemType='" + getItemType() + "'" +
             ", quotationFile='" + getQuotationFile() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             "}";

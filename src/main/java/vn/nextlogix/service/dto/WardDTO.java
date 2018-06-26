@@ -22,6 +22,11 @@ public class WardDTO implements Serializable {
 
     private String description;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long districtId;
 
     private DistrictDTO  districtDTO;
@@ -58,6 +63,22 @@ public class WardDTO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
 
     public DistrictDTO getDistrictDTO() {
         return this.districtDTO;

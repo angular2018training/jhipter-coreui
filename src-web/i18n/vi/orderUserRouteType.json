@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "orderUserRouteType" : {
+            "home": {
+                "title": "Order User Route Types",
+                "createLabel": "Thêm mới một Order User Route Type",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order User Route Type",
+                "search": "Tìm Order User Route Type"
+            },
+            "created": "Một Order User Route Type mới được tạo với định danh {{ param }}",
+            "updated": "Một Order User Route Type cập nhật với định danh {{ param }}",
+            "deleted": "Một Order User Route Type đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order User Route Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Order User Route Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

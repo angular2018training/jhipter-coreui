@@ -1,0 +1,49 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.paymentType.detail.title">Payment Type</span> {{paymentType.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="paymentType">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.paymentType.code">Code</span></dt>
+        <dd>
+            <span>{{paymentType.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.paymentType.name">Name</span></dt>
+        <dd>
+            <span>{{paymentType.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.paymentType.description">Description</span></dt>
+        <dd>
+            <span>{{paymentType.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.paymentType.company">Company</span></dt>
+        <dd>
+            <div *ngIf="paymentType.companyId">
+                <a [routerLink]="['/company', paymentType.companyId]">{{paymentType.companyId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'payment-type', paymentType.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

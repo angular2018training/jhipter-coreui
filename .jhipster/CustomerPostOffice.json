@@ -24,6 +24,13 @@
             ]
         },
         {
+            "fieldName": "isActive",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "createDate",
             "fieldType": "Instant",
             "fieldValidateRules": [
@@ -34,7 +41,8 @@
     "changelogDate": "20180614034636",
     "entityTableName": "customer_post_office",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

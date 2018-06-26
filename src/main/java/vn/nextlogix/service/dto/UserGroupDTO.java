@@ -22,7 +22,10 @@ public class UserGroupDTO implements Serializable {
 
     private String description;
 
-    private Set<RoleDTO> roles = new HashSet<>();
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
 
     public Long getId() {
         return id;
@@ -56,13 +59,21 @@ public class UserGroupDTO implements Serializable {
         this.description = description;
     }
 
-    public Set<RoleDTO> getRoles() {
-        return roles;
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
     }
 
-    public void setRoles(Set<RoleDTO> roles) {
-        this.roles = roles;
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
     }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
 
     @Override
     public boolean equals(Object o) {

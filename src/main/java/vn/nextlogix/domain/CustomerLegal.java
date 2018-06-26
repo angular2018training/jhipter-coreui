@@ -32,6 +32,10 @@ public class CustomerLegal implements Serializable {
     @Column(name = "contract_customer_name", nullable = false)
     private String contractCustomerName;
 
+    @NotNull
+    @Column(name = "contract_address", nullable = false)
+    private String contractAddress;
+
     @Column(name = "contract_contact_name")
     private String contractContactName;
 
@@ -44,6 +48,18 @@ public class CustomerLegal implements Serializable {
     @NotNull
     @Column(name = "contract_expiration_date", nullable = false)
     private String contractExpirationDate;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Province province;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private District district;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -72,6 +88,19 @@ public class CustomerLegal implements Serializable {
 
     public void setContractCustomerName(String contractCustomerName) {
         this.contractCustomerName = contractCustomerName;
+    }
+
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    public CustomerLegal contractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+        return this;
+    }
+
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
     }
 
     public String getContractContactName() {
@@ -126,6 +155,45 @@ public class CustomerLegal implements Serializable {
         this.contractExpirationDate = contractExpirationDate;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public CustomerLegal company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public CustomerLegal province(Province province) {
+        this.province = province;
+        return this;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public CustomerLegal district(District district) {
+        this.district = district;
+        return this;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
     public Set<FileUpload> getFileUploads() {
         return fileUploads;
     }
@@ -175,6 +243,7 @@ public class CustomerLegal implements Serializable {
         return "CustomerLegal{" +
             "id=" + getId() +
             ", contractCustomerName='" + getContractCustomerName() + "'" +
+            ", contractAddress='" + getContractAddress() + "'" +
             ", contractContactName='" + getContractContactName() + "'" +
             ", contractContactPhone='" + getContractContactPhone() + "'" +
             ", taxCode='" + getTaxCode() + "'" +

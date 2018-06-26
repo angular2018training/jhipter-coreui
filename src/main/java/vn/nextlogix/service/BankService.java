@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.BankDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.BankSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing Bank.
@@ -19,9 +21,10 @@ public interface BankService {
     /**
      * Get all the banks.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<BankDTO> findAll();
+    Page<BankDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" bank.
@@ -43,7 +46,12 @@ public interface BankService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<BankDTO> search(String query);
-}
+    Page<BankDTO> search(String query, Pageable pageable);
+
+    Page<BankDTO> searchExample( BankSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

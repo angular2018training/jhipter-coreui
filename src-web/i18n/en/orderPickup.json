@@ -22,6 +22,7 @@
             "contactName": "Contact Name",
             "assignDate": "Assign Date",
             "pickupDate": "Pickup Date",
+            "company": "Company",
             "ward": "Ward",
             "district": "District",
             "province": "Province",

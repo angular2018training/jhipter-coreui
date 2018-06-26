@@ -40,10 +40,16 @@ public class OrderDelivery implements Serializable {
     @Column(name = "create_date", nullable = false)
     private Instant createDate;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private UserExtraInfo createUser;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private OrderStatus orderStatus;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -105,6 +111,19 @@ public class OrderDelivery implements Serializable {
 
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public OrderDelivery company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public UserExtraInfo getCreateUser() {

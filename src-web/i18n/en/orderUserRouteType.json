@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "orderUserRouteType" : {
+            "home": {
+                "title": "Order User Route Types",
+                "createLabel": "Create a new Order User Route Type",
+                "createOrEditLabel": "Create or edit a Order User Route Type",
+                "search": "Search for Order User Route Type"
+            },
+            "created": "A new Order User Route Type is created with identifier {{ param }}",
+            "updated": "A Order User Route Type is updated with identifier {{ param }}",
+            "deleted": "A Order User Route Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order User Route Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Order User Route Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.OrderPickupService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.OrderPickupDTO;
+import vn.nextlogix.service.dto.OrderPickupSearchDTO;
+import vn.nextlogix.service.dto.OrderPickupCriteria;
+import vn.nextlogix.service.OrderPickupQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class OrderPickupResource {
 
     private final OrderPickupService orderPickupService;
 
-    public OrderPickupResource(OrderPickupService orderPickupService) {
+    private final OrderPickupQueryService orderPickupQueryService;
+
+    public OrderPickupResource(OrderPickupService orderPickupService, OrderPickupQueryService orderPickupQueryService     ) {
         this.orderPickupService = orderPickupService;
+        this.orderPickupQueryService = orderPickupQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class OrderPickupResource {
     /**
      * GET  /order-pickups : get all the orderPickups.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of orderPickups in body
      */
     @GetMapping("/order-pickups")
     @Timed
-    public List<OrderPickupDTO> getAllOrderPickups() {
-        log.debug("REST request to get all OrderPickups");
-        return orderPickupService.findAll();
-        }
+    public ResponseEntity<List<OrderPickupDTO>> getAllOrderPickups(OrderPickupCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get OrderPickups by criteria: {}", criteria);
+        Page<OrderPickupDTO> page = orderPickupQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order-pickups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /order-pickups/:id : get the "id" orderPickup.
@@ -125,13 +143,27 @@ public class OrderPickupResource {
      * to the query.
      *
      * @param query the query of the orderPickup search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/order-pickups")
     @Timed
-    public List<OrderPickupDTO> searchOrderPickups(@RequestParam String query) {
-        log.debug("REST request to search OrderPickups for query {}", query);
-        return orderPickupService.search(query);
+    public ResponseEntity<List<OrderPickupDTO>> searchOrderPickups(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of OrderPickups for query {}", query);
+        Page<OrderPickupDTO> page = orderPickupService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/order-pickups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/order-pickups")
+    @Timed
+    public ResponseEntity<List<OrderPickupDTO>> searchExampleOrderPickups(OrderPickupSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of OrderPickups for searchDTO {}", searchDTO);
+        Page<OrderPickupDTO> page = orderPickupService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/order-pickups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

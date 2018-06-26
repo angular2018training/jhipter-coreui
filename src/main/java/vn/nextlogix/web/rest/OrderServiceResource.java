@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.OrderServiceService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.OrderServiceDTO;
+import vn.nextlogix.service.dto.OrderServiceSearchDTO;
+import vn.nextlogix.service.dto.OrderServiceCriteria;
+import vn.nextlogix.service.OrderServiceQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class OrderServiceResource {
 
     private final OrderServiceService orderServiceService;
 
-    public OrderServiceResource(OrderServiceService orderServiceService) {
+    private final OrderServiceQueryService orderServiceQueryService;
+
+    public OrderServiceResource(OrderServiceService orderServiceService, OrderServiceQueryService orderServiceQueryService     ) {
         this.orderServiceService = orderServiceService;
+        this.orderServiceQueryService = orderServiceQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class OrderServiceResource {
     /**
      * GET  /order-services : get all the orderServices.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of orderServices in body
      */
     @GetMapping("/order-services")
     @Timed
-    public List<OrderServiceDTO> getAllOrderServices() {
-        log.debug("REST request to get all OrderServices");
-        return orderServiceService.findAll();
-        }
+    public ResponseEntity<List<OrderServiceDTO>> getAllOrderServices(OrderServiceCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get OrderServices by criteria: {}", criteria);
+        Page<OrderServiceDTO> page = orderServiceQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order-services");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /order-services/:id : get the "id" orderService.
@@ -125,13 +143,27 @@ public class OrderServiceResource {
      * to the query.
      *
      * @param query the query of the orderService search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/order-services")
     @Timed
-    public List<OrderServiceDTO> searchOrderServices(@RequestParam String query) {
-        log.debug("REST request to search OrderServices for query {}", query);
-        return orderServiceService.search(query);
+    public ResponseEntity<List<OrderServiceDTO>> searchOrderServices(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of OrderServices for query {}", query);
+        Page<OrderServiceDTO> page = orderServiceService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/order-services");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/order-services")
+    @Timed
+    public ResponseEntity<List<OrderServiceDTO>> searchExampleOrderServices(OrderServiceSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of OrderServices for searchDTO {}", searchDTO);
+        Page<OrderServiceDTO> page = orderServiceService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/order-services");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

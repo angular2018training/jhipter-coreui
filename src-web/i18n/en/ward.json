@@ -20,6 +20,7 @@
             "code": "Code",
             "name": "Name",
             "description": "Description",
+            "company": "Company",
             "district": "District"
         }
     }

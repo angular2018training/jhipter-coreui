@@ -54,6 +54,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {NextlogixErrorModule} from "./layouts/error/error.module";
 import {NextlogixSharedLibsModule} from "./shared/shared-libs.module";
 import {NextlogixSetupModule} from "./setup/setup.module";
+import {NextlogixCustomerManagmentModule} from "./customer-management/customer-management.module";
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import {NextlogixSetupModule} from "./setup/setup.module";
     NextlogixSetupModule,
 
     NextlogixAdminModule,
-    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'})
+    NextlogixCustomerManagmentModule,
+    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
   ],
   declarations: [
     AppComponent,

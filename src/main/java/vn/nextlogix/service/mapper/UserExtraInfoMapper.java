@@ -8,11 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity UserExtraInfo and its DTO UserExtraInfoDTO.
  */
-@Mapper(componentModel = "spring", uses = {RoleMapper.class, UserGroupMapper.class})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class})
 public interface UserExtraInfoMapper extends EntityMapper<UserExtraInfoDTO, UserExtraInfo> {
 
+    @Mapping(source = "company.id", target = "companyId")
+    UserExtraInfoDTO toDto(UserExtraInfo userExtraInfo);
 
     @Mapping(target = "userPositions", ignore = true)
+    @Mapping(source = "companyId", target = "company")
     UserExtraInfo toEntity(UserExtraInfoDTO userExtraInfoDTO);
 
     default UserExtraInfo fromId(Long id) {

@@ -39,6 +39,10 @@ public class PostOffice implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private Province province;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -87,6 +91,19 @@ public class PostOffice implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public PostOffice company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Province getProvince() {

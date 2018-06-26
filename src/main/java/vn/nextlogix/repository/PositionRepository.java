@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PositionRepository extends JpaRepository<Position, Long> {
+public interface PositionRepository extends JpaRepository<Position, Long>, JpaSpecificationExecutor<Position> {
 
 }

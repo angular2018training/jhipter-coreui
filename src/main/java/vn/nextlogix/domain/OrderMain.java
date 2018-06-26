@@ -82,6 +82,10 @@ public class OrderMain implements Serializable {
     @JoinColumn(unique = true)
     private OrderDelivery orderDelivery;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
     @ManyToOne
     private UserExtraInfo createUser;
 
@@ -320,6 +324,19 @@ public class OrderMain implements Serializable {
 
     public void setOrderDelivery(OrderDelivery orderDelivery) {
         this.orderDelivery = orderDelivery;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public OrderMain company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public UserExtraInfo getCreateUser() {

@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -28,11 +30,22 @@ public class UserPosition implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private PostOffice postOffice;
 
     @ManyToOne(optional = false)
     @NotNull
     private Position position;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "user_position_user_group",
+               joinColumns = @JoinColumn(name="user_positions_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="user_groups_id", referencedColumnName="id"))
+    private Set<UserGroup> userGroups = new HashSet<>();
 
     @ManyToOne
     private UserExtraInfo userExtraInfo;
@@ -44,6 +57,19 @@ public class UserPosition implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public UserPosition company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public PostOffice getPostOffice() {
@@ -70,6 +96,29 @@ public class UserPosition implements Serializable {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public Set<UserGroup> getUserGroups() {
+        return userGroups;
+    }
+
+    public UserPosition userGroups(Set<UserGroup> userGroups) {
+        this.userGroups = userGroups;
+        return this;
+    }
+
+    public UserPosition addUserGroup(UserGroup userGroup) {
+        this.userGroups.add(userGroup);
+        return this;
+    }
+
+    public UserPosition removeUserGroup(UserGroup userGroup) {
+        this.userGroups.remove(userGroup);
+        return this;
+    }
+
+    public void setUserGroups(Set<UserGroup> userGroups) {
+        this.userGroups = userGroups;
     }
 
     public UserExtraInfo getUserExtraInfo() {

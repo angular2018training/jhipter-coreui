@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.CustomerLegalService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.CustomerLegalDTO;
+import vn.nextlogix.service.dto.CustomerLegalSearchDTO;
+import vn.nextlogix.service.dto.CustomerLegalCriteria;
+import vn.nextlogix.service.CustomerLegalQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class CustomerLegalResource {
 
     private final CustomerLegalService customerLegalService;
 
-    public CustomerLegalResource(CustomerLegalService customerLegalService) {
+    private final CustomerLegalQueryService customerLegalQueryService;
+
+    public CustomerLegalResource(CustomerLegalService customerLegalService, CustomerLegalQueryService customerLegalQueryService     ) {
         this.customerLegalService = customerLegalService;
+        this.customerLegalQueryService = customerLegalQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class CustomerLegalResource {
     /**
      * GET  /customer-legals : get all the customerLegals.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of customerLegals in body
      */
     @GetMapping("/customer-legals")
     @Timed
-    public List<CustomerLegalDTO> getAllCustomerLegals() {
-        log.debug("REST request to get all CustomerLegals");
-        return customerLegalService.findAll();
-        }
+    public ResponseEntity<List<CustomerLegalDTO>> getAllCustomerLegals(CustomerLegalCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CustomerLegals by criteria: {}", criteria);
+        Page<CustomerLegalDTO> page = customerLegalQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customer-legals");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /customer-legals/:id : get the "id" customerLegal.
@@ -125,13 +143,27 @@ public class CustomerLegalResource {
      * to the query.
      *
      * @param query the query of the customerLegal search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/customer-legals")
     @Timed
-    public List<CustomerLegalDTO> searchCustomerLegals(@RequestParam String query) {
-        log.debug("REST request to search CustomerLegals for query {}", query);
-        return customerLegalService.search(query);
+    public ResponseEntity<List<CustomerLegalDTO>> searchCustomerLegals(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of CustomerLegals for query {}", query);
+        Page<CustomerLegalDTO> page = customerLegalService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/customer-legals");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/customer-legals")
+    @Timed
+    public ResponseEntity<List<CustomerLegalDTO>> searchExampleCustomerLegals(CustomerLegalSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of CustomerLegals for searchDTO {}", searchDTO);
+        Page<CustomerLegalDTO> page = customerLegalService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/customer-legals");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import vn.nextlogix.exception.ApplicationException;
+
 /**
  * Utility class for handling pagination.
  *
@@ -78,19 +80,25 @@ public final class PaginationUtil {
         headers.add(HttpHeaders.LINK, link);
         return headers;
     }
-    public static HttpHeaders generateSearchPaginationHttpHeaders(Object searchDto, Page page, String baseUrl) throws IllegalAccessException, UnsupportedEncodingException, IntrospectionException {
+    public static HttpHeaders generateSearchPaginationHttpHeaders(Object searchDto, Page page, String baseUrl) throws ApplicationException {
     	
     	Field[] fields = searchDto.getClass().getDeclaredFields();
         String escapedQuery="";
         for (Field field: fields) {
         	field.setAccessible(true);
             //if(field.getDeclaringClass(). instanceof Integer){
-                Object data = field.get(searchDto);
-                if(data == null){
-                    escapedQuery+=("&"+field.getName()+"=");
-                }else {
-                    escapedQuery+=("&"+field.getName()+"="+ URLEncoder.encode(data.toString(), "UTF-8"));
-                }
+                Object data;
+				try {
+					data = field.get(searchDto);
+					 if(data == null){
+		                    escapedQuery+=("&"+field.getName()+"=");
+		                }else {
+		                    escapedQuery+=("&"+field.getName()+"="+ URLEncoder.encode(data.toString(), "UTF-8"));
+		                }
+				} catch (IllegalArgumentException | IllegalAccessException | UnsupportedEncodingException e) {
+					throw new ApplicationException(e.getMessage(),e);
+				}
+               
             //}
 
 

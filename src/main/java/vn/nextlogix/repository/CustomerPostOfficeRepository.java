@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CustomerPostOfficeRepository extends JpaRepository<CustomerPostOffice, Long> {
+public interface CustomerPostOfficeRepository extends JpaRepository<CustomerPostOffice, Long>, JpaSpecificationExecutor<CustomerPostOffice> {
 
 }

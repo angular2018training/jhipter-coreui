@@ -1,0 +1,174 @@
+
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_code"
+                       jhiTranslate="nextlogixApp.customerPostOffice.code">Code:</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           [(ngModel)]="customerPostOfficeSearch.code" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_isActive"
+                       jhiTranslate="nextlogixApp.customerPostOffice.isActive">Is Active:</label>
+                <div class="col-md-4">
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                           [(ngModel)]="customerPostOfficeSearch.isActive" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_createDate"
+                       jhiTranslate="nextlogixApp.customerPostOffice.createDate">Create Date:</label>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="customerPostOfficeSearch.createDate"
+                        />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_customer"
+                       jhiTranslate="nextlogixApp.customerPostOffice.customer">>Customer:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_customer" name="customer" [(ngModel)]="customerPostOfficeSearch.customerId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="customerOption.id" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_company"
+                       jhiTranslate="nextlogixApp.customerPostOffice.company">>Company:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="customerPostOfficeSearch.companyId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_postOffice"
+                       jhiTranslate="nextlogixApp.customerPostOffice.postOffice">>Post Office:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="customerPostOfficeSearch.postOfficeId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postoffices; trackBy: trackPostOfficeById">{{postOfficeOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.customerPostOffice.home.title">Kết quả tìm kiếm</strong>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="customerPostOffices">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.customerPostOffice.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="isActive"><span jhiTranslate="nextlogixApp.customerPostOffice.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="createDate"><span jhiTranslate="nextlogixApp.customerPostOffice.createDate">Create Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="customerId"><span jhiTranslate="nextlogixApp.customerPostOffice.customer">Customer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.customerPostOffice.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="postOfficeId"><span jhiTranslate="nextlogixApp.customerPostOffice.postOffice">Post Office</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let customerPostOffice of customerPostOffices ;trackBy: trackId">
+                    <td><a [routerLink]="[ customerPostOffice.id,'view']">{{customerPostOffice.id}}</a></td>
+                    <td>{{customerPostOffice.code}}</td>
+                    <td>{{customerPostOffice.isActive}}</td>
+                    <td>{{customerPostOffice.createDate | date:'medium'}}</td>
+                    <td>
+        <div *ngIf="customerPostOffice.customerId">
+        <a [routerLink]="['../customer', 'detail',customerPostOffice.customerId ]" >{{customerPostOffice.customerDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="customerPostOffice.companyId">
+        <a [routerLink]="['../company', 'detail',customerPostOffice.companyId ]" >{{customerPostOffice.companyDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="customerPostOffice.postOfficeId">
+        <a [routerLink]="['../post-office', 'detail',customerPostOffice.postOfficeId ]" >{{customerPostOffice.postOfficeDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[customerPostOffice.id,'view' ]"
+                    class="btn btn-info btn-sm">
+                <i class="fa fa-eye"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+            </button>
+            <button type="submit"
+                    [routerLink]="[customerPostOffice.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button (click)="deleteItem(customerPostOffice.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="customerPostOffices && customerPostOffices.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>
+
+

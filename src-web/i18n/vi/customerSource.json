@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "customerSource" : {
+            "home": {
+                "title": "Customer Sources",
+                "createLabel": "Thêm mới một Customer Source",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer Source",
+                "search": "Tìm Customer Source"
+            },
+            "created": "Một Customer Source mới được tạo với định danh {{ param }}",
+            "updated": "Một Customer Source cập nhật với định danh {{ param }}",
+            "deleted": "Một Customer Source đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Customer Source {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Source"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

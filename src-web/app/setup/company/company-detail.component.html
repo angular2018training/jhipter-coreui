@@ -1,0 +1,71 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.company.detail.title">Company</span> {{company.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="company">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.company.code">Code</span></dt>
+        <dd>
+            <span>{{company.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.name">Name</span></dt>
+        <dd>
+            <span>{{company.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.address">Address</span></dt>
+        <dd>
+            <span>{{company.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.phone">Phone</span></dt>
+        <dd>
+            <span>{{company.phone}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.email">Email</span></dt>
+        <dd>
+            <span>{{company.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.website">Website</span></dt>
+        <dd>
+            <span>{{company.website}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.description">Description</span></dt>
+        <dd>
+            <span>{{company.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.province">Province</span></dt>
+        <dd>
+            <div *ngIf="company.provinceId">
+                <a [routerLink]="['/province', company.provinceId]">{{company.provinceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.company.district">District</span></dt>
+        <dd>
+            <div *ngIf="company.districtId">
+                <a [routerLink]="['/district', company.districtId]">{{company.districtId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'company', company.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

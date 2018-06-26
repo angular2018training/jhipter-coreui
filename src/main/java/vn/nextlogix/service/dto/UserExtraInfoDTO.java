@@ -1,10 +1,13 @@
 package vn.nextlogix.service.dto;
 
 
+import java.time.Instant;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the UserExtraInfo entity.
@@ -19,9 +22,21 @@ public class UserExtraInfoDTO implements Serializable {
 
     private String address;
 
-    private Set<RoleDTO> roles = new HashSet<>();
+    @NotNull
+    private Instant validDate;
 
-    private Set<UserGroupDTO> userGroups = new HashSet<>();
+    private Instant lastLoginDate;
+
+    @Lob
+    private byte[] contractFile;
+    private String contractFileContentType;
+
+    private Instant contractExpirationDate;
+
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
 
     public Long getId() {
         return id;
@@ -55,21 +70,61 @@ public class UserExtraInfoDTO implements Serializable {
         this.address = address;
     }
 
-    public Set<RoleDTO> getRoles() {
-        return roles;
+    public Instant getValidDate() {
+        return validDate;
     }
 
-    public void setRoles(Set<RoleDTO> roles) {
-        this.roles = roles;
+    public void setValidDate(Instant validDate) {
+        this.validDate = validDate;
     }
 
-    public Set<UserGroupDTO> getUserGroups() {
-        return userGroups;
+    public Instant getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    public void setUserGroups(Set<UserGroupDTO> userGroups) {
-        this.userGroups = userGroups;
+    public void setLastLoginDate(Instant lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
+
+    public byte[] getContractFile() {
+        return contractFile;
+    }
+
+    public void setContractFile(byte[] contractFile) {
+        this.contractFile = contractFile;
+    }
+
+    public String getContractFileContentType() {
+        return contractFileContentType;
+    }
+
+    public void setContractFileContentType(String contractFileContentType) {
+        this.contractFileContentType = contractFileContentType;
+    }
+
+    public Instant getContractExpirationDate() {
+        return contractExpirationDate;
+    }
+
+    public void setContractExpirationDate(Instant contractExpirationDate) {
+        this.contractExpirationDate = contractExpirationDate;
+    }
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
 
     @Override
     public boolean equals(Object o) {
@@ -99,6 +154,10 @@ public class UserExtraInfoDTO implements Serializable {
             ", email='" + getEmail() + "'" +
             ", phone='" + getPhone() + "'" +
             ", address='" + getAddress() + "'" +
+            ", validDate='" + getValidDate() + "'" +
+            ", lastLoginDate='" + getLastLoginDate() + "'" +
+            ", contractFile='" + getContractFile() + "'" +
+            ", contractExpirationDate='" + getContractExpirationDate() + "'" +
             "}";
     }
 }

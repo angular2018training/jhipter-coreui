@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.OrderDeliveryDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.OrderDeliverySearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing OrderDelivery.
@@ -19,9 +21,10 @@ public interface OrderDeliveryService {
     /**
      * Get all the orderDeliveries.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderDeliveryDTO> findAll();
+    Page<OrderDeliveryDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" orderDelivery.
@@ -43,7 +46,12 @@ public interface OrderDeliveryService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderDeliveryDTO> search(String query);
-}
+    Page<OrderDeliveryDTO> search(String query, Pageable pageable);
+
+    Page<OrderDeliveryDTO> searchExample( OrderDeliverySearchDTO searchDTO, Pageable pageable);
+    
+
+    }

@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OrderDeliveryRepository extends JpaRepository<OrderDelivery, Long> {
+public interface OrderDeliveryRepository extends JpaRepository<OrderDelivery, Long>, JpaSpecificationExecutor<OrderDelivery> {
 
 }

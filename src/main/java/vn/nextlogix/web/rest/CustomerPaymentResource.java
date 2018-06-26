@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.CustomerPaymentService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.CustomerPaymentDTO;
+import vn.nextlogix.service.dto.CustomerPaymentSearchDTO;
+import vn.nextlogix.service.dto.CustomerPaymentCriteria;
+import vn.nextlogix.service.CustomerPaymentQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class CustomerPaymentResource {
 
     private final CustomerPaymentService customerPaymentService;
 
-    public CustomerPaymentResource(CustomerPaymentService customerPaymentService) {
+    private final CustomerPaymentQueryService customerPaymentQueryService;
+
+    public CustomerPaymentResource(CustomerPaymentService customerPaymentService, CustomerPaymentQueryService customerPaymentQueryService     ) {
         this.customerPaymentService = customerPaymentService;
+        this.customerPaymentQueryService = customerPaymentQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class CustomerPaymentResource {
     /**
      * GET  /customer-payments : get all the customerPayments.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of customerPayments in body
      */
     @GetMapping("/customer-payments")
     @Timed
-    public List<CustomerPaymentDTO> getAllCustomerPayments() {
-        log.debug("REST request to get all CustomerPayments");
-        return customerPaymentService.findAll();
-        }
+    public ResponseEntity<List<CustomerPaymentDTO>> getAllCustomerPayments(CustomerPaymentCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CustomerPayments by criteria: {}", criteria);
+        Page<CustomerPaymentDTO> page = customerPaymentQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customer-payments");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /customer-payments/:id : get the "id" customerPayment.
@@ -125,13 +143,27 @@ public class CustomerPaymentResource {
      * to the query.
      *
      * @param query the query of the customerPayment search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/customer-payments")
     @Timed
-    public List<CustomerPaymentDTO> searchCustomerPayments(@RequestParam String query) {
-        log.debug("REST request to search CustomerPayments for query {}", query);
-        return customerPaymentService.search(query);
+    public ResponseEntity<List<CustomerPaymentDTO>> searchCustomerPayments(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of CustomerPayments for query {}", query);
+        Page<CustomerPaymentDTO> page = customerPaymentService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/customer-payments");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/customer-payments")
+    @Timed
+    public ResponseEntity<List<CustomerPaymentDTO>> searchExampleCustomerPayments(CustomerPaymentSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of CustomerPayments for searchDTO {}", searchDTO);
+        Page<CustomerPaymentDTO> page = customerPaymentService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/customer-payments");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

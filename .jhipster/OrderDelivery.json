@@ -3,12 +3,14 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "createUser",
             "otherEntityName": "userExtraInfo",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "orderStatus",
             "otherEntityName": "orderStatus",
             "otherEntityField": "id"
@@ -38,7 +40,8 @@
     "changelogDate": "20180614034643",
     "entityTableName": "order_delivery",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

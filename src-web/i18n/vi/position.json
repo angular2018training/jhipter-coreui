@@ -19,7 +19,8 @@
             },
             "code": "Code",
             "name": "Name",
-            "description": "Description"
+            "description": "Description",
+            "company": "Company"
         }
     }
 }

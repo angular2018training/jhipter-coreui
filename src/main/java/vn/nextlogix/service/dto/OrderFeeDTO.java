@@ -30,7 +30,15 @@ public class OrderFeeDTO implements Serializable {
     @NotNull
     private Double totalFee;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long quotationId;
+
+    private QuotationDTO  quotationDTO;
+
 
     public Long getId() {
         return id;
@@ -96,13 +104,37 @@ public class OrderFeeDTO implements Serializable {
         this.totalFee = totalFee;
     }
 
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public QuotationDTO getQuotationDTO() {
+        return this.quotationDTO;
+    }
+
+    public void setQuotationDTO(QuotationDTO quotationDTO ) {
+        this.quotationDTO = quotationDTO;
+    }
     public Long getQuotationId() {
         return quotationId;
-    }
+        }
 
     public void setQuotationId(Long quotationId) {
         this.quotationId = quotationId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.UserGroupService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.UserGroupDTO;
+import vn.nextlogix.service.dto.UserGroupSearchDTO;
+import vn.nextlogix.service.dto.UserGroupCriteria;
+import vn.nextlogix.service.UserGroupQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class UserGroupResource {
 
     private final UserGroupService userGroupService;
 
-    public UserGroupResource(UserGroupService userGroupService) {
+    private final UserGroupQueryService userGroupQueryService;
+
+    public UserGroupResource(UserGroupService userGroupService, UserGroupQueryService userGroupQueryService     ) {
         this.userGroupService = userGroupService;
+        this.userGroupQueryService = userGroupQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class UserGroupResource {
     /**
      * GET  /user-groups : get all the userGroups.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of userGroups in body
      */
     @GetMapping("/user-groups")
     @Timed
-    public List<UserGroupDTO> getAllUserGroups() {
-        log.debug("REST request to get all UserGroups");
-        return userGroupService.findAll();
-        }
+    public ResponseEntity<List<UserGroupDTO>> getAllUserGroups(UserGroupCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get UserGroups by criteria: {}", criteria);
+        Page<UserGroupDTO> page = userGroupQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-groups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /user-groups/:id : get the "id" userGroup.
@@ -125,13 +143,27 @@ public class UserGroupResource {
      * to the query.
      *
      * @param query the query of the userGroup search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/user-groups")
     @Timed
-    public List<UserGroupDTO> searchUserGroups(@RequestParam String query) {
-        log.debug("REST request to search UserGroups for query {}", query);
-        return userGroupService.search(query);
+    public ResponseEntity<List<UserGroupDTO>> searchUserGroups(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of UserGroups for query {}", query);
+        Page<UserGroupDTO> page = userGroupService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/user-groups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/user-groups")
+    @Timed
+    public ResponseEntity<List<UserGroupDTO>> searchExampleUserGroups(UserGroupSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of UserGroups for searchDTO {}", searchDTO);
+        Page<UserGroupDTO> page = userGroupService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/user-groups");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

@@ -5,17 +5,30 @@ import vn.nextlogix.domain.FileUpload;
 import vn.nextlogix.repository.FileUploadRepository;
 import vn.nextlogix.repository.search.FileUploadSearchRepository;
 import vn.nextlogix.service.dto.FileUploadDTO;
+import vn.nextlogix.service.dto.FileUploadSearchDTO;
+import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.Company;
 import vn.nextlogix.service.mapper.FileUploadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+    import java.util.stream.StreamSupport;
+
+    import java.util.List;
+    import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
+    import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -33,10 +46,19 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     private final FileUploadSearchRepository fileUploadSearchRepository;
 
-    public FileUploadServiceImpl(FileUploadRepository fileUploadRepository, FileUploadMapper fileUploadMapper, FileUploadSearchRepository fileUploadSearchRepository) {
+
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
+
+    public FileUploadServiceImpl(FileUploadRepository fileUploadRepository, FileUploadMapper fileUploadMapper, FileUploadSearchRepository fileUploadSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+) {
         this.fileUploadRepository = fileUploadRepository;
         this.fileUploadMapper = fileUploadMapper;
         this.fileUploadSearchRepository = fileUploadSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
+
     }
 
     /**
@@ -58,15 +80,15 @@ public class FileUploadServiceImpl implements FileUploadService {
     /**
      * Get all the fileUploads.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<FileUploadDTO> findAll() {
+    public Page<FileUploadDTO> findAll(Pageable pageable) {
         log.debug("Request to get all FileUploads");
-        return fileUploadRepository.findAll().stream()
-            .map(fileUploadMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return fileUploadRepository.findAll(pageable)
+            .map(fileUploadMapper::toDto);
     }
 
     /**
@@ -99,15 +121,42 @@ public class FileUploadServiceImpl implements FileUploadService {
      * Search for the fileUpload corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<FileUploadDTO> search(String query) {
-        log.debug("Request to search FileUploads for query {}", query);
-        return StreamSupport
-            .stream(fileUploadSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+    public Page<FileUploadDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of FileUploads for query {}", query);
+        Page<FileUpload> result = fileUploadSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(fileUploadMapper::toDto);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<FileUploadDTO> searchExample(FileUploadSearchDTO searchDto, Pageable pageable) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getName())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getContentType())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contentType", "*"+searchDto.getContentType()+"*"));
+            }
+            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            Page<FileUpload> fileUploadPage= fileUploadSearchRepository.search(query);
+            List<FileUploadDTO> fileUploadList =  StreamSupport
+            .stream(fileUploadPage.spliterator(), false)
             .map(fileUploadMapper::toDto)
             .collect(Collectors.toList());
-    }
+            fileUploadList.forEach(fileUploadDto -> {
+            if(fileUploadDto.getCompanyId()!=null){
+                Company company= companySearchRepository.findOne(fileUploadDto.getCompanyId());
+                fileUploadDto.setCompanyDTO(companyMapper.toDto(company));
+            }
+            });
+            return new PageImpl<>(fileUploadList,pageable,fileUploadPage.getTotalElements());
+        }
 }

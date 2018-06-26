@@ -36,6 +36,15 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "paymentAmountMoney",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "idImage",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
             "fieldName": "isVerify",
             "fieldType": "Boolean",
             "fieldValidateRules": [
@@ -58,7 +67,8 @@
     "changelogDate": "20180614034635",
     "entityTableName": "customer_payment",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch"
 }

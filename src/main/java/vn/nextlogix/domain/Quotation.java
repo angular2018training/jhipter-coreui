@@ -45,6 +45,10 @@ public class Quotation implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<QuotationItem> quotationItems = new HashSet<>();
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -116,6 +120,19 @@ public class Quotation implements Serializable {
 
     public void setQuotationItems(Set<QuotationItem> quotationItems) {
         this.quotationItems = quotationItems;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public Quotation company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

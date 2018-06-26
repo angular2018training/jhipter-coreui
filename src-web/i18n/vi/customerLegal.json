@@ -18,10 +18,14 @@
                 "title": "Customer Legal"
             },
             "contractCustomerName": "Contract Customer Name",
+            "contractAddress": "Contract Address",
             "contractContactName": "Contract Contact Name",
             "contractContactPhone": "Contract Contact Phone",
             "taxCode": "Tax Code",
             "contractExpirationDate": "Contract Expiration Date",
+            "company": "Company",
+            "province": "Province",
+            "district": "District",
             "fileUpload": "File Upload"
         }
     }

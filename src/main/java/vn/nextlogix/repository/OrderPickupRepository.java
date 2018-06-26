@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.*;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OrderPickupRepository extends JpaRepository<OrderPickup, Long> {
+public interface OrderPickupRepository extends JpaRepository<OrderPickup, Long>, JpaSpecificationExecutor<OrderPickup> {
 
 }

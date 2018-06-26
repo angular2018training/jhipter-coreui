@@ -17,10 +17,10 @@
             "detail": {
                 "title": "Quotation Item"
             },
-            "itemType": "Item Type",
             "quotationFile": "Quotation File",
             "createDate": "Create Date",
-            "quotation": "Quotation"
+            "quotation": "Quotation",
+            "company": "Company"
         }
     }
 }

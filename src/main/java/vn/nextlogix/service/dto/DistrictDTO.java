@@ -22,9 +22,15 @@ public class DistrictDTO implements Serializable {
 
     private String description;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long provinceId;
-    
-    private ProvinceDTO provinceDTO;
+
+    private ProvinceDTO  provinceDTO;
+
 
     public Long getId() {
         return id;
@@ -58,25 +64,39 @@ public class DistrictDTO implements Serializable {
         this.description = description;
     }
 
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public ProvinceDTO getProvinceDTO() {
+        return this.provinceDTO;
+    }
+
+    public void setProvinceDTO(ProvinceDTO provinceDTO ) {
+        this.provinceDTO = provinceDTO;
+    }
     public Long getProvinceId() {
         return provinceId;
-    }
+        }
 
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
-    }
-    
-    
+        }
 
-    public ProvinceDTO getProvinceDTO() {
-		return provinceDTO;
-	}
 
-	public void setProvinceDTO(ProvinceDTO provinceDTO) {
-		this.provinceDTO = provinceDTO;
-	}
-
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -97,11 +117,13 @@ public class DistrictDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-	@Override
-	public String toString() {
-		return "DistrictDTO [id=" + id + ", code=" + code + ", name=" + name + ", description=" + description
-				+ ", provinceId=" + provinceId + ", provinceDTO=" + provinceDTO + "]";
-	}
-
-    
+    @Override
+    public String toString() {
+        return "DistrictDTO{" +
+            "id=" + getId() +
+            ", code='" + getCode() + "'" +
+            ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
+            "}";
+    }
 }

@@ -8,13 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity OrderMain and its DTO OrderMainDTO.
  */
-@Mapper(componentModel = "spring", uses = {OrderPickupMapper.class, OrderConsigneeMapper.class, OrderFeeMapper.class, OrderDeliveryMapper.class, UserExtraInfoMapper.class, OrderStatusMapper.class, CustomerMapper.class, OrderServiceMapper.class, PostOfficeMapper.class})
+@Mapper(componentModel = "spring", uses = {OrderPickupMapper.class, OrderConsigneeMapper.class, OrderFeeMapper.class, OrderDeliveryMapper.class, CompanyMapper.class, UserExtraInfoMapper.class, OrderStatusMapper.class, CustomerMapper.class, OrderServiceMapper.class, PostOfficeMapper.class})
 public interface OrderMainMapper extends EntityMapper<OrderMainDTO, OrderMain> {
 
     @Mapping(source = "orderPickup.id", target = "orderPickupId")
     @Mapping(source = "orderConsignee.id", target = "orderConsigneeId")
     @Mapping(source = "orderFee.id", target = "orderFeeId")
     @Mapping(source = "orderDelivery.id", target = "orderDeliveryId")
+    @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "createUser.id", target = "createUserId")
     @Mapping(source = "orderStatus.id", target = "orderStatusId")
     @Mapping(source = "customer.id", target = "customerId")
@@ -27,6 +28,7 @@ public interface OrderMainMapper extends EntityMapper<OrderMainDTO, OrderMain> {
     @Mapping(source = "orderConsigneeId", target = "orderConsignee")
     @Mapping(source = "orderFeeId", target = "orderFee")
     @Mapping(source = "orderDeliveryId", target = "orderDelivery")
+    @Mapping(source = "companyId", target = "company")
     @Mapping(source = "createUserId", target = "createUser")
     @Mapping(source = "orderStatusId", target = "orderStatus")
     @Mapping(source = "customerId", target = "customer")

@@ -1,0 +1,29 @@
+
+{
+    "nextlogixApp": {
+        "orderUserRoute" : {
+            "home": {
+                "title": "Order User Routes",
+                "createLabel": "Create a new Order User Route",
+                "createOrEditLabel": "Create or edit a Order User Route",
+                "search": "Search for Order User Route"
+            },
+            "created": "A new Order User Route is created with identifier {{ param }}",
+            "updated": "A Order User Route is updated with identifier {{ param }}",
+            "deleted": "A Order User Route is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order User Route {{ id }}?"
+            },
+            "detail": {
+                "title": "Order User Route"
+            },
+            "company": "Company",
+            "user": "User",
+            "province": "Province",
+            "district": "District",
+            "orderUserRouteType": "Order User Route Type",
+            "ward": "Ward",
+            "customer": "Customer"
+        }
+    }
+}

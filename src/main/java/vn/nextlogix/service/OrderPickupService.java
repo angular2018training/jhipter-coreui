@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.OrderPickupDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.OrderPickupSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing OrderPickup.
@@ -19,9 +21,10 @@ public interface OrderPickupService {
     /**
      * Get all the orderPickups.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderPickupDTO> findAll();
+    Page<OrderPickupDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" orderPickup.
@@ -43,7 +46,12 @@ public interface OrderPickupService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderPickupDTO> search(String query);
-}
+    Page<OrderPickupDTO> search(String query, Pageable pageable);
+
+    Page<OrderPickupDTO> searchExample( OrderPickupSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

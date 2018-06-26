@@ -44,23 +44,58 @@ public class OrderMainDTO implements Serializable {
 
     private Long orderPickupId;
 
+    private OrderPickupDTO  orderPickupDTO;
+
+
     private Long orderConsigneeId;
+
+    private OrderConsigneeDTO  orderConsigneeDTO;
+
 
     private Long orderFeeId;
 
+    private OrderFeeDTO  orderFeeDTO;
+
+
     private Long orderDeliveryId;
+
+    private OrderDeliveryDTO  orderDeliveryDTO;
+
+
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
 
     private Long createUserId;
 
+    private UserExtraInfoDTO  createUserDTO;
+
+
     private Long orderStatusId;
+
+    private OrderStatusDTO  orderStatusDTO;
+
 
     private Long customerId;
 
+    private CustomerDTO  customerDTO;
+
+
     private Long mainServiceId;
+
+    private OrderServiceDTO  mainServiceDTO;
+
 
     private Long createPostOfficeId;
 
+    private PostOfficeDTO  createPostOfficeDTO;
+
+
     private Long currentPostOfficeId;
+
+    private PostOfficeDTO  currentPostOfficeDTO;
+
 
     public Long getId() {
         return id;
@@ -166,85 +201,181 @@ public class OrderMainDTO implements Serializable {
         this.codAmount = codAmount;
     }
 
+    public OrderPickupDTO getOrderPickupDTO() {
+        return this.orderPickupDTO;
+    }
+
+    public void setOrderPickupDTO(OrderPickupDTO orderPickupDTO ) {
+        this.orderPickupDTO = orderPickupDTO;
+    }
     public Long getOrderPickupId() {
         return orderPickupId;
-    }
+        }
 
     public void setOrderPickupId(Long orderPickupId) {
         this.orderPickupId = orderPickupId;
+        }
+
+
+    public OrderConsigneeDTO getOrderConsigneeDTO() {
+        return this.orderConsigneeDTO;
     }
 
+    public void setOrderConsigneeDTO(OrderConsigneeDTO orderConsigneeDTO ) {
+        this.orderConsigneeDTO = orderConsigneeDTO;
+    }
     public Long getOrderConsigneeId() {
         return orderConsigneeId;
-    }
+        }
 
     public void setOrderConsigneeId(Long orderConsigneeId) {
         this.orderConsigneeId = orderConsigneeId;
+        }
+
+
+    public OrderFeeDTO getOrderFeeDTO() {
+        return this.orderFeeDTO;
     }
 
+    public void setOrderFeeDTO(OrderFeeDTO orderFeeDTO ) {
+        this.orderFeeDTO = orderFeeDTO;
+    }
     public Long getOrderFeeId() {
         return orderFeeId;
-    }
+        }
 
     public void setOrderFeeId(Long orderFeeId) {
         this.orderFeeId = orderFeeId;
+        }
+
+
+    public OrderDeliveryDTO getOrderDeliveryDTO() {
+        return this.orderDeliveryDTO;
     }
 
+    public void setOrderDeliveryDTO(OrderDeliveryDTO orderDeliveryDTO ) {
+        this.orderDeliveryDTO = orderDeliveryDTO;
+    }
     public Long getOrderDeliveryId() {
         return orderDeliveryId;
-    }
+        }
 
     public void setOrderDeliveryId(Long orderDeliveryId) {
         this.orderDeliveryId = orderDeliveryId;
+        }
+
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
     }
 
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public UserExtraInfoDTO getCreateUserDTO() {
+        return this.createUserDTO;
+    }
+
+    public void setCreateUserDTO(UserExtraInfoDTO createUserDTO ) {
+        this.createUserDTO = createUserDTO;
+    }
     public Long getCreateUserId() {
         return createUserId;
-    }
+        }
 
     public void setCreateUserId(Long userExtraInfoId) {
         this.createUserId = userExtraInfoId;
+        }
+
+
+    public OrderStatusDTO getOrderStatusDTO() {
+        return this.orderStatusDTO;
     }
 
+    public void setOrderStatusDTO(OrderStatusDTO orderStatusDTO ) {
+        this.orderStatusDTO = orderStatusDTO;
+    }
     public Long getOrderStatusId() {
         return orderStatusId;
-    }
+        }
 
     public void setOrderStatusId(Long orderStatusId) {
         this.orderStatusId = orderStatusId;
+        }
+
+
+    public CustomerDTO getCustomerDTO() {
+        return this.customerDTO;
     }
 
+    public void setCustomerDTO(CustomerDTO customerDTO ) {
+        this.customerDTO = customerDTO;
+    }
     public Long getCustomerId() {
         return customerId;
-    }
+        }
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+        }
+
+
+    public OrderServiceDTO getMainServiceDTO() {
+        return this.mainServiceDTO;
     }
 
+    public void setMainServiceDTO(OrderServiceDTO mainServiceDTO ) {
+        this.mainServiceDTO = mainServiceDTO;
+    }
     public Long getMainServiceId() {
         return mainServiceId;
-    }
+        }
 
     public void setMainServiceId(Long orderServiceId) {
         this.mainServiceId = orderServiceId;
+        }
+
+
+    public PostOfficeDTO getCreatePostOfficeDTO() {
+        return this.createPostOfficeDTO;
     }
 
+    public void setCreatePostOfficeDTO(PostOfficeDTO createPostOfficeDTO ) {
+        this.createPostOfficeDTO = createPostOfficeDTO;
+    }
     public Long getCreatePostOfficeId() {
         return createPostOfficeId;
-    }
+        }
 
     public void setCreatePostOfficeId(Long postOfficeId) {
         this.createPostOfficeId = postOfficeId;
+        }
+
+
+    public PostOfficeDTO getCurrentPostOfficeDTO() {
+        return this.currentPostOfficeDTO;
     }
 
+    public void setCurrentPostOfficeDTO(PostOfficeDTO currentPostOfficeDTO ) {
+        this.currentPostOfficeDTO = currentPostOfficeDTO;
+    }
     public Long getCurrentPostOfficeId() {
         return currentPostOfficeId;
-    }
+        }
 
     public void setCurrentPostOfficeId(Long postOfficeId) {
         this.currentPostOfficeId = postOfficeId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

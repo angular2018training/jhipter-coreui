@@ -1,11 +1,26 @@
+
 {
     "nextlogixApp": {
-        "PaymentType" : {
-            "null": "",
-            "ONE_PER_WEEK": "ONE_PER_WEEK",
-            "TWO_PER_WEEK": "TWO_PER_WEEK",
-            "THREE_PER_WEEK": "THREE_PER_WEEK",
-            "DAILY": "DAILY"
+        "paymentType" : {
+            "home": {
+                "title": "Payment Types",
+                "createLabel": "Thêm mới một Payment Type",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Payment Type",
+                "search": "Tìm Payment Type"
+            },
+            "created": "Một Payment Type mới được tạo với định danh {{ param }}",
+            "updated": "Một Payment Type cập nhật với định danh {{ param }}",
+            "deleted": "Một Payment Type đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Payment Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Payment Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
         }
     }
 }

@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.PostOfficeDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.PostOfficeSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing PostOffice.
@@ -19,9 +21,10 @@ public interface PostOfficeService {
     /**
      * Get all the postOffices.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<PostOfficeDTO> findAll();
+    Page<PostOfficeDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" postOffice.
@@ -43,7 +46,12 @@ public interface PostOfficeService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<PostOfficeDTO> search(String query);
-}
+    Page<PostOfficeDTO> search(String query, Pageable pageable);
+
+    Page<PostOfficeDTO> searchExample( PostOfficeSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

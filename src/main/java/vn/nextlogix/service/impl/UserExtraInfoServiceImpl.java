@@ -5,15 +5,31 @@ import vn.nextlogix.domain.UserExtraInfo;
 import vn.nextlogix.repository.UserExtraInfoRepository;
 import vn.nextlogix.repository.search.UserExtraInfoSearchRepository;
 import vn.nextlogix.service.dto.UserExtraInfoDTO;
+import vn.nextlogix.service.dto.UserExtraInfoSearchDTO;
+import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.Company;
 import vn.nextlogix.service.mapper.UserExtraInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+    import java.util.stream.StreamSupport;
+
+    import java.util.List;
+    import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
+    import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -31,10 +47,20 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
 
     private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
 
-    public UserExtraInfoServiceImpl(UserExtraInfoRepository userExtraInfoRepository, UserExtraInfoMapper userExtraInfoMapper, UserExtraInfoSearchRepository userExtraInfoSearchRepository) {
+
+
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
+
+    public UserExtraInfoServiceImpl(UserExtraInfoRepository userExtraInfoRepository, UserExtraInfoMapper userExtraInfoMapper, UserExtraInfoSearchRepository userExtraInfoSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+) {
         this.userExtraInfoRepository = userExtraInfoRepository;
         this.userExtraInfoMapper = userExtraInfoMapper;
         this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
+
     }
 
     /**
@@ -77,7 +103,7 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
     @Transactional(readOnly = true)
     public UserExtraInfoDTO findOne(Long id) {
         log.debug("Request to get UserExtraInfo : {}", id);
-        UserExtraInfo userExtraInfo = userExtraInfoRepository.findOneWithEagerRelationships(id);
+        UserExtraInfo userExtraInfo = userExtraInfoRepository.findOne(id);
         return userExtraInfoMapper.toDto(userExtraInfo);
     }
 
@@ -107,4 +133,35 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
         Page<UserExtraInfo> result = userExtraInfoSearchRepository.search(queryStringQuery(query), pageable);
         return result.map(userExtraInfoMapper::toDto);
     }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<UserExtraInfoDTO> searchExample(UserExtraInfoSearchDTO searchDto, Pageable pageable) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getEmail())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("email", "*"+searchDto.getEmail()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getPhone())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("phone", "*"+searchDto.getPhone()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getAddress())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
+            }
+            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            Page<UserExtraInfo> userExtraInfoPage= userExtraInfoSearchRepository.search(query);
+            List<UserExtraInfoDTO> userExtraInfoList =  StreamSupport
+            .stream(userExtraInfoPage.spliterator(), false)
+            .map(userExtraInfoMapper::toDto)
+            .collect(Collectors.toList());
+            userExtraInfoList.forEach(userExtraInfoDto -> {
+            if(userExtraInfoDto.getCompanyId()!=null){
+                Company company= companySearchRepository.findOne(userExtraInfoDto.getCompanyId());
+                userExtraInfoDto.setCompanyDTO(companyMapper.toDto(company));
+            }
+            });
+            return new PageImpl<>(userExtraInfoList,pageable,userExtraInfoPage.getTotalElements());
+        }
 }

@@ -41,14 +41,6 @@ entity UserGroup {
     description String
 }
 
-
-entity Role {
-	id Long,
-    code String required,
-    name String required,
-    description String
-}
-
 entity Bank {
 	id Long,
     code String required,
@@ -75,12 +67,33 @@ enum CustomerType {
     NORMAL, VIP, CLIENT, SUPPER_VIP
 }
 
+enum CustomerSource {
+    WEB, FACEBOOK, APP, SALE
+}
+
 enum PaymentType {
     ONE_PER_WEEK, TWO_PER_WEEK, THREE_PER_WEEK, DAILY
 }
 
 enum QuotationItemType {
     ONE
+}
+
+enum OrderUserRouteType {
+    PICKUP, DELIVERY
+}
+
+// Company
+entity Customer {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+// OrderUserRoute
+entity OrderUserRoute{
+	routeType OrderUserRouteType
 }
 
 // File upload
@@ -101,7 +114,11 @@ entity UserExtraInfo {
 	id Long,
     email String,
     phone String,
-    address String
+    address String,
+    validDate Instant required,
+    lastLoginDate Instant,
+    contractFile Blob,
+    contractExpirationDate Instant
 }
 
 // Customer
@@ -114,13 +131,17 @@ entity Customer {
     phone String required,
     password String required,
     isActive Boolean required,
-    customerType CustomerType,
-    createDate Instant required
+    customerType CustomerType required,
+    customerSource CustomerSource required,
+    createDate Instant required,
+    lastLoginDate Instant,
+    apiToken String
 }
 
 entity CustomerLegal {
 	id Long,
     contractCustomerName String required,
+    contractAddress String required,
     contractContactName String,
     contractContactPhone String,
     taxCode String,
@@ -133,6 +154,8 @@ entity CustomerPayment {
     accountNumber String,
     accountName String required,
     cardNumber String,
+    paymentAmountMoney Double,
+    idImage Blob,
     isVerify Boolean required,
     dateVerify Instant,
     paymentType PaymentType required
@@ -141,6 +164,16 @@ entity CustomerPayment {
 entity CustomerPostOffice {
 	id Long,
     code String required,
+    isActive Boolean required,
+    createDate Instant required
+}
+
+entity Warehouse {
+	id Long,
+    name String required,
+    contactName String required,
+    contactPhone String required,
+    address String,
     createDate Instant required
 }
 
@@ -213,18 +246,15 @@ entity OrderDelivery {
 
 // defining multiple relationships with comments
 relationship ManyToMany {
-    UserExtraInfo{role} to Role
-    UserGroup{role} to Role
-    UserExtraInfo{userGroup} to UserGroup
+    UserPosition{userGroup} to UserGroup
     CustomerLegal{fileUpload} to FileUpload
 }
 
 relationship ManyToOne {
     Customer{manageUser} to UserExtraInfo
     Customer{saleUser} to UserExtraInfo
-    Customer{debtUser} to UserExtraInfo
-    Customer{province} to Province
-    Customer{district} to District
+    Customer{province required} to Province
+    Customer{district required} to District
     Ward{district required} to District
     District{province required} to Province
     PostOffice{province required} to Province
@@ -246,8 +276,18 @@ relationship ManyToOne {
     OrderConsignee{district required} to District
     OrderConsignee{province required} to Province
     OrderFee{quotation required} to Quotation
-    OrderDelivery{createUser} to UserExtraInfo
-    OrderDelivery{orderStatus} to OrderStatus
+    OrderDelivery{createUser required} to UserExtraInfo
+    OrderDelivery{orderStatus required} to OrderStatus
+    OrderUserRoute{user required} to UserExtraInfo
+    OrderUserRoute{province required} to Province
+    OrderUserRoute{district required} to District
+    OrderUserRoute{ward} to District
+    OrderUserRoute{customer} to Customer
+    CustomerLegal{province required} to Province
+    CustomerLegal{district required} to District
+    Warehouse{province required} to Province
+    Warehouse{district required} to District
+    Warehouse{ward required} to Ward
 }
 
 relationship OneToMany {
@@ -259,16 +299,17 @@ relationship OneToMany {
 relationship OneToOne {
     Customer{legal} to CustomerLegal
     Customer{payment} to CustomerPayment
+    Customer{warehouse} to Warehouse
     OrderMain{orderPickup} to OrderPickup
     OrderMain{orderConsignee} to OrderConsignee
     OrderMain{orderFee} to OrderFee
     OrderMain{orderDelivery} to OrderDelivery
 }
-filter Province
-// Set pagination options
-paginate Customer with infinite-scroll
-paginate UserExtraInfo with pagination
 
+filter *
+paginate * with pagination
+service all with serviceImpl
+search * with elasticsearch
 dto * with mapstruct
 
 // Set service options to all except few

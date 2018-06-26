@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.OrderConsigneeDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.OrderConsigneeSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing OrderConsignee.
@@ -19,9 +21,10 @@ public interface OrderConsigneeService {
     /**
      * Get all the orderConsignees.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderConsigneeDTO> findAll();
+    Page<OrderConsigneeDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" orderConsignee.
@@ -43,7 +46,12 @@ public interface OrderConsigneeService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderConsigneeDTO> search(String query);
-}
+    Page<OrderConsigneeDTO> search(String query, Pageable pageable);
+
+    Page<OrderConsigneeDTO> searchExample( OrderConsigneeSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

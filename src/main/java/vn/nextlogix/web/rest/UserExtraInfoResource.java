@@ -1,11 +1,15 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.UserExtraInfoService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
 import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.UserExtraInfoDTO;
+import vn.nextlogix.service.dto.UserExtraInfoSearchDTO;
+import vn.nextlogix.service.dto.UserExtraInfoCriteria;
+import vn.nextlogix.service.UserExtraInfoQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -38,8 +43,13 @@ public class UserExtraInfoResource {
 
     private final UserExtraInfoService userExtraInfoService;
 
-    public UserExtraInfoResource(UserExtraInfoService userExtraInfoService) {
+    private final UserExtraInfoQueryService userExtraInfoQueryService;
+
+    public UserExtraInfoResource(UserExtraInfoService userExtraInfoService, UserExtraInfoQueryService userExtraInfoQueryService     ) {
         this.userExtraInfoService = userExtraInfoService;
+        this.userExtraInfoQueryService = userExtraInfoQueryService;
+
+
     }
 
     /**
@@ -51,7 +61,7 @@ public class UserExtraInfoResource {
      */
     @PostMapping("/user-extra-infos")
     @Timed
-    public ResponseEntity<UserExtraInfoDTO> createUserExtraInfo(@RequestBody UserExtraInfoDTO userExtraInfoDTO) throws URISyntaxException {
+    public ResponseEntity<UserExtraInfoDTO> createUserExtraInfo(@Valid @RequestBody UserExtraInfoDTO userExtraInfoDTO) throws URISyntaxException {
         log.debug("REST request to save UserExtraInfo : {}", userExtraInfoDTO);
         if (userExtraInfoDTO.getId() != null) {
             throw new BadRequestAlertException("A new userExtraInfo cannot already have an ID", ENTITY_NAME, "idexists");
@@ -73,7 +83,7 @@ public class UserExtraInfoResource {
      */
     @PutMapping("/user-extra-infos")
     @Timed
-    public ResponseEntity<UserExtraInfoDTO> updateUserExtraInfo(@RequestBody UserExtraInfoDTO userExtraInfoDTO) throws URISyntaxException {
+    public ResponseEntity<UserExtraInfoDTO> updateUserExtraInfo(@Valid @RequestBody UserExtraInfoDTO userExtraInfoDTO) throws URISyntaxException {
         log.debug("REST request to update UserExtraInfo : {}", userExtraInfoDTO);
         if (userExtraInfoDTO.getId() == null) {
             return createUserExtraInfo(userExtraInfoDTO);
@@ -88,13 +98,14 @@ public class UserExtraInfoResource {
      * GET  /user-extra-infos : get all the userExtraInfos.
      *
      * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of userExtraInfos in body
      */
     @GetMapping("/user-extra-infos")
     @Timed
-    public ResponseEntity<List<UserExtraInfoDTO>> getAllUserExtraInfos(Pageable pageable) {
-        log.debug("REST request to get a page of UserExtraInfos");
-        Page<UserExtraInfoDTO> page = userExtraInfoService.findAll(pageable);
+    public ResponseEntity<List<UserExtraInfoDTO>> getAllUserExtraInfos(UserExtraInfoCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get UserExtraInfos by criteria: {}", criteria);
+        Page<UserExtraInfoDTO> page = userExtraInfoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/user-extra-infos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -143,5 +154,16 @@ public class UserExtraInfoResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/user-extra-infos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/user-extra-infos")
+    @Timed
+    public ResponseEntity<List<UserExtraInfoDTO>> searchExampleUserExtraInfos(UserExtraInfoSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of UserExtraInfos for searchDTO {}", searchDTO);
+        Page<UserExtraInfoDTO> page = userExtraInfoService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/user-extra-infos");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

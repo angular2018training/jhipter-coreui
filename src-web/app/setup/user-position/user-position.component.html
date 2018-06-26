@@ -1,0 +1,169 @@
+
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_company"
+                       jhiTranslate="nextlogixApp.userPosition.company">>Company:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="userPositionSearch.companyId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_postOffice"
+                       jhiTranslate="nextlogixApp.userPosition.postOffice">>Post Office:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userPositionSearch.postOfficeId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postoffices; trackBy: trackPostOfficeById">{{postOfficeOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_position"
+                       jhiTranslate="nextlogixApp.userPosition.position">>Position:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_position" name="position" [(ngModel)]="userPositionSearch.positionId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="positionOption.id" *ngFor="let positionOption of positions; trackBy: trackPositionById">{{positionOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_userGroup"
+                       jhiTranslate="nextlogixApp.userPosition.userGroup">>User Group:</label>
+                <div class="col-md-4">
+                    <label jhiTranslate="nextlogixApp.userPosition.userGroup" for="field_userGroup">User Group</label>
+                    <select class="form-control" id="field_userGroup" multiple name="userGroup" [(ngModel)]="userPositionSearch.userGroups">
+                    <option [ngValue]="getSelected(userPosition.userGroups, userGroupOption)" *ngFor="let userGroupOption of usergroups; trackBy: trackUserGroupById">{{userGroupOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_userExtraInfo"
+                       jhiTranslate="nextlogixApp.userPosition.userExtraInfo">>User Extra Info:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_userExtraInfo" name="userExtraInfo" [(ngModel)]="userPositionSearch.userExtraInfoId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.userPosition.home.title">Kết quả tìm kiếm</strong>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="userPositions">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.userPosition.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="postOfficeId"><span jhiTranslate="nextlogixApp.userPosition.postOffice">Post Office</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="positionId"><span jhiTranslate="nextlogixApp.userPosition.position">Position</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="userExtraInfoId"><span jhiTranslate="nextlogixApp.userPosition.userExtraInfo">User Extra Info</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let userPosition of userPositions ;trackBy: trackId">
+                    <td><a [routerLink]="[ userPosition.id,'view']">{{userPosition.id}}</a></td>
+                    <td>
+        <div *ngIf="userPosition.companyId">
+        <a [routerLink]="['../company', 'detail',userPosition.companyId ]" >{{userPosition.companyDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="userPosition.postOfficeId">
+        <a [routerLink]="['../post-office', 'detail',userPosition.postOfficeId ]" >{{userPosition.postOfficeDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="userPosition.positionId">
+        <a [routerLink]="['../position', 'detail',userPosition.positionId ]" >{{userPosition.positionDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="userPosition.userExtraInfoId">
+        <a [routerLink]="['../user-extra-info', 'detail',userPosition.userExtraInfoId ]" >{{userPosition.userExtraInfoDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[userPosition.id,'view' ]"
+                    class="btn btn-info btn-sm">
+                <i class="fa fa-eye"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+            </button>
+            <button type="submit"
+                    [routerLink]="[userPosition.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button (click)="deleteItem(userPosition.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="userPositions && userPositions.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>
+
+

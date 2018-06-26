@@ -22,6 +22,7 @@ import {errorRoute} from "./layouts/error/error.route";
 import {NextlogixSetupModule} from "./setup/setup.module";
 import {setupRouter} from "@angular/router/src/router_module";
 import {setupState} from "./setup/setup.route";
+import {customerManagementState} from "./customer-management/customer-management.route";
 
 export const routes: Routes = [
 
@@ -107,6 +108,14 @@ export const routes: Routes = [
         //loadChildren: ()=> NextlogixSetupModule,
         data: {
           breadcrumb: "Setup "
+        }
+      },
+      {
+        path:'customer-management',
+        children:customerManagementState,
+        //loadChildren: ()=> NextlogixSetupModule,
+        data: {
+          breadcrumb: "Customer Management "
         }
       },
       ...errorRoute

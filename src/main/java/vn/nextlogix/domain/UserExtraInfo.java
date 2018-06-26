@@ -5,9 +5,11 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -37,24 +39,31 @@ public class UserExtraInfo implements Serializable {
     @Column(name = "address")
     private String address;
 
+    @NotNull
+    @Column(name = "valid_date", nullable = false)
+    private Instant validDate;
+
+    @Column(name = "last_login_date")
+    private Instant lastLoginDate;
+
+    @Lob
+    @Column(name = "contract_file")
+    private byte[] contractFile;
+
+    @Column(name = "contract_file_content_type")
+    private String contractFileContentType;
+
+    @Column(name = "contract_expiration_date")
+    private Instant contractExpirationDate;
+
     @OneToMany(mappedBy = "userExtraInfo")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<UserPosition> userPositions = new HashSet<>();
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "user_extra_info_role",
-               joinColumns = @JoinColumn(name="user_extra_infos_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="roles_id", referencedColumnName="id"))
-    private Set<Role> roles = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "user_extra_info_user_group",
-               joinColumns = @JoinColumn(name="user_extra_infos_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="user_groups_id", referencedColumnName="id"))
-    private Set<UserGroup> userGroups = new HashSet<>();
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -104,6 +113,71 @@ public class UserExtraInfo implements Serializable {
         this.address = address;
     }
 
+    public Instant getValidDate() {
+        return validDate;
+    }
+
+    public UserExtraInfo validDate(Instant validDate) {
+        this.validDate = validDate;
+        return this;
+    }
+
+    public void setValidDate(Instant validDate) {
+        this.validDate = validDate;
+    }
+
+    public Instant getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public UserExtraInfo lastLoginDate(Instant lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+        return this;
+    }
+
+    public void setLastLoginDate(Instant lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    public byte[] getContractFile() {
+        return contractFile;
+    }
+
+    public UserExtraInfo contractFile(byte[] contractFile) {
+        this.contractFile = contractFile;
+        return this;
+    }
+
+    public void setContractFile(byte[] contractFile) {
+        this.contractFile = contractFile;
+    }
+
+    public String getContractFileContentType() {
+        return contractFileContentType;
+    }
+
+    public UserExtraInfo contractFileContentType(String contractFileContentType) {
+        this.contractFileContentType = contractFileContentType;
+        return this;
+    }
+
+    public void setContractFileContentType(String contractFileContentType) {
+        this.contractFileContentType = contractFileContentType;
+    }
+
+    public Instant getContractExpirationDate() {
+        return contractExpirationDate;
+    }
+
+    public UserExtraInfo contractExpirationDate(Instant contractExpirationDate) {
+        this.contractExpirationDate = contractExpirationDate;
+        return this;
+    }
+
+    public void setContractExpirationDate(Instant contractExpirationDate) {
+        this.contractExpirationDate = contractExpirationDate;
+    }
+
     public Set<UserPosition> getUserPositions() {
         return userPositions;
     }
@@ -129,50 +203,17 @@ public class UserExtraInfo implements Serializable {
         this.userPositions = userPositions;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Company getCompany() {
+        return company;
     }
 
-    public UserExtraInfo roles(Set<Role> roles) {
-        this.roles = roles;
+    public UserExtraInfo company(Company company) {
+        this.company = company;
         return this;
     }
 
-    public UserExtraInfo addRole(Role role) {
-        this.roles.add(role);
-        return this;
-    }
-
-    public UserExtraInfo removeRole(Role role) {
-        this.roles.remove(role);
-        return this;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Set<UserGroup> getUserGroups() {
-        return userGroups;
-    }
-
-    public UserExtraInfo userGroups(Set<UserGroup> userGroups) {
-        this.userGroups = userGroups;
-        return this;
-    }
-
-    public UserExtraInfo addUserGroup(UserGroup userGroup) {
-        this.userGroups.add(userGroup);
-        return this;
-    }
-
-    public UserExtraInfo removeUserGroup(UserGroup userGroup) {
-        this.userGroups.remove(userGroup);
-        return this;
-    }
-
-    public void setUserGroups(Set<UserGroup> userGroups) {
-        this.userGroups = userGroups;
+    public void setCompany(Company company) {
+        this.company = company;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -203,6 +244,11 @@ public class UserExtraInfo implements Serializable {
             ", email='" + getEmail() + "'" +
             ", phone='" + getPhone() + "'" +
             ", address='" + getAddress() + "'" +
+            ", validDate='" + getValidDate() + "'" +
+            ", lastLoginDate='" + getLastLoginDate() + "'" +
+            ", contractFile='" + getContractFile() + "'" +
+            ", contractFileContentType='" + getContractFileContentType() + "'" +
+            ", contractExpirationDate='" + getContractExpirationDate() + "'" +
             "}";
     }
 }

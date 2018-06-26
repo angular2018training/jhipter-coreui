@@ -1,0 +1,2 @@
+-- DROP table and run liquibase
+mvn liquibase:dropAll liquibase:update

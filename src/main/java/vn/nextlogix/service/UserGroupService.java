@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.UserGroupDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.UserGroupSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing UserGroup.
@@ -19,9 +21,10 @@ public interface UserGroupService {
     /**
      * Get all the userGroups.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<UserGroupDTO> findAll();
+    Page<UserGroupDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" userGroup.
@@ -43,7 +46,12 @@ public interface UserGroupService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<UserGroupDTO> search(String query);
-}
+    Page<UserGroupDTO> search(String query, Pageable pageable);
+
+    Page<UserGroupDTO> searchExample( UserGroupSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

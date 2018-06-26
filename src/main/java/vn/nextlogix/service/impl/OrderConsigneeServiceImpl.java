@@ -5,17 +5,38 @@ import vn.nextlogix.domain.OrderConsignee;
 import vn.nextlogix.repository.OrderConsigneeRepository;
 import vn.nextlogix.repository.search.OrderConsigneeSearchRepository;
 import vn.nextlogix.service.dto.OrderConsigneeDTO;
+import vn.nextlogix.service.dto.OrderConsigneeSearchDTO;
+import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.Company;
+    import vn.nextlogix.domain.District;
+    import vn.nextlogix.domain.Province;
 import vn.nextlogix.service.mapper.OrderConsigneeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+    import java.util.stream.StreamSupport;
+
+    import java.util.List;
+    import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
+
+    import vn.nextlogix.repository.search.DistrictSearchRepository;
+    import vn.nextlogix.service.mapper.DistrictMapper;
+
+    import vn.nextlogix.repository.search.ProvinceSearchRepository;
+    import vn.nextlogix.service.mapper.ProvinceMapper;
+    import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -33,10 +54,31 @@ public class OrderConsigneeServiceImpl implements OrderConsigneeService {
 
     private final OrderConsigneeSearchRepository orderConsigneeSearchRepository;
 
-    public OrderConsigneeServiceImpl(OrderConsigneeRepository orderConsigneeRepository, OrderConsigneeMapper orderConsigneeMapper, OrderConsigneeSearchRepository orderConsigneeSearchRepository) {
+
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
+        private final DistrictSearchRepository districtSearchRepository;
+        private final DistrictMapper districtMapper;
+
+        private final ProvinceSearchRepository provinceSearchRepository;
+        private final ProvinceMapper provinceMapper;
+
+
+    public OrderConsigneeServiceImpl(OrderConsigneeRepository orderConsigneeRepository, OrderConsigneeMapper orderConsigneeMapper, OrderConsigneeSearchRepository orderConsigneeSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
+,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+) {
         this.orderConsigneeRepository = orderConsigneeRepository;
         this.orderConsigneeMapper = orderConsigneeMapper;
         this.orderConsigneeSearchRepository = orderConsigneeSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
+                                    this.districtSearchRepository = districtSearchRepository;
+                                     this.districtMapper = districtMapper;
+                                    this.provinceSearchRepository = provinceSearchRepository;
+                                     this.provinceMapper = provinceMapper;
+
     }
 
     /**
@@ -58,15 +100,15 @@ public class OrderConsigneeServiceImpl implements OrderConsigneeService {
     /**
      * Get all the orderConsignees.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OrderConsigneeDTO> findAll() {
+    public Page<OrderConsigneeDTO> findAll(Pageable pageable) {
         log.debug("Request to get all OrderConsignees");
-        return orderConsigneeRepository.findAll().stream()
-            .map(orderConsigneeMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return orderConsigneeRepository.findAll(pageable)
+            .map(orderConsigneeMapper::toDto);
     }
 
     /**
@@ -99,15 +141,53 @@ public class OrderConsigneeServiceImpl implements OrderConsigneeService {
      * Search for the orderConsignee corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OrderConsigneeDTO> search(String query) {
-        log.debug("Request to search OrderConsignees for query {}", query);
-        return StreamSupport
-            .stream(orderConsigneeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+    public Page<OrderConsigneeDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of OrderConsignees for query {}", query);
+        Page<OrderConsignee> result = orderConsigneeSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(orderConsigneeMapper::toDto);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<OrderConsigneeDTO> searchExample(OrderConsigneeSearchDTO searchDto, Pageable pageable) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getAddress())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getConsigneePhone())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("consigneePhone", "*"+searchDto.getConsigneePhone()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getConsigneeName())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("consigneeName", "*"+searchDto.getConsigneeName()+"*"));
+            }
+            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            Page<OrderConsignee> orderConsigneePage= orderConsigneeSearchRepository.search(query);
+            List<OrderConsigneeDTO> orderConsigneeList =  StreamSupport
+            .stream(orderConsigneePage.spliterator(), false)
             .map(orderConsigneeMapper::toDto)
             .collect(Collectors.toList());
-    }
+            orderConsigneeList.forEach(orderConsigneeDto -> {
+            if(orderConsigneeDto.getCompanyId()!=null){
+                Company company= companySearchRepository.findOne(orderConsigneeDto.getCompanyId());
+                orderConsigneeDto.setCompanyDTO(companyMapper.toDto(company));
+            }
+            if(orderConsigneeDto.getDistrictId()!=null){
+                District district= districtSearchRepository.findOne(orderConsigneeDto.getDistrictId());
+                orderConsigneeDto.setDistrictDTO(districtMapper.toDto(district));
+            }
+            if(orderConsigneeDto.getProvinceId()!=null){
+                Province province= provinceSearchRepository.findOne(orderConsigneeDto.getProvinceId());
+                orderConsigneeDto.setProvinceDTO(provinceMapper.toDto(province));
+            }
+            });
+            return new PageImpl<>(orderConsigneeList,pageable,orderConsigneePage.getTotalElements());
+        }
 }

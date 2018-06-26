@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.BankService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.BankDTO;
+import vn.nextlogix.service.dto.BankSearchDTO;
+import vn.nextlogix.service.dto.BankCriteria;
+import vn.nextlogix.service.BankQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class BankResource {
 
     private final BankService bankService;
 
-    public BankResource(BankService bankService) {
+    private final BankQueryService bankQueryService;
+
+    public BankResource(BankService bankService, BankQueryService bankQueryService     ) {
         this.bankService = bankService;
+        this.bankQueryService = bankQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class BankResource {
     /**
      * GET  /banks : get all the banks.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of banks in body
      */
     @GetMapping("/banks")
     @Timed
-    public List<BankDTO> getAllBanks() {
-        log.debug("REST request to get all Banks");
-        return bankService.findAll();
-        }
+    public ResponseEntity<List<BankDTO>> getAllBanks(BankCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Banks by criteria: {}", criteria);
+        Page<BankDTO> page = bankQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/banks");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /banks/:id : get the "id" bank.
@@ -125,13 +143,27 @@ public class BankResource {
      * to the query.
      *
      * @param query the query of the bank search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/banks")
     @Timed
-    public List<BankDTO> searchBanks(@RequestParam String query) {
-        log.debug("REST request to search Banks for query {}", query);
-        return bankService.search(query);
+    public ResponseEntity<List<BankDTO>> searchBanks(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Banks for query {}", query);
+        Page<BankDTO> page = bankService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/banks");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/banks")
+    @Timed
+    public ResponseEntity<List<BankDTO>> searchExampleBanks(BankSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of Banks for searchDTO {}", searchDTO);
+        Page<BankDTO> page = bankService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/banks");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

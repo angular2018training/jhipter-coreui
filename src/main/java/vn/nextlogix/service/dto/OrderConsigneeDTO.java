@@ -22,9 +22,20 @@ public class OrderConsigneeDTO implements Serializable {
 
     private String consigneeName;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long districtId;
 
+    private DistrictDTO  districtDTO;
+
+
     private Long provinceId;
+
+    private ProvinceDTO  provinceDTO;
+
 
     public Long getId() {
         return id;
@@ -58,21 +69,53 @@ public class OrderConsigneeDTO implements Serializable {
         this.consigneeName = consigneeName;
     }
 
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public DistrictDTO getDistrictDTO() {
+        return this.districtDTO;
+    }
+
+    public void setDistrictDTO(DistrictDTO districtDTO ) {
+        this.districtDTO = districtDTO;
+    }
     public Long getDistrictId() {
         return districtId;
-    }
+        }
 
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
+        }
+
+
+    public ProvinceDTO getProvinceDTO() {
+        return this.provinceDTO;
     }
 
+    public void setProvinceDTO(ProvinceDTO provinceDTO ) {
+        this.provinceDTO = provinceDTO;
+    }
     public Long getProvinceId() {
         return provinceId;
-    }
+        }
 
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

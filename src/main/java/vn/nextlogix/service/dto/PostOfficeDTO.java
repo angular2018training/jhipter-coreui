@@ -22,7 +22,15 @@ public class PostOfficeDTO implements Serializable {
 
     private String description;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     private Long provinceId;
+
+    private ProvinceDTO  provinceDTO;
+
 
     public Long getId() {
         return id;
@@ -56,13 +64,37 @@ public class PostOfficeDTO implements Serializable {
         this.description = description;
     }
 
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
+
+    public ProvinceDTO getProvinceDTO() {
+        return this.provinceDTO;
+    }
+
+    public void setProvinceDTO(ProvinceDTO provinceDTO ) {
+        this.provinceDTO = provinceDTO;
+    }
     public Long getProvinceId() {
         return provinceId;
-    }
+        }
 
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
-    }
+        }
+
 
     @Override
     public boolean equals(Object o) {

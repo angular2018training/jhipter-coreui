@@ -8,12 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity PostOffice and its DTO PostOfficeDTO.
  */
-@Mapper(componentModel = "spring", uses = {ProvinceMapper.class})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class, ProvinceMapper.class})
 public interface PostOfficeMapper extends EntityMapper<PostOfficeDTO, PostOffice> {
 
+    @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "province.id", target = "provinceId")
     PostOfficeDTO toDto(PostOffice postOffice);
 
+    @Mapping(source = "companyId", target = "company")
     @Mapping(source = "provinceId", target = "province")
     PostOffice toEntity(PostOfficeDTO postOfficeDTO);
 

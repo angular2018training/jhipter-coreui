@@ -46,6 +46,10 @@ public class OrderPickup implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private Ward ward;
 
     @ManyToOne(optional = false)
@@ -131,6 +135,19 @@ public class OrderPickup implements Serializable {
 
     public void setPickupDate(Instant pickupDate) {
         this.pickupDate = pickupDate;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public OrderPickup company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Ward getWard() {

@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.OrderFeeDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.OrderFeeSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing OrderFee.
@@ -19,9 +21,10 @@ public interface OrderFeeService {
     /**
      * Get all the orderFees.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderFeeDTO> findAll();
+    Page<OrderFeeDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" orderFee.
@@ -43,7 +46,12 @@ public interface OrderFeeService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<OrderFeeDTO> search(String query);
-}
+    Page<OrderFeeDTO> search(String query, Pageable pageable);
+
+    Page<OrderFeeDTO> searchExample( OrderFeeSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

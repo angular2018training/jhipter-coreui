@@ -115,10 +115,6 @@ public class ElasticsearchIndexService {
 
     private final QuotationItemSearchRepository quotationItemSearchRepository;
 
-    private final RoleRepository roleRepository;
-
-    private final RoleSearchRepository roleSearchRepository;
-
     private final UserExtraInfoRepository userExtraInfoRepository;
 
     private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
@@ -138,6 +134,11 @@ public class ElasticsearchIndexService {
     private final UserRepository userRepository;
 
     private final UserSearchRepository userSearchRepository;
+    
+
+    private final WarehouseRepository warehouseRepository;
+
+    private final WarehouseSearchRepository warehouseSearchRepository;
 
     private final ElasticsearchTemplate elasticsearchTemplate;
 
@@ -182,8 +183,6 @@ public class ElasticsearchIndexService {
         QuotationSearchRepository quotationSearchRepository,
         QuotationItemRepository quotationItemRepository,
         QuotationItemSearchRepository quotationItemSearchRepository,
-        RoleRepository roleRepository,
-        RoleSearchRepository roleSearchRepository,
         UserExtraInfoRepository userExtraInfoRepository,
         UserExtraInfoSearchRepository userExtraInfoSearchRepository,
         UserGroupRepository userGroupRepository,
@@ -192,6 +191,8 @@ public class ElasticsearchIndexService {
         UserPositionSearchRepository userPositionSearchRepository,
         WardRepository wardRepository,
         WardSearchRepository wardSearchRepository,
+        WarehouseRepository warehouseRepository,
+        WarehouseSearchRepository warehouseSearchRepository,
         ElasticsearchTemplate elasticsearchTemplate) {
         this.userRepository = userRepository;
         this.userSearchRepository = userSearchRepository;
@@ -233,8 +234,6 @@ public class ElasticsearchIndexService {
         this.quotationSearchRepository = quotationSearchRepository;
         this.quotationItemRepository = quotationItemRepository;
         this.quotationItemSearchRepository = quotationItemSearchRepository;
-        this.roleRepository = roleRepository;
-        this.roleSearchRepository = roleSearchRepository;
         this.userExtraInfoRepository = userExtraInfoRepository;
         this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
         this.userGroupRepository = userGroupRepository;
@@ -243,6 +242,8 @@ public class ElasticsearchIndexService {
         this.userPositionSearchRepository = userPositionSearchRepository;
         this.wardRepository = wardRepository;
         this.wardSearchRepository = wardSearchRepository;
+        this.warehouseRepository = warehouseRepository;
+        this.warehouseSearchRepository = warehouseSearchRepository;
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
@@ -270,12 +271,12 @@ public class ElasticsearchIndexService {
                 reindexForClass(Province.class, provinceRepository, provinceSearchRepository);
                 reindexForClass(Quotation.class, quotationRepository, quotationSearchRepository);
                 reindexForClass(QuotationItem.class, quotationItemRepository, quotationItemSearchRepository);
-                reindexForClass(Role.class, roleRepository, roleSearchRepository);
                 reindexForClass(UserExtraInfo.class, userExtraInfoRepository, userExtraInfoSearchRepository);
                 reindexForClass(UserGroup.class, userGroupRepository, userGroupSearchRepository);
                 reindexForClass(UserPosition.class, userPositionRepository, userPositionSearchRepository);
                 reindexForClass(Ward.class, wardRepository, wardSearchRepository);
                 reindexForClass(User.class, userRepository, userSearchRepository);
+                reindexForClass(Warehouse.class,warehouseRepository,warehouseSearchRepository);
 
                 log.info("Elasticsearch: Successfully performed reindexing");
             } finally {

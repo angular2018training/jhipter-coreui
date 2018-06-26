@@ -1,13 +1,22 @@
 package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import vn.nextlogix.exception.ApplicationException;
 import vn.nextlogix.service.CustomerPostOfficeService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
+import vn.nextlogix.web.rest.util.PaginationUtil;
 import vn.nextlogix.service.dto.CustomerPostOfficeDTO;
+import vn.nextlogix.service.dto.CustomerPostOfficeSearchDTO;
+import vn.nextlogix.service.dto.CustomerPostOfficeCriteria;
+import vn.nextlogix.service.CustomerPostOfficeQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +43,13 @@ public class CustomerPostOfficeResource {
 
     private final CustomerPostOfficeService customerPostOfficeService;
 
-    public CustomerPostOfficeResource(CustomerPostOfficeService customerPostOfficeService) {
+    private final CustomerPostOfficeQueryService customerPostOfficeQueryService;
+
+    public CustomerPostOfficeResource(CustomerPostOfficeService customerPostOfficeService, CustomerPostOfficeQueryService customerPostOfficeQueryService     ) {
         this.customerPostOfficeService = customerPostOfficeService;
+        this.customerPostOfficeQueryService = customerPostOfficeQueryService;
+
+
     }
 
     /**
@@ -83,14 +97,18 @@ public class CustomerPostOfficeResource {
     /**
      * GET  /customer-post-offices : get all the customerPostOffices.
      *
+     * @param pageable the pagination information
+     * @param criteria the criterias which the requested entities should match
      * @return the ResponseEntity with status 200 (OK) and the list of customerPostOffices in body
      */
     @GetMapping("/customer-post-offices")
     @Timed
-    public List<CustomerPostOfficeDTO> getAllCustomerPostOffices() {
-        log.debug("REST request to get all CustomerPostOffices");
-        return customerPostOfficeService.findAll();
-        }
+    public ResponseEntity<List<CustomerPostOfficeDTO>> getAllCustomerPostOffices(CustomerPostOfficeCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get CustomerPostOffices by criteria: {}", criteria);
+        Page<CustomerPostOfficeDTO> page = customerPostOfficeQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customer-post-offices");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /customer-post-offices/:id : get the "id" customerPostOffice.
@@ -125,13 +143,27 @@ public class CustomerPostOfficeResource {
      * to the query.
      *
      * @param query the query of the customerPostOffice search
+     * @param pageable the pagination information
      * @return the result of the search
      */
     @GetMapping("/_search/customer-post-offices")
     @Timed
-    public List<CustomerPostOfficeDTO> searchCustomerPostOffices(@RequestParam String query) {
-        log.debug("REST request to search CustomerPostOffices for query {}", query);
-        return customerPostOfficeService.search(query);
+    public ResponseEntity<List<CustomerPostOfficeDTO>> searchCustomerPostOffices(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of CustomerPostOffices for query {}", query);
+        Page<CustomerPostOfficeDTO> page = customerPostOfficeService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/customer-post-offices");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+
+    @GetMapping("/_search_example/customer-post-offices")
+    @Timed
+    public ResponseEntity<List<CustomerPostOfficeDTO>> searchExampleCustomerPostOffices(CustomerPostOfficeSearchDTO searchDTO , Pageable pageable) throws ApplicationException {
+        log.debug("REST request to search example for a page of CustomerPostOffices for searchDTO {}", searchDTO);
+        Page<CustomerPostOfficeDTO> page = customerPostOfficeService.searchExample(searchDTO, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(searchDTO, page, "/api/_search_example/customer-post-offices");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 }

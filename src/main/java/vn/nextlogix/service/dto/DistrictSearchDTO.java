@@ -1,59 +1,116 @@
-package vn.nextlogix.service.dto;
+    package vn.nextlogix.service.dto;
+
+
+    import javax.validation.constraints.*;
+    import java.io.Serializable;
+    import java.util.HashSet;
+    import java.util.Set;
+    import java.util.Objects;
 
 /**
- * Created by USER on 6/15/2018.
+ * A DTO for the District entity.
  */
-public class DistrictSearchDTO {
-    private String code;
+public class DistrictSearchDTO implements Serializable {
 
-    private String name;
+private Long id;
 
-    private String description;
 
-    private Long provinceId;
-    
-    
+private String code;
 
-	public DistrictSearchDTO(String code, String name, String description, Long provinceId) {
-		super();
-		this.code = code;
-		this.name = name;
-		this.description = description;
-		this.provinceId = provinceId;
-	}
 
-	public String getCode() {
-		return code;
-	}
+private String name;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
 
-	public String getName() {
-		return name;
-	}
+private String description;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+private Long companyId;
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
-	public Long getProvinceId() {
-		return provinceId;
-	}
+private Long provinceId;
 
-	public void setProvinceId(Long provinceId) {
-		this.provinceId = provinceId;
-	}
 
-	
-	
-}
+
+public Long getId() {
+    return id;
+    }
+
+public void setId(Long id) {
+    this.id = id;
+    }
+
+public String getCode() {
+    return code;
+    }
+
+public void setCode(String code) {
+    this.code = code;
+    }
+
+public String getName() {
+    return name;
+    }
+
+public void setName(String name) {
+    this.name = name;
+    }
+
+public String getDescription() {
+    return description;
+    }
+
+public void setDescription(String description) {
+    this.description = description;
+    }
+
+
+public Long getCompanyId() {
+    return companyId;
+    }
+
+public void setCompanyId(Long companyId) {
+    this.companyId = companyId;
+    }
+
+
+
+public Long getProvinceId() {
+    return provinceId;
+    }
+
+public void setProvinceId(Long provinceId) {
+    this.provinceId = provinceId;
+    }
+
+
+@Override
+public boolean equals(Object o) {
+    if (this == o) {
+    return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+    return false;
+    }
+
+DistrictSearchDTO districtSearchDTO = (DistrictSearchDTO) o;
+    if(districtSearchDTO.getId() == null || getId() == null) {
+    return false;
+    }
+    return Objects.equals(getId(), districtSearchDTO.getId());
+    }
+
+@Override
+public int hashCode() {
+    return Objects.hashCode(getId());
+    }
+
+@Override
+public String toString() {
+    return "DistrictSearchDTO{" +
+    "id=" + getId() +
+    ", code='" + getCode() + "'" +
+    ", name='" + getName() + "'" +
+    ", description='" + getDescription() + "'" +
+    "}";
+    }
+    }

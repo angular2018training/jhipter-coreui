@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.PositionDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.PositionSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing Position.
@@ -19,9 +21,10 @@ public interface PositionService {
     /**
      * Get all the positions.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<PositionDTO> findAll();
+    Page<PositionDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" position.
@@ -43,7 +46,12 @@ public interface PositionService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<PositionDTO> search(String query);
-}
+    Page<PositionDTO> search(String query, Pageable pageable);
+
+    Page<PositionDTO> searchExample( PositionSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

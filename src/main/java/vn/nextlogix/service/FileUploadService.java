@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.FileUploadDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.FileUploadSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing FileUpload.
@@ -19,9 +21,10 @@ public interface FileUploadService {
     /**
      * Get all the fileUploads.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<FileUploadDTO> findAll();
+    Page<FileUploadDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" fileUpload.
@@ -43,7 +46,12 @@ public interface FileUploadService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<FileUploadDTO> search(String query);
-}
+    Page<FileUploadDTO> search(String query, Pageable pageable);
+
+    Page<FileUploadDTO> searchExample( FileUploadSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

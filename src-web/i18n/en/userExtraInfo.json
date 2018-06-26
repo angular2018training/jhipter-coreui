@@ -20,9 +20,12 @@
             "email": "Email",
             "phone": "Phone",
             "address": "Address",
+            "validDate": "Valid Date",
+            "lastLoginDate": "Last Login Date",
+            "contractFile": "Contract File",
+            "contractExpirationDate": "Contract Expiration Date",
             "userPosition": "User Position",
-            "role": "Role",
-            "userGroup": "User Group"
+            "company": "Company"
         }
     }
 }

@@ -39,6 +39,10 @@ public class OrderConsignee implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private District district;
 
     @ManyToOne(optional = false)
@@ -91,6 +95,19 @@ public class OrderConsignee implements Serializable {
 
     public void setConsigneeName(String consigneeName) {
         this.consigneeName = consigneeName;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public OrderConsignee company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public District getDistrict() {

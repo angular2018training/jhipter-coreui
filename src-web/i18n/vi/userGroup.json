@@ -20,7 +20,7 @@
             "code": "Code",
             "name": "Name",
             "description": "Description",
-            "role": "Role"
+            "company": "Company"
         }
     }
 }

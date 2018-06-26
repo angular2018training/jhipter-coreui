@@ -1,7 +1,9 @@
 package vn.nextlogix.service;
 
 import vn.nextlogix.service.dto.UserPositionDTO;
-import java.util.List;
+import vn.nextlogix.service.dto.UserPositionSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing UserPosition.
@@ -19,9 +21,10 @@ public interface UserPositionService {
     /**
      * Get all the userPositions.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<UserPositionDTO> findAll();
+    Page<UserPositionDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" userPosition.
@@ -43,7 +46,12 @@ public interface UserPositionService {
      *
      * @param query the query of the search
      * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<UserPositionDTO> search(String query);
-}
+    Page<UserPositionDTO> search(String query, Pageable pageable);
+
+    Page<UserPositionDTO> searchExample( UserPositionSearchDTO searchDTO, Pageable pageable);
+    
+
+    }

@@ -47,6 +47,10 @@ public class FileUpload implements Serializable {
     @Column(name = "content_type", nullable = false)
     private String contentType;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -119,6 +123,19 @@ public class FileUpload implements Serializable {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public FileUpload company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

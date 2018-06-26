@@ -1,0 +1,43 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.userGroup.detail.title">User Group</span> {{userGroup.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="userGroup">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.userGroup.code">Code</span></dt>
+        <dd>
+            <span>{{userGroup.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.userGroup.name">Name</span></dt>
+        <dd>
+            <span>{{userGroup.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.userGroup.description">Description</span></dt>
+        <dd>
+            <span>{{userGroup.description}}</span>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'user-group', userGroup.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

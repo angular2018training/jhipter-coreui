@@ -1,0 +1,31 @@
+
+{
+    "nextlogixApp": {
+        "warehouse" : {
+            "home": {
+                "title": "Warehouses",
+                "createLabel": "Create a new Warehouse",
+                "createOrEditLabel": "Create or edit a Warehouse",
+                "search": "Search for Warehouse"
+            },
+            "created": "A new Warehouse is created with identifier {{ param }}",
+            "updated": "A Warehouse is updated with identifier {{ param }}",
+            "deleted": "A Warehouse is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Warehouse {{ id }}?"
+            },
+            "detail": {
+                "title": "Warehouse"
+            },
+            "name": "Name",
+            "contactName": "Contact Name",
+            "contactPhone": "Contact Phone",
+            "address": "Address",
+            "createDate": "Create Date",
+            "company": "Company",
+            "province": "Province",
+            "district": "District",
+            "ward": "Ward"
+        }
+    }
+}

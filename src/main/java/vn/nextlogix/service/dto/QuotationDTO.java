@@ -22,6 +22,11 @@ public class QuotationDTO implements Serializable {
 
     private Instant createDate;
 
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
+
     public Long getId() {
         return id;
     }
@@ -53,6 +58,22 @@ public class QuotationDTO implements Serializable {
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
 
     @Override
     public boolean equals(Object o) {

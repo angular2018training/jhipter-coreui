@@ -1,11 +1,9 @@
 package vn.nextlogix.service;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import vn.nextlogix.service.dto.DistrictDTO;
 import vn.nextlogix.service.dto.DistrictSearchDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing District.
@@ -23,9 +21,10 @@ public interface DistrictService {
     /**
      * Get all the districts.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<DistrictDTO> findAll();
+    Page<DistrictDTO> findAll(Pageable pageable);
 
     /**
      * Get the "id" district.
@@ -46,11 +45,13 @@ public interface DistrictService {
      * Search for the district corresponding to the query.
      *
      * @param query the query of the search
-     *
+     * 
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<DistrictDTO> search(String query);
+    Page<DistrictDTO> search(String query, Pageable pageable);
 
-    Page<DistrictDTO> searchByExample(DistrictSearchDTO searchDto, Pageable pageable);
+    Page<DistrictDTO> searchExample( DistrictSearchDTO searchDTO, Pageable pageable);
+    
 
-}
+    }

@@ -21,6 +21,7 @@
             "note": "Note",
             "receiveTime": "Receive Time",
             "createDate": "Create Date",
+            "company": "Company",
             "createUser": "Create User",
             "orderStatus": "Order Status"
         }

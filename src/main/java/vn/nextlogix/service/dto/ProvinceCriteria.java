@@ -34,6 +34,8 @@ public class ProvinceCriteria implements Serializable {
 
     private StringFilter description;
 
+    private LongFilter companyId;
+
     public ProvinceCriteria() {
     }
 
@@ -69,6 +71,14 @@ public class ProvinceCriteria implements Serializable {
         this.description = description;
     }
 
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
+    }
+
     @Override
     public String toString() {
         return "ProvinceCriteria{" +
@@ -76,6 +86,7 @@ public class ProvinceCriteria implements Serializable {
                 (code != null ? "code=" + code + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

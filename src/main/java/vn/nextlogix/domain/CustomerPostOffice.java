@@ -32,11 +32,19 @@ public class CustomerPostOffice implements Serializable {
     private String code;
 
     @NotNull
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
+
+    @NotNull
     @Column(name = "create_date", nullable = false)
     private Instant createDate;
 
     @ManyToOne
     private Customer customer;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Company company;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -64,6 +72,19 @@ public class CustomerPostOffice implements Serializable {
         this.code = code;
     }
 
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public CustomerPostOffice isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public Instant getCreateDate() {
         return createDate;
     }
@@ -88,6 +109,19 @@ public class CustomerPostOffice implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public CustomerPostOffice company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public PostOffice getPostOffice() {
@@ -129,6 +163,7 @@ public class CustomerPostOffice implements Serializable {
         return "CustomerPostOffice{" +
             "id=" + getId() +
             ", code='" + getCode() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             "}";
     }

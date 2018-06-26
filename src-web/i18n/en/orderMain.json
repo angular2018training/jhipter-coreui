@@ -33,6 +33,7 @@
             "orderConsignee": "Order Consignee",
             "orderFee": "Order Fee",
             "orderDelivery": "Order Delivery",
+            "company": "Company",
             "createUser": "Create User",
             "orderStatus": "Order Status",
             "customer": "Customer",

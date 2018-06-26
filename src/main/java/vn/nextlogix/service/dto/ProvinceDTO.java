@@ -3,6 +3,8 @@ package vn.nextlogix.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -19,6 +21,11 @@ public class ProvinceDTO implements Serializable {
     private String name;
 
     private String description;
+
+    private Long companyId;
+
+    private CompanyDTO  companyDTO;
+
 
     public Long getId() {
         return id;
@@ -51,6 +58,22 @@ public class ProvinceDTO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public CompanyDTO getCompanyDTO() {
+        return this.companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO ) {
+        this.companyDTO = companyDTO;
+    }
+    public Long getCompanyId() {
+        return companyId;
+        }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+        }
+
 
     @Override
     public boolean equals(Object o) {

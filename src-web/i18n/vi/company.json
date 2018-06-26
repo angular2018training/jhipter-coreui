@@ -1,0 +1,31 @@
+
+{
+    "nextlogixApp": {
+        "company" : {
+            "home": {
+                "title": "Companies",
+                "createLabel": "Thêm mới một Company",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Company",
+                "search": "Tìm Company"
+            },
+            "created": "Một Company mới được tạo với định danh {{ param }}",
+            "updated": "Một Company cập nhật với định danh {{ param }}",
+            "deleted": "Một Company đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Company {{ id }}?"
+            },
+            "detail": {
+                "title": "Company"
+            },
+            "code": "Code",
+            "name": "Name",
+            "address": "Address",
+            "phone": "Phone",
+            "email": "Email",
+            "website": "Website",
+            "description": "Description",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}

@@ -20,7 +20,8 @@
             "name": "Name",
             "content": "Content",
             "uploadTime": "Upload Time",
-            "contentType": "Content Type"
+            "contentType": "Content Type",
+            "company": "Company"
         }
     }
 }

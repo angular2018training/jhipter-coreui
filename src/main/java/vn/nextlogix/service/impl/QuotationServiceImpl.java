@@ -5,17 +5,31 @@ import vn.nextlogix.domain.Quotation;
 import vn.nextlogix.repository.QuotationRepository;
 import vn.nextlogix.repository.search.QuotationSearchRepository;
 import vn.nextlogix.service.dto.QuotationDTO;
+import vn.nextlogix.service.dto.QuotationSearchDTO;
+import org.springframework.data.domain.PageImpl;
+    import vn.nextlogix.domain.Company;
 import vn.nextlogix.service.mapper.QuotationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+    import java.util.stream.StreamSupport;
+
+    import java.util.List;
+    import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+
+    import vn.nextlogix.repository.search.CompanySearchRepository;
+    import vn.nextlogix.service.mapper.CompanyMapper;
+    import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -33,10 +47,20 @@ public class QuotationServiceImpl implements QuotationService {
 
     private final QuotationSearchRepository quotationSearchRepository;
 
-    public QuotationServiceImpl(QuotationRepository quotationRepository, QuotationMapper quotationMapper, QuotationSearchRepository quotationSearchRepository) {
+
+
+        private final CompanySearchRepository companySearchRepository;
+        private final CompanyMapper companyMapper;
+
+
+    public QuotationServiceImpl(QuotationRepository quotationRepository, QuotationMapper quotationMapper, QuotationSearchRepository quotationSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+) {
         this.quotationRepository = quotationRepository;
         this.quotationMapper = quotationMapper;
         this.quotationSearchRepository = quotationSearchRepository;
+                                    this.companySearchRepository = companySearchRepository;
+                                     this.companyMapper = companyMapper;
+
     }
 
     /**
@@ -58,15 +82,15 @@ public class QuotationServiceImpl implements QuotationService {
     /**
      * Get all the quotations.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<QuotationDTO> findAll() {
+    public Page<QuotationDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Quotations");
-        return quotationRepository.findAll().stream()
-            .map(quotationMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return quotationRepository.findAll(pageable)
+            .map(quotationMapper::toDto);
     }
 
     /**
@@ -99,15 +123,39 @@ public class QuotationServiceImpl implements QuotationService {
      * Search for the quotation corresponding to the query.
      *
      * @param query the query of the search
+     * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<QuotationDTO> search(String query) {
-        log.debug("Request to search Quotations for query {}", query);
-        return StreamSupport
-            .stream(quotationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+    public Page<QuotationDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Quotations for query {}", query);
+        Page<Quotation> result = quotationSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(quotationMapper::toDto);
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<QuotationDTO> searchExample(QuotationSearchDTO searchDto, Pageable pageable) {
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getName())) {
+            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+            }
+            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            Page<Quotation> quotationPage= quotationSearchRepository.search(query);
+            List<QuotationDTO> quotationList =  StreamSupport
+            .stream(quotationPage.spliterator(), false)
             .map(quotationMapper::toDto)
             .collect(Collectors.toList());
-    }
+            quotationList.forEach(quotationDto -> {
+            if(quotationDto.getCompanyId()!=null){
+                Company company= companySearchRepository.findOne(quotationDto.getCompanyId());
+                quotationDto.setCompanyDTO(companyMapper.toDto(company));
+            }
+            });
+            return new PageImpl<>(quotationList,pageable,quotationPage.getTotalElements());
+        }
 }

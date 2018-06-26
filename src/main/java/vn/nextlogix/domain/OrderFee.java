@@ -51,6 +51,10 @@ public class OrderFee implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    private Company company;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private Quotation quotation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -151,6 +155,19 @@ public class OrderFee implements Serializable {
 
     public void setTotalFee(Double totalFee) {
         this.totalFee = totalFee;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public OrderFee company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Quotation getQuotation() {
