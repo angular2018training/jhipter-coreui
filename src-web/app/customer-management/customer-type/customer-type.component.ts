@@ -103,7 +103,7 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/setup/customer-type'], {queryParams:
+        this.router.navigate(['/customer-management/customer-type'], {queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -121,7 +121,7 @@ currentAccount: any;
     clear() {
         this.page = 0;
         this.currentSearch = '';
-        this.router.navigate(['/setup/customer-type', {
+        this.router.navigate(['/customer-management/customer-type', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
@@ -133,7 +133,7 @@ currentAccount: any;
         }
         this.page = 0;
         this.currentSearch = query;
-        this.router.navigate(['/setup/customer-type', {
+        this.router.navigate(['/customer-management/customer-type', {
             search: this.currentSearch,
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
