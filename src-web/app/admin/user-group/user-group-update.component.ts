@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JhiAlertService,  } from 'ng-jhipster';
 
 import { UserGroupService } from './user-group.service';
 
 import { UserGroup } from './user-group.model';
+            import { Company, CompanyService } from '../../setup/company';
+import {UserService} from "../../shared/user/user.service";
 
 @Component({
     selector: 'jhi-user-group-update',
@@ -16,17 +19,32 @@ export class UserGroupUpdateComponent implements OnInit {
     private _userGroup: UserGroup;
     isSaving: boolean;
 
+    companies: Company[];
+
+    authorities: any[];
     constructor(
+        private jhiAlertService: JhiAlertService,
         private userGroupService: UserGroupService,
-        private route: ActivatedRoute
+        private companyService: CompanyService,
+        private route: ActivatedRoute,
+        private userService: UserService
     ) {
+
+
     }
 
     ngOnInit() {
+        this.authorities = [];
         this.isSaving = false;
         this.route.data.subscribe(({userGroup}) => {
             this.userGroup = userGroup;
+
         });
+      this.userService.authorities().subscribe(authorities => {
+        this.authorities = authorities;
+      });
+        this.companyService.query()
+            .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -56,6 +74,14 @@ export class UserGroupUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackCompanyById(index: number, item: Company) {
+        return item.id;
     }
     get userGroup() {
         return this._userGroup;

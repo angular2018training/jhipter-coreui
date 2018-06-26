@@ -11,6 +11,9 @@ import { UserGroupService } from './user-group.service';
 import { UserGroupDeleteDialogComponent } from './user-group-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {UserGroupSearch} from './user-group.search.model';
+
+import {Company} from '../../setup/company/company.model';
+import {CompanyService} from "../../setup/company/company.service";
 @Component({
     selector: 'jhi-user-group',
     templateUrl: './user-group.component.html'
@@ -33,6 +36,8 @@ currentAccount: any;
     previousPage: any;
     reverse: any;
     userGroupSearch : UserGroupSearch;
+
+    companies : Company[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -43,6 +48,7 @@ currentAccount: any;
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private eventManager: JhiEventManager,
+        private companyService: CompanyService,
 
         private userGroupPopupService: UserGroupPopupService
     ) {
@@ -54,6 +60,7 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
+        this.companies =[];
 
         this.userGroupSearch = new UserGroupSearch();
 
@@ -63,6 +70,8 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' name'] : '';
         this.userGroupSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
                         this.activatedRoute.snapshot.params[' description'] : '';
+        this.userGroupSearch.companyId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['companyId'] ?
+                         this.activatedRoute.snapshot.params['companyId'] : '';
     }
 
     loadAll() {
@@ -73,6 +82,7 @@ currentAccount: any;
          code : this.userGroupSearch.code,
          name : this.userGroupSearch.name,
          description : this.userGroupSearch.description,
+           companyId : this.userGroupSearch.companyId,
          };
 
         this.userGroupService.searchExample(obj).subscribe(
@@ -101,6 +111,7 @@ currentAccount: any;
                 code : this.userGroupSearch.code,
                 name : this.userGroupSearch.name,
                 description : this.userGroupSearch.description,
+                companyId : this.userGroupSearch.companyId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -136,6 +147,11 @@ currentAccount: any;
             this.currentAccount = account;
         });
         this.registerChangeInUserGroups();
+        this.companyService.query().subscribe(
+            (res: HttpResponse<Company[]>) => this.companies = res.body,
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
 
     }
 

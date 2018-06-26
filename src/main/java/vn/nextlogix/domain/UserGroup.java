@@ -1,5 +1,6 @@
 package vn.nextlogix.domain;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -7,8 +8,13 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A UserGroup.
@@ -40,6 +46,17 @@ public class UserGroup implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private Company company;
+    
+    
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "user_group_authority",
+        joinColumns = {@JoinColumn(name = "user_group_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @BatchSize(size = 20)
+    private Set<Authority> authorities = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -103,6 +120,8 @@ public class UserGroup implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+    
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -118,7 +137,15 @@ public class UserGroup implements Serializable {
         return Objects.equals(getId(), userGroup.getId());
     }
 
-    @Override
+    public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hashCode(getId());
     }

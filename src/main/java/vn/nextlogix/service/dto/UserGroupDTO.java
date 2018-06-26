@@ -25,6 +25,10 @@ public class UserGroupDTO implements Serializable {
     private Long companyId;
 
     private CompanyDTO  companyDTO;
+    
+
+    private Set<String> authorities;
+    
 
 
     public Long getId() {
@@ -73,9 +77,17 @@ public class UserGroupDTO implements Serializable {
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
         }
+    
 
+    public Set<String> getAuthorities() {
+		return authorities;
+	}
 
-    @Override
+	public void setAuthorities(Set<String> authorities) {
+		this.authorities = authorities;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

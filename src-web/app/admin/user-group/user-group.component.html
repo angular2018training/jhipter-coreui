@@ -41,6 +41,17 @@
             </div>
 
 
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_company"
+                       jhiTranslate="nextlogixApp.userGroup.company">>Company:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_company" name="company" [(ngModel)]="userGroupSearch.companyId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
@@ -72,6 +83,7 @@
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.userGroup.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.userGroup.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.userGroup.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.userGroup.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -81,6 +93,11 @@
                     <td>{{userGroup.code}}</td>
                     <td>{{userGroup.name}}</td>
                     <td>{{userGroup.description}}</td>
+                    <td>
+        <div *ngIf="userGroup.companyId">
+        <a [routerLink]="['../company', 'detail',userGroup.companyId ]" >{{userGroup.companyDTO?.name}}</a>
+    </div>
+    </td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"

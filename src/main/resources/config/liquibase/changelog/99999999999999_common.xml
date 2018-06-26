@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	<changeSet id="999999999999990" author="jhipster">
+		<createTable tableName="user_group_authority">
+			<column name="user_group_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="authority_name" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addPrimaryKey columnNames="user_group_id, authority_name"
+			tableName="user_group_authority" />
+
+		<addForeignKeyConstraint baseColumnNames="authority_name"
+			baseTableName="user_group_authority" constraintName="fk_authority_name"
+			referencedColumnNames="name" referencedTableName="jhi_authority" />
+		<addForeignKeyConstraint baseColumnNames="user_group_id"
+			baseTableName="user_group_authority" constraintName="fk_user_group_id"
+			referencedColumnNames="id" referencedTableName="user_group" />
+	</changeSet>
+	</databaseChangeLog>
