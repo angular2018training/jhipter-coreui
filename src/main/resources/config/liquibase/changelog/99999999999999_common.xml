@@ -22,11 +22,35 @@
 		<addForeignKeyConstraint baseColumnNames="user_group_id"
 			baseTableName="user_group_authority" constraintName="fk_user_group_id"
 			referencedColumnNames="id" referencedTableName="user_group" />
-			
+
 		<addForeignKeyConstraint baseColumnNames="user_id"
 			baseTableName="user_extra_info" constraintName="fk_user_extra_info_id"
 			referencedColumnNames="id" referencedTableName="jhi_user" />
-				
-			
+
+    <loadData encoding="UTF-8"
+              file="config/liquibase/company.csv"
+              separator=";"
+              tableName="company">
+    </loadData>
+
+    <loadData encoding="UTF-8"
+              file="config/liquibase/province.csv"
+              separator=";"
+              tableName="province">
+    </loadData>
+
+    <loadData encoding="UTF-8"
+              file="config/liquibase/district.csv"
+              separator=";"
+              tableName="district">
+    </loadData>
+
+
+    <loadData encoding="UTF-8"
+              file="config/liquibase/ward.csv"
+              separator=";"
+              tableName="ward">
+    </loadData>
+
 	</changeSet>
 	</databaseChangeLog>
