@@ -6,15 +6,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {JhiLanguageService, NgJhipsterModule} from 'ng-jhipster';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CookieModule } from 'ngx-cookie';
-
+import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 @NgModule({
     imports: [
         NgbModule.forRoot(),
         NgJhipsterModule.forRoot({
           // set below to true to make alerts look like toast
-          alertAsToast: false,
+          alertAsToast: true,
           i18nEnabled: true,
-          defaultI18nLang: 'en'
+          defaultI18nLang: 'en',
+          alertTimeout :60000
 
         }),
         InfiniteScrollModule,

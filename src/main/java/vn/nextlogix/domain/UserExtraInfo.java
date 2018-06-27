@@ -65,6 +65,9 @@ public class UserExtraInfo implements Serializable {
     @NotNull
     private Company company;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -215,9 +218,19 @@ public class UserExtraInfo implements Serializable {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -231,6 +244,8 @@ public class UserExtraInfo implements Serializable {
         }
         return Objects.equals(getId(), userExtraInfo.getId());
     }
+
+
 
     @Override
     public int hashCode() {

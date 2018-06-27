@@ -32,13 +32,16 @@ import {ElasticsearchReindexComponent} from "./elasticsearch-reindex/elasticsear
 import {ElasticsearchReindexModalComponent} from "./elasticsearch-reindex/elasticsearch-reindex-modal.component";
 import {ElasticsearchReindexService} from "./elasticsearch-reindex/elasticsearch-reindex.service";
 import {NextlogixUserGroupModule} from "./user-group/user-group.module";
+import {JhiLanguageService} from "ng-jhipster";
+import {JhiLanguageHelper} from "../shared/language/language.helper";
+import {UserMgmtUpdateComponent} from "./user-management/user-management-update.component";
 
 @NgModule({
   imports: [
 
     NextlogixSharedModule,
-    NextlogixUserGroupModule
-    //RouterModule.forChild(adminState)
+    NextlogixUserGroupModule,
+    RouterModule.forChild(adminState)
     /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
   ],
   declarations: [
@@ -47,6 +50,7 @@ import {NextlogixUserGroupModule} from "./user-group/user-group.module";
     UserDeleteDialogComponent,
     UserMgmtDetailComponent,
     UserMgmtEditComponent,
+    UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
     JhiConfigurationComponent,
@@ -81,4 +85,11 @@ import {NextlogixUserGroupModule} from "./user-group/user-group.module";
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NextlogixAdminModule {
+  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    this.languageHelper.language.subscribe((languageKey: string) => {
+      if (languageKey !== undefined) {
+        this.languageService.changeLanguage(languageKey);
+      }
+    });
+  }
 }

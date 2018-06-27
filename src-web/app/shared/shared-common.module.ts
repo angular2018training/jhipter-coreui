@@ -8,6 +8,7 @@ import {JhiLanguageHelper} from "./language/language.helper";
 import {NextlogixSharedLibsModule} from "./shared-libs.module";
 import {JhiAlertComponent} from "./alert/alert.component";
 import {JhiAlertErrorComponent} from "./alert/alert-error.component";
+import {FindFlagLanguageFromKeyPipe} from "./language/find-flag-language-from-key.pipe";
 
 @NgModule({
     imports: [
@@ -15,6 +16,7 @@ import {JhiAlertErrorComponent} from "./alert/alert-error.component";
     ],
     declarations: [
         FindLanguageFromKeyPipe,
+        FindFlagLanguageFromKeyPipe,
         JhiAlertComponent,
         JhiAlertErrorComponent
     ],
@@ -29,6 +31,7 @@ import {JhiAlertErrorComponent} from "./alert/alert-error.component";
     exports: [
         NextlogixSharedLibsModule,
         FindLanguageFromKeyPipe,
+        FindFlagLanguageFromKeyPipe,
         JhiAlertComponent,
         JhiAlertErrorComponent
     ]

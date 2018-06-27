@@ -45,7 +45,7 @@ export const navItems = [
       },
       {
         name: 'API',
-        url: '/docs',
+        url: '/admin/docs',
         icon: 'icon-cursor'
       },
       {

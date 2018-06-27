@@ -21,7 +21,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
     constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager) {
         this.alerts = [];
 
-        this.cleanHttpErrorListener = eventManager.subscribe('logitechApp.httpError', (response) => {
+        this.cleanHttpErrorListener = eventManager.subscribe('nextLogixApp.httpError', (response) => {
             let i;
             const httpErrorResponse = response.content;
             switch (httpErrorResponse.status) {
@@ -84,7 +84,7 @@ export class JhiAlertErrorComponent implements OnDestroy {
     }
 
     addErrorAlert(message, key?, data?) {
-        this.alerts.push(
+        /*this.alerts.push(
             this.alertService.addAlert(
                 {
                     type: 'danger',
@@ -95,6 +95,6 @@ export class JhiAlertErrorComponent implements OnDestroy {
                 },
                 this.alerts
             )
-        );
+        );*/
     }
 }

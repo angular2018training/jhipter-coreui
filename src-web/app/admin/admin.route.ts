@@ -7,8 +7,7 @@ import {
   healthRoute,
   logsRoute,
   metricsRoute,
-  userMgmtRoute,
-  userDialogRoute
+  userMgmtRoute
 } from './';
 
 import { UserRouteAccessService } from '../shared';
@@ -24,7 +23,8 @@ const ADMIN_ROUTES = [
   ...userMgmtRoute,
   metricsRoute,
   elasticsearchReindexRoute,
-  ...userGroupRoute
+  ...userGroupRoute,
+  { path: '', redirectTo: '/admin/user-management', pathMatch: 'full' }
 ];
 
 export const adminState: Routes = [{
@@ -35,5 +35,4 @@ export const adminState: Routes = [{
   canActivate: [UserRouteAccessService],
   children: ADMIN_ROUTES
 },
-  ...userDialogRoute
 ];

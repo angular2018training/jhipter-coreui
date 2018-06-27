@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
 
-import { JhiPaginationUtil } from 'ng-jhipster';
+import {JhiPaginationUtil, JhiResolvePagingParams} from 'ng-jhipster';
 
 import { UserMgmtComponent } from './user-management.component';
 import { UserMgmtDetailComponent } from './user-management-detail.component';
@@ -9,14 +9,29 @@ import {UserMgmtEditComponent} from './user-management-edit.component';
 import { UserDeleteDialogComponent } from './user-management-delete-dialog.component';
 
 import { Principal } from '../../shared';
+import {UserMgmtUpdateComponent} from "./user-management-update.component";
+import {UserService} from "../../shared/user/user.service";
+import {User} from "../../shared/user/user.model";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserResolve implements CanActivate {
-
-  constructor(private principal: Principal) { }
+  constructor(private principal: Principal) {}
 
   canActivate() {
-    return this.principal.identity().then((account) => this.principal.hasAnyAuthority(['ROLE_ADMIN']));
+    return this.principal.identity().then(account => this.principal.hasAnyAuthority(['ROLE_ADMIN']));
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class UserMgmtResolve implements Resolve<any> {
+  constructor(private service: UserService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const id = route.params['login'] ? route.params['login'] : null;
+    if (id) {
+      return this.service.find(id);
+    }
+    return new User();
   }
 }
 
@@ -36,55 +51,41 @@ export class UserResolvePagingParams implements Resolve<any> {
   }
 }
 
+
 export const userMgmtRoute: Routes = [
   {
     path: 'user-management',
     component: UserMgmtComponent,
     resolve: {
-      'pagingParams': UserResolvePagingParams
+      pagingParams: JhiResolvePagingParams
     },
     data: {
-      pageTitle: 'Users'
-    },
-
-    children :[
-      {
-        path:'',
-        component:UserMgmtComponent
-      },
-
-    ]
+      pageTitle: 'userManagement.home.title',
+      defaultSort: 'id,asc'
+    }
   },
   {
-    path: 'user-management/:login',
+    path: 'user-management/:login/view',
     component: UserMgmtDetailComponent,
+    resolve: {
+      user: UserMgmtResolve
+    },
     data: {
-      pageTitle: 'Users'
+      pageTitle: 'userManagement.home.title'
     }
   },
-
   {
-    path: 'user-management/:login/edit',
-    component: UserMgmtEditComponent
-  }
-];
-
-export const userDialogRoute: Routes = [
-  {
-    path: 'user-management-new',
-    component: UserMgmtEditComponent,
-    data: {
-      pageTitle: 'Thêm mới tài khoản'
+    path: 'user-management/new',
+    component: UserMgmtUpdateComponent,
+    resolve: {
+      user: UserMgmtResolve
     }
   },
- /* {
-    path: 'user-management/:login/edit',
-    component: UserDialogComponent,
-    outlet: 'popup'
-  },*/
   {
-    path: 'user-management/:login/delete',
-    component: UserDeleteDialogComponent,
-    outlet: 'popup'
+    path: 'user-management/:login/edit',
+    component: UserMgmtUpdateComponent,
+    resolve: {
+      user: UserMgmtResolve
+    }
   }
 ];

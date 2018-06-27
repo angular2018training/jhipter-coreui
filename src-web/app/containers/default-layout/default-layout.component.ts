@@ -3,7 +3,7 @@ import { navItems } from './../../_nav';
 import {LoginService} from "../../shared/login/login.service";
 import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-
+import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 import { JhiLanguageHelper } from '../../shared';
 import {JhiLanguageService} from "ng-jhipster";
 @Component({
@@ -16,8 +16,9 @@ export class DefaultLayoutComponent implements OnInit{
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
   languages: any[];
+
   constructor( private loginService: LoginService, private router: Router,private titleService: Title, private jhiLanguageHelper: JhiLanguageHelper,
-               private languageService: JhiLanguageService) {
+               private languageService: JhiLanguageService,private toasterService: ToasterService) {
     console.log('languageService'+languageService);
     this.languages = new Array();
     this.changes = new MutationObserver((mutations) => {
@@ -53,5 +54,8 @@ export class DefaultLayoutComponent implements OnInit{
   }
   changeLanguage(languageKey: string) {
     this.languageService.changeLanguage(languageKey);
+  }
+  getLanguage (){
+    return this.languageService.currentLang;
   }
 }

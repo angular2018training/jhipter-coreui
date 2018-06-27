@@ -22,5 +22,11 @@
 		<addForeignKeyConstraint baseColumnNames="user_group_id"
 			baseTableName="user_group_authority" constraintName="fk_user_group_id"
 			referencedColumnNames="id" referencedTableName="user_group" />
+			
+		<addForeignKeyConstraint baseColumnNames="user_id"
+			baseTableName="user_extra_info" constraintName="fk_user_extra_info_id"
+			referencedColumnNames="id" referencedTableName="jhi_user" />
+				
+			
 	</changeSet>
 	</databaseChangeLog>

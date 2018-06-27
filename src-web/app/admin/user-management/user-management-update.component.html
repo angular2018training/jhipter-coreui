@@ -1,11 +1,10 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel">
-                Create or edit a User
-            </h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+  <div class="card">
+    <div class="card-header">
+      <strong>Users</strong>
+    </div>
+    <div class="card-body">
+
                 <div class="form-group" [hidden]="!user.id">
                     <label jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" name="id"
@@ -109,16 +108,13 @@
                         <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
                     </select>
                 </div>
-            </div>
-            <div>
-                <button type="button" class="btn btn-secondary" (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
-                    jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
-        </form>
     </div>
-</div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-secondary" (click)="previousState()">
+        <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+      </button>
+      <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+        <span class="fa fa-floppy-o"></span>&nbsp;<span>Save</span>
+      </button>
+    </div>
+  </div>

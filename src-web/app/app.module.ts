@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {Injector, NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule} from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -55,7 +55,8 @@ import {NextlogixErrorModule} from "./layouts/error/error.module";
 import {NextlogixSharedLibsModule} from "./shared/shared-libs.module";
 import {NextlogixSetupModule} from "./setup/setup.module";
 import {NextlogixCustomerManagmentModule} from "./customer-management/customer-management.module";
-
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 @NgModule({
   imports: [
     BrowserModule,
@@ -76,9 +77,12 @@ import {NextlogixCustomerManagmentModule} from "./customer-management/customer-m
     NextlogixSharedLibsModule.forRoot(),
     NextlogixSetupModule,
 
-    NextlogixAdminModule,
+    //NextlogixAdminModule,
     NextlogixCustomerManagmentModule,
     Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
+    ToasterModule.forRoot(),
+    BrowserAnimationsModule,
+    NoopAnimationsModule
   ],
   declarations: [
     AppComponent,
@@ -117,7 +121,8 @@ import {NextlogixCustomerManagmentModule} from "./customer-management/customer-m
       useClass: ErrorHandlerInterceptor,
       multi: true,
       deps: [
-        JhiEventManager
+        JhiEventManager,
+        Injector
       ]
     },
     {
@@ -128,6 +133,8 @@ import {NextlogixCustomerManagmentModule} from "./customer-management/customer-m
         Injector
       ]
     }],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

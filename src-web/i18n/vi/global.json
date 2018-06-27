@@ -114,6 +114,7 @@
       "filter" :{
         "header":"Điều kiện lọc"
       },
+      "notify" : "Thông báo",
       "button":{
         "search":"Tìm",
         "reset":" ",

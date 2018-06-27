@@ -114,6 +114,7 @@
       "filter" :{
         "header":"Filter"
       },
+      "notify" : "Notification",
       "button":{
         "search":"Search",
         "reset":"Reset",

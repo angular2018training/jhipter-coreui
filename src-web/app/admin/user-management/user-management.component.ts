@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ITEMS_PER_PAGE, Principal, User, UserService } from '../../shared';
+import {UserMgmtDeleteDialogComponent} from "./user-management-delete-dialog.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'jhi-user-mgmt',
@@ -32,7 +34,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         private parseLinks: JhiParseLinks,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private modalService: NgbModal
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
@@ -124,4 +127,17 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     private onError(error) {
         this.alertService.error(error.error, error.message, null);
     }
+
+  deleteUser(user: User) {
+    const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.user = user;
+    modalRef.result.then(
+      result => {
+        // Left blank intentionally, nothing to do here
+      },
+      reason => {
+        // Left blank intentionally, nothing to do here
+      }
+    );
+  }
 }

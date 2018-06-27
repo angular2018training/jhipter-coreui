@@ -4,10 +4,12 @@ import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { LANGUAGES } from './language.constants';
+import {BehaviorSubject, Observable} from "rxjs/Rx";
 
 @Injectable()
 export class JhiLanguageHelper {
     renderer: Renderer2 = null;
+    private _language: BehaviorSubject<string>;
 
     constructor(
         private translateService: TranslateService,
@@ -16,12 +18,16 @@ export class JhiLanguageHelper {
         private titleService: Title,
         private router: Router
     ) {
+        this._language = new BehaviorSubject<string>(this.translateService.currentLang);
         this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
         this.init();
     }
 
     getAll(): Promise<any> {
         return Promise.resolve(LANGUAGES);
+    }
+    get language(): Observable<string> {
+      return this._language.asObservable();
     }
 
     /**
@@ -43,6 +49,7 @@ export class JhiLanguageHelper {
 
     private init() {
         this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+            this._language.next(this.translateService.currentLang);
             this.renderer.setAttribute(document.querySelector('html'), 'lang', this.translateService.currentLang);
             this.updateTitle();
         });
@@ -55,4 +62,5 @@ export class JhiLanguageHelper {
         }
         return title;
     }
+
 }

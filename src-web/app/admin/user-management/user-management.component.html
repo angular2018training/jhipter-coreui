@@ -6,7 +6,7 @@
     <div>
       <h2>
         <button class="btn btn-primary float-right jh-create-entity"
-                >
+                [routerLink]="['new']">
           <span class="fa fa-plus"></span> <span>Create a new User</span>
         </button>
       </h2>
@@ -53,18 +53,18 @@
                 <button type="submit"
                         class="btn btn-info btn-sm">
                   <span class="fa fa-eye"></span>
-                  <span class="d-none d-md-inline">View</span>
+                  <span class="d-none d-md-inline" [routerLink]="[user.login,'view']">View</span>
                 </button>
                 <button type="submit"
                         replaceUrl="true"
                         queryParamsHandling="merge"
-                        class="btn btn-primary btn-sm">
+                        class="btn btn-primary btn-sm" [routerLink]="[user.login,'edit']">
                   <span class="fa fa-pencil"></span>
                   <span class="d-none d-md-inline">Edit</span>
                 </button>
                 <button type="submit"
                         replaceUrl="true"
-                        queryParamsHandling="merge"
+                        queryParamsHandling="merge"  (click)="deleteUser(user)"
                         class="btn btn-danger btn-sm" [disabled]="currentAccount.login === user.login">
                   <span class="fa fa-remove"></span>
                   <span class="d-none d-md-inline">Delete</span>

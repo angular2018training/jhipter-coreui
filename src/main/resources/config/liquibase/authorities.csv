@@ -1,3 +1,5 @@
 name;description
 ROLE_ADMIN;Quyền quản trị
 ROLE_USER;Quyền nhân viên
+ROLE_COMPANY_ADMIN;Quyền quản trị công ty
+ROLE_COMPANY_STAFF;Quyền nhân viên công ty

@@ -207,6 +207,12 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@coreui/coreui-plugin-npm-postinstall/-/coreui-plugin-npm-postinstall-1.0.2.tgz#6daeb2ec786580d9c0849b05bc3e8d0222d5c463"
 
+"@coreui/coreui-pro@^2.0.3":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.5.tgz#94f4cade757550966def31dcad190371ff4d17a7"
+  dependencies:
+    bootstrap "^4.1.1"
+
 "@coreui/coreui@^2.0.1":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@coreui/coreui/-/coreui-2.0.2.tgz#03197b6ef99559b6a231d77d79989ad046975df3"
@@ -559,6 +565,10 @@ angular2-template-loader@0.6.2:
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
   dependencies:
     loader-utils "^0.2.15"
+
+angular2-toaster@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-6.0.0.tgz#5d9a82f3063d30a73c334d141d972ed33cef7266"
 
 ansi-escapes@^1.1.0:
   version "1.4.0"

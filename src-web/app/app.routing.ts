@@ -96,8 +96,8 @@ export const routes: Routes = [
       },
       {
         path:'admin',
-        //loadChildren: ()=> NextlogixAdminModule,
-        children:adminState,
+        loadChildren: ()=> NextlogixAdminModule,
+        //children:adminState,
         data: {
           breadcrumb: "Admin"
         }
