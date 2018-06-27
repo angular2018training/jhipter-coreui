@@ -8,11 +8,12 @@ import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<Province>;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProvinceService {
 
     private resourceUrl =  SERVER_API_URL + 'api/provinces';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/provinces';
+    private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/provinces';
 
     constructor(private http: HttpClient) { }
 
@@ -46,6 +47,12 @@ export class ProvinceService {
     search(req?: any): Observable<HttpResponse<Province[]>> {
         const options = createRequestOption(req);
         return this.http.get<Province[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Province[]>) => this.convertArrayResponse(res));
+
+    }
+    searchExample(req? : any): Observable<HttpResponse<Province[]>> {
+            const options = createRequestOption(req);
+        return this.http.get<Province[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Province[]>) => this.convertArrayResponse(res));
     }
 

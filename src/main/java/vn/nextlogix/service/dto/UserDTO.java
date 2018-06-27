@@ -53,6 +53,8 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private Long companyId;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -73,6 +75,7 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+        this.companyId = user.getUserExtraInfo()!=null?(user.getUserExtraInfo().getCompany()!=null?user.getUserExtraInfo().getCompany().getId():null):null;
     }
 
     public Long getId() {

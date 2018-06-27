@@ -6,7 +6,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { LANGUAGES } from './language.constants';
 import {BehaviorSubject, Observable} from "rxjs/Rx";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JhiLanguageHelper {
     renderer: Renderer2 = null;
     private _language: BehaviorSubject<string>;

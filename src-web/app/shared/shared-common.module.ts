@@ -4,7 +4,6 @@ import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/en';
 
 import {FindLanguageFromKeyPipe} from "./language/find-language-from-key.pipe";
-import {JhiLanguageHelper} from "./language/language.helper";
 import {NextlogixSharedLibsModule} from "./shared-libs.module";
 import {JhiAlertComponent} from "./alert/alert.component";
 import {JhiAlertErrorComponent} from "./alert/alert-error.component";
@@ -21,7 +20,6 @@ import {FindFlagLanguageFromKeyPipe} from "./language/find-flag-language-from-ke
         JhiAlertErrorComponent
     ],
     providers: [
-        JhiLanguageHelper,
         Title,
         {
             provide: LOCALE_ID,

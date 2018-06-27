@@ -1,79 +1,92 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import {Observable} from 'rxjs/Observable';
-import {JhiEventManager} from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {Province} from './province.model';
-import {ProvinceService} from './province.service';
-import {ActivatedRoute} from "@angular/router";
-import {Subscription} from 'rxjs/Subscription';
+import { Province } from './province.model';
+import { ProvincePopupService } from './province-popup.service';
+import { ProvinceService } from './province.service';
 
 @Component({
-  selector: 'jhi-province-dialog',
-  templateUrl: './province-dialog.component.html'
+    selector: 'jhi-province-dialog',
+    templateUrl: './province-dialog.component.html'
 })
-export class ProvinceDialogComponent implements OnInit, OnDestroy {
+export class ProvinceDialogComponent implements OnInit {
 
-  province: Province;
-  isSaving: boolean;
-  private subscription: Subscription;
+    province: Province;
+    isSaving: boolean;
 
-  constructor(private provinceService: ProvinceService,
-              private eventManager: JhiEventManager,
-              private route: ActivatedRoute) {
-  }
-
-  ngOnInit() {
-    this.isSaving = false;
-    this.province = new Province();
-    this.subscription = this.route.params.subscribe((params) => {
-      this.load(params['id']);
-    });
-  }
-
-
-  previousState() {
-    window.history.back();
-  }
-
-  load(id) {
-    if (id != null) {
-      this.provinceService.find(id).subscribe((response) => {
-        this.province = response.body;
-      });
+    constructor(
+        public activeModal: NgbActiveModal,
+        private provinceService: ProvinceService,
+        private eventManager: JhiEventManager
+    ) {
     }
 
-  }
-
-  save() {
-    this.isSaving = true;
-    if (this.province.id !== undefined) {
-      this.subscribeToSaveResponse(
-        this.provinceService.update(this.province));
-    } else {
-      this.subscribeToSaveResponse(
-        this.provinceService.create(this.province));
+    ngOnInit() {
+        this.isSaving = false;
     }
-  }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<Province>>) {
-    result.subscribe((res: HttpResponse<Province>) =>
-      this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
-  }
+    clear() {
+        this.activeModal.dismiss('cancel');
+    }
 
-  private onSaveSuccess(result: Province) {
-    this.eventManager.broadcast({name: 'provinceListModification', content: 'OK'});
-    this.isSaving = false;
-  }
+    save() {
+        this.isSaving = true;
+        if (this.province.id !== undefined) {
+            this.subscribeToSaveResponse(
+                this.provinceService.update(this.province));
+        } else {
+            this.subscribeToSaveResponse(
+                this.provinceService.create(this.province));
+        }
+    }
 
-  private onSaveError() {
-    this.isSaving = false;
-  }
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Province>>) {
+        result.subscribe((res: HttpResponse<Province>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
 
-  ngOnDestroy() {
-    this.subscription = null;
+    private onSaveSuccess(result: Province) {
+        this.eventManager.broadcast({ name: 'provinceListModification', content: 'OK'});
+        this.isSaving = false;
+        this.activeModal.dismiss(result);
+    }
 
-  }
+    private onSaveError() {
+        this.isSaving = false;
+    }
 }
 
+@Component({
+    selector: 'jhi-province-popup',
+    template: ''
+})
+export class ProvincePopupComponent implements OnInit, OnDestroy {
+
+    routeSub: any;
+
+    constructor(
+        private route: ActivatedRoute,
+        private provincePopupService: ProvincePopupService
+    ) {}
+
+    ngOnInit() {
+        this.routeSub = this.route.params.subscribe((params) => {
+            if ( params['id'] ) {
+                this.provincePopupService
+                    .open(ProvinceDialogComponent as Component, params['id']);
+            } else {
+                this.provincePopupService
+                    .open(ProvinceDialogComponent as Component);
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.routeSub.unsubscribe();
+    }
+}

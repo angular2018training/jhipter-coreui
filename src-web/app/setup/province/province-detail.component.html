@@ -1,38 +1,49 @@
-<div class="card" *ngIf="province">
-  <div class="card-header">
-    <strong>Province {{province.id}}</strong>
-  </div>
-  <div class="card-body">
-    <div >
-      <jhi-alert-error></jhi-alert-error>
-      <dl class="row-md jh-entity-details">
-        <dt><span>Code</span></dt>
-        <dd>
-          <span>{{province.code}}</span>
-        </dd>
-        <dt><span>Name</span></dt>
-        <dd>
-          <span>{{province.name}}</span>
-        </dd>
-        <dt><span>Description</span></dt>
-        <dd>
-          <span>{{province.description}}</span>
-        </dd>
-      </dl>
 
-      <button type="submit"
-              (click)="previousState()"
-              class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-      </button>
-
-      <button type="button"
-              [routerLink]="['edit']"
-              replaceUrl="true"
-              queryParamsHandling="merge"
-              class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
-      </button>
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.province.detail.title">Province</span> {{province.id}}
     </div>
-  </div>
+    <div class="card-body">
+
+<div *ngIf="province">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.province.code">Code</span></dt>
+        <dd>
+            <span>{{province.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.province.name">Name</span></dt>
+        <dd>
+            <span>{{province.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.province.description">Description</span></dt>
+        <dd>
+            <span>{{province.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.province.company">Company</span></dt>
+        <dd>
+            <div *ngIf="province.companyId">
+                <a [routerLink]="['/company', province.companyId]">{{province.companyId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'province', province.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
 </div>

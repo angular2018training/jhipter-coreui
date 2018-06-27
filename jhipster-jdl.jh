@@ -62,38 +62,56 @@ entity OrderService {
     description String
 }
 
-// Enum
-enum CustomerType {
-    NORMAL, VIP, CLIENT, SUPPER_VIP
-}
-
-enum CustomerSource {
-    WEB, FACEBOOK, APP, SALE
-}
-
-enum PaymentType {
-    ONE_PER_WEEK, TWO_PER_WEEK, THREE_PER_WEEK, DAILY
-}
-
-enum QuotationItemType {
-    ONE
-}
-
-enum OrderUserRouteType {
-    PICKUP, DELIVERY
-}
-
-// Company
-entity Customer {
+entity CustomerType {
 	id Long,
     code String required,
     name String required,
     description String
 }
 
+entity CustomerSource {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity PaymentType {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity QuotationItemType {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity OrderUserRouteType {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+// Company
+entity Company {
+	id Long,
+    code String required,
+    name String required,
+    address String,
+    phone String,
+    email String,
+    website String,
+    description String
+}
+
 // OrderUserRoute
 entity OrderUserRoute{
-	routeType OrderUserRouteType
+	id Long
 }
 
 // File upload
@@ -118,7 +136,8 @@ entity UserExtraInfo {
     validDate Instant required,
     lastLoginDate Instant,
     contractFile Blob,
-    contractExpirationDate Instant
+    contractExpirationDate Instant,
+    userId Long
 }
 
 // Customer
@@ -131,8 +150,6 @@ entity Customer {
     phone String required,
     password String required,
     isActive Boolean required,
-    customerType CustomerType required,
-    customerSource CustomerSource required,
     createDate Instant required,
     lastLoginDate Instant,
     apiToken String
@@ -157,8 +174,7 @@ entity CustomerPayment {
     paymentAmountMoney Double,
     idImage Blob,
     isVerify Boolean required,
-    dateVerify Instant,
-    paymentType PaymentType required
+    dateVerify Instant
 }
 
 entity CustomerPostOffice {
@@ -187,7 +203,6 @@ entity Quotation {
 
 entity QuotationItem {
 	id Long,
-    itemType QuotationItemType required,
     quotationFile Blob required,
     createDate Instant required
 }
@@ -246,15 +261,49 @@ entity OrderDelivery {
 
 // defining multiple relationships with comments
 relationship ManyToMany {
-    UserPosition{userGroup} to UserGroup
-    CustomerLegal{fileUpload} to FileUpload
+    UserPosition{userGroupDetailList} to UserGroup
+    CustomerLegal{fileUploadDetailList} to FileUpload
 }
 
 relationship ManyToOne {
+// Company relationship
+    Position{company required} to Company
+    PostOffice{company required} to Company
+    Ward{company required} to Company
+    District{company required} to Company
+    Province{company required} to Company
+    UserGroup{company required} to Company
+    Bank{company required} to Company
+    OrderStatus{company required} to Company
+    OrderService{company required} to Company
+    CustomerType{company required} to Company
+    CustomerSource{company required} to Company
+    PaymentType{company required} to Company
+    QuotationItemType{company required} to Company
+    OrderUserRouteType{company required} to Company
+    OrderUserRoute{company required} to Company
+    FileUpload{company required} to Company
+    UserPosition{company required} to Company
+    UserExtraInfo{company required} to Company
+    Customer{company required} to Company
+    CustomerLegal{company required} to Company
+    CustomerPayment{company required} to Company
+    CustomerPostOffice{company required} to Company
+    Warehouse{company required} to Company
+    Quotation{company required} to Company
+    QuotationItem{company required} to Company
+    OrderMain{company required} to Company
+    OrderPickup{company required} to Company
+    OrderConsignee{company required} to Company
+    OrderFee{company required} to Company
+    OrderDelivery{company required} to Company
+// Others
     Customer{manageUser} to UserExtraInfo
     Customer{saleUser} to UserExtraInfo
     Customer{province required} to Province
     Customer{district required} to District
+    Customer{customerType required} to CustomerType
+    Customer{customerSource required} to CustomerSource
     Ward{district required} to District
     District{province required} to Province
     PostOffice{province required} to Province
@@ -262,6 +311,7 @@ relationship ManyToOne {
     UserPosition{position required} to Position
     CustomerPayment{bank required} to Bank
     CustomerPayment{userVerify} to UserExtraInfo
+    CustomerPayment{paymentType} to PaymentType
     CustomerPostOffice{postOffice required} to PostOffice
   	OrderMain{createUser} to UserExtraInfo
     OrderMain{orderStatus required} to OrderStatus
@@ -281,6 +331,7 @@ relationship ManyToOne {
     OrderUserRoute{user required} to UserExtraInfo
     OrderUserRoute{province required} to Province
     OrderUserRoute{district required} to District
+    OrderUserRoute{orderUserRouteType required} to OrderUserRouteType
     OrderUserRoute{ward} to District
     OrderUserRoute{customer} to Customer
     CustomerLegal{province required} to Province
@@ -288,12 +339,14 @@ relationship ManyToOne {
     Warehouse{province required} to Province
     Warehouse{district required} to District
     Warehouse{ward required} to Ward
+    Company{province} to Province
+    Company{district} to District
 }
 
 relationship OneToMany {
-	Customer{customerPostOffice} to CustomerPostOffice
-    UserExtraInfo{userPosition} to UserPosition
-    Quotation{quotationItem} to QuotationItem
+	Customer{customerPostOfficeDetailList} to CustomerPostOffice
+    UserExtraInfo{userPositionDetailList} to UserPosition
+    Quotation{quotationItemDetailList} to QuotationItem
 }
 
 relationship OneToOne {
@@ -311,6 +364,3 @@ paginate * with pagination
 service all with serviceImpl
 search * with elasticsearch
 dto * with mapstruct
-
-// Set service options to all except few
-service all with serviceImpl

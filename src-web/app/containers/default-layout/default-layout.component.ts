@@ -44,7 +44,6 @@ export class DefaultLayoutComponent implements OnInit{
   ngOnInit() {
     this.jhiLanguageHelper.getAll().then((languages) => {
       this.languages = languages;
-      console.log(this.languages);
     });
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

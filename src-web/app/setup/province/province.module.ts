@@ -3,42 +3,43 @@ import { RouterModule } from '@angular/router';
 
 import { NextlogixSharedModule } from '../../shared';
 import {
-    ProvinceService,
-    ProvincePopupService,
-    ProvinceComponent,
+ProvinceComponent,
     ProvinceDetailComponent,
-    ProvinceDialogComponent,
+    ProvinceUpdateComponent,
     ProvinceDeletePopupComponent,
     ProvinceDeleteDialogComponent,
     provinceRoute,
+    provincePopupRoute,
+    ProvincePopupService
 } from './';
 
 const ENTITY_STATES = [
-    ...provinceRoute
+    ...provinceRoute,
+    ...provincePopupRoute,
 ];
 
 @NgModule({
     imports: [
         NextlogixSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
-    ],
-    declarations: [
-        ProvinceComponent,
-        ProvinceDetailComponent,
-        ProvinceDialogComponent,
-        ProvinceDeleteDialogComponent,
-        ProvinceDeletePopupComponent,
-    ],
+RouterModule.forChild(ENTITY_STATES)
+],
+declarations: [
+    ProvinceComponent,
+    ProvinceDetailComponent,
+    ProvinceUpdateComponent,
+    ProvinceDeleteDialogComponent,
+    ProvinceDeletePopupComponent,
+],
     entryComponents: [
-        ProvinceComponent,
-        ProvinceDialogComponent,
-        ProvinceDeleteDialogComponent,
-        ProvinceDeletePopupComponent,
-    ],
-    providers: [
-        ProvinceService,
-        ProvincePopupService,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    ProvinceComponent,
+    ProvinceUpdateComponent,
+    ProvinceDeleteDialogComponent,
+    ProvinceDeletePopupComponent,
+],
+providers: [
+    ProvincePopupService,
+],
+
+schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NextlogixProvinceModule {}

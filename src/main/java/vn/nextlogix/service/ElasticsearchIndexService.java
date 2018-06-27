@@ -134,11 +134,15 @@ public class ElasticsearchIndexService {
     private final UserRepository userRepository;
 
     private final UserSearchRepository userSearchRepository;
-    
+
 
     private final WarehouseRepository warehouseRepository;
 
     private final WarehouseSearchRepository warehouseSearchRepository;
+
+    private final CompanyRepository companyRepository;
+
+    private final CompanySearchRepository companySearchRepository;
 
     private final ElasticsearchTemplate elasticsearchTemplate;
 
@@ -193,6 +197,8 @@ public class ElasticsearchIndexService {
         WardSearchRepository wardSearchRepository,
         WarehouseRepository warehouseRepository,
         WarehouseSearchRepository warehouseSearchRepository,
+        CompanyRepository companyRepository,
+        CompanySearchRepository companySearchRepository,
         ElasticsearchTemplate elasticsearchTemplate) {
         this.userRepository = userRepository;
         this.userSearchRepository = userSearchRepository;
@@ -244,6 +250,8 @@ public class ElasticsearchIndexService {
         this.wardSearchRepository = wardSearchRepository;
         this.warehouseRepository = warehouseRepository;
         this.warehouseSearchRepository = warehouseSearchRepository;
+        this.companyRepository = companyRepository;
+        this.companySearchRepository = companySearchRepository;
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
@@ -277,8 +285,9 @@ public class ElasticsearchIndexService {
                 reindexForClass(Ward.class, wardRepository, wardSearchRepository);
                 reindexForClass(User.class, userRepository, userSearchRepository);
                 reindexForClass(Warehouse.class,warehouseRepository,warehouseSearchRepository);
+                reindexForClass(Company.class,companyRepository,companySearchRepository);
 
-                log.info("Elasticsearch: Successfully performed reindexing");
+              log.info("Elasticsearch: Successfully performed reindexing");
             } finally {
                 reindexLock.unlock();
             }

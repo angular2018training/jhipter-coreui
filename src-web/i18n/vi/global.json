@@ -60,6 +60,8 @@
         "form": {
             "username": "Tên tài khoản",
             "username.placeholder": "Nhập tên tài khoản của bạn",
+            "currentpassword": "Mật khẩu hiện tại",
+            "currentpassword.placeholder": "Mật khẩu hiện tại",
             "newpassword": "Mật khẩu mới",
             "newpassword.placeholder": "Nhập mật khẩu mới",
             "confirmpassword": "Xác nhận mật khẩu mới",
