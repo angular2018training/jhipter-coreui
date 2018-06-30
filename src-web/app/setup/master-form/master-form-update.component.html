@@ -52,7 +52,7 @@
                             <span class="pull-left">{{masterForm.imageFileContentType}}, {{byteSize(masterForm.imageFile)}}</span>
                             <button type="button" (click)="masterForm.imageFile=null;masterForm.imageFileContentType=null;"
                                     class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon [icon]="'times'"></fa-icon>
+                              <i class="fa fa-times" ></i>
                             </button>
                         </div>
                         <input type="file" id="file_imageFile" (change)="setFileData($event, masterForm, 'imageFile', false)" jhiTranslate="entity.action.addblob"/>

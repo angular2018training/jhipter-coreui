@@ -7,6 +7,7 @@ import {JhiLanguageService, NgJhipsterModule} from 'ng-jhipster';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CookieModule } from 'ngx-cookie';
 import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
     imports: [
         NgbModule.forRoot(),
@@ -20,7 +21,8 @@ import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster'
         }),
         InfiniteScrollModule,
         CookieModule.forRoot(),
-        CommonModule
+        CommonModule,
+        FontAwesomeModule
     ],
     exports: [
         FormsModule,

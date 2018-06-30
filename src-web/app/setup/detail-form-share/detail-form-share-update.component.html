@@ -37,7 +37,7 @@
                             <span class="pull-left">{{detailForm.uploadFileContentType}}, {{byteSize(detailForm.uploadFile)}}</span>
                             <button type="button" (click)="detailForm.uploadFile=null;detailForm.uploadFileContentType=null;"
                                     class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon [icon]="'times'"></fa-icon>
+                                <i class="fa fa-times" ></i>
                             </button>
                         </div>
                         <input type="file" id="file_uploadFile" (change)="setFileData($event, detailForm, 'uploadFile', false)" jhiTranslate="entity.action.addblob"/>

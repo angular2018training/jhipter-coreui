@@ -65,7 +65,10 @@
     "webstomp-client": "1.0.6",
     "@coreui/coreui-pro": "^2.0.3",
     "angular2-toaster": "6.0.0",
-    "ng-select": "^1.0.0-rc.5"
+    "ng-select": "^1.0.0-rc.5",
+    "@fortawesome/angular-fontawesome": "0.1.0-9",
+    "@fortawesome/fontawesome-svg-core": "1.2.0-11",
+    "@fortawesome/free-solid-svg-icons": "5.1.0-8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.3",
