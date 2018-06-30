@@ -8,11 +8,15 @@ import {provinceRoute} from './province/province.route';
 import {districtRoute} from './district/district.route';
 import {wardRoute} from "./ward/ward.route";
 import {warehouseRoute} from "./warehouse/warehouse.route";
+import {masterFormRoute} from "./master-form/master-form.route";
+import {detailFormRoute} from "./detail-form/detail-form.route";
 const SETUP_ROUTES = [
   ...provinceRoute,
   ...districtRoute,
   ...wardRoute,
-  ...warehouseRoute
+  ...warehouseRoute,
+  ...masterFormRoute,
+  ...detailFormRoute
 ];
 
 export const setupState: Routes = [{
