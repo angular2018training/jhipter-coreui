@@ -1,0 +1,94 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.detailForm.home.createOrEditLabel">Create or edit a Detail Form</strong>
+    </div>
+    <div class="card-body">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                        [(ngModel)]="detailForm.description" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.createDate" for="field_createDate">Create Date</label>
+                    <div class="d-flex">
+                        <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="createDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.createDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.uploadFile" for="field_uploadFile">Upload File</label>
+                    <div>
+                        <div *ngIf="detailForm.uploadFile" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(detailForm.uploadFileContentType, detailForm.uploadFile)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{detailForm.uploadFileContentType}}, {{byteSize(detailForm.uploadFile)}}</span>
+                            <button type="button" (click)="detailForm.uploadFile=null;detailForm.uploadFileContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <i class="fa fa-times" ></i>
+                            </button>
+                        </div>
+                        <input type="file" id="file_uploadFile" (change)="setFileData($event, detailForm, 'uploadFile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="uploadFile" id="field_uploadFile"
+                        [(ngModel)]="detailForm.uploadFile" required/>
+                    <input type="hidden" class="form-control" name="uploadFileContentType" id="field_uploadFileContentType"
+                        [(ngModel)]="detailForm.uploadFileContentType" />
+                    <div [hidden]="!(editForm.controls.uploadFile?.dirty && editForm.controls.uploadFile?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.uploadFile?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.isActive" for="field_isActive">Is Active</label>
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                        [(ngModel)]="detailForm.isActive" />
+                    <div [hidden]="!(editForm.controls.isActive?.dirty && editForm.controls.isActive?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.isActive?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.province" for="field_province">Province</label>
+                    <select class="form-control" id="field_province" name="province" [(ngModel)]="detailForm.provinceId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.district" for="field_district">District</label>
+                    <select class="form-control" id="field_district" name="district" [(ngModel)]="detailForm.districtId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="cancel()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

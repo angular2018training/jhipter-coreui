@@ -1,0 +1,29 @@
+
+{
+    "nextlogixApp": {
+        "detailForm" : {
+            "home": {
+                "title": "Detail Forms",
+                "createLabel": "Create a new Detail Form",
+                "createOrEditLabel": "Create or edit a Detail Form",
+                "search": "Search for Detail Form"
+            },
+            "created": "A new Detail Form is created with identifier {{ param }}",
+            "updated": "A Detail Form is updated with identifier {{ param }}",
+            "deleted": "A Detail Form is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Detail Form {{ id }}?"
+            },
+            "detail": {
+                "title": "Detail Form"
+            },
+            "description": "Description",
+            "createDate": "Create Date",
+            "uploadFile": "Upload File",
+            "isActive": "Is Active",
+            "masterForm": "Master Form",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
     import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
+
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -158,7 +162,14 @@ public class DistrictServiceImpl implements DistrictService {
             if(StringUtils.isNotBlank(searchDto.getDescription())) {
             boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder);
+            if( pageable.getSort() !=null) {
+            	pageable.getSort().forEach(sort -> {
+            		queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection()==Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            	});
+            }
+          
+            SearchQuery  query = queryBuilder.withPageable(pageable).build();
             Page<District> districtPage= districtSearchRepository.search(query);
             List<DistrictDTO> districtList =  StreamSupport
             .stream(districtPage.spliterator(), false)

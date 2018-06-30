@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -43,7 +43,8 @@ export class DistrictComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private principal: Principal,
     private provinceService : ProvinceService,
-    private districtPopupService: DistrictPopupService
+    private districtPopupService: DistrictPopupService,
+    private router : Router
   ) {
     this.districts = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -78,6 +79,23 @@ export class DistrictComponent implements OnInit, OnDestroy {
       (res: HttpResponse<District[]>) => this.onSuccess(res.body, res.headers),
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+  }
+  searchInForm(){
+    this.page = 0;
+    this.transition();
+
+  }
+  transition() {
+    this.router.navigate(['/setup/district', {
+      page: this.page,
+      size: this.itemsPerPage,
+      code : this.districtSearch.code!=null?this.districtSearch.code:'',
+      name : this.districtSearch.name!=null?this.districtSearch.name:'',
+      description : this.districtSearch.description!=null?this.districtSearch.description:'',
+      provinceId : this.districtSearch.provinceId!=null?this.districtSearch.provinceId:'',
+      sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+    }]);
+    this.loadAll();
   }
 
   reset() {

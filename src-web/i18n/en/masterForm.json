@@ -1,0 +1,30 @@
+
+{
+    "nextlogixApp": {
+        "masterForm" : {
+            "home": {
+                "title": "Master Forms",
+                "createLabel": "Create a new Master Form",
+                "createOrEditLabel": "Create or edit a Master Form",
+                "search": "Search for Master Form"
+            },
+            "created": "A new Master Form is created with identifier {{ param }}",
+            "updated": "A Master Form is updated with identifier {{ param }}",
+            "deleted": "A Master Form is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Master Form {{ id }}?"
+            },
+            "detail": {
+                "title": "Master Form"
+            },
+            "code": "Code",
+            "note": "Note",
+            "receiveTime": "Receive Time",
+            "imageFile": "Image File",
+            "isActive": "Is Active",
+            "detailFormDetailList": "Detail Form Detail List",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}

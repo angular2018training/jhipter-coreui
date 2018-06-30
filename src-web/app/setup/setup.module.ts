@@ -9,6 +9,8 @@ import {RouterModule} from "@angular/router";
 import {setupState} from "./setup.route";
 import {JhiLanguageService} from "ng-jhipster";
 import {JhiLanguageHelper} from "../shared/language/language.helper";
+import {NextlogixMasterFormModule} from "./master-form/master-form.module";
+import {NextlogixDetailFormModule} from "./detail-form/detail-form.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +19,8 @@ import {JhiLanguageHelper} from "../shared/language/language.helper";
     NextlogixWardModule,
     NextlogixWarehouseModule,
     NextlogixSharedLibsModule,
+    NextlogixMasterFormModule,
+    NextlogixDetailFormModule,
     RouterModule.forChild(setupState)
   ],
   declarations: [],

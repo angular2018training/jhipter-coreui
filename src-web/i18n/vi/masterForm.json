@@ -1,0 +1,30 @@
+
+{
+    "nextlogixApp": {
+        "masterForm" : {
+            "home": {
+                "title": "Master Forms",
+                "createLabel": "Thêm mới một Master Form",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Master Form",
+                "search": "Tìm Master Form"
+            },
+            "created": "Một Master Form mới được tạo với định danh {{ param }}",
+            "updated": "Một Master Form cập nhật với định danh {{ param }}",
+            "deleted": "Một Master Form đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Master Form {{ id }}?"
+            },
+            "detail": {
+                "title": "Master Form"
+            },
+            "code": "Code",
+            "note": "Note",
+            "receiveTime": "Receive Time",
+            "imageFile": "Image File",
+            "isActive": "Is Active",
+            "detailFormDetailList": "Detail Form Detail List",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}

@@ -1,0 +1,68 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.detailForm.detail.title">Detail Form</span> {{detailForm.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="detailForm">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.detailForm.description">Description</span></dt>
+        <dd>
+            <span>{{detailForm.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{detailForm.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.uploadFile">Upload File</span></dt>
+        <dd>
+            <div *ngIf="detailForm.uploadFile">
+                <a (click)="openFile(detailForm.uploadFileContentType, detailForm.uploadFile)" jhiTranslate="entity.action.open">open</a>
+                {{detailForm.uploadFileContentType}}, {{byteSize(detailForm.uploadFile)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.isActive">Is Active</span></dt>
+        <dd>
+            <span>{{detailForm.isActive}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.masterForm">Master Form</span></dt>
+        <dd>
+            <div *ngIf="detailForm.masterFormId">
+                <a [routerLink]="['/master-form', detailForm.masterFormId]">{{detailForm.masterFormId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.province">Province</span></dt>
+        <dd>
+            <div *ngIf="detailForm.provinceId">
+                <a [routerLink]="['/province', detailForm.provinceId]">{{detailForm.provinceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.district">District</span></dt>
+        <dd>
+            <div *ngIf="detailForm.districtId">
+                <a [routerLink]="['/district', detailForm.districtId]">{{detailForm.districtId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'detail-form', detailForm.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

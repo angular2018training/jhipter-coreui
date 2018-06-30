@@ -1,0 +1,29 @@
+
+{
+    "nextlogixApp": {
+        "detailForm" : {
+            "home": {
+                "title": "Detail Forms",
+                "createLabel": "Thêm mới một Detail Form",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Detail Form",
+                "search": "Tìm Detail Form"
+            },
+            "created": "Một Detail Form mới được tạo với định danh {{ param }}",
+            "updated": "Một Detail Form cập nhật với định danh {{ param }}",
+            "deleted": "Một Detail Form đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Detail Form {{ id }}?"
+            },
+            "detail": {
+                "title": "Detail Form"
+            },
+            "description": "Description",
+            "createDate": "Create Date",
+            "uploadFile": "Upload File",
+            "isActive": "Is Active",
+            "masterForm": "Master Form",
+            "province": "Province",
+            "district": "District"
+        }
+    }
+}
