@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { UserGroup } from './user-group.model';
-import { UserGroupService } from './user-group.service';
+import { UserGroup } from '../../models/user-group.model';
+import { UserGroupService } from '../../services/user-group.service';
 
 @Component({
     selector: 'jhi-user-group-detail',

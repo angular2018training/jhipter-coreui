@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -19,7 +19,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -30,7 +30,7 @@ import {
   AppHeaderModule,
   AppFooterModule,
   AppSidebarModule,
-} from '@coreui/angular'
+} from '@coreui/angular';
 
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 // Import routing module
@@ -40,23 +40,23 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import {NextlogixSharedModule} from "./shared/shared.module";
-import {LocalStorageService, Ng2Webstorage, SessionStorageService} from "ngx-webstorage";
-import {ProfileService} from "./layouts/profiles/profile.service";
-import {PaginationConfig} from "ngx-bootstrap";
-import {UserRouteAccessService} from "./shared/auth/user-route-access-service";
-import {AuthExpiredInterceptor} from "./blocks/interceptor/auth-expired.interceptor";
-import {JhiEventManager, NgJhipsterModule} from "ng-jhipster";
-import {ErrorHandlerInterceptor} from "./blocks/interceptor/errorhandler.interceptor";
-import {NotificationInterceptor} from "./blocks/interceptor/notification.interceptor";
-import {NextlogixAdminModule} from "./admin/admin.module";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {NextlogixErrorModule} from "./layouts/error/error.module";
-import {NextlogixSharedLibsModule} from "./shared/shared-libs.module";
-import {NextlogixSetupModule} from "./setup/setup.module";
-import {NextlogixCustomerManagmentModule} from "./customer-management/customer-management.module";
-import {ToasterModule, ToasterService} from 'angular2-toaster';
-import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { NextlogixSharedModule } from './shared/shared.module';
+import { LocalStorageService, Ng2Webstorage, SessionStorageService } from 'ngx-webstorage';
+import { ProfileService } from './layouts/profiles/profile.service';
+import { PaginationConfig } from 'ngx-bootstrap';
+import { UserRouteAccessService } from './shared/auth/user-route-access-service';
+import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
+import { JhiEventManager, NgJhipsterModule } from 'ng-jhipster';
+import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
+import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
+import { NextlogixAdminModule } from './admin/admin.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NextlogixErrorModule } from './layouts/error/error.module';
+import { NextlogixSharedLibsModule } from './shared/shared-libs.module';
+import { NextlogixSetupModule } from './setup/setup.module';
+import { NextlogixCustomerManagmentModule } from './customer-management/customer-management.module';
+import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   imports: [
     BrowserModule,
@@ -77,9 +77,9 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     NextlogixSharedLibsModule.forRoot(),
     NextlogixSetupModule,
 
-    //NextlogixAdminModule,
+    // NextlogixAdminModule,
     NextlogixCustomerManagmentModule,
-    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
+    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
     ToasterModule.forRoot(),
     BrowserAnimationsModule,
     NoopAnimationsModule
@@ -99,41 +99,41 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     ProfileService,
     PaginationConfig,
     UserRouteAccessService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-      deps: [
-        LocalStorageService,
-        SessionStorageService
-      ]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthExpiredInterceptor,
-      multi: true,
-      deps: [
-        Injector
-      ]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true,
-      deps: [
-        JhiEventManager,
-        Injector
-      ]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NotificationInterceptor,
-      multi: true,
-      deps: [
-        Injector
-      ]
-    }],
-  bootstrap: [ AppComponent ],
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+    deps: [
+      LocalStorageService,
+      SessionStorageService
+    ]
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthExpiredInterceptor,
+    multi: true,
+    deps: [
+      Injector
+    ]
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorHandlerInterceptor,
+    multi: true,
+    deps: [
+      JhiEventManager,
+      Injector
+    ]
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: NotificationInterceptor,
+    multi: true,
+    deps: [
+      Injector
+    ]
+  }],
+  bootstrap: [AppComponent],
 
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

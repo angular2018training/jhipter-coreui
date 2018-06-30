@@ -17,10 +17,11 @@
             "detail": {
                 "title": "User Group"
             },
-            "code": "Code",
-            "name": "Name",
-            "description": "Description",
-            "company": "Company"
+            "code": "Mã",
+            "name": "Tên",
+            "role": "Quyền",
+            "description": "Mô tả",
+            "company": "Công ty"
         }
     }
 }

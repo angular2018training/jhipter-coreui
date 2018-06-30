@@ -4,11 +4,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
 
-import { UserGroupService } from './user-group.service';
+import { UserGroupService } from '../../services/user-group.service';
 
-import { UserGroup } from './user-group.model';
-            import { Company, CompanyService } from '../../setup/company';
-import {UserService} from "../../shared/user/user.service";
+import { UserGroup } from '../../models/user-group.model';
+            import { Company, CompanyService } from '../../../../setup/company';
+import {UserService} from "../../../../shared/user/user.service";
 
 @Component({
     selector: 'jhi-user-group-update',

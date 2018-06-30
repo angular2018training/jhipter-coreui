@@ -8,22 +8,22 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import {adminState} from "./admin/admin.route";
-import {DashboardModule} from "./views/dashboard/dashboard.module";
-import {NextlogixAdminModule} from "./admin/admin.module";
-import {BaseModule} from "./views/base/base.module";
-import {ButtonsModule} from "./views/buttons/buttons.module";
-import {ChartJSModule} from "./views/chartjs/chartjs.module";
-import {IconsModule} from "./views/icons/icons.module";
-import {NotificationsModule} from "./views/notifications/notifications.module";
-import {ThemeModule} from "./views/theme/theme.module";
-import {WidgetsModule} from "./views/widgets/widgets.module";
-import {errorRoute} from "./layouts/error/error.route";
-import {NextlogixSetupModule} from "./setup/setup.module";
-import {setupRouter} from "@angular/router/src/router_module";
-import {setupState} from "./setup/setup.route";
-import {customerManagementState} from "./customer-management/customer-management.route";
-import {NextlogixAccountModule} from "./account/account.module";
+import { adminState } from "./admin/admin.route";
+import { DashboardModule } from "./views/dashboard/dashboard.module";
+import { NextlogixAdminModule } from "./admin/admin.module";
+import { BaseModule } from "./views/base/base.module";
+import { ButtonsModule } from "./views/buttons/buttons.module";
+import { ChartJSModule } from "./views/chartjs/chartjs.module";
+import { IconsModule } from "./views/icons/icons.module";
+import { NotificationsModule } from "./views/notifications/notifications.module";
+import { ThemeModule } from "./views/theme/theme.module";
+import { WidgetsModule } from "./views/widgets/widgets.module";
+import { errorRoute } from "./layouts/error/error.route";
+import { NextlogixSetupModule } from "./setup/setup.module";
+import { setupRouter } from "@angular/router/src/router_module";
+import { setupState } from "./setup/setup.route";
+import { customerManagementState } from "./customer-management/customer-management.route";
+import { NextlogixAccountModule } from "./account/account.module";
 
 export const routes: Routes = [
 
@@ -65,62 +65,62 @@ export const routes: Routes = [
     children: [
       {
         path: 'base',
-        loadChildren: ()=> BaseModule
+        loadChildren: () => BaseModule
       },
       {
         path: 'buttons',
-        loadChildren: ()=> ButtonsModule
+        loadChildren: () => ButtonsModule
       },
       {
         path: 'charts',
-        loadChildren:  ()=> ChartJSModule
+        loadChildren: () => ChartJSModule
       },
       {
         path: 'dashboard',
-        loadChildren:()=> DashboardModule
+        loadChildren: () => DashboardModule
       },
       {
         path: 'icons',
-        loadChildren:  ()=> IconsModule
+        loadChildren: () => IconsModule
       },
       {
         path: 'notifications',
-        loadChildren: ()=> NotificationsModule
+        loadChildren: () => NotificationsModule
       },
       {
         path: 'theme',
-        loadChildren: ()=> ThemeModule
+        loadChildren: () => ThemeModule
       },
       {
         path: 'widgets',
-        loadChildren: ()=> WidgetsModule
+        loadChildren: () => WidgetsModule
       },
       {
-        path:'admin',
-        loadChildren: ()=> NextlogixAdminModule,
+        path: 'admin',
+        loadChildren: () => NextlogixAdminModule,
         //children:adminState,
         data: {
           breadcrumb: "Admin"
         }
       },
       {
-        path:'setup',
+        path: 'setup',
         //children:setupState,
-        loadChildren: ()=> NextlogixSetupModule,
+        loadChildren: () => NextlogixSetupModule,
         data: {
           breadcrumb: "Setup "
         }
       },
       {
-        path:'customer-management',
-        children:customerManagementState,
+        path: 'customer-management',
+        children: customerManagementState,
         data: {
           breadcrumb: "Customer Management "
         }
       },
       {
-        path:'account',
-        loadChildren: ()=> NextlogixAccountModule,
+        path: 'account',
+        loadChildren: () => NextlogixAccountModule,
         data: {
           breadcrumb: "Account "
         }
@@ -132,10 +132,10 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes,{
+  imports: [RouterModule.forRoot(routes, {
     enableTracing: true, // <-- debugging purposes o
     useHash: true
-  }) ],
-  exports: [ RouterModule ]
+  })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

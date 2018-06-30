@@ -2,7 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { UserGroup } from './user-group.model';
+import { UserGroup } from '../models/user-group.model';
 import { UserGroupService } from './user-group.service';
 
 @Injectable()
