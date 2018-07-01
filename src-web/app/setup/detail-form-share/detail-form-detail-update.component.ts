@@ -17,10 +17,10 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
-    selector: 'jhi-detail-form-share-update',
-    templateUrl: './detail-form-share-update.component.html'
+    selector: 'jhi-detail-form-detail-update',
+    templateUrl: './detail-form-detail-update.component.html'
 })
-export class DetailFormShareUpdateComponent implements OnInit {
+export class DetailFormDetailUpdateComponent implements OnInit {
 
     private _detailForm: DetailForm;
     isSaving: boolean;
@@ -87,7 +87,7 @@ export class DetailFormShareUpdateComponent implements OnInit {
     private onSaveSuccess() {
         this.isSaving = false;
         this.activeModal.dismiss();
-        this.eventManager.broadcast({ name: 'detail-form.save.success', content: 'OK'});
+        this.eventManager.broadcast({ name: 'detail-form-detail.save.success', content: 'OK'});
         //this.previousState();
     }
 

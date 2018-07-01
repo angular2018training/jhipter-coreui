@@ -7,7 +7,7 @@ import {DetailForm} from "../detail-form/detail-form.model";
 import {DetailFormService} from "../detail-form/detail-form.service";
 
 @Injectable()
-export class DetailFormSharePopupService {
+export class DetailFormDetailPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(

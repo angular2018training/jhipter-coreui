@@ -9,7 +9,8 @@ import { MasterFormService } from './master-form.service';
 
 @Component({
     selector: 'jhi-master-form-detail',
-    templateUrl: './master-form-detail.component.html'
+    templateUrl: './master-form-detail.component.html',
+
 })
 export class MasterFormDetailComponent implements OnInit, OnDestroy {
 
