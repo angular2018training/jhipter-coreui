@@ -28,17 +28,16 @@ import {
   UserResolve,
   UserModalService
 } from './';
-import {ElasticsearchReindexComponent} from "./elasticsearch-reindex/elasticsearch-reindex.component";
-import {ElasticsearchReindexModalComponent} from "./elasticsearch-reindex/elasticsearch-reindex-modal.component";
-import {ElasticsearchReindexService} from "./elasticsearch-reindex/elasticsearch-reindex.service";
-import {NextlogixUserGroupModule} from "./user-group/user-group.module";
-import {JhiLanguageService} from "ng-jhipster";
-import {JhiLanguageHelper} from "../shared/language/language.helper";
-import {UserMgmtUpdateComponent} from "./user-management/user-management-update.component";
+import {ElasticsearchReindexComponent} from './elasticsearch-reindex/elasticsearch-reindex.component';
+import {ElasticsearchReindexModalComponent} from './elasticsearch-reindex/elasticsearch-reindex-modal.component';
+import {ElasticsearchReindexService} from './elasticsearch-reindex/elasticsearch-reindex.service';
+import {NextlogixUserGroupModule} from './user-group/user-group.module';
+import {JhiLanguageService} from 'ng-jhipster';
+import {JhiLanguageHelper} from '../shared/language/language.helper';
+import {UserMgmtUpdateComponent} from './user-management/user-management-update.component';
 
 @NgModule({
   imports: [
-
     NextlogixSharedModule,
     NextlogixUserGroupModule,
     RouterModule.forChild(adminState)

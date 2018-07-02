@@ -13,9 +13,9 @@
                 "district": "District",
                 "province": "Province",
                 "userGroup": "User Group",
-                "role": "Role",
-                "bank": "Bank",
-                "orderStatus": "Order Status",
+                "role": "Quyền",
+                "bank": "Ngân hàng",
+                "orderStatus": "Trạng thái ĐH",
                 "orderService": "Order Service",
                 "fileUpload": "File Upload",
                 "userPosition": "User Position",
@@ -119,7 +119,7 @@
       "notify" : "Thông báo",
       "button":{
         "search":"Tìm",
-        "reset":" ",
+        "reset":"Làm lại",
         "export":{
           "excel":"Export Excel"
         },

@@ -6,10 +6,10 @@ put Sass variables here:
 eg $input-color: red;
 ****************************/
 // Override Boostrap variables
-@import "bootstrap-variables";
+// @import "bootstrap-variables"; // import from coreui already
 // Import Bootstrap source files from node_modules
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/font-awesome/scss/font-awesome';
+// @import 'node_modules/bootstrap/scss/bootstrap'; // import from coreui already
+// @import 'node_modules/font-awesome/scss/font-awesome';
 @import  url('../../../node_modules/flag-icon-css/css/flag-icon.css');
 @import  url('../../../node_modules/@coreui/icons/css/coreui-icons.css');
 @import  url('../../../node_modules/flag-icon-css/css/flag-icon.css');
@@ -19,7 +19,8 @@ eg $input-color: red;
 @import "../../scss/variables";
 
 // Import styles
-@import url('../../../node_modules/@coreui/coreui/dist/css/coreui.css');
+// @import "node_modules/@coreui/coreui-pro/scss/variables";
+@import "node_modules/@coreui/coreui-pro/scss/coreui.scss";
 
 // If you want to add something do it here
 @import "../../scss/custom";

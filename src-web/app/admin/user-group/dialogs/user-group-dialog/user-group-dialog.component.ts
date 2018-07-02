@@ -6,10 +6,10 @@ import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { UserGroup } from './user-group.model';
-import { UserGroupPopupService } from './user-group-popup.service';
-import { UserGroupService } from './user-group.service';
-import { Role, RoleService } from '../role';
+import { UserGroup } from '../../models/user-group.model';
+import { UserGroupPopupService } from '../../services/user-group-popup.service';
+import { UserGroupService } from '../../services/user-group.service';
+import { Role, RoleService } from '../../../role';
 
 @Component({
     selector: 'jhi-user-group-dialog',
