@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { UserGroup } from './user-group.model';
-import { UserGroupPopupService } from './user-group-popup.service';
-import { UserGroupService } from './user-group.service';
+import { UserGroup } from '../../models/user-group.model';
+import { UserGroupPopupService } from '../../services/user-group-popup.service';
+import { UserGroupService } from '../../services/user-group.service';
 
 @Component({
     selector: 'jhi-user-group-delete-dialog',

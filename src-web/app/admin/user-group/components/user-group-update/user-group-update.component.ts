@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterViewInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JhiAlertService,  } from 'ng-jhipster';
+import { JhiAlertService, } from 'ng-jhipster';
 
-import { UserGroupService } from './user-group.service';
+import { UserGroupService } from '../../services/user-group.service';
 
-import { UserGroup } from './user-group.model';
-            import { Company, CompanyService } from '../../setup/company';
-import {UserService} from "../../shared/user/user.service";
+import { UserGroup } from '../../models/user-group.model';
+import { Company, CompanyService } from '../../../../setup/company';
+import { UserService } from '../../../../shared/user/user.service';
+import * as $ from 'jquery';
+import 'select2';
 
 @Component({
     selector: 'jhi-user-group-update',
-    templateUrl: './user-group-update.component.html'
+    templateUrl: './user-group-update.component.html',
+    encapsulation: ViewEncapsulation.None
 })
-export class UserGroupUpdateComponent implements OnInit {
+export class UserGroupUpdateComponent implements OnInit, AfterViewInit {
 
     private _userGroup: UserGroup;
     isSaving: boolean;
@@ -22,6 +25,7 @@ export class UserGroupUpdateComponent implements OnInit {
     companies: Company[];
 
     authorities: any[];
+    @ViewChild('selectAuthority') selectedView;
     constructor(
         private jhiAlertService: JhiAlertService,
         private userGroupService: UserGroupService,
@@ -30,21 +34,25 @@ export class UserGroupUpdateComponent implements OnInit {
         private userService: UserService
     ) {
 
-
     }
 
     ngOnInit() {
         this.authorities = [];
         this.isSaving = false;
-        this.route.data.subscribe(({userGroup}) => {
+        this.route.data.subscribe(({ userGroup }) => {
             this.userGroup = userGroup;
-
         });
-      this.userService.authorities().subscribe(authorities => {
-        this.authorities = authorities;
-      });
+        this.userService.authorities().subscribe((authorities) => {
+            this.authorities = authorities;
+        });
         this.companyService.query()
             .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    ngAfterViewInit(): void {
+        $('#select2id').select2({
+            theme: 'bootstrap'
+        });
     }
 
     previousState() {
@@ -52,7 +60,13 @@ export class UserGroupUpdateComponent implements OnInit {
     }
 
     save() {
+        let selectedAuthorities: Array<string> = [];
+        for (let i = 0; i < this.selectedView.nativeElement.selectedOptions.length; i++){
+            selectedAuthorities.push(this.selectedView.nativeElement.selectedOptions[i].text);
+        }
         this.isSaving = true;
+        this.userGroup.authorities = selectedAuthorities;
+        this.userGroup.companyId = 1;
         if (this.userGroup.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.userGroupService.update(this.userGroup));

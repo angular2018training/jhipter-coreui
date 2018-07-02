@@ -1,26 +1,27 @@
-import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { UserGroup } from './user-group.model';
-import { UserGroupPopupService } from './user-group-popup.service';
-import { UserGroupService } from './user-group.service';
-import { UserGroupDeleteDialogComponent } from './user-group-delete-dialog.component';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {UserGroupSearch} from './user-group.search.model';
+import { UserGroup } from '../../models/user-group.model';
+import { UserGroupPopupService } from '../../services/user-group-popup.service';
+import { UserGroupService } from '../../services/user-group.service';
+import { UserGroupDeleteDialogComponent } from '../../dialogs/user-group-delete-dialog/user-group-delete-dialog.component';
+import { ITEMS_PER_PAGE, Principal } from '../../../../shared';
+import { UserGroupSearch } from '../../models/user-group.search.model';
 
-import {Company} from '../../setup/company/company.model';
-import {CompanyService} from "../../setup/company/company.service";
+import { Company } from '../../../../setup/company/company.model';
+import { CompanyService } from '../../../../setup/company/company.service';
 @Component({
     selector: 'jhi-user-group',
-    templateUrl: './user-group.component.html'
+    templateUrl: './user-group.component.html',
+    styleUrls: ['./user-group.component.scss']
 })
 export class UserGroupComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     userGroups: UserGroup[];
     error: any;
     success: any;
@@ -35,9 +36,9 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
-    userGroupSearch : UserGroupSearch;
-
-    companies : Company[];
+    userGroupSearch: UserGroupSearch;
+    filterQuery = '';
+    companies: Company[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -60,40 +61,40 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.companies =[];
+        this.companies = [];
 
         this.userGroupSearch = new UserGroupSearch();
 
         this.userGroupSearch.code = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['code'] ?
-                        this.activatedRoute.snapshot.params[' code'] : '';
+            this.activatedRoute.snapshot.params[' code'] : '';
         this.userGroupSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
-                        this.activatedRoute.snapshot.params[' name'] : '';
+            this.activatedRoute.snapshot.params[' name'] : '';
         this.userGroupSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
-                        this.activatedRoute.snapshot.params[' description'] : '';
+            this.activatedRoute.snapshot.params[' description'] : '';
         this.userGroupSearch.companyId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['companyId'] ?
-                         this.activatedRoute.snapshot.params['companyId'] : '';
+            this.activatedRoute.snapshot.params['companyId'] : '';
     }
 
     loadAll() {
-         var obj = {
-         page: this.page -1,
-         size: this.itemsPerPage,
-         sort: this.sort(),
-         code : this.userGroupSearch.code,
-         name : this.userGroupSearch.name,
-         description : this.userGroupSearch.description,
-           companyId : this.userGroupSearch.companyId,
-         };
+        let obj = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            code: this.userGroupSearch.code,
+            name: this.userGroupSearch.name,
+            description: this.userGroupSearch.description,
+            companyId: this.userGroupSearch.companyId,
+        };
 
         this.userGroupService.searchExample(obj).subscribe(
-          (res: HttpResponse<UserGroup[]>) => this.onSuccess(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
+            (res: HttpResponse<UserGroup[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
 
     }
-    searchInForm(){
-          this.page = 0;
-          this.transition();
+    searchInForm() {
+        this.page = 0;
+        this.transition();
 
     }
     loadPage(page: number) {
@@ -103,15 +104,16 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/setup/user-group'], {queryParams:
+        this.router.navigate(['/setup/user-group'], {
+            queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,
                 search: this.currentSearch,
-                code : this.userGroupSearch.code,
-                name : this.userGroupSearch.name,
-                description : this.userGroupSearch.description,
-                companyId : this.userGroupSearch.companyId,
+                code: this.userGroupSearch.code,
+                name: this.userGroupSearch.name,
+                description: this.userGroupSearch.description,
+                companyId: this.userGroupSearch.companyId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -185,7 +187,7 @@ currentAccount: any;
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    public deleteItem(id:number){
+    public deleteItem(id: number) {
         this.userGroupPopupService
             .open(UserGroupDeleteDialogComponent as Component, id);
     }

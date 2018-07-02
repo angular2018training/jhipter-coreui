@@ -1,16 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { userGroupRoute, userGroupPopupRoute } from './user-group.route';
 import { NextlogixSharedModule } from '../../shared';
+
 import {
-UserGroupComponent,
+    UserGroupComponent,
     UserGroupDetailComponent,
     UserGroupUpdateComponent,
     UserGroupDeletePopupComponent,
     UserGroupDeleteDialogComponent,
-    userGroupRoute,
-    userGroupPopupRoute,
-    UserGroupPopupService
+    UserGroupPopupService,
+    DataFilterPipe
 } from './';
 
 const ENTITY_STATES = [
@@ -21,25 +21,26 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-RouterModule.forChild(ENTITY_STATES)
-],
-declarations: [
-    UserGroupComponent,
-    UserGroupDetailComponent,
-    UserGroupUpdateComponent,
-    UserGroupDeleteDialogComponent,
-    UserGroupDeletePopupComponent,
-],
+        RouterModule.forChild(ENTITY_STATES)
+    ],
+    declarations: [
+        UserGroupComponent,
+        UserGroupDetailComponent,
+        UserGroupUpdateComponent,
+        UserGroupDeleteDialogComponent,
+        UserGroupDeletePopupComponent,
+        DataFilterPipe
+    ],
     entryComponents: [
-    UserGroupComponent,
-    UserGroupUpdateComponent,
-    UserGroupDeleteDialogComponent,
-    UserGroupDeletePopupComponent,
-],
-providers: [
-    UserGroupPopupService,
-],
-
-schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        UserGroupComponent,
+        UserGroupUpdateComponent,
+        UserGroupDeleteDialogComponent,
+        UserGroupDeletePopupComponent,
+    ],
+    providers: [
+        UserGroupPopupService,
+        DataFilterPipe
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class NextlogixUserGroupModule {}
+export class NextlogixUserGroupModule { }

@@ -19,6 +19,7 @@
             },
             "code": "Code",
             "name": "Name",
+            "role": "Role",
             "description": "Description",
             "company": "Company"
         }
