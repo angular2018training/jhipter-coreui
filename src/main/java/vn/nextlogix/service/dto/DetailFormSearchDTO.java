@@ -30,15 +30,15 @@ private String uploadFileContentType;
 
 private Boolean isActive;
 
-private Long masterFormId;
-
-
-
 private Long provinceId;
 
 
 
 private Long districtId;
+
+
+
+private Long masterFormParentId;
 
 
 
@@ -91,16 +91,6 @@ public void setIsActive(Boolean isActive) {
     }
 
 
-public Long getMasterFormId() {
-    return masterFormId;
-    }
-
-public void setMasterFormId(Long masterFormId) {
-    this.masterFormId = masterFormId;
-    }
-
-
-
 public Long getProvinceId() {
     return provinceId;
     }
@@ -117,6 +107,16 @@ public Long getDistrictId() {
 
 public void setDistrictId(Long districtId) {
     this.districtId = districtId;
+    }
+
+
+
+public Long getMasterFormParentId() {
+    return masterFormParentId;
+    }
+
+public void setMasterFormParentId(Long masterFormId) {
+    this.masterFormParentId = masterFormId;
     }
 
 

@@ -71,8 +71,6 @@ public class DetailFormResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-    
-    
 
     /**
      * PUT  /detail-forms : Updates an existing detailForm.
@@ -111,8 +109,6 @@ public class DetailFormResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/detail-forms");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-    
-    
 
     /**
      * GET  /detail-forms/:id : get the "id" detailForm.

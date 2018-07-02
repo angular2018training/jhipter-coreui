@@ -27,12 +27,6 @@
         <dd>
             <span>{{detailForm.isActive}}</span>
         </dd>
-        <dt><span jhiTranslate="nextlogixApp.detailForm.masterForm">Master Form</span></dt>
-        <dd>
-            <div *ngIf="detailForm.masterFormId">
-                <a [routerLink]="['/master-form', detailForm.masterFormId]">{{detailForm.masterFormId}}</a>
-            </div>
-        </dd>
         <dt><span jhiTranslate="nextlogixApp.detailForm.province">Province</span></dt>
         <dd>
             <div *ngIf="detailForm.provinceId">
@@ -43,6 +37,12 @@
         <dd>
             <div *ngIf="detailForm.districtId">
                 <a [routerLink]="['/district', detailForm.districtId]">{{detailForm.districtId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.detailForm.masterFormParent">Master Form Parent</span></dt>
+        <dd>
+            <div *ngIf="detailForm.masterFormParentId">
+                <a [routerLink]="['/master-form', detailForm.masterFormParentId]">{{detailForm.masterFormParentId}}</a>
             </div>
         </dd>
     </dl>

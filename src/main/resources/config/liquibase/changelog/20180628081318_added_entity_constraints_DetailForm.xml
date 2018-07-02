@@ -8,12 +8,6 @@
     -->
     <changeSet id="20180628081318-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="master_form_id"
-                                 baseTableName="detail_form"
-                                 constraintName="fk_detail_form_master_form_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="master_form"/>
-
         <addForeignKeyConstraint baseColumnNames="province_id"
                                  baseTableName="detail_form"
                                  constraintName="fk_detail_form_province_id"
@@ -25,6 +19,12 @@
                                  constraintName="fk_detail_form_district_id"
                                  referencedColumnNames="id"
                                  referencedTableName="district"/>
+
+        <addForeignKeyConstraint baseColumnNames="master_form_parent_id"
+                                 baseTableName="detail_form"
+                                 constraintName="fk_detail_form_master_form_parent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_form"/>
 
     </changeSet>
 </databaseChangeLog>

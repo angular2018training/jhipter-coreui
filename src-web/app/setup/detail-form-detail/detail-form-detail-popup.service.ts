@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import {DetailForm} from "../detail-form/detail-form.model";
-import {DetailFormService} from "../detail-form/detail-form.service";
-
+import { DetailForm } from '../detail-form/detail-form.model';
+import { DetailFormService } from '../detail-form/detail-form.service';
 @Injectable()
-export class DetailFormSharePopupService {
+export class DetailFormDetailPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
@@ -20,7 +19,7 @@ export class DetailFormSharePopupService {
         this.ngbModalRef = null;
     }
 
-    open(component: Component, id?: number | any,masterFormId?:number | any): Promise<NgbModalRef> {
+    open(component: Component, id?: number | any , masterFormParentId?: number | any  ): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {
@@ -39,16 +38,14 @@ export class DetailFormSharePopupService {
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    let detailForm = new DetailForm();
-                    detailForm.masterFormId = masterFormId;
-                    this.ngbModalRef = this.detailFormModalRef(component, detailForm);
+                    let entity = new DetailForm();
+                    entity.masterFormParentId =  masterFormParentId;
+                    this.ngbModalRef = this.detailFormModalRef(component, entity);
                     resolve(this.ngbModalRef);
                 }, 0);
             }
         });
     }
-
-
 
     detailFormModalRef(component: Component, detailForm: DetailForm): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
@@ -57,7 +54,7 @@ export class DetailFormSharePopupService {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: false });
             this.ngbModalRef = null;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: false});
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: false });
             this.ngbModalRef = null;
         });
         return modalRef;

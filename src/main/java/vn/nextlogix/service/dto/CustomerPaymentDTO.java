@@ -54,6 +54,8 @@ public class CustomerPaymentDTO implements Serializable {
     private Long paymentTypeId;
 
     private PaymentTypeDTO  paymentTypeDTO;
+    
+    private Long customerId;
 
 
     public Long getId() {
@@ -198,9 +200,19 @@ public class CustomerPaymentDTO implements Serializable {
     public void setPaymentTypeId(Long paymentTypeId) {
         this.paymentTypeId = paymentTypeId;
         }
+    
+    
 
 
-    @Override
+    public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

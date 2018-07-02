@@ -1,3 +1,6 @@
+
+
+
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 <div class="card">
     <div class="card-header">
@@ -70,13 +73,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.masterForm" for="field_masterForm">Master Form</label>
-                    <select class="form-control" id="field_masterForm" name="masterForm" [(ngModel)]="detailForm.masterFormId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="masterFormOption.id" *ngFor="let masterFormOption of masterforms; trackBy: trackMasterFormById">{{masterFormOption.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.province" for="field_province">Province</label>
                     <select class="form-control" id="field_province" name="province" [(ngModel)]="detailForm.provinceId" >
                         <option [ngValue]="null"></option>
@@ -88,6 +84,13 @@
                     <select class="form-control" id="field_district" name="district" [(ngModel)]="detailForm.districtId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.detailForm.masterFormParent" for="field_masterFormParent">Master Form Parent</label>
+                    <select class="form-control" id="field_masterFormParent" name="masterFormParent" [(ngModel)]="detailForm.masterFormParentId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="masterFormOption.id" *ngFor="let masterFormOption of masterforms; trackBy: trackMasterFormById">{{masterFormOption.name}}</option>
                     </select>
                 </div>
             </div>

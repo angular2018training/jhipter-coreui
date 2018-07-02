@@ -47,17 +47,6 @@
 
 
             <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_masterForm"
-                       jhiTranslate="nextlogixApp.detailForm.masterForm">>Master Form:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_masterForm" name="masterForm" [(ngModel)]="detailFormSearch.masterFormId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="masterFormOption.id" *ngFor="let masterFormOption of masterforms; trackBy: trackMasterFormById">{{masterFormOption.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_province"
                        jhiTranslate="nextlogixApp.detailForm.province">>Province:</label>
                 <div class="col-md-4">
@@ -75,6 +64,17 @@
                     <select class="form-control" id="field_district" name="district" [(ngModel)]="detailFormSearch.districtId">
                     <option [ngValue]="null"></option>
                     <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_masterFormParent"
+                       jhiTranslate="nextlogixApp.detailForm.masterFormParent">>Master Form Parent:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_masterFormParent" name="masterFormParent" [(ngModel)]="detailFormSearch.masterFormParentId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="masterFormOption.id" *ngFor="let masterFormOption of masterforms; trackBy: trackMasterFormById">{{masterFormOption.name}}</option>
                     </select>
                 </div>
             </div>
@@ -111,9 +111,9 @@
                 <th jhiSortBy="createDate"><span jhiTranslate="nextlogixApp.detailForm.createDate">Create Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="uploadFile"><span jhiTranslate="nextlogixApp.detailForm.uploadFile">Upload File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="isActive"><span jhiTranslate="nextlogixApp.detailForm.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="masterFormId"><span jhiTranslate="nextlogixApp.detailForm.masterForm">Master Form</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.detailForm.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="districtId"><span jhiTranslate="nextlogixApp.detailForm.district">District</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="masterFormParentId"><span jhiTranslate="nextlogixApp.detailForm.masterFormParent">Master Form Parent</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -128,11 +128,6 @@
                     </td>
                     <td>{{detailForm.isActive}}</td>
                     <td>
-        <div *ngIf="detailForm.masterFormId">
-        <a [routerLink]="['../master-form', 'detail',detailForm.masterFormId ]" >{{detailForm.masterFormDTO?.name}}</a>
-    </div>
-    </td>
-                    <td>
         <div *ngIf="detailForm.provinceId">
         <a [routerLink]="['../province', 'detail',detailForm.provinceId ]" >{{detailForm.provinceDTO?.name}}</a>
     </div>
@@ -140,6 +135,11 @@
                     <td>
         <div *ngIf="detailForm.districtId">
         <a [routerLink]="['../district', 'detail',detailForm.districtId ]" >{{detailForm.districtDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="detailForm.masterFormParentId">
+        <a [routerLink]="['../master-form', 'detail',detailForm.masterFormParentId ]" >{{detailForm.masterFormParentDTO?.name}}</a>
     </div>
     </td>
     <td class="text-right">

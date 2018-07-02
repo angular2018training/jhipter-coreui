@@ -12,8 +12,7 @@ MasterFormComponent,
     masterFormPopupRoute,
     MasterFormPopupService
 } from './';
-import {NextlogixDetailFormModule} from "../detail-form/detail-form.module";
-import {NextlogixDetailFormShareModule} from "../detail-form-share/detail-form-share.module";
+import {NextlogixDetailFormDetailModule} from "../detail-form-detail/detail-form-detail.module";
 
 const ENTITY_STATES = [
     ...masterFormRoute,
@@ -23,8 +22,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-      NextlogixDetailFormModule,
-      NextlogixDetailFormShareModule,
+    NextlogixDetailFormDetailModule,
 RouterModule.forChild(ENTITY_STATES)
 ],
 declarations: [
@@ -43,7 +41,7 @@ declarations: [
 providers: [
     MasterFormPopupService,
 ],
-exports :[NextlogixDetailFormModule],
+
 schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NextlogixMasterFormModule {}

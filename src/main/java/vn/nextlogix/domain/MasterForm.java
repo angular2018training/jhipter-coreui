@@ -53,7 +53,7 @@ public class MasterForm implements Serializable {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "masterForm")
+    @OneToMany(mappedBy = "masterFormParent")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<DetailForm> detailFormDetailLists = new HashSet<>();
@@ -162,13 +162,13 @@ public class MasterForm implements Serializable {
 
     public MasterForm addDetailFormDetailList(DetailForm detailForm) {
         this.detailFormDetailLists.add(detailForm);
-        detailForm.setMasterForm(this);
+        detailForm.setMasterFormParent(this);
         return this;
     }
 
     public MasterForm removeDetailFormDetailList(DetailForm detailForm) {
         this.detailFormDetailLists.remove(detailForm);
-        detailForm.setMasterForm(null);
+        detailForm.setMasterFormParent(null);
         return this;
     }
 

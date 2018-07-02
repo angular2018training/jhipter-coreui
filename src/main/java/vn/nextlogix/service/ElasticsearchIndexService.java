@@ -143,6 +143,15 @@ public class ElasticsearchIndexService {
     private final CompanyRepository companyRepository;
 
     private final CompanySearchRepository companySearchRepository;
+    
+    private final MasterFormRepository masterFormRepository;
+
+    private final MasterFormSearchRepository masterFormSearchRepository;
+    
+    private final DetailFormRepository detailFormRepository;
+
+    private final DetailFormSearchRepository detailFormSearchRepository;
+    
 
     private final ElasticsearchTemplate elasticsearchTemplate;
 
@@ -199,6 +208,10 @@ public class ElasticsearchIndexService {
         WarehouseSearchRepository warehouseSearchRepository,
         CompanyRepository companyRepository,
         CompanySearchRepository companySearchRepository,
+        MasterFormRepository masterFormRepository,
+        MasterFormSearchRepository masterFormSearchRepository,
+        DetailFormRepository detailFormRepository,
+        DetailFormSearchRepository detailFormSearchRepository,
         ElasticsearchTemplate elasticsearchTemplate) {
         this.userRepository = userRepository;
         this.userSearchRepository = userSearchRepository;
@@ -252,6 +265,10 @@ public class ElasticsearchIndexService {
         this.warehouseSearchRepository = warehouseSearchRepository;
         this.companyRepository = companyRepository;
         this.companySearchRepository = companySearchRepository;
+        this.masterFormRepository = masterFormRepository;
+        this.masterFormSearchRepository = masterFormSearchRepository;
+        this.detailFormRepository = detailFormRepository;
+        this.detailFormSearchRepository = detailFormSearchRepository;
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
@@ -286,6 +303,8 @@ public class ElasticsearchIndexService {
                 reindexForClass(User.class, userRepository, userSearchRepository);
                 reindexForClass(Warehouse.class,warehouseRepository,warehouseSearchRepository);
                 reindexForClass(Company.class,companyRepository,companySearchRepository);
+                reindexForClass(MasterForm.class,masterFormRepository,masterFormSearchRepository);
+                reindexForClass(DetailForm.class,detailFormRepository,detailFormSearchRepository);
 
               log.info("Elasticsearch: Successfully performed reindexing");
             } finally {
