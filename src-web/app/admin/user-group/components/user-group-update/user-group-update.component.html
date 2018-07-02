@@ -49,7 +49,7 @@
                             <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.role">Role</label>
                         </div>
                         <div class="col-md-11 col-sm-12">
-                            <select id="select2id" name="authorities" class="form-control select2-multiple" multiple [(ngModel)]="userGroup.authorities">
+                            <select #selectAuthority id="select2id" name="authorities" class="form-control select2-multiple" multiple [(ngModel)]="userGroup.authorities">
                                 <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
                             </select>
                         </div>
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button *ngIf="isEditable" type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
                 <i class="fa fa-dot-circle-o"></i>&nbsp;
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>&nbsp;

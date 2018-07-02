@@ -105,11 +105,8 @@
                             <td>{{userGroup.code}}</td>
                             <td>{{userGroup.name}}</td>
                             <td>{{userGroup.description}}</td>
-                            <td class="text-right">
-                                <a class="btn btn-info" [routerLink]="[userGroup.id,'edit', 0 ]">
-                                    <i class="fa fa-eye "></i>
-                                </a>&nbsp;
-                                <a class="btn btn-primary" [routerLink]="[userGroup.id,'edit', 1 ]">
+                            <td class="text-right">                                
+                                <a class="btn btn-primary" [routerLink]="[userGroup.id,'edit']">
                                     <i class="fa fa-edit "></i>
                                 </a>&nbsp;
                                 <a class="btn btn-danger" (click)="deleteItem(userGroup.id)">

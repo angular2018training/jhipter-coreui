@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterViewInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -25,7 +25,7 @@ export class UserGroupUpdateComponent implements OnInit, AfterViewInit {
     companies: Company[];
 
     authorities: any[];
-    isEditable: boolean;
+    @ViewChild('selectAuthority') selectedView;
     constructor(
         private jhiAlertService: JhiAlertService,
         private userGroupService: UserGroupService,
@@ -41,9 +41,6 @@ export class UserGroupUpdateComponent implements OnInit, AfterViewInit {
         this.isSaving = false;
         this.route.data.subscribe(({ userGroup }) => {
             this.userGroup = userGroup;
-        });
-        this.route.params.subscribe((params) => {
-            this.isEditable = Number(params.mode) === 1;
         });
         this.userService.authorities().subscribe((authorities) => {
             this.authorities = authorities;
@@ -63,7 +60,13 @@ export class UserGroupUpdateComponent implements OnInit, AfterViewInit {
     }
 
     save() {
+        let selectedAuthorities: Array<string> = [];
+        for (let i = 0; i < this.selectedView.nativeElement.selectedOptions.length; i++){
+            selectedAuthorities.push(this.selectedView.nativeElement.selectedOptions[i].text);
+        }
         this.isSaving = true;
+        this.userGroup.authorities = selectedAuthorities;
+        this.userGroup.companyId = 1;
         if (this.userGroup.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.userGroupService.update(this.userGroup));
