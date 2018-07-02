@@ -7,7 +7,7 @@
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     
     <include file="config/liquibase/changelog/20180626073411_added_entity_Position.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180626073412_added_entity_PostOffice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180626072810_added_entity_PostOffice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626073413_added_entity_Ward.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626073414_added_entity_District.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626073415_added_entity_Province.xml" relativeToChangelogFile="false"/>
@@ -42,7 +42,7 @@
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     
     <include file="config/liquibase/changelog/20180626073411_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180626073412_added_entity_constraints_PostOffice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180626072810_added_entity_constraints_PostOffice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626073413_added_entity_constraints_Ward.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626073414_added_entity_constraints_District.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626073415_added_entity_constraints_Province.xml" relativeToChangelogFile="false"/>

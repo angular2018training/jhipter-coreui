@@ -2,13 +2,20 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.PostOfficeService;
 import vn.nextlogix.domain.PostOffice;
-import vn.nextlogix.repository.PostOfficeRepository;
+
+
+    import vn.nextlogix.repository.PostOfficeRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.PostOfficeSearchRepository;
 import vn.nextlogix.service.dto.PostOfficeDTO;
 import vn.nextlogix.service.dto.PostOfficeSearchDTO;
 import org.springframework.data.domain.PageImpl;
     import vn.nextlogix.domain.Company;
     import vn.nextlogix.domain.Province;
+    import vn.nextlogix.domain.District;
 import vn.nextlogix.service.mapper.PostOfficeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 
     import vn.nextlogix.repository.search.ProvinceSearchRepository;
     import vn.nextlogix.service.mapper.ProvinceMapper;
+
+    import vn.nextlogix.repository.search.DistrictSearchRepository;
+    import vn.nextlogix.service.mapper.DistrictMapper;
     import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -57,9 +67,13 @@ public class PostOfficeServiceImpl implements PostOfficeService {
         private final ProvinceSearchRepository provinceSearchRepository;
         private final ProvinceMapper provinceMapper;
 
+        private final DistrictSearchRepository districtSearchRepository;
+        private final DistrictMapper districtMapper;
+
 
     public PostOfficeServiceImpl(PostOfficeRepository postOfficeRepository, PostOfficeMapper postOfficeMapper, PostOfficeSearchRepository postOfficeSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
 ) {
         this.postOfficeRepository = postOfficeRepository;
         this.postOfficeMapper = postOfficeMapper;
@@ -68,6 +82,8 @@ public class PostOfficeServiceImpl implements PostOfficeService {
                                      this.companyMapper = companyMapper;
                                     this.provinceSearchRepository = provinceSearchRepository;
                                      this.provinceMapper = provinceMapper;
+                                    this.districtSearchRepository = districtSearchRepository;
+                                     this.districtMapper = districtMapper;
 
     }
 
@@ -150,15 +166,35 @@ public class PostOfficeServiceImpl implements PostOfficeService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getAddress())) {
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
+            }
+            if(StringUtils.isNotBlank(searchDto.getPhone())) {
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("phone", "*"+searchDto.getPhone()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getDescription())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            if(searchDto.getProvinceId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("province.id", searchDto.getProvinceId()));
+            }
+            if(searchDto.getDistrictId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("district.id", searchDto.getDistrictId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<PostOffice> postOfficePage= postOfficeSearchRepository.search(query);
             List<PostOfficeDTO> postOfficeList =  StreamSupport
             .stream(postOfficePage.spliterator(), false)
@@ -172,6 +208,10 @@ public class PostOfficeServiceImpl implements PostOfficeService {
             if(postOfficeDto.getProvinceId()!=null){
                 Province province= provinceSearchRepository.findOne(postOfficeDto.getProvinceId());
                 postOfficeDto.setProvinceDTO(provinceMapper.toDto(province));
+            }
+            if(postOfficeDto.getDistrictId()!=null){
+                District district= districtSearchRepository.findOne(postOfficeDto.getDistrictId());
+                postOfficeDto.setDistrictDTO(districtMapper.toDto(district));
             }
             });
             return new PageImpl<>(postOfficeList,pageable,postOfficePage.getTotalElements());

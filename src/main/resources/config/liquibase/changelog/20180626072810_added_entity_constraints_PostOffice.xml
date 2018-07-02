@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity PostOffice.
     -->
-    <changeSet id="20180626072810-2" author="jhipster">
+    <changeSet id="20180626080008-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="company_id"
                                  baseTableName="post_office"
@@ -19,6 +19,12 @@
                                  constraintName="fk_post_office_province_id"
                                  referencedColumnNames="id"
                                  referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="district_id"
+                                 baseTableName="post_office"
+                                 constraintName="fk_post_office_district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"/>
 
     </changeSet>
 </databaseChangeLog>

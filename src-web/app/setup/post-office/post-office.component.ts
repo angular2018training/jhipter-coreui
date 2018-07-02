@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
+
+import {AlertService} from '../../shared/alert/alert-service';
+import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -11,12 +14,11 @@ import { PostOfficeService } from './post-office.service';
 import { PostOfficeDeleteDialogComponent } from './post-office-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {PostOfficeSearch} from './post-office.search.model';
+    import { Company, CompanyService } from '../company';
+    import { Province, ProvinceService } from '../province';
+    import { District, DistrictService } from '../district';
 
-import {Company} from '../company/company.model';
-import {CompanyService} from "../company/company.service";
 
-import {Province} from '../province/province.model';
-import {ProvinceService} from "../province/province.service";
 @Component({
     selector: 'jhi-post-office',
     templateUrl: './post-office.component.html'
@@ -40,21 +42,21 @@ currentAccount: any;
     reverse: any;
     postOfficeSearch : PostOfficeSearch;
 
-    companies : Company[];
-
     provinces : Province[];
+
+    districts : District[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
         private postOfficeService: PostOfficeService,
         private parseLinks: JhiParseLinks,
-        private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
+        private alertService :AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
-        private companyService: CompanyService,
         private provinceService: ProvinceService,
+        private districtService: DistrictService,
 
         private postOfficePopupService: PostOfficePopupService
     ) {
@@ -66,8 +68,8 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.companies =[];
         this.provinces =[];
+        this.districts =[];
 
         this.postOfficeSearch = new PostOfficeSearch();
 
@@ -75,12 +77,22 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' code'] : '';
         this.postOfficeSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
                         this.activatedRoute.snapshot.params[' name'] : '';
+        this.postOfficeSearch.address = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['address'] ?
+                        this.activatedRoute.snapshot.params[' address'] : '';
+        this.postOfficeSearch.sortOrder = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['sortOrder'] ?
+                        this.activatedRoute.snapshot.params[' sortOrder'] : '';
+        this.postOfficeSearch.phone = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['phone'] ?
+                        this.activatedRoute.snapshot.params[' phone'] : '';
+        this.postOfficeSearch.latitude = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['latitude'] ?
+                        this.activatedRoute.snapshot.params[' latitude'] : '';
+        this.postOfficeSearch.longitude = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['longitude'] ?
+                        this.activatedRoute.snapshot.params[' longitude'] : '';
         this.postOfficeSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
                         this.activatedRoute.snapshot.params[' description'] : '';
-        this.postOfficeSearch.companyId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['companyId'] ?
-                         this.activatedRoute.snapshot.params['companyId'] : '';
         this.postOfficeSearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['provinceId'] ?
                          this.activatedRoute.snapshot.params['provinceId'] : '';
+        this.postOfficeSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
+                         this.activatedRoute.snapshot.params['districtId'] : '';
     }
 
     loadAll() {
@@ -90,9 +102,15 @@ currentAccount: any;
          sort: this.sort(),
          code : this.postOfficeSearch.code,
          name : this.postOfficeSearch.name,
+         address : this.postOfficeSearch.address,
+         sortOrder : this.postOfficeSearch.sortOrder,
+         phone : this.postOfficeSearch.phone,
+         latitude : this.postOfficeSearch.latitude,
+         longitude : this.postOfficeSearch.longitude,
          description : this.postOfficeSearch.description,
-           companyId : this.postOfficeSearch.companyId,
-           provinceId : this.postOfficeSearch.provinceId,
+         companyId :this.currentAccount.companyId,
+         provinceId :this.postOfficeSearch.provinceId,
+         districtId :this.postOfficeSearch.districtId,
          };
 
         this.postOfficeService.searchExample(obj).subscribe(
@@ -120,9 +138,15 @@ currentAccount: any;
                 search: this.currentSearch,
                 code : this.postOfficeSearch.code,
                 name : this.postOfficeSearch.name,
+                address : this.postOfficeSearch.address,
+                sortOrder : this.postOfficeSearch.sortOrder,
+                phone : this.postOfficeSearch.phone,
+                latitude : this.postOfficeSearch.latitude,
+                longitude : this.postOfficeSearch.longitude,
                 description : this.postOfficeSearch.description,
-                companyId : this.postOfficeSearch.companyId,
-                provinceId : this.postOfficeSearch.provinceId,
+                companyId :this.currentAccount.companyId,
+                provinceId :this.postOfficeSearch.provinceId,
+                districtId :this.postOfficeSearch.districtId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -153,22 +177,20 @@ currentAccount: any;
     }
 
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            this.loadAll();
+            this.provinceService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<Province[]>) => this.provinces = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.districtService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<District[]>) => this.districts = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
         this.registerChangeInPostOffices();
-        this.companyService.query().subscribe(
-            (res: HttpResponse<Company[]>) => this.companies = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-        this.provinceService.query().subscribe(
-            (res: HttpResponse<Province[]>) => this.provinces = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-
     }
 
     ngOnDestroy() {
@@ -198,7 +220,7 @@ currentAccount: any;
         this.postOffices = data;
     }
     private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.alertService.error(error.message, null, null);
     }
 
     public deleteItem(id:number){

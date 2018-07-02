@@ -502,7 +502,7 @@
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://118.69.66.174:5432/nextlogix</url>
+                    <url>jdbc:postgresql://localhost:5432/nextlogix</url>
                     <defaultSchemaName></defaultSchemaName>
                     <username>nextlogix</username>
                     <password>123456</password>

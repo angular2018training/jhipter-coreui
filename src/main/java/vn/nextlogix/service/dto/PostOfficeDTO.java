@@ -20,6 +20,16 @@ public class PostOfficeDTO implements Serializable {
     @NotNull
     private String name;
 
+    private String address;
+
+    private Integer sortOrder;
+
+    private String phone;
+
+    private Double latitude;
+
+    private Double longitude;
+
     private String description;
 
     private Long companyId;
@@ -30,6 +40,11 @@ public class PostOfficeDTO implements Serializable {
     private Long provinceId;
 
     private ProvinceDTO  provinceDTO;
+
+
+    private Long districtId;
+
+    private DistrictDTO  districtDTO;
 
 
     public Long getId() {
@@ -54,6 +69,46 @@ public class PostOfficeDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getDescription() {
@@ -96,6 +151,22 @@ public class PostOfficeDTO implements Serializable {
         }
 
 
+    public DistrictDTO getDistrictDTO() {
+        return this.districtDTO;
+    }
+
+    public void setDistrictDTO(DistrictDTO districtDTO ) {
+        this.districtDTO = districtDTO;
+    }
+    public Long getDistrictId() {
+        return districtId;
+        }
+
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
+        }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -123,6 +194,11 @@ public class PostOfficeDTO implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", sortOrder=" + getSortOrder() +
+            ", phone='" + getPhone() + "'" +
+            ", latitude=" + getLatitude() +
+            ", longitude=" + getLongitude() +
             ", description='" + getDescription() + "'" +
             "}";
     }

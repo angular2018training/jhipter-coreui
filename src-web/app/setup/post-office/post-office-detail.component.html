@@ -16,20 +16,40 @@
         <dd>
             <span>{{postOffice.name}}</span>
         </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.address">Address</span></dt>
+        <dd>
+            <span>{{postOffice.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.sortOrder">Sort Order</span></dt>
+        <dd>
+            <span>{{postOffice.sortOrder}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.phone">Phone</span></dt>
+        <dd>
+            <span>{{postOffice.phone}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.latitude">Latitude</span></dt>
+        <dd>
+            <span>{{postOffice.latitude}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.longitude">Longitude</span></dt>
+        <dd>
+            <span>{{postOffice.longitude}}</span>
+        </dd>
         <dt><span jhiTranslate="nextlogixApp.postOffice.description">Description</span></dt>
         <dd>
             <span>{{postOffice.description}}</span>
-        </dd>
-        <dt><span jhiTranslate="nextlogixApp.postOffice.company">Company</span></dt>
-        <dd>
-            <div *ngIf="postOffice.companyId">
-                <a [routerLink]="['/company', postOffice.companyId]">{{postOffice.companyId}}</a>
-            </div>
         </dd>
         <dt><span jhiTranslate="nextlogixApp.postOffice.province">Province</span></dt>
         <dd>
             <div *ngIf="postOffice.provinceId">
                 <a [routerLink]="['/province', postOffice.provinceId]">{{postOffice.provinceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.postOffice.district">District</span></dt>
+        <dd>
+            <div *ngIf="postOffice.districtId">
+                <a [routerLink]="['/district', postOffice.districtId]">{{postOffice.districtId}}</a>
             </div>
         </dd>
     </dl>

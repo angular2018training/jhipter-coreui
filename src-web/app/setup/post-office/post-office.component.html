@@ -19,6 +19,7 @@
                 <label class="col-md-2 col-form-label" for="field_code"
                        jhiTranslate="nextlogixApp.postOffice.code">Code:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="postOfficeSearch.code" />
                 </div>
@@ -27,30 +28,66 @@
                 <label class="col-md-2 col-form-label" for="field_name"
                        jhiTranslate="nextlogixApp.postOffice.name">Name:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="name" id="field_name"
                            [(ngModel)]="postOfficeSearch.name" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_address"
+                       jhiTranslate="nextlogixApp.postOffice.address">Address:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="address" id="field_address"
+                           [(ngModel)]="postOfficeSearch.address" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_sortOrder"
+                       jhiTranslate="nextlogixApp.postOffice.sortOrder">Sort Order:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="sortOrder" id="field_sortOrder"
+                           [(ngModel)]="postOfficeSearch.sortOrder" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_phone"
+                       jhiTranslate="nextlogixApp.postOffice.phone">Phone:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           [(ngModel)]="postOfficeSearch.phone" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_latitude"
+                       jhiTranslate="nextlogixApp.postOffice.latitude">Latitude:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="latitude" id="field_latitude"
+                           [(ngModel)]="postOfficeSearch.latitude" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_longitude"
+                       jhiTranslate="nextlogixApp.postOffice.longitude">Longitude:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="longitude" id="field_longitude"
+                           [(ngModel)]="postOfficeSearch.longitude" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.postOffice.description">Description:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="postOfficeSearch.description" />
                 </div>
             </div>
 
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_company"
-                       jhiTranslate="nextlogixApp.postOffice.company">>Company:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_company" name="company" [(ngModel)]="postOfficeSearch.companyId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_province"
@@ -59,6 +96,17 @@
                     <select class="form-control" id="field_province" name="province" [(ngModel)]="postOfficeSearch.provinceId">
                     <option [ngValue]="null"></option>
                     <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_district"
+                       jhiTranslate="nextlogixApp.postOffice.district">>District:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_district" name="district" [(ngModel)]="postOfficeSearch.districtId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
                     </select>
                 </div>
             </div>
@@ -93,9 +141,14 @@
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.postOffice.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.postOffice.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="address"><span jhiTranslate="nextlogixApp.postOffice.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="sortOrder"><span jhiTranslate="nextlogixApp.postOffice.sortOrder">Sort Order</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="phone"><span jhiTranslate="nextlogixApp.postOffice.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="latitude"><span jhiTranslate="nextlogixApp.postOffice.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="longitude"><span jhiTranslate="nextlogixApp.postOffice.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.postOffice.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.postOffice.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.postOffice.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="districtId"><span jhiTranslate="nextlogixApp.postOffice.district">District</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -104,15 +157,20 @@
                     <td><a [routerLink]="[ postOffice.id,'view']">{{postOffice.id}}</a></td>
                     <td>{{postOffice.code}}</td>
                     <td>{{postOffice.name}}</td>
+                    <td>{{postOffice.address}}</td>
+                    <td>{{postOffice.sortOrder}}</td>
+                    <td>{{postOffice.phone}}</td>
+                    <td>{{postOffice.latitude}}</td>
+                    <td>{{postOffice.longitude}}</td>
                     <td>{{postOffice.description}}</td>
-                    <td>
-        <div *ngIf="postOffice.companyId">
-        <a [routerLink]="['../company', 'detail',postOffice.companyId ]" >{{postOffice.companyDTO?.name}}</a>
-    </div>
-    </td>
                     <td>
         <div *ngIf="postOffice.provinceId">
         <a [routerLink]="['../province', 'detail',postOffice.provinceId ]" >{{postOffice.provinceDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="postOffice.districtId">
+        <a [routerLink]="['../district', 'detail',postOffice.districtId ]" >{{postOffice.districtDTO?.name}}</a>
     </div>
     </td>
     <td class="text-right">
