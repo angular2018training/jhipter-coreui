@@ -67,7 +67,7 @@ export const userGroupRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'user-group/:id/edit',
+        path: 'user-group/:id/edit/:mode',
         component: UserGroupUpdateComponent,
         resolve: {
             userGroup: UserGroupResolve

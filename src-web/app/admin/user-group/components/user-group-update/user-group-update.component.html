@@ -4,59 +4,72 @@
             <strong jhiTranslate="nextlogixApp.userGroup.home.createOrEditLabel">Create or edit a User Group</strong>
         </div>
         <div class="card-body">
-            <div>
+            <div class="row">
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="true">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" [(ngModel)]="userGroup.id" readonly />
                 </div>
-                <div class="form-group row">
-                    <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userGroup.code" for="field_code">Code</label>
-                    <input type="text" class="col-md-4 form-control" name="code" id="field_code" [(ngModel)]="userGroup.code" required/>
-                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.code" for="field_code">Code</label>
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="userGroup.code" required/>
+                            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
                     </div>
-                    <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userGroup.name" for="field_name">Name</label>
-                    <input type="text" class="col-md-4 form-control" name="name" id="field_name" [(ngModel)]="userGroup.name" required/>
-                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
-                        <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userGroup.role">Role</label>
-                    <select id="select2-2" class="col-md-10 form-control select2-multiple" multiple [(ngModel)]="userGroup.authorities">
-                        <!-- <select class="form-control" multiple name="authority" [(ngModel)]="userGroup.authorities"> -->
-                        <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userGroup.description" for="field_description">Description</label>
-                    <input type="text" class="col-md-10 form-control" name="description" id="field_description" [(ngModel)]="userGroup.description"
-                    />
                 </div>
 
-                <!-- <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.userGroup.company" for="field_company">Company</label>
-                    <select class="form-control" id="field_company" name="company" [(ngModel)]="userGroup.companyId"  required>
-                        <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
-                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
-                    </select>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.name" for="field_name">Name</label>
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="userGroup.name" required/>
+                            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div> -->
 
+                <div class="col-md-12 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-12">
+                            <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.role">Role</label>
+                        </div>
+                        <div class="col-md-11 col-sm-12">
+                            <select id="select2id" name="authorities" class="form-control select2-multiple" multiple [(ngModel)]="userGroup.authorities">
+                                <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-1 col-sm-12">
+                            <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.description" for="field_description">Description</label>
+                        </div>
+                        <div class="col-md-11 col-sm-12">
+                            <input type="text" class="form-control" name="description" id="field_description" [(ngModel)]="userGroup.description">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <button *ngIf="isEditable" type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
                 <i class="fa fa-dot-circle-o"></i>&nbsp;
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>&nbsp;

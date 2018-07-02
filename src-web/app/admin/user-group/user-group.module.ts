@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { userGroupRoute, userGroupPopupRoute } from './user-group.route';
-import { DataTableModule } from 'angular2-datatable';
 import { NextlogixSharedModule } from '../../shared';
 
 import {
@@ -22,8 +21,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-        RouterModule.forChild(ENTITY_STATES),
-        DataTableModule
+        RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
         UserGroupComponent,

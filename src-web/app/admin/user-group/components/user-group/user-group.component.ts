@@ -76,7 +76,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        var obj = {
+        let obj = {
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort(),
