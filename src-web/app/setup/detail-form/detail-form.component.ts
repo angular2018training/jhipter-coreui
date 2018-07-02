@@ -11,9 +11,9 @@ import { DetailFormService } from './detail-form.service';
 import { DetailFormDeleteDialogComponent } from './detail-form-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {DetailFormSearch} from './detail-form.search.model';
-    import { MasterForm, MasterFormService } from '../master-form';
     import { Province, ProvinceService } from '../province';
     import { District, DistrictService } from '../district';
+    import { MasterForm, MasterFormService } from '../master-form';
 
 
 @Component({
@@ -39,11 +39,11 @@ currentAccount: any;
     reverse: any;
     detailFormSearch : DetailFormSearch;
 
-    masterForms : MasterForm[];
-
     provinces : Province[];
 
     districts : District[];
+
+    masterForms : MasterForm[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -55,9 +55,9 @@ currentAccount: any;
         private dataUtils: JhiDataUtils,
         private router: Router,
         private eventManager: JhiEventManager,
-        private masterFormService: MasterFormService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
+        private masterFormService: MasterFormService,
 
         private detailFormPopupService: DetailFormPopupService
     ) {
@@ -69,9 +69,9 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.masterForms =[];
         this.provinces =[];
         this.districts =[];
+        this.masterForms =[];
 
         this.detailFormSearch = new DetailFormSearch();
 
@@ -83,12 +83,12 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' uploadFile'] : '';
         this.detailFormSearch.isActive = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['isActive'] ?
                         this.activatedRoute.snapshot.params[' isActive'] : '';
-        this.detailFormSearch.masterFormId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['masterFormId'] ?
-                         this.activatedRoute.snapshot.params['masterFormId'] : '';
         this.detailFormSearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['provinceId'] ?
                          this.activatedRoute.snapshot.params['provinceId'] : '';
         this.detailFormSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
                          this.activatedRoute.snapshot.params['districtId'] : '';
+        this.detailFormSearch.masterFormParentId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['masterFormParentId'] ?
+                         this.activatedRoute.snapshot.params['masterFormParentId'] : '';
     }
 
     loadAll() {
@@ -100,9 +100,9 @@ currentAccount: any;
          createDate : this.detailFormSearch.createDate,
          uploadFile : this.detailFormSearch.uploadFile,
          isActive : this.detailFormSearch.isActive,
-           masterFormId : this.detailFormSearch.masterFormId,
            provinceId : this.detailFormSearch.provinceId,
            districtId : this.detailFormSearch.districtId,
+           masterFormParentId : this.detailFormSearch.masterFormParentId,
          };
 
         this.detailFormService.searchExample(obj).subscribe(
@@ -132,9 +132,9 @@ currentAccount: any;
                 createDate : this.detailFormSearch.createDate,
                 uploadFile : this.detailFormSearch.uploadFile,
                 isActive : this.detailFormSearch.isActive,
-                masterFormId : this.detailFormSearch.masterFormId,
                 provinceId : this.detailFormSearch.provinceId,
                 districtId : this.detailFormSearch.districtId,
+                masterFormParentId : this.detailFormSearch.masterFormParentId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -170,16 +170,16 @@ currentAccount: any;
             this.currentAccount = account;
         });
         this.registerChangeInDetailForms();
-        this.masterFormService.query().subscribe(
-            (res: HttpResponse<MasterForm[]>) => this.masterForms = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.provinceService.query().subscribe(
             (res: HttpResponse<Province[]>) => this.provinces = res.body,
             (res: HttpErrorResponse) => this.onError(res.message)
         );
         this.districtService.query().subscribe(
             (res: HttpResponse<District[]>) => this.districts = res.body,
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.masterFormService.query().subscribe(
+            (res: HttpResponse<MasterForm[]>) => this.masterForms = res.body,
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }

@@ -1,20 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
-import {JhiAlertService, JhiDataUtils, JhiEventManager} from 'ng-jhipster';
-import {DetailForm} from "../detail-form/detail-form.model";
-import {MasterForm} from "../master-form/master-form.model";
-import {Province} from "../province/province.model";
-import {District} from "../district/district.model";
-import {DetailFormService} from "../detail-form/detail-form.service";
-import {MasterFormService} from "../master-form/master-form.service";
-import {ProvinceService} from "../province/province.service";
-import {DistrictService} from "../district/district.service";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+    import * as moment from 'moment';
+    import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
+import { DetailForm } from '../detail-form/detail-form.model';
+import { DetailFormService } from '../detail-form/detail-form.service';
+import { Province, ProvinceService } from '../province';
+import { District, DistrictService } from '../district';
 
 @Component({
     selector: 'jhi-detail-form-detail-update',
@@ -22,24 +18,22 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class DetailFormDetailUpdateComponent implements OnInit {
 
-    private _detailForm: DetailForm;
+    detailForm: DetailForm;
     isSaving: boolean;
 
     provinces: Province[];
 
     districts: District[];
-    createDate: string;
+        createDate: string;
 
     constructor(
+        public activeModal: NgbActiveModal,
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private detailFormService: DetailFormService,
-        private masterFormService: MasterFormService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
-        private route: ActivatedRoute,
-        private activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager,
+        private eventManager: JhiEventManager
     ) {
     }
 
@@ -63,13 +57,13 @@ export class DetailFormDetailUpdateComponent implements OnInit {
         this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
-    previousState() {
-        window.history.back();
+    clear() {
+        this.activeModal.dismiss('cancel');
     }
 
     save() {
         this.isSaving = true;
-                this.detailForm.createDate = moment(this.createDate, DATE_TIME_FORMAT);
+            this.detailForm.createDate = moment(this.createDate, DATE_TIME_FORMAT);
         if (this.detailForm.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.detailFormService.update(this.detailForm));
@@ -81,26 +75,21 @@ export class DetailFormDetailUpdateComponent implements OnInit {
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<DetailForm>>) {
         result.subscribe((res: HttpResponse<DetailForm>) =>
-            this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
-        this.isSaving = false;
-        this.activeModal.dismiss();
+    private onSaveSuccess(result: DetailForm) {
         this.eventManager.broadcast({ name: 'detail-form-detail.save.success', content: 'OK'});
-        //this.previousState();
+        this.isSaving = false;
+        this.activeModal.dismiss(result);
     }
 
     private onSaveError() {
         this.isSaving = false;
     }
 
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackMasterFormById(index: number, item: MasterForm) {
-        return item.id;
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackProvinceById(index: number, item: Province) {
@@ -110,17 +99,5 @@ export class DetailFormDetailUpdateComponent implements OnInit {
     trackDistrictById(index: number, item: District) {
         return item.id;
     }
-    get detailForm() {
-        return this._detailForm;
-    }
-
-    set detailForm(detailForm: DetailForm) {
-        this._detailForm = detailForm;
-        if(detailForm.createDate){
-          this.createDate = moment(detailForm.createDate).format(DATE_TIME_FORMAT);
-        }
-    }
-    cancel(){
-      this.activeModal.dismiss();
-    }
 }
+

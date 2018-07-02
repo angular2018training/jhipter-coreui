@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import {DetailFormService} from "../detail-form/detail-form.service";
-import {DetailForm} from "../detail-form/detail-form.model";
-import {DetailFormPopupService} from "../detail-form/detail-form-popup.service";
+import { DetailForm } from '../detail-form/detail-form.model';
+import { DetailFormDetailPopupService } from './detail-form-detail-popup.service';
+import { DetailFormService } from '../detail-form/detail-form.service';
 
 @Component({
     selector: 'jhi-detail-form-detail-delete-dialog',
@@ -39,21 +39,21 @@ export class DetailFormDetailDeleteDialogComponent {
 }
 
 @Component({
-    selector: 'jhi-detail-form-detail-delete-popup',
+    selector: 'jhi-detail-form-delete-popup',
     template: ''
 })
-export class DetailFormDetailDeletePopupComponent implements OnInit, OnDestroy {
+export class DetailFormDeletePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private detailFormPopupService: DetailFormPopupService
+        private detailFormDetailPopupService: DetailFormDetailPopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.detailFormPopupService
+            this.detailFormDetailPopupService
                 .open(DetailFormDetailDeleteDialogComponent as Component, params['id']);
         });
     }

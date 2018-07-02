@@ -29,11 +29,6 @@ public class DetailFormDTO implements Serializable {
     @NotNull
     private Boolean isActive;
 
-    private Long masterFormId;
-
-    private MasterFormDTO  masterFormDTO;
-
-
     private Long provinceId;
 
     private ProvinceDTO  provinceDTO;
@@ -42,6 +37,11 @@ public class DetailFormDTO implements Serializable {
     private Long districtId;
 
     private DistrictDTO  districtDTO;
+
+
+    private Long masterFormParentId;
+
+    private MasterFormDTO  masterFormParentDTO;
 
 
     public Long getId() {
@@ -92,22 +92,6 @@ public class DetailFormDTO implements Serializable {
         this.isActive = isActive;
     }
 
-    public MasterFormDTO getMasterFormDTO() {
-        return this.masterFormDTO;
-    }
-
-    public void setMasterFormDTO(MasterFormDTO masterFormDTO ) {
-        this.masterFormDTO = masterFormDTO;
-    }
-    public Long getMasterFormId() {
-        return masterFormId;
-        }
-
-    public void setMasterFormId(Long masterFormId) {
-        this.masterFormId = masterFormId;
-        }
-
-
     public ProvinceDTO getProvinceDTO() {
         return this.provinceDTO;
     }
@@ -137,6 +121,22 @@ public class DetailFormDTO implements Serializable {
 
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
+        }
+
+
+    public MasterFormDTO getMasterFormParentDTO() {
+        return this.masterFormParentDTO;
+    }
+
+    public void setMasterFormParentDTO(MasterFormDTO masterFormParentDTO ) {
+        this.masterFormParentDTO = masterFormParentDTO;
+    }
+    public Long getMasterFormParentId() {
+        return masterFormParentId;
+        }
+
+    public void setMasterFormParentId(Long masterFormId) {
+        this.masterFormParentId = masterFormId;
         }
 
 

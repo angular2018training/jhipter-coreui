@@ -18,14 +18,14 @@ import vn.nextlogix.domain.*; // for static metamodels
 import vn.nextlogix.repository.DetailFormRepository;
 import vn.nextlogix.repository.search.DetailFormSearchRepository;
 
-    import vn.nextlogix.repository.search.MasterFormSearchRepository;
-    import vn.nextlogix.service.mapper.MasterFormMapper;
-
     import vn.nextlogix.repository.search.ProvinceSearchRepository;
     import vn.nextlogix.service.mapper.ProvinceMapper;
 
     import vn.nextlogix.repository.search.DistrictSearchRepository;
     import vn.nextlogix.service.mapper.DistrictMapper;
+
+    import vn.nextlogix.repository.search.MasterFormSearchRepository;
+    import vn.nextlogix.service.mapper.MasterFormMapper;
 
 import vn.nextlogix.service.dto.DetailFormCriteria;
 
@@ -52,29 +52,29 @@ public class DetailFormQueryService extends QueryService<DetailForm> {
     private final DetailFormSearchRepository detailFormSearchRepository;
 
 
-        private final MasterFormSearchRepository masterFormSearchRepository;
-        private final MasterFormMapper masterFormMapper;
-
         private final ProvinceSearchRepository provinceSearchRepository;
         private final ProvinceMapper provinceMapper;
 
         private final DistrictSearchRepository districtSearchRepository;
         private final DistrictMapper districtMapper;
 
+        private final MasterFormSearchRepository masterFormSearchRepository;
+        private final MasterFormMapper masterFormMapper;
 
-    public DetailFormQueryService(DetailFormRepository detailFormRepository, DetailFormMapper detailFormMapper, DetailFormSearchRepository detailFormSearchRepository     ,MasterFormSearchRepository masterFormSearchRepository,MasterFormMapper  masterFormMapper
-,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+
+    public DetailFormQueryService(DetailFormRepository detailFormRepository, DetailFormMapper detailFormMapper, DetailFormSearchRepository detailFormSearchRepository     ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
 ,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
+,MasterFormSearchRepository masterFormSearchRepository,MasterFormMapper  masterFormMapper
 ) {
         this.detailFormRepository = detailFormRepository;
         this.detailFormMapper = detailFormMapper;
         this.detailFormSearchRepository = detailFormSearchRepository;
-                                    this.masterFormSearchRepository = masterFormSearchRepository;
-                                     this.masterFormMapper = masterFormMapper;
                                     this.provinceSearchRepository = provinceSearchRepository;
                                      this.provinceMapper = provinceMapper;
                                     this.districtSearchRepository = districtSearchRepository;
                                      this.districtMapper = districtMapper;
+                                    this.masterFormSearchRepository = masterFormSearchRepository;
+                                     this.masterFormMapper = masterFormMapper;
 
     }
 
@@ -122,14 +122,14 @@ public class DetailFormQueryService extends QueryService<DetailForm> {
             if (criteria.getIsActive() != null) {
                 specification = specification.and(buildSpecification(criteria.getIsActive(), DetailForm_.isActive));
             }
-            if (criteria.getMasterFormId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getMasterFormId(), DetailForm_.masterForm, MasterForm_.id));
-            }
             if (criteria.getProvinceId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getProvinceId(), DetailForm_.province, Province_.id));
             }
             if (criteria.getDistrictId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictId(), DetailForm_.district, District_.id));
+            }
+            if (criteria.getMasterFormParentId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getMasterFormParentId(), DetailForm_.masterFormParent, MasterForm_.id));
             }
         }
         return specification;

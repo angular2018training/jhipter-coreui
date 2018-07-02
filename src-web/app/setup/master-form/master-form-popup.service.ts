@@ -46,7 +46,6 @@ export class MasterFormPopupService {
         });
     }
 
-
     masterFormModalRef(component: Component, masterForm: MasterForm): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.masterForm = masterForm;

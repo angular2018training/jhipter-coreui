@@ -1,3 +1,6 @@
+
+
+
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 <div class="card">
     <div class="card-header">
@@ -52,7 +55,7 @@
                             <span class="pull-left">{{masterForm.imageFileContentType}}, {{byteSize(masterForm.imageFile)}}</span>
                             <button type="button" (click)="masterForm.imageFile=null;masterForm.imageFileContentType=null;"
                                     class="btn btn-secondary btn-xs pull-right">
-                              <i class="fa fa-times" ></i>
+                                <fa-icon [icon]="'times'"></fa-icon>
                             </button>
                         </div>
                         <input type="file" id="file_imageFile" (change)="setFileData($event, masterForm, 'imageFile', false)" jhiTranslate="entity.action.addblob"/>
@@ -94,8 +97,8 @@
                         <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
                     </select>
                 </div>
-
-              <div><jhi-detail-form-detail-list [masterFormId]="masterForm.id" ></jhi-detail-form-detail-list></div>
+            </div>
+            <jhi-detail-form-detail-list [masterFormParentId]="masterForm.id" ></jhi-detail-form-detail-list>
     </div>
     <div class="card-footer">
         <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

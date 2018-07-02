@@ -1,18 +1,16 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
-import {JhiAlertService, JhiDataUtils, JhiEventManager} from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { MasterFormService } from './master-form.service';
 
 import { MasterForm } from './master-form.model';
             import { Province, ProvinceService } from '../province';
             import { District, DistrictService } from '../district';
-import {DetailForm} from "../detail-form/detail-form.model";
-import {DetailFormService} from "../detail-form/detail-form.service";
 
 @Component({
     selector: 'jhi-master-form-update',
@@ -26,7 +24,6 @@ export class MasterFormUpdateComponent implements OnInit {
     provinces: Province[];
 
     districts: District[];
-    detailForms : DetailForm[];
     receiveTime: string;
 
     constructor(
@@ -35,9 +32,7 @@ export class MasterFormUpdateComponent implements OnInit {
         private masterFormService: MasterFormService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
-        private detailFormService : DetailFormService,
-        private route: ActivatedRoute,
-        private eventManager: JhiEventManager
+        private route: ActivatedRoute
     ) {
     }
 
@@ -50,17 +45,6 @@ export class MasterFormUpdateComponent implements OnInit {
             .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.districtService.query()
             .subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        if(this._masterForm.id){
-          this.detailFormService.query({"masterFormId.equals":this._masterForm.id, size: 10000}).subscribe((res: HttpResponse<Province[]>) => { this.detailForms = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        }
-        this.eventManager.subscribe('detail-form.save.success',()=>{
-          if(this._masterForm.id){
-            this.detailFormService.query({"masterFormId.equals":this._masterForm.id, size: 10000}).subscribe((res: HttpResponse<Province[]>) => { this.detailForms = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-          }
-        });
-
-
-
     }
 
     byteSize(field) {
@@ -124,6 +108,4 @@ export class MasterFormUpdateComponent implements OnInit {
         this._masterForm = masterForm;
         this.receiveTime = moment(masterForm.receiveTime).format(DATE_TIME_FORMAT);
     }
-
-
 }

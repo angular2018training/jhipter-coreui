@@ -13,9 +13,9 @@ import vn.nextlogix.repository.search.DetailFormSearchRepository;
 import vn.nextlogix.service.dto.DetailFormDTO;
 import vn.nextlogix.service.dto.DetailFormSearchDTO;
 import org.springframework.data.domain.PageImpl;
-    import vn.nextlogix.domain.MasterForm;
     import vn.nextlogix.domain.Province;
     import vn.nextlogix.domain.District;
+    import vn.nextlogix.domain.MasterForm;
 import vn.nextlogix.service.mapper.DetailFormMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +29,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-    import vn.nextlogix.repository.search.MasterFormSearchRepository;
-    import vn.nextlogix.service.mapper.MasterFormMapper;
-
     import vn.nextlogix.repository.search.ProvinceSearchRepository;
     import vn.nextlogix.service.mapper.ProvinceMapper;
 
     import vn.nextlogix.repository.search.DistrictSearchRepository;
     import vn.nextlogix.service.mapper.DistrictMapper;
+
+    import vn.nextlogix.repository.search.MasterFormSearchRepository;
+    import vn.nextlogix.service.mapper.MasterFormMapper;
     import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -61,29 +61,29 @@ public class DetailFormServiceImpl implements DetailFormService {
     private final DetailFormSearchRepository detailFormSearchRepository;
 
 
-        private final MasterFormSearchRepository masterFormSearchRepository;
-        private final MasterFormMapper masterFormMapper;
-
         private final ProvinceSearchRepository provinceSearchRepository;
         private final ProvinceMapper provinceMapper;
 
         private final DistrictSearchRepository districtSearchRepository;
         private final DistrictMapper districtMapper;
 
+        private final MasterFormSearchRepository masterFormSearchRepository;
+        private final MasterFormMapper masterFormMapper;
 
-    public DetailFormServiceImpl(DetailFormRepository detailFormRepository, DetailFormMapper detailFormMapper, DetailFormSearchRepository detailFormSearchRepository     ,MasterFormSearchRepository masterFormSearchRepository,MasterFormMapper  masterFormMapper
-,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+
+    public DetailFormServiceImpl(DetailFormRepository detailFormRepository, DetailFormMapper detailFormMapper, DetailFormSearchRepository detailFormSearchRepository     ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
 ,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
+,MasterFormSearchRepository masterFormSearchRepository,MasterFormMapper  masterFormMapper
 ) {
         this.detailFormRepository = detailFormRepository;
         this.detailFormMapper = detailFormMapper;
         this.detailFormSearchRepository = detailFormSearchRepository;
-                                    this.masterFormSearchRepository = masterFormSearchRepository;
-                                     this.masterFormMapper = masterFormMapper;
                                     this.provinceSearchRepository = provinceSearchRepository;
                                      this.provinceMapper = provinceMapper;
                                     this.districtSearchRepository = districtSearchRepository;
                                      this.districtMapper = districtMapper;
+                                    this.masterFormSearchRepository = masterFormSearchRepository;
+                                     this.masterFormMapper = masterFormMapper;
 
     }
 
@@ -168,14 +168,14 @@ public class DetailFormServiceImpl implements DetailFormService {
             if(StringUtils.isNotBlank(searchDto.getDescription())) {
                  boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
             }
-            if(searchDto.getMasterFormId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("masterForm.Id", searchDto.getMasterFormId()));
-            }
             if(searchDto.getProvinceId() !=null) {
                 boolQueryBuilder.must(QueryBuilders.matchQuery("province.Id", searchDto.getProvinceId()));
             }
             if(searchDto.getDistrictId() !=null) {
                 boolQueryBuilder.must(QueryBuilders.matchQuery("district.Id", searchDto.getDistrictId()));
+            }
+            if(searchDto.getMasterFormParentId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("masterFormParent.Id", searchDto.getMasterFormParentId()));
             }
             NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
 
@@ -189,10 +189,6 @@ public class DetailFormServiceImpl implements DetailFormService {
             .map(detailFormMapper::toDto)
             .collect(Collectors.toList());
             detailFormList.forEach(detailFormDto -> {
-            if(detailFormDto.getMasterFormId()!=null){
-                MasterForm masterForm= masterFormSearchRepository.findOne(detailFormDto.getMasterFormId());
-                detailFormDto.setMasterFormDTO(masterFormMapper.toDto(masterForm));
-            }
             if(detailFormDto.getProvinceId()!=null){
                 Province province= provinceSearchRepository.findOne(detailFormDto.getProvinceId());
                 detailFormDto.setProvinceDTO(provinceMapper.toDto(province));
@@ -200,6 +196,10 @@ public class DetailFormServiceImpl implements DetailFormService {
             if(detailFormDto.getDistrictId()!=null){
                 District district= districtSearchRepository.findOne(detailFormDto.getDistrictId());
                 detailFormDto.setDistrictDTO(districtMapper.toDto(district));
+            }
+            if(detailFormDto.getMasterFormParentId()!=null){
+                MasterForm masterForm= masterFormSearchRepository.findOne(detailFormDto.getMasterFormParentId());
+                detailFormDto.setMasterFormParentDTO(masterFormMapper.toDto(masterForm));
             }
             });
             return new PageImpl<>(detailFormList,pageable,detailFormPage.getTotalElements());

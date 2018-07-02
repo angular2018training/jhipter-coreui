@@ -34,11 +34,11 @@ public class DetailFormCriteria implements Serializable {
 
     private BooleanFilter isActive;
 
-    private LongFilter masterFormId;
-
     private LongFilter provinceId;
 
     private LongFilter districtId;
+
+    private LongFilter masterFormParentId;
 
     public DetailFormCriteria() {
     }
@@ -75,14 +75,6 @@ public class DetailFormCriteria implements Serializable {
         this.isActive = isActive;
     }
 
-    public LongFilter getMasterFormId() {
-        return masterFormId;
-    }
-
-    public void setMasterFormId(LongFilter masterFormId) {
-        this.masterFormId = masterFormId;
-    }
-
     public LongFilter getProvinceId() {
         return provinceId;
     }
@@ -99,6 +91,14 @@ public class DetailFormCriteria implements Serializable {
         this.districtId = districtId;
     }
 
+    public LongFilter getMasterFormParentId() {
+        return masterFormParentId;
+    }
+
+    public void setMasterFormParentId(LongFilter masterFormParentId) {
+        this.masterFormParentId = masterFormParentId;
+    }
+
     @Override
     public String toString() {
         return "DetailFormCriteria{" +
@@ -106,9 +106,9 @@ public class DetailFormCriteria implements Serializable {
                 (description != null ? "description=" + description + ", " : "") +
                 (createDate != null ? "createDate=" + createDate + ", " : "") +
                 (isActive != null ? "isActive=" + isActive + ", " : "") +
-                (masterFormId != null ? "masterFormId=" + masterFormId + ", " : "") +
                 (provinceId != null ? "provinceId=" + provinceId + ", " : "") +
                 (districtId != null ? "districtId=" + districtId + ", " : "") +
+                (masterFormParentId != null ? "masterFormParentId=" + masterFormParentId + ", " : "") +
             "}";
     }
 

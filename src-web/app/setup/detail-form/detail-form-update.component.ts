@@ -9,9 +9,9 @@ import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { DetailFormService } from './detail-form.service';
 
 import { DetailForm } from './detail-form.model';
-            import { MasterForm, MasterFormService } from '../master-form';
             import { Province, ProvinceService } from '../province';
             import { District, DistrictService } from '../district';
+            import { MasterForm, MasterFormService } from '../master-form';
 
 @Component({
     selector: 'jhi-detail-form-update',
@@ -22,20 +22,20 @@ export class DetailFormUpdateComponent implements OnInit {
     private _detailForm: DetailForm;
     isSaving: boolean;
 
-    masterforms: MasterForm[];
-
     provinces: Province[];
 
     districts: District[];
-    createDate: string;
+
+    masterforms: MasterForm[];
+        createDate: string;
 
     constructor(
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private detailFormService: DetailFormService,
-        private masterFormService: MasterFormService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
+        private masterFormService: MasterFormService,
         private route: ActivatedRoute
     ) {
     }
@@ -45,12 +45,12 @@ export class DetailFormUpdateComponent implements OnInit {
         this.route.data.subscribe(({detailForm}) => {
             this.detailForm = detailForm;
         });
-        this.masterFormService.query()
-            .subscribe((res: HttpResponse<MasterForm[]>) => { this.masterforms = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.provinceService.query()
             .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.districtService.query()
             .subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.masterFormService.query()
+            .subscribe((res: HttpResponse<MasterForm[]>) => { this.masterforms = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -99,15 +99,15 @@ export class DetailFormUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackMasterFormById(index: number, item: MasterForm) {
-        return item.id;
-    }
-
     trackProvinceById(index: number, item: Province) {
         return item.id;
     }
 
     trackDistrictById(index: number, item: District) {
+        return item.id;
+    }
+
+    trackMasterFormById(index: number, item: MasterForm) {
         return item.id;
     }
     get detailForm() {

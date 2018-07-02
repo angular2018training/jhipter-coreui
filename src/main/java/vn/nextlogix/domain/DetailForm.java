@@ -47,13 +47,13 @@ public class DetailForm implements Serializable {
     private Boolean isActive;
 
     @ManyToOne
-    private MasterForm masterForm;
-
-    @ManyToOne
     private Province province;
 
     @ManyToOne
     private District district;
+
+    @ManyToOne
+    private MasterForm masterFormParent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -129,19 +129,6 @@ public class DetailForm implements Serializable {
         this.isActive = isActive;
     }
 
-    public MasterForm getMasterForm() {
-        return masterForm;
-    }
-
-    public DetailForm masterForm(MasterForm masterForm) {
-        this.masterForm = masterForm;
-        return this;
-    }
-
-    public void setMasterForm(MasterForm masterForm) {
-        this.masterForm = masterForm;
-    }
-
     public Province getProvince() {
         return province;
     }
@@ -166,6 +153,19 @@ public class DetailForm implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public MasterForm getMasterFormParent() {
+        return masterFormParent;
+    }
+
+    public DetailForm masterFormParent(MasterForm masterForm) {
+        this.masterFormParent = masterForm;
+        return this;
+    }
+
+    public void setMasterFormParent(MasterForm masterForm) {
+        this.masterFormParent = masterForm;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

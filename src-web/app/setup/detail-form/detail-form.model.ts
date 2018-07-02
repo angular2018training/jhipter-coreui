@@ -8,9 +8,9 @@ export class DetailForm implements BaseEntity {
         public uploadFileContentType?: string,
         public uploadFile?: any,
         public isActive?: boolean,
-        public masterFormId?: number,
         public provinceId?: number,
         public districtId?: number,
+        public masterFormParentId?: number,
     ) {
         this.isActive = false;
     }

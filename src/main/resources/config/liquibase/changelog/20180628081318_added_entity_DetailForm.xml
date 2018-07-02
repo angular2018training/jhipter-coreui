@@ -40,15 +40,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="master_form_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <column name="province_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <column name="district_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="master_form_parent_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
