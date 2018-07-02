@@ -17,7 +17,7 @@
                             <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.code" for="field_code">Code</label>
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="userGroup.code" required/>
+                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="userGroup.code" [disabled]="userGroup.id" required/>
                             <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
                                 <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
                                     This field is required.

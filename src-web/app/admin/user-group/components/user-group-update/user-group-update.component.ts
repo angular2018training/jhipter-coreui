@@ -60,7 +60,7 @@ export class UserGroupUpdateComponent implements OnInit, AfterViewInit {
     }
 
     save() {
-        let selectedAuthorities: Array<string> = [];
+        const selectedAuthorities: Array<string> = [];
         for (let i = 0; i < this.selectedView.nativeElement.selectedOptions.length; i++){
             selectedAuthorities.push(this.selectedView.nativeElement.selectedOptions[i].text);
         }
