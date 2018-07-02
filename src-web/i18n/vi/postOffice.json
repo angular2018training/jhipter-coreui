@@ -19,9 +19,15 @@
             },
             "code": "Code",
             "name": "Name",
+            "address": "Address",
+            "sortOrder": "Sort Order",
+            "phone": "Phone",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
             "description": "Description",
             "company": "Company",
-            "province": "Province"
+            "province": "Province",
+            "district": "District"
         }
     }
 }

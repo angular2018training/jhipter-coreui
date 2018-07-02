@@ -1,112 +1,126 @@
 
+<tabset>
+  <tab>
+    <ng-template tabHeading><i class="icon-calculator"></i>Master form </ng-template>
 
-
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-<div class="card">
-    <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.masterForm.home.createOrEditLabel">Create or edit a Master Form</strong>
-    </div>
-    <div class="card-body">
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!masterForm.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="masterForm.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.code" for="field_code">Code</label>
-                    <input type="text" class="form-control" name="code" id="field_code"
-                        [(ngModel)]="masterForm.code" required/>
-                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.note" for="field_note">Note</label>
-                    <input type="text" class="form-control" name="note" id="field_note"
-                        [(ngModel)]="masterForm.note" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.receiveTime" for="field_receiveTime">Receive Time</label>
-                    <div class="d-flex">
-                        <input id="field_receiveTime" type="datetime-local" class="form-control" name="receiveTime" [(ngModel)]="receiveTime"
-                        required/>
-                    </div>
-                    <div [hidden]="!(editForm.controls.receiveTime?.dirty && editForm.controls.receiveTime?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.receiveTime?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.receiveTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                            This field should be a date and time.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.imageFile" for="field_imageFile">Image File</label>
-                    <div>
-                        <div *ngIf="masterForm.imageFile" class="form-text text-danger clearfix">
-                            <a class="pull-left" (click)="openFile(masterForm.imageFileContentType, masterForm.imageFile)" jhiTranslate="entity.action.open">open</a><br>
-                            <span class="pull-left">{{masterForm.imageFileContentType}}, {{byteSize(masterForm.imageFile)}}</span>
-                            <button type="button" (click)="masterForm.imageFile=null;masterForm.imageFileContentType=null;"
-                                    class="btn btn-secondary btn-xs pull-right">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
-                        </div>
-                        <input type="file" id="file_imageFile" (change)="setFileData($event, masterForm, 'imageFile', false)" jhiTranslate="entity.action.addblob"/>
-                    </div>
-                    <input type="hidden" class="form-control" name="imageFile" id="field_imageFile"
-                        [(ngModel)]="masterForm.imageFile" required/>
-                    <input type="hidden" class="form-control" name="imageFileContentType" id="field_imageFileContentType"
-                        [(ngModel)]="masterForm.imageFileContentType" />
-                    <div [hidden]="!(editForm.controls.imageFile?.dirty && editForm.controls.imageFile?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.imageFile?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.isActive" for="field_isActive">Is Active</label>
-                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
-                        [(ngModel)]="masterForm.isActive" />
-                    <div [hidden]="!(editForm.controls.isActive?.dirty && editForm.controls.isActive?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.isActive?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.province" for="field_province">Province</label>
-                    <select class="form-control" id="field_province" name="province" [(ngModel)]="masterForm.provinceId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.district" for="field_district">District</label>
-                    <select class="form-control" id="field_district" name="district" [(ngModel)]="masterForm.districtId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
-                    </select>
-                </div>
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <strong jhiTranslate="nextlogixApp.masterForm.home.createOrEditLabel">Create or edit a Master Form</strong>
+        </div>
+        <div class="card-body">
+          <div>
+            <jhi-alert-error></jhi-alert-error>
+            <div class="form-group" [hidden]="!masterForm.id">
+              <label for="id" jhiTranslate="global.field.id">ID</label>
+              <input type="text" class="form-control" id="id" name="id"
+                     [(ngModel)]="masterForm.id" readonly />
             </div>
-            <jhi-detail-form-detail-list [masterFormParentId]="masterForm.id" ></jhi-detail-form-detail-list>
-    </div>
-    <div class="card-footer">
-        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.code" for="field_code">Code</label>
+              <input type="text" class="form-control" name="code" id="field_code"
+                     [(ngModel)]="masterForm.code" required/>
+              <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.note" for="field_note">Note</label>
+              <input type="text" class="form-control" name="note" id="field_note"
+                     [(ngModel)]="masterForm.note" />
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.receiveTime" for="field_receiveTime">Receive Time</label>
+              <div class="d-flex">
+                <input id="field_receiveTime" type="datetime-local" class="form-control" name="receiveTime" [(ngModel)]="receiveTime"
+                       required/>
+              </div>
+              <div [hidden]="!(editForm.controls.receiveTime?.dirty && editForm.controls.receiveTime?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.receiveTime?.errors?.required" jhiTranslate="entity.validation.required">
+                  This field is required.
+                </small>
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.receiveTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                  This field should be a date and time.
+                </small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.imageFile" for="field_imageFile">Image File</label>
+              <div>
+                <div *ngIf="masterForm.imageFile" class="form-text text-danger clearfix">
+                  <a class="pull-left" (click)="openFile(masterForm.imageFileContentType, masterForm.imageFile)" jhiTranslate="entity.action.open">open</a><br>
+                  <span class="pull-left">{{masterForm.imageFileContentType}}, {{byteSize(masterForm.imageFile)}}</span>
+                  <button type="button" (click)="masterForm.imageFile=null;masterForm.imageFileContentType=null;"
+                          class="btn btn-secondary btn-xs pull-right">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                  </button>
+                </div>
+                <input type="file" id="file_imageFile" (change)="setFileData($event, masterForm, 'imageFile', false)" jhiTranslate="entity.action.addblob"/>
+              </div>
+              <input type="hidden" class="form-control" name="imageFile" id="field_imageFile"
+                     [(ngModel)]="masterForm.imageFile" required/>
+              <input type="hidden" class="form-control" name="imageFileContentType" id="field_imageFileContentType"
+                     [(ngModel)]="masterForm.imageFileContentType" />
+              <div [hidden]="!(editForm.controls.imageFile?.dirty && editForm.controls.imageFile?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.imageFile?.errors?.required" jhiTranslate="entity.validation.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.isActive" for="field_isActive">Is Active</label>
+              <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                     [(ngModel)]="masterForm.isActive" />
+              <div [hidden]="!(editForm.controls.isActive?.dirty && editForm.controls.isActive?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.isActive?.errors?.required" jhiTranslate="entity.validation.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.province" for="field_province">Province</label>
+              <select class="form-control" id="field_province" name="province" [(ngModel)]="masterForm.provinceId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" jhiTranslate="nextlogixApp.masterForm.district" for="field_district">District</label>
+              <select class="form-control" id="field_district" name="district" [(ngModel)]="masterForm.districtId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+          </button>
+          <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
             <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
-    </div>
-</div>
-</form>
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </tab>
+  <tab>
+    <ng-template tabHeading><i class="icon-basket-loaded"></i>Detail Form</ng-template>
+    <jhi-detail-form-detail-list [masterFormParentId]="masterForm.id" ></jhi-detail-form-detail-list>
+  </tab>
+  <tab>
+    <ng-template tabHeading><i class="icon-pie-chart"></i></ng-template>
+    4. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </tab>
+</tabset>
+

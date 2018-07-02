@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NextlogixSharedModule } from '../../shared';
 import {
 MasterFormComponent,
@@ -23,6 +24,7 @@ const ENTITY_STATES = [
     imports: [
         NextlogixSharedModule,
     NextlogixDetailFormDetailModule,
+      TabsModule,
 RouterModule.forChild(ENTITY_STATES)
 ],
 declarations: [

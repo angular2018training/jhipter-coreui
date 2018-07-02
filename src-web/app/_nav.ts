@@ -58,6 +58,55 @@ export const navItems = [
     ]
   },
   {
+    name: 'Set up',
+    url: '/setup',
+    icon: 'icon-cursor',
+    children: [
+      {
+        name: 'Position',
+        url: '/setup/position',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Metrics',
+        url: '/admin/jhi-metrics',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Health',
+        url: '/admin/jhi-health',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Configuration',
+        url: '/admin/jhi-configuration',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Audits',
+        url: '/admin/audits',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Logs',
+        url: '/admin/logs',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'API',
+        url: '/admin/docs',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Elastic search Reindex',
+        url: '/admin/elasticsearch-reindex',
+        icon: 'icon-cursor'
+      },
+
+
+    ]
+  },
+  {
     title: true,
     name: 'Theme'
   },

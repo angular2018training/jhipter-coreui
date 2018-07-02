@@ -32,11 +32,23 @@ public class PostOfficeCriteria implements Serializable {
 
     private StringFilter name;
 
+    private StringFilter address;
+
+    private IntegerFilter sortOrder;
+
+    private StringFilter phone;
+
+    private DoubleFilter latitude;
+
+    private DoubleFilter longitude;
+
     private StringFilter description;
 
     private LongFilter companyId;
 
     private LongFilter provinceId;
+
+    private LongFilter districtId;
 
     public PostOfficeCriteria() {
     }
@@ -65,6 +77,46 @@ public class PostOfficeCriteria implements Serializable {
         this.name = name;
     }
 
+    public StringFilter getAddress() {
+        return address;
+    }
+
+    public void setAddress(StringFilter address) {
+        this.address = address;
+    }
+
+    public IntegerFilter getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(IntegerFilter sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public StringFilter getPhone() {
+        return phone;
+    }
+
+    public void setPhone(StringFilter phone) {
+        this.phone = phone;
+    }
+
+    public DoubleFilter getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(DoubleFilter latitude) {
+        this.latitude = latitude;
+    }
+
+    public DoubleFilter getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(DoubleFilter longitude) {
+        this.longitude = longitude;
+    }
+
     public StringFilter getDescription() {
         return description;
     }
@@ -89,15 +141,29 @@ public class PostOfficeCriteria implements Serializable {
         this.provinceId = provinceId;
     }
 
+    public LongFilter getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(LongFilter districtId) {
+        this.districtId = districtId;
+    }
+
     @Override
     public String toString() {
         return "PostOfficeCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (code != null ? "code=" + code + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
+                (address != null ? "address=" + address + ", " : "") +
+                (sortOrder != null ? "sortOrder=" + sortOrder + ", " : "") +
+                (phone != null ? "phone=" + phone + ", " : "") +
+                (latitude != null ? "latitude=" + latitude + ", " : "") +
+                (longitude != null ? "longitude=" + longitude + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (provinceId != null ? "provinceId=" + provinceId + ", " : "") +
+                (districtId != null ? "districtId=" + districtId + ", " : "") +
             "}";
     }
 

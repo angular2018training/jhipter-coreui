@@ -24,6 +24,9 @@ import vn.nextlogix.repository.search.PostOfficeSearchRepository;
     import vn.nextlogix.repository.search.ProvinceSearchRepository;
     import vn.nextlogix.service.mapper.ProvinceMapper;
 
+    import vn.nextlogix.repository.search.DistrictSearchRepository;
+    import vn.nextlogix.service.mapper.DistrictMapper;
+
 import vn.nextlogix.service.dto.PostOfficeCriteria;
 
 import vn.nextlogix.service.dto.PostOfficeDTO;
@@ -55,9 +58,13 @@ public class PostOfficeQueryService extends QueryService<PostOffice> {
         private final ProvinceSearchRepository provinceSearchRepository;
         private final ProvinceMapper provinceMapper;
 
+        private final DistrictSearchRepository districtSearchRepository;
+        private final DistrictMapper districtMapper;
+
 
     public PostOfficeQueryService(PostOfficeRepository postOfficeRepository, PostOfficeMapper postOfficeMapper, PostOfficeSearchRepository postOfficeSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
 ) {
         this.postOfficeRepository = postOfficeRepository;
         this.postOfficeMapper = postOfficeMapper;
@@ -66,6 +73,8 @@ public class PostOfficeQueryService extends QueryService<PostOffice> {
                                      this.companyMapper = companyMapper;
                                     this.provinceSearchRepository = provinceSearchRepository;
                                      this.provinceMapper = provinceMapper;
+                                    this.districtSearchRepository = districtSearchRepository;
+                                     this.districtMapper = districtMapper;
 
     }
 
@@ -110,6 +119,21 @@ public class PostOfficeQueryService extends QueryService<PostOffice> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), PostOffice_.name));
             }
+            if (criteria.getAddress() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getAddress(), PostOffice_.address));
+            }
+            if (criteria.getSortOrder() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getSortOrder(), PostOffice_.sortOrder));
+            }
+            if (criteria.getPhone() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getPhone(), PostOffice_.phone));
+            }
+            if (criteria.getLatitude() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getLatitude(), PostOffice_.latitude));
+            }
+            if (criteria.getLongitude() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getLongitude(), PostOffice_.longitude));
+            }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), PostOffice_.description));
             }
@@ -118,6 +142,9 @@ public class PostOfficeQueryService extends QueryService<PostOffice> {
             }
             if (criteria.getProvinceId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getProvinceId(), PostOffice_.province, Province_.id));
+            }
+            if (criteria.getDistrictId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictId(), PostOffice_.district, District_.id));
             }
         }
         return specification;

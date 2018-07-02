@@ -34,6 +34,21 @@ public class PostOffice implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "sort_order")
+    private Integer sortOrder;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
+
     @Column(name = "description")
     private String description;
 
@@ -44,6 +59,10 @@ public class PostOffice implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private Province province;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private District district;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -78,6 +97,71 @@ public class PostOffice implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public PostOffice address(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public PostOffice sortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+        return this;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public PostOffice phone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public PostOffice latitude(Double latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public PostOffice longitude(Double longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getDescription() {
@@ -118,6 +202,19 @@ public class PostOffice implements Serializable {
     public void setProvince(Province province) {
         this.province = province;
     }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public PostOffice district(District district) {
+        this.district = district;
+        return this;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -146,6 +243,11 @@ public class PostOffice implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", sortOrder=" + getSortOrder() +
+            ", phone='" + getPhone() + "'" +
+            ", latitude=" + getLatitude() +
+            ", longitude=" + getLongitude() +
             ", description='" + getDescription() + "'" +
             "}";
     }

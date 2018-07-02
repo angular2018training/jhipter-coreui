@@ -11,6 +11,8 @@ import {JhiLanguageService} from "ng-jhipster";
 import {JhiLanguageHelper} from "../shared/language/language.helper";
 import {NextlogixMasterFormModule} from "./master-form/master-form.module";
 import {NextlogixDetailFormModule} from "./detail-form/detail-form.module";
+import {NextlogixPostOfficeModule} from "./post-office/post-office.module";
+import {NextlogixPositionModule} from "./position/position.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +23,8 @@ import {NextlogixDetailFormModule} from "./detail-form/detail-form.module";
     NextlogixSharedLibsModule,
     NextlogixMasterFormModule,
     NextlogixDetailFormModule,
+    NextlogixPostOfficeModule,
+    NextlogixPositionModule,
     RouterModule.forChild(setupState)
   ],
   declarations: [],

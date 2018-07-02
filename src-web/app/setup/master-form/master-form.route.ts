@@ -28,58 +28,72 @@ resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
 
 export const masterFormRoute: Routes = [
+
     {
         path: 'master-form',
-        component: MasterFormComponent,
-resolve: {
-    'pagingParams': JhiResolvePagingParams
+
+        children:[
+          {
+            path:'',
+            component: MasterFormComponent,
+            resolve: {
+              'pagingParams': JhiResolvePagingParams
+            },
+            data: {
+              authorities: ['ROLE_USER'],
+              defaultSort: 'id,asc',
+              pageTitle: 'nextlogixApp.masterForm.home.title',
+              title : 'nextlogixApp.masterForm.home.title'
+            },
+            canActivate: [UserRouteAccessService]
+          },
+          {
+            path: ':id/view',
+            component: MasterFormDetailComponent,
+            resolve: {
+              masterForm: MasterFormResolve
+            },
+            data: {
+              authorities: ['ROLE_USER'],
+              pageTitle: 'nextlogixApp.masterForm.home.title',
+              title: 'nextlogixApp.masterForm.home.title',
+            },
+            canActivate: [UserRouteAccessService]
+          },
+          {
+            path: 'new',
+            component: MasterFormUpdateComponent,
+            resolve: {
+              masterForm: MasterFormResolve
+            },
+            data: {
+              authorities: ['ROLE_USER'],
+              pageTitle: 'nextlogixApp.masterForm.home.title',
+              title: 'nextlogixApp.masterForm.home.title'
+            },
+            canActivate: [UserRouteAccessService]
+          },
+          {
+            path: ':id/edit',
+            component: MasterFormUpdateComponent,
+            resolve: {
+              masterForm: MasterFormResolve
+            },
+            data: {
+              authorities: ['ROLE_USER'],
+              pageTitle: 'nextlogixApp.masterForm.home.title',
+              title: 'nextlogixApp.masterForm.home.title'
+            },
+            canActivate: [UserRouteAccessService]
+          },
+        ]
 },
-data: {
-    authorities: ['ROLE_USER'],
-    defaultSort: 'id,asc',
-    pageTitle: 'nextlogixApp.masterForm.home.title',
-    title : 'nextlogixApp.masterForm.home.title'
-},
-canActivate: [UserRouteAccessService]
-}, {
-    path: 'master-form/:id/view',
-        component: MasterFormDetailComponent,
-        resolve: {
-        masterForm: MasterFormResolve
-    },
-    data: {
-        authorities: ['ROLE_USER'],
-            pageTitle: 'nextlogixApp.masterForm.home.title',
-        title: 'nextlogixApp.masterForm.home.title',
-    },
-    canActivate: [UserRouteAccessService]
-},
-{
-    path: 'master-form/new',
-        component: MasterFormUpdateComponent,
-    resolve: {
-    masterForm: MasterFormResolve
-},
-    data: {
-        authorities: ['ROLE_USER'],
-            pageTitle: 'nextlogixApp.masterForm.home.title',
-        title: 'nextlogixApp.masterForm.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-},
-{
-    path: 'master-form/:id/edit',
-        component: MasterFormUpdateComponent,
-    resolve: {
-    masterForm: MasterFormResolve
-},
-    data: {
-        authorities: ['ROLE_USER'],
-            pageTitle: 'nextlogixApp.masterForm.home.title',
-        title: 'nextlogixApp.masterForm.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-},
+
+
+
+
+
+
 ];
 
 export const masterFormPopupRoute: Routes = [

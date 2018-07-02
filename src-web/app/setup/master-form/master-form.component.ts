@@ -111,10 +111,7 @@ currentAccount: any;
     }
     searchInForm(){
           this.page = 0;
-          this.principal.identity().then((account) => {
-            this.currentAccount = account;
-            console.log(this.currentAccount)
-          });
+
           this.transition();
 
     }

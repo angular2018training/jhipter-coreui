@@ -51,6 +51,15 @@
               separator=";"
               tableName="ward">
     </loadData>
+    
+    
+    <loadData encoding="UTF-8"
+              file="config/liquibase/user_extra_info.csv"
+              separator=";"
+              tableName="user_extra_info">
+    </loadData>
+    
+    
 
 	</changeSet>
 	</databaseChangeLog>
