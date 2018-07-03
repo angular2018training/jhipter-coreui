@@ -2,7 +2,13 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.CustomerTypeService;
 import vn.nextlogix.domain.CustomerType;
-import vn.nextlogix.repository.CustomerTypeRepository;
+
+
+    import vn.nextlogix.repository.CustomerTypeRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.CustomerTypeSearchRepository;
 import vn.nextlogix.service.dto.CustomerTypeDTO;
 import vn.nextlogix.service.dto.CustomerTypeSearchDTO;
@@ -140,15 +146,23 @@ public class CustomerTypeServiceImpl implements CustomerTypeService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getDescription())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<CustomerType> customerTypePage= customerTypeSearchRepository.search(query);
             List<CustomerTypeDTO> customerTypeList =  StreamSupport
             .stream(customerTypePage.spliterator(), false)

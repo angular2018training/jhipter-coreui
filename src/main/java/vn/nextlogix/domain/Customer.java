@@ -75,14 +75,20 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private CustomerPayment payment;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Warehouse warehouse;
-
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customerParent")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<CustomerPostOffice> customerPostOffices = new HashSet<>();
+    private Set<CustomerPostOffice> customerPostOfficeDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "customerParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<CustomerWarehouse> customerWarehouseDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "customerParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<CustomerServices> customerServicesDetailLists = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -275,42 +281,79 @@ public class Customer implements Serializable {
         this.payment = customerPayment;
     }
 
-    public Warehouse getWarehouse() {
-        return warehouse;
+    public Set<CustomerPostOffice> getCustomerPostOfficeDetailLists() {
+        return customerPostOfficeDetailLists;
     }
 
-    public Customer warehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
+    public Customer customerPostOfficeDetailLists(Set<CustomerPostOffice> customerPostOffices) {
+        this.customerPostOfficeDetailLists = customerPostOffices;
         return this;
     }
 
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Set<CustomerPostOffice> getCustomerPostOffices() {
-        return customerPostOffices;
-    }
-
-    public Customer customerPostOffices(Set<CustomerPostOffice> customerPostOffices) {
-        this.customerPostOffices = customerPostOffices;
+    public Customer addCustomerPostOfficeDetailList(CustomerPostOffice customerPostOffice) {
+        this.customerPostOfficeDetailLists.add(customerPostOffice);
+        customerPostOffice.setCustomerParent(this);
         return this;
     }
 
-    public Customer addCustomerPostOffice(CustomerPostOffice customerPostOffice) {
-        this.customerPostOffices.add(customerPostOffice);
-        customerPostOffice.setCustomer(this);
+    public Customer removeCustomerPostOfficeDetailList(CustomerPostOffice customerPostOffice) {
+        this.customerPostOfficeDetailLists.remove(customerPostOffice);
+        customerPostOffice.setCustomerParent(null);
         return this;
     }
 
-    public Customer removeCustomerPostOffice(CustomerPostOffice customerPostOffice) {
-        this.customerPostOffices.remove(customerPostOffice);
-        customerPostOffice.setCustomer(null);
+    public void setCustomerPostOfficeDetailLists(Set<CustomerPostOffice> customerPostOffices) {
+        this.customerPostOfficeDetailLists = customerPostOffices;
+    }
+
+    public Set<CustomerWarehouse> getCustomerWarehouseDetailLists() {
+        return customerWarehouseDetailLists;
+    }
+
+    public Customer customerWarehouseDetailLists(Set<CustomerWarehouse> customerWarehouses) {
+        this.customerWarehouseDetailLists = customerWarehouses;
         return this;
     }
 
-    public void setCustomerPostOffices(Set<CustomerPostOffice> customerPostOffices) {
-        this.customerPostOffices = customerPostOffices;
+    public Customer addCustomerWarehouseDetailList(CustomerWarehouse customerWarehouse) {
+        this.customerWarehouseDetailLists.add(customerWarehouse);
+        customerWarehouse.setCustomerParent(this);
+        return this;
+    }
+
+    public Customer removeCustomerWarehouseDetailList(CustomerWarehouse customerWarehouse) {
+        this.customerWarehouseDetailLists.remove(customerWarehouse);
+        customerWarehouse.setCustomerParent(null);
+        return this;
+    }
+
+    public void setCustomerWarehouseDetailLists(Set<CustomerWarehouse> customerWarehouses) {
+        this.customerWarehouseDetailLists = customerWarehouses;
+    }
+
+    public Set<CustomerServices> getCustomerServicesDetailLists() {
+        return customerServicesDetailLists;
+    }
+
+    public Customer customerServicesDetailLists(Set<CustomerServices> customerServices) {
+        this.customerServicesDetailLists = customerServices;
+        return this;
+    }
+
+    public Customer addCustomerServicesDetailList(CustomerServices customerServices) {
+        this.customerServicesDetailLists.add(customerServices);
+        customerServices.setCustomerParent(this);
+        return this;
+    }
+
+    public Customer removeCustomerServicesDetailList(CustomerServices customerServices) {
+        this.customerServicesDetailLists.remove(customerServices);
+        customerServices.setCustomerParent(null);
+        return this;
+    }
+
+    public void setCustomerServicesDetailLists(Set<CustomerServices> customerServices) {
+        this.customerServicesDetailLists = customerServices;
     }
 
     public Company getCompany() {

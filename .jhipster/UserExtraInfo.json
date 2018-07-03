@@ -3,9 +3,16 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "userPosition",
-            "otherEntityName": "userPosition",
-            "otherEntityRelationshipName": "userExtraInfo"
+            "relationshipName": "userPostOfficeDetailList",
+            "otherEntityName": "userPostOffice",
+            "otherEntityRelationshipName": "userExtraInfoParent"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
         }
     ],
     "fields": [
@@ -40,6 +47,10 @@
         {
             "fieldName": "contractExpirationDate",
             "fieldType": "Instant"
+        },
+        {
+            "fieldName": "userId",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20180614034632",

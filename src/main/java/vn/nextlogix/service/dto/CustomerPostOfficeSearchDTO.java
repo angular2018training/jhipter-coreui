@@ -24,15 +24,15 @@ private Boolean isActive;
 
 private Instant createDate;
 
-private Long customerId;
-
-
-
 private Long companyId;
 
 
 
 private Long postOfficeId;
+
+
+
+private Long customerParentId;
 
 
 
@@ -69,16 +69,6 @@ public void setCreateDate(Instant createDate) {
     }
 
 
-public Long getCustomerId() {
-    return customerId;
-    }
-
-public void setCustomerId(Long customerId) {
-    this.customerId = customerId;
-    }
-
-
-
 public Long getCompanyId() {
     return companyId;
     }
@@ -95,6 +85,16 @@ public Long getPostOfficeId() {
 
 public void setPostOfficeId(Long postOfficeId) {
     this.postOfficeId = postOfficeId;
+    }
+
+
+
+public Long getCustomerParentId() {
+    return customerParentId;
+    }
+
+public void setCustomerParentId(Long customerId) {
+    this.customerParentId = customerId;
     }
 
 

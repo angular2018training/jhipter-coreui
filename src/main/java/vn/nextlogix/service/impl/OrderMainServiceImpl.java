@@ -21,7 +21,7 @@ import org.springframework.data.domain.PageImpl;
     import vn.nextlogix.domain.UserExtraInfo;
     import vn.nextlogix.domain.OrderStatus;
     import vn.nextlogix.domain.Customer;
-    import vn.nextlogix.domain.OrderService;
+    import vn.nextlogix.domain.OrderServices;
     import vn.nextlogix.domain.PostOffice;
     import vn.nextlogix.domain.PostOffice;
 import vn.nextlogix.service.mapper.OrderMainMapper;
@@ -61,8 +61,8 @@ import org.springframework.transaction.annotation.Transactional;
     import vn.nextlogix.repository.search.CustomerSearchRepository;
     import vn.nextlogix.service.mapper.CustomerMapper;
 
-    import vn.nextlogix.repository.search.OrderServiceSearchRepository;
-    import vn.nextlogix.service.mapper.OrderServiceMapper;
+    import vn.nextlogix.repository.search.OrderServicesSearchRepository;
+    import vn.nextlogix.service.mapper.OrderServicesMapper;
 
     import vn.nextlogix.repository.search.PostOfficeSearchRepository;
     import vn.nextlogix.service.mapper.PostOfficeMapper;
@@ -117,8 +117,8 @@ public class OrderMainServiceImpl implements OrderMainService {
         private final CustomerSearchRepository customerSearchRepository;
         private final CustomerMapper customerMapper;
 
-        private final OrderServiceSearchRepository orderServiceSearchRepository;
-        private final OrderServiceMapper orderServiceMapper;
+        private final OrderServicesSearchRepository orderServicesSearchRepository;
+        private final OrderServicesMapper orderServicesMapper;
 
         private final PostOfficeSearchRepository postOfficeSearchRepository;
         private final PostOfficeMapper postOfficeMapper;
@@ -132,7 +132,7 @@ public class OrderMainServiceImpl implements OrderMainService {
 ,UserExtraInfoSearchRepository userExtraInfoSearchRepository,UserExtraInfoMapper  userExtraInfoMapper
 ,OrderStatusSearchRepository orderStatusSearchRepository,OrderStatusMapper  orderStatusMapper
 ,CustomerSearchRepository customerSearchRepository,CustomerMapper  customerMapper
-,OrderServiceSearchRepository orderServiceSearchRepository,OrderServiceMapper  orderServiceMapper
+,OrderServicesSearchRepository orderServicesSearchRepository,OrderServicesMapper  orderServicesMapper
 ,PostOfficeSearchRepository postOfficeSearchRepository,PostOfficeMapper  postOfficeMapper
 ) {
         this.orderMainRepository = orderMainRepository;
@@ -154,10 +154,11 @@ public class OrderMainServiceImpl implements OrderMainService {
                                      this.orderStatusMapper = orderStatusMapper;
                                     this.customerSearchRepository = customerSearchRepository;
                                      this.customerMapper = customerMapper;
-                                    this.orderServiceSearchRepository = orderServiceSearchRepository;
-                                     this.orderServiceMapper = orderServiceMapper;
+                                    this.orderServicesSearchRepository = orderServicesSearchRepository;
+                                     this.orderServicesMapper = orderServicesMapper;
                                     this.postOfficeSearchRepository = postOfficeSearchRepository;
                                      this.postOfficeMapper = postOfficeMapper;
+
     }
 
     /**
@@ -245,37 +246,37 @@ public class OrderMainServiceImpl implements OrderMainService {
                  boolQueryBuilder.must(QueryBuilders.wildcardQuery("customerOrderNumber", "*"+searchDto.getCustomerOrderNumber()+"*"));
             }
             if(searchDto.getOrderPickupId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("orderPickup.Id", searchDto.getOrderPickupId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("orderPickup.id", searchDto.getOrderPickupId()));
             }
             if(searchDto.getOrderConsigneeId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("orderConsignee.Id", searchDto.getOrderConsigneeId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("orderConsignee.id", searchDto.getOrderConsigneeId()));
             }
             if(searchDto.getOrderFeeId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("orderFee.Id", searchDto.getOrderFeeId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("orderFee.id", searchDto.getOrderFeeId()));
             }
             if(searchDto.getOrderDeliveryId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("orderDelivery.Id", searchDto.getOrderDeliveryId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("orderDelivery.id", searchDto.getOrderDeliveryId()));
             }
             if(searchDto.getCompanyId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("company.Id", searchDto.getCompanyId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
             }
             if(searchDto.getCreateUserId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("createUser.Id", searchDto.getCreateUserId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("createUser.id", searchDto.getCreateUserId()));
             }
             if(searchDto.getOrderStatusId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("orderStatus.Id", searchDto.getOrderStatusId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("orderStatus.id", searchDto.getOrderStatusId()));
             }
             if(searchDto.getCustomerId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("customer.Id", searchDto.getCustomerId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("customer.id", searchDto.getCustomerId()));
             }
             if(searchDto.getMainServiceId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("mainService.Id", searchDto.getMainServiceId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("mainService.id", searchDto.getMainServiceId()));
             }
             if(searchDto.getCreatePostOfficeId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("createPostOffice.Id", searchDto.getCreatePostOfficeId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("createPostOffice.id", searchDto.getCreatePostOfficeId()));
             }
             if(searchDto.getCurrentPostOfficeId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("currentPostOffice.Id", searchDto.getCurrentPostOfficeId()));
+                boolQueryBuilder.must(QueryBuilders.matchQuery("currentPostOffice.id", searchDto.getCurrentPostOfficeId()));
             }
             NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
 
@@ -322,8 +323,8 @@ public class OrderMainServiceImpl implements OrderMainService {
                 orderMainDto.setCustomerDTO(customerMapper.toDto(customer));
             }
             if(orderMainDto.getMainServiceId()!=null){
-                OrderService orderService= orderServiceSearchRepository.findOne(orderMainDto.getMainServiceId());
-                orderMainDto.setMainServiceDTO(orderServiceMapper.toDto(orderService));
+                OrderServices orderServices= orderServicesSearchRepository.findOne(orderMainDto.getMainServiceId());
+                orderMainDto.setMainServiceDTO(orderServicesMapper.toDto(orderServices));
             }
             if(orderMainDto.getCreatePostOfficeId()!=null){
                 PostOffice postOffice= postOfficeSearchRepository.findOne(orderMainDto.getCreatePostOfficeId());

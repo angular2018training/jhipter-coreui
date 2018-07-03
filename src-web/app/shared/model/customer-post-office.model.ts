@@ -1,19 +1,15 @@
-import { Moment } from 'moment';
+import { BaseEntity } from './../../shared';
 
-export interface ICustomerPostOffice {
-    id?: number;
-    code?: string;
-    createDate?: Moment;
-    customerId?: number;
-    postOfficeId?: number;
-}
-
-export class CustomerPostOffice implements ICustomerPostOffice {
+export class CustomerPostOffice implements BaseEntity {
     constructor(
         public id?: number,
         public code?: string,
-        public createDate?: Moment,
-        public customerId?: number,
-        public postOfficeId?: number
-    ) {}
+        public isActive?: boolean,
+        public createDate?: any,
+        public companyId?: number,
+        public postOfficeId?: number,
+        public customerParentId?: number,
+    ) {
+        this.isActive = false;
+    }
 }

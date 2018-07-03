@@ -18,12 +18,6 @@ import vn.nextlogix.domain.*; // for static metamodels
 import vn.nextlogix.repository.CompanyRepository;
 import vn.nextlogix.repository.search.CompanySearchRepository;
 
-    import vn.nextlogix.repository.search.ProvinceSearchRepository;
-    import vn.nextlogix.service.mapper.ProvinceMapper;
-
-    import vn.nextlogix.repository.search.DistrictSearchRepository;
-    import vn.nextlogix.service.mapper.DistrictMapper;
-
 import vn.nextlogix.service.dto.CompanyCriteria;
 
 import vn.nextlogix.service.dto.CompanyDTO;
@@ -49,23 +43,11 @@ public class CompanyQueryService extends QueryService<Company> {
     private final CompanySearchRepository companySearchRepository;
 
 
-        private final ProvinceSearchRepository provinceSearchRepository;
-        private final ProvinceMapper provinceMapper;
 
-        private final DistrictSearchRepository districtSearchRepository;
-        private final DistrictMapper districtMapper;
-
-
-    public CompanyQueryService(CompanyRepository companyRepository, CompanyMapper companyMapper, CompanySearchRepository companySearchRepository     ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
-,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
-) {
+    public CompanyQueryService(CompanyRepository companyRepository, CompanyMapper companyMapper, CompanySearchRepository companySearchRepository     ) {
         this.companyRepository = companyRepository;
         this.companyMapper = companyMapper;
         this.companySearchRepository = companySearchRepository;
-                                    this.provinceSearchRepository = provinceSearchRepository;
-                                     this.provinceMapper = provinceMapper;
-                                    this.districtSearchRepository = districtSearchRepository;
-                                     this.districtMapper = districtMapper;
 
     }
 
@@ -124,12 +106,6 @@ public class CompanyQueryService extends QueryService<Company> {
             }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Company_.description));
-            }
-            if (criteria.getProvinceId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getProvinceId(), Company_.province, Province_.id));
-            }
-            if (criteria.getDistrictId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictId(), Company_.district, District_.id));
             }
         }
         return specification;

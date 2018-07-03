@@ -1,10 +1,12 @@
-export interface IProvince {
-    id?: number;
-    code?: string;
-    name?: string;
-    description?: string;
-}
+import { BaseEntity } from './../../shared';
 
-export class Province implements IProvince {
-    constructor(public id?: number, public code?: string, public name?: string, public description?: string) {}
+export class Province implements BaseEntity {
+    constructor(
+        public id?: number,
+        public code?: string,
+        public name?: string,
+        public description?: string,
+        public companyId?: number,
+    ) {
+    }
 }

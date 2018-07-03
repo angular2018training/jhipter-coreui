@@ -1,37 +1,11 @@
-import { Moment } from 'moment';
+import { BaseEntity } from './../../shared';
 
-export interface IOrderMain {
-    id?: number;
-    orderNumber?: string;
-    createDate?: Moment;
-    sendDate?: Moment;
-    weight?: number;
-    width?: number;
-    height?: number;
-    depth?: number;
-    quantityItem?: number;
-    orderPrice?: number;
-    finalWeight?: number;
-    customerOrderNumber?: string;
-    codAmount?: number;
-    orderPickupId?: number;
-    orderConsigneeId?: number;
-    orderFeeId?: number;
-    orderDeliveryId?: number;
-    createUserId?: number;
-    orderStatusId?: number;
-    customerId?: number;
-    mainServiceId?: number;
-    createPostOfficeId?: number;
-    currentPostOfficeId?: number;
-}
-
-export class OrderMain implements IOrderMain {
+export class OrderMain implements BaseEntity {
     constructor(
         public id?: number,
         public orderNumber?: string,
-        public createDate?: Moment,
-        public sendDate?: Moment,
+        public createDate?: any,
+        public sendDate?: any,
         public weight?: number,
         public width?: number,
         public height?: number,
@@ -45,11 +19,13 @@ export class OrderMain implements IOrderMain {
         public orderConsigneeId?: number,
         public orderFeeId?: number,
         public orderDeliveryId?: number,
+        public companyId?: number,
         public createUserId?: number,
         public orderStatusId?: number,
         public customerId?: number,
         public mainServiceId?: number,
         public createPostOfficeId?: number,
-        public currentPostOfficeId?: number
-    ) {}
+        public currentPostOfficeId?: number,
+    ) {
+    }
 }

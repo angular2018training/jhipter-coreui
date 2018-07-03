@@ -18,14 +18,14 @@ import vn.nextlogix.domain.*; // for static metamodels
 import vn.nextlogix.repository.CustomerPostOfficeRepository;
 import vn.nextlogix.repository.search.CustomerPostOfficeSearchRepository;
 
-    import vn.nextlogix.repository.search.CustomerSearchRepository;
-    import vn.nextlogix.service.mapper.CustomerMapper;
-
     import vn.nextlogix.repository.search.CompanySearchRepository;
     import vn.nextlogix.service.mapper.CompanyMapper;
 
     import vn.nextlogix.repository.search.PostOfficeSearchRepository;
     import vn.nextlogix.service.mapper.PostOfficeMapper;
+
+    import vn.nextlogix.repository.search.CustomerSearchRepository;
+    import vn.nextlogix.service.mapper.CustomerMapper;
 
 import vn.nextlogix.service.dto.CustomerPostOfficeCriteria;
 
@@ -52,29 +52,29 @@ public class CustomerPostOfficeQueryService extends QueryService<CustomerPostOff
     private final CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository;
 
 
-        private final CustomerSearchRepository customerSearchRepository;
-        private final CustomerMapper customerMapper;
-
         private final CompanySearchRepository companySearchRepository;
         private final CompanyMapper companyMapper;
 
         private final PostOfficeSearchRepository postOfficeSearchRepository;
         private final PostOfficeMapper postOfficeMapper;
 
+        private final CustomerSearchRepository customerSearchRepository;
+        private final CustomerMapper customerMapper;
 
-    public CustomerPostOfficeQueryService(CustomerPostOfficeRepository customerPostOfficeRepository, CustomerPostOfficeMapper customerPostOfficeMapper, CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository     ,CustomerSearchRepository customerSearchRepository,CustomerMapper  customerMapper
-,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+
+    public CustomerPostOfficeQueryService(CustomerPostOfficeRepository customerPostOfficeRepository, CustomerPostOfficeMapper customerPostOfficeMapper, CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,PostOfficeSearchRepository postOfficeSearchRepository,PostOfficeMapper  postOfficeMapper
+,CustomerSearchRepository customerSearchRepository,CustomerMapper  customerMapper
 ) {
         this.customerPostOfficeRepository = customerPostOfficeRepository;
         this.customerPostOfficeMapper = customerPostOfficeMapper;
         this.customerPostOfficeSearchRepository = customerPostOfficeSearchRepository;
-                                    this.customerSearchRepository = customerSearchRepository;
-                                     this.customerMapper = customerMapper;
                                     this.companySearchRepository = companySearchRepository;
                                      this.companyMapper = companyMapper;
                                     this.postOfficeSearchRepository = postOfficeSearchRepository;
                                      this.postOfficeMapper = postOfficeMapper;
+                                    this.customerSearchRepository = customerSearchRepository;
+                                     this.customerMapper = customerMapper;
 
     }
 
@@ -122,14 +122,14 @@ public class CustomerPostOfficeQueryService extends QueryService<CustomerPostOff
             if (criteria.getCreateDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCreateDate(), CustomerPostOffice_.createDate));
             }
-            if (criteria.getCustomerId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerId(), CustomerPostOffice_.customer, Customer_.id));
-            }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), CustomerPostOffice_.company, Company_.id));
             }
             if (criteria.getPostOfficeId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPostOfficeId(), CustomerPostOffice_.postOffice, PostOffice_.id));
+            }
+            if (criteria.getCustomerParentId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerParentId(), CustomerPostOffice_.customerParent, Customer_.id));
             }
         }
         return specification;

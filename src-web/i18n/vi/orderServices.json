@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "orderServices" : {
+            "home": {
+                "title": "Order Services",
+                "createLabel": "Thêm mới một Order Services",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Services",
+                "search": "Tìm Order Services"
+            },
+            "created": "Một Order Services mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Services cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Services đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Services {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Services"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company",
+            "orderServicesType": "Order Services Type",
+            "quotation": "Quotation"
+        }
+    }
+}

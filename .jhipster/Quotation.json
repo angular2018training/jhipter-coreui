@@ -3,9 +3,16 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "quotationItem",
+            "relationshipName": "quotationItemDetailList",
             "otherEntityName": "quotationItem",
             "otherEntityRelationshipName": "quotation"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
         }
     ],
     "fields": [
@@ -18,11 +25,21 @@
         },
         {
             "fieldName": "isActive",
-            "fieldType": "Boolean"
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
         },
         {
             "fieldName": "createDate",
-            "fieldType": "Instant"
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20180614034637",

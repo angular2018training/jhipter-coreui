@@ -1,0 +1,43 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.orderServicesType.detail.title">Order Services Type</span> {{orderServicesType.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="orderServicesType">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.orderServicesType.code">Code</span></dt>
+        <dd>
+            <span>{{orderServicesType.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.orderServicesType.name">Name</span></dt>
+        <dd>
+            <span>{{orderServicesType.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.orderServicesType.description">Description</span></dt>
+        <dd>
+            <span>{{orderServicesType.description}}</span>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'order-services-type', orderServicesType.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

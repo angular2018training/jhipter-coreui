@@ -43,6 +43,10 @@ public class ElasticsearchIndexService {
 
     private final BankSearchRepository bankSearchRepository;
 
+    private final CompanyRepository companyRepository;
+
+    private final CompanySearchRepository companySearchRepository;
+
     private final CustomerRepository customerRepository;
 
     private final CustomerSearchRepository customerSearchRepository;
@@ -50,6 +54,10 @@ public class ElasticsearchIndexService {
     private final CustomerLegalRepository customerLegalRepository;
 
     private final CustomerLegalSearchRepository customerLegalSearchRepository;
+
+    private final CustomerLegalFileUploadRepository customerLegalFileUploadRepository;
+
+    private final CustomerLegalFileUploadSearchRepository customerLegalFileUploadSearchRepository;
 
     private final CustomerPaymentRepository customerPaymentRepository;
 
@@ -59,6 +67,26 @@ public class ElasticsearchIndexService {
 
     private final CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository;
 
+    private final CustomerServicesRepository customerServicesRepository;
+
+    private final CustomerServicesSearchRepository customerServicesSearchRepository;
+
+    private final CustomerSourceRepository customerSourceRepository;
+
+    private final CustomerSourceSearchRepository customerSourceSearchRepository;
+
+    private final CustomerTypeRepository customerTypeRepository;
+
+    private final CustomerTypeSearchRepository customerTypeSearchRepository;
+
+    private final CustomerWarehouseRepository customerWarehouseRepository;
+
+    private final CustomerWarehouseSearchRepository customerWarehouseSearchRepository;
+
+    private final DetailFormRepository detailFormRepository;
+
+    private final DetailFormSearchRepository detailFormSearchRepository;
+
     private final DistrictRepository districtRepository;
 
     private final DistrictSearchRepository districtSearchRepository;
@@ -66,6 +94,10 @@ public class ElasticsearchIndexService {
     private final FileUploadRepository fileUploadRepository;
 
     private final FileUploadSearchRepository fileUploadSearchRepository;
+
+    private final MasterFormRepository masterFormRepository;
+
+    private final MasterFormSearchRepository masterFormSearchRepository;
 
     private final OrderConsigneeRepository orderConsigneeRepository;
 
@@ -87,13 +119,29 @@ public class ElasticsearchIndexService {
 
     private final OrderPickupSearchRepository orderPickupSearchRepository;
 
-    private final OrderServiceRepository orderServiceRepository;
+    private final OrderServicesRepository orderServicesRepository;
 
-    private final OrderServiceSearchRepository orderServiceSearchRepository;
+    private final OrderServicesSearchRepository orderServicesSearchRepository;
+
+    private final OrderServicesTypeRepository orderServicesTypeRepository;
+
+    private final OrderServicesTypeSearchRepository orderServicesTypeSearchRepository;
 
     private final OrderStatusRepository orderStatusRepository;
 
     private final OrderStatusSearchRepository orderStatusSearchRepository;
+
+    private final OrderUserRouteRepository orderUserRouteRepository;
+
+    private final OrderUserRouteSearchRepository orderUserRouteSearchRepository;
+
+    private final OrderUserRouteTypeRepository orderUserRouteTypeRepository;
+
+    private final OrderUserRouteTypeSearchRepository orderUserRouteTypeSearchRepository;
+
+    private final PaymentTypeRepository paymentTypeRepository;
+
+    private final PaymentTypeSearchRepository paymentTypeSearchRepository;
 
     private final PositionRepository positionRepository;
 
@@ -115,6 +163,10 @@ public class ElasticsearchIndexService {
 
     private final QuotationItemSearchRepository quotationItemSearchRepository;
 
+    private final QuotationItemTypeRepository quotationItemTypeRepository;
+
+    private final QuotationItemTypeSearchRepository quotationItemTypeSearchRepository;
+
     private final UserExtraInfoRepository userExtraInfoRepository;
 
     private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
@@ -127,31 +179,21 @@ public class ElasticsearchIndexService {
 
     private final UserPositionSearchRepository userPositionSearchRepository;
 
+    private final UserPostOfficeRepository userPostOfficeRepository;
+
+    private final UserPostOfficeSearchRepository userPostOfficeSearchRepository;
+
     private final WardRepository wardRepository;
 
     private final WardSearchRepository wardSearchRepository;
-
-    private final UserRepository userRepository;
-
-    private final UserSearchRepository userSearchRepository;
-
 
     private final WarehouseRepository warehouseRepository;
 
     private final WarehouseSearchRepository warehouseSearchRepository;
 
-    private final CompanyRepository companyRepository;
+    private final UserRepository userRepository;
 
-    private final CompanySearchRepository companySearchRepository;
-    
-    private final MasterFormRepository masterFormRepository;
-
-    private final MasterFormSearchRepository masterFormSearchRepository;
-    
-    private final DetailFormRepository detailFormRepository;
-
-    private final DetailFormSearchRepository detailFormSearchRepository;
-    
+    private final UserSearchRepository userSearchRepository;
 
     private final ElasticsearchTemplate elasticsearchTemplate;
 
@@ -160,18 +202,34 @@ public class ElasticsearchIndexService {
         UserSearchRepository userSearchRepository,
         BankRepository bankRepository,
         BankSearchRepository bankSearchRepository,
+        CompanyRepository companyRepository,
+        CompanySearchRepository companySearchRepository,
         CustomerRepository customerRepository,
         CustomerSearchRepository customerSearchRepository,
         CustomerLegalRepository customerLegalRepository,
         CustomerLegalSearchRepository customerLegalSearchRepository,
+        CustomerLegalFileUploadRepository customerLegalFileUploadRepository,
+        CustomerLegalFileUploadSearchRepository customerLegalFileUploadSearchRepository,
         CustomerPaymentRepository customerPaymentRepository,
         CustomerPaymentSearchRepository customerPaymentSearchRepository,
         CustomerPostOfficeRepository customerPostOfficeRepository,
         CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository,
+        CustomerServicesRepository customerServicesRepository,
+        CustomerServicesSearchRepository customerServicesSearchRepository,
+        CustomerSourceRepository customerSourceRepository,
+        CustomerSourceSearchRepository customerSourceSearchRepository,
+        CustomerTypeRepository customerTypeRepository,
+        CustomerTypeSearchRepository customerTypeSearchRepository,
+        CustomerWarehouseRepository customerWarehouseRepository,
+        CustomerWarehouseSearchRepository customerWarehouseSearchRepository,
+        DetailFormRepository detailFormRepository,
+        DetailFormSearchRepository detailFormSearchRepository,
         DistrictRepository districtRepository,
         DistrictSearchRepository districtSearchRepository,
         FileUploadRepository fileUploadRepository,
         FileUploadSearchRepository fileUploadSearchRepository,
+        MasterFormRepository masterFormRepository,
+        MasterFormSearchRepository masterFormSearchRepository,
         OrderConsigneeRepository orderConsigneeRepository,
         OrderConsigneeSearchRepository orderConsigneeSearchRepository,
         OrderDeliveryRepository orderDeliveryRepository,
@@ -182,10 +240,18 @@ public class ElasticsearchIndexService {
         OrderMainSearchRepository orderMainSearchRepository,
         OrderPickupRepository orderPickupRepository,
         OrderPickupSearchRepository orderPickupSearchRepository,
-        OrderServiceRepository orderServiceRepository,
-        OrderServiceSearchRepository orderServiceSearchRepository,
+        OrderServicesRepository orderServicesRepository,
+        OrderServicesSearchRepository orderServicesSearchRepository,
+        OrderServicesTypeRepository orderServicesTypeRepository,
+        OrderServicesTypeSearchRepository orderServicesTypeSearchRepository,
         OrderStatusRepository orderStatusRepository,
         OrderStatusSearchRepository orderStatusSearchRepository,
+        OrderUserRouteRepository orderUserRouteRepository,
+        OrderUserRouteSearchRepository orderUserRouteSearchRepository,
+        OrderUserRouteTypeRepository orderUserRouteTypeRepository,
+        OrderUserRouteTypeSearchRepository orderUserRouteTypeSearchRepository,
+        PaymentTypeRepository paymentTypeRepository,
+        PaymentTypeSearchRepository paymentTypeSearchRepository,
         PositionRepository positionRepository,
         PositionSearchRepository positionSearchRepository,
         PostOfficeRepository postOfficeRepository,
@@ -196,39 +262,53 @@ public class ElasticsearchIndexService {
         QuotationSearchRepository quotationSearchRepository,
         QuotationItemRepository quotationItemRepository,
         QuotationItemSearchRepository quotationItemSearchRepository,
+        QuotationItemTypeRepository quotationItemTypeRepository,
+        QuotationItemTypeSearchRepository quotationItemTypeSearchRepository,
         UserExtraInfoRepository userExtraInfoRepository,
         UserExtraInfoSearchRepository userExtraInfoSearchRepository,
         UserGroupRepository userGroupRepository,
         UserGroupSearchRepository userGroupSearchRepository,
         UserPositionRepository userPositionRepository,
         UserPositionSearchRepository userPositionSearchRepository,
+        UserPostOfficeRepository userPostOfficeRepository,
+        UserPostOfficeSearchRepository userPostOfficeSearchRepository,
         WardRepository wardRepository,
         WardSearchRepository wardSearchRepository,
         WarehouseRepository warehouseRepository,
         WarehouseSearchRepository warehouseSearchRepository,
-        CompanyRepository companyRepository,
-        CompanySearchRepository companySearchRepository,
-        MasterFormRepository masterFormRepository,
-        MasterFormSearchRepository masterFormSearchRepository,
-        DetailFormRepository detailFormRepository,
-        DetailFormSearchRepository detailFormSearchRepository,
         ElasticsearchTemplate elasticsearchTemplate) {
         this.userRepository = userRepository;
         this.userSearchRepository = userSearchRepository;
         this.bankRepository = bankRepository;
         this.bankSearchRepository = bankSearchRepository;
+        this.companyRepository = companyRepository;
+        this.companySearchRepository = companySearchRepository;
         this.customerRepository = customerRepository;
         this.customerSearchRepository = customerSearchRepository;
         this.customerLegalRepository = customerLegalRepository;
         this.customerLegalSearchRepository = customerLegalSearchRepository;
+        this.customerLegalFileUploadRepository = customerLegalFileUploadRepository;
+        this.customerLegalFileUploadSearchRepository = customerLegalFileUploadSearchRepository;
         this.customerPaymentRepository = customerPaymentRepository;
         this.customerPaymentSearchRepository = customerPaymentSearchRepository;
         this.customerPostOfficeRepository = customerPostOfficeRepository;
         this.customerPostOfficeSearchRepository = customerPostOfficeSearchRepository;
+        this.customerServicesRepository = customerServicesRepository;
+        this.customerServicesSearchRepository = customerServicesSearchRepository;
+        this.customerSourceRepository = customerSourceRepository;
+        this.customerSourceSearchRepository = customerSourceSearchRepository;
+        this.customerTypeRepository = customerTypeRepository;
+        this.customerTypeSearchRepository = customerTypeSearchRepository;
+        this.customerWarehouseRepository = customerWarehouseRepository;
+        this.customerWarehouseSearchRepository = customerWarehouseSearchRepository;
+        this.detailFormRepository = detailFormRepository;
+        this.detailFormSearchRepository = detailFormSearchRepository;
         this.districtRepository = districtRepository;
         this.districtSearchRepository = districtSearchRepository;
         this.fileUploadRepository = fileUploadRepository;
         this.fileUploadSearchRepository = fileUploadSearchRepository;
+        this.masterFormRepository = masterFormRepository;
+        this.masterFormSearchRepository = masterFormSearchRepository;
         this.orderConsigneeRepository = orderConsigneeRepository;
         this.orderConsigneeSearchRepository = orderConsigneeSearchRepository;
         this.orderDeliveryRepository = orderDeliveryRepository;
@@ -239,10 +319,18 @@ public class ElasticsearchIndexService {
         this.orderMainSearchRepository = orderMainSearchRepository;
         this.orderPickupRepository = orderPickupRepository;
         this.orderPickupSearchRepository = orderPickupSearchRepository;
-        this.orderServiceRepository = orderServiceRepository;
-        this.orderServiceSearchRepository = orderServiceSearchRepository;
+        this.orderServicesRepository = orderServicesRepository;
+        this.orderServicesSearchRepository = orderServicesSearchRepository;
+        this.orderServicesTypeRepository = orderServicesTypeRepository;
+        this.orderServicesTypeSearchRepository = orderServicesTypeSearchRepository;
         this.orderStatusRepository = orderStatusRepository;
         this.orderStatusSearchRepository = orderStatusSearchRepository;
+        this.orderUserRouteRepository = orderUserRouteRepository;
+        this.orderUserRouteSearchRepository = orderUserRouteSearchRepository;
+        this.orderUserRouteTypeRepository = orderUserRouteTypeRepository;
+        this.orderUserRouteTypeSearchRepository = orderUserRouteTypeSearchRepository;
+        this.paymentTypeRepository = paymentTypeRepository;
+        this.paymentTypeSearchRepository = paymentTypeSearchRepository;
         this.positionRepository = positionRepository;
         this.positionSearchRepository = positionSearchRepository;
         this.postOfficeRepository = postOfficeRepository;
@@ -253,22 +341,20 @@ public class ElasticsearchIndexService {
         this.quotationSearchRepository = quotationSearchRepository;
         this.quotationItemRepository = quotationItemRepository;
         this.quotationItemSearchRepository = quotationItemSearchRepository;
+        this.quotationItemTypeRepository = quotationItemTypeRepository;
+        this.quotationItemTypeSearchRepository = quotationItemTypeSearchRepository;
         this.userExtraInfoRepository = userExtraInfoRepository;
         this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
         this.userGroupRepository = userGroupRepository;
         this.userGroupSearchRepository = userGroupSearchRepository;
         this.userPositionRepository = userPositionRepository;
         this.userPositionSearchRepository = userPositionSearchRepository;
+        this.userPostOfficeRepository = userPostOfficeRepository;
+        this.userPostOfficeSearchRepository = userPostOfficeSearchRepository;
         this.wardRepository = wardRepository;
         this.wardSearchRepository = wardSearchRepository;
         this.warehouseRepository = warehouseRepository;
         this.warehouseSearchRepository = warehouseSearchRepository;
-        this.companyRepository = companyRepository;
-        this.companySearchRepository = companySearchRepository;
-        this.masterFormRepository = masterFormRepository;
-        this.masterFormSearchRepository = masterFormSearchRepository;
-        this.detailFormRepository = detailFormRepository;
-        this.detailFormSearchRepository = detailFormSearchRepository;
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
@@ -278,35 +364,46 @@ public class ElasticsearchIndexService {
         if (reindexLock.tryLock()) {
             try {
                 reindexForClass(Bank.class, bankRepository, bankSearchRepository);
+                reindexForClass(Company.class, companyRepository, companySearchRepository);
                 reindexForClass(Customer.class, customerRepository, customerSearchRepository);
                 reindexForClass(CustomerLegal.class, customerLegalRepository, customerLegalSearchRepository);
+                reindexForClass(CustomerLegalFileUpload.class, customerLegalFileUploadRepository, customerLegalFileUploadSearchRepository);
                 reindexForClass(CustomerPayment.class, customerPaymentRepository, customerPaymentSearchRepository);
                 reindexForClass(CustomerPostOffice.class, customerPostOfficeRepository, customerPostOfficeSearchRepository);
+                reindexForClass(CustomerServices.class, customerServicesRepository, customerServicesSearchRepository);
+                reindexForClass(CustomerSource.class, customerSourceRepository, customerSourceSearchRepository);
+                reindexForClass(CustomerType.class, customerTypeRepository, customerTypeSearchRepository);
+                reindexForClass(CustomerWarehouse.class, customerWarehouseRepository, customerWarehouseSearchRepository);
+                reindexForClass(DetailForm.class, detailFormRepository, detailFormSearchRepository);
                 reindexForClass(District.class, districtRepository, districtSearchRepository);
                 reindexForClass(FileUpload.class, fileUploadRepository, fileUploadSearchRepository);
+                reindexForClass(MasterForm.class, masterFormRepository, masterFormSearchRepository);
                 reindexForClass(OrderConsignee.class, orderConsigneeRepository, orderConsigneeSearchRepository);
                 reindexForClass(OrderDelivery.class, orderDeliveryRepository, orderDeliverySearchRepository);
                 reindexForClass(OrderFee.class, orderFeeRepository, orderFeeSearchRepository);
                 reindexForClass(OrderMain.class, orderMainRepository, orderMainSearchRepository);
                 reindexForClass(OrderPickup.class, orderPickupRepository, orderPickupSearchRepository);
-                reindexForClass(OrderService.class, orderServiceRepository, orderServiceSearchRepository);
+                reindexForClass(OrderServices.class, orderServicesRepository, orderServicesSearchRepository);
+                reindexForClass(OrderServicesType.class, orderServicesTypeRepository, orderServicesTypeSearchRepository);
                 reindexForClass(OrderStatus.class, orderStatusRepository, orderStatusSearchRepository);
+                reindexForClass(OrderUserRoute.class, orderUserRouteRepository, orderUserRouteSearchRepository);
+                reindexForClass(OrderUserRouteType.class, orderUserRouteTypeRepository, orderUserRouteTypeSearchRepository);
+                reindexForClass(PaymentType.class, paymentTypeRepository, paymentTypeSearchRepository);
                 reindexForClass(Position.class, positionRepository, positionSearchRepository);
                 reindexForClass(PostOffice.class, postOfficeRepository, postOfficeSearchRepository);
                 reindexForClass(Province.class, provinceRepository, provinceSearchRepository);
                 reindexForClass(Quotation.class, quotationRepository, quotationSearchRepository);
                 reindexForClass(QuotationItem.class, quotationItemRepository, quotationItemSearchRepository);
+                reindexForClass(QuotationItemType.class, quotationItemTypeRepository, quotationItemTypeSearchRepository);
                 reindexForClass(UserExtraInfo.class, userExtraInfoRepository, userExtraInfoSearchRepository);
                 reindexForClass(UserGroup.class, userGroupRepository, userGroupSearchRepository);
                 reindexForClass(UserPosition.class, userPositionRepository, userPositionSearchRepository);
+                reindexForClass(UserPostOffice.class, userPostOfficeRepository, userPostOfficeSearchRepository);
                 reindexForClass(Ward.class, wardRepository, wardSearchRepository);
+                reindexForClass(Warehouse.class, warehouseRepository, warehouseSearchRepository);
                 reindexForClass(User.class, userRepository, userSearchRepository);
-                reindexForClass(Warehouse.class,warehouseRepository,warehouseSearchRepository);
-                reindexForClass(Company.class,companyRepository,companySearchRepository);
-                reindexForClass(MasterForm.class,masterFormRepository,masterFormSearchRepository);
-                reindexForClass(DetailForm.class,detailFormRepository,detailFormSearchRepository);
 
-              log.info("Elasticsearch: Successfully performed reindexing");
+                log.info("Elasticsearch: Successfully performed reindexing");
             } finally {
                 reindexLock.unlock();
             }

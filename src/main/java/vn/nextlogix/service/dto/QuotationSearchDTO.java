@@ -22,6 +22,9 @@ private String name;
 private Boolean isActive;
 
 
+private String description;
+
+
 private Instant createDate;
 
 private Long companyId;
@@ -50,6 +53,14 @@ public Boolean isIsActive() {
 
 public void setIsActive(Boolean isActive) {
     this.isActive = isActive;
+    }
+
+public String getDescription() {
+    return description;
+    }
+
+public void setDescription(String description) {
+    this.description = description;
     }
 
 public Instant getCreateDate() {
@@ -97,6 +108,7 @@ public String toString() {
     "id=" + getId() +
     ", name='" + getName() + "'" +
     ", isActive='" + isIsActive() + "'" +
+    ", description='" + getDescription() + "'" +
     ", createDate='" + getCreateDate() + "'" +
     "}";
     }

@@ -1,0 +1,47 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.quotation.detail.title">Quotation</span> {{quotation.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="quotation">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.quotation.name">Name</span></dt>
+        <dd>
+            <span>{{quotation.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotation.isActive">Is Active</span></dt>
+        <dd>
+            <span>{{quotation.isActive}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotation.description">Description</span></dt>
+        <dd>
+            <span>{{quotation.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotation.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{quotation.createDate | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'quotation', quotation.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

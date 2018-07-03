@@ -42,8 +42,8 @@ import vn.nextlogix.repository.search.OrderMainSearchRepository;
     import vn.nextlogix.repository.search.CustomerSearchRepository;
     import vn.nextlogix.service.mapper.CustomerMapper;
 
-    import vn.nextlogix.repository.search.OrderServiceSearchRepository;
-    import vn.nextlogix.service.mapper.OrderServiceMapper;
+    import vn.nextlogix.repository.search.OrderServicesSearchRepository;
+    import vn.nextlogix.service.mapper.OrderServicesMapper;
 
     import vn.nextlogix.repository.search.PostOfficeSearchRepository;
     import vn.nextlogix.service.mapper.PostOfficeMapper;
@@ -100,8 +100,8 @@ public class OrderMainQueryService extends QueryService<OrderMain> {
         private final CustomerSearchRepository customerSearchRepository;
         private final CustomerMapper customerMapper;
 
-        private final OrderServiceSearchRepository orderServiceSearchRepository;
-        private final OrderServiceMapper orderServiceMapper;
+        private final OrderServicesSearchRepository orderServicesSearchRepository;
+        private final OrderServicesMapper orderServicesMapper;
 
 
         private final PostOfficeSearchRepository postOfficeSearchRepository;
@@ -116,7 +116,7 @@ public class OrderMainQueryService extends QueryService<OrderMain> {
 ,UserExtraInfoSearchRepository userExtraInfoSearchRepository,UserExtraInfoMapper  userExtraInfoMapper
 ,OrderStatusSearchRepository orderStatusSearchRepository,OrderStatusMapper  orderStatusMapper
 ,CustomerSearchRepository customerSearchRepository,CustomerMapper  customerMapper
-,OrderServiceSearchRepository orderServiceSearchRepository,OrderServiceMapper  orderServiceMapper
+,OrderServicesSearchRepository orderServicesSearchRepository,OrderServicesMapper  orderServicesMapper
 ,PostOfficeSearchRepository postOfficeSearchRepository,PostOfficeMapper  postOfficeMapper
 ) {
         this.orderMainRepository = orderMainRepository;
@@ -138,8 +138,8 @@ public class OrderMainQueryService extends QueryService<OrderMain> {
                                      this.orderStatusMapper = orderStatusMapper;
                                     this.customerSearchRepository = customerSearchRepository;
                                      this.customerMapper = customerMapper;
-                                    this.orderServiceSearchRepository = orderServiceSearchRepository;
-                                     this.orderServiceMapper = orderServiceMapper;
+                                    this.orderServicesSearchRepository = orderServicesSearchRepository;
+                                     this.orderServicesMapper = orderServicesMapper;
                                     this.postOfficeSearchRepository = postOfficeSearchRepository;
                                      this.postOfficeMapper = postOfficeMapper;
 
@@ -241,7 +241,7 @@ public class OrderMainQueryService extends QueryService<OrderMain> {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerId(), OrderMain_.customer, Customer_.id));
             }
             if (criteria.getMainServiceId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getMainServiceId(), OrderMain_.mainService, OrderService_.id));
+                specification = specification.and(buildReferringEntitySpecification(criteria.getMainServiceId(), OrderMain_.mainService, OrderServices_.id));
             }
             if (criteria.getCreatePostOfficeId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCreatePostOfficeId(), OrderMain_.createPostOffice, PostOffice_.id));

@@ -1,0 +1,71 @@
+
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.customerServices.home.createOrEditLabel">Create or edit a Customer Services</strong>
+    </div>
+    <div class="card-body">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!customerServices.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="customerServices.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.discountPercent" for="field_discountPercent">Discount Percent</label>
+                    <input type="number" class="form-control" name="discountPercent" id="field_discountPercent"
+                        [(ngModel)]="customerServices.discountPercent" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.increasePercent" for="field_increasePercent">Increase Percent</label>
+                    <input type="number" class="form-control" name="increasePercent" id="field_increasePercent"
+                        [(ngModel)]="customerServices.increasePercent" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.decreasePercent" for="field_decreasePercent">Decrease Percent</label>
+                    <input type="number" class="form-control" name="decreasePercent" id="field_decreasePercent"
+                        [(ngModel)]="customerServices.decreasePercent" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.orderServices" for="field_orderServices">Order Services</label>
+                    <select class="form-control" id="field_orderServices" name="orderServices" [(ngModel)]="customerServices.orderServicesId"  required>
+                        <option *ngIf="!editForm.value.orderServices" [ngValue]="null" selected></option>
+                        <option [ngValue]="orderServicesOption.id" *ngFor="let orderServicesOption of orderservices; trackBy: trackOrderServicesById">{{orderServicesOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.orderServices?.dirty && editForm.controls.orderServices?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.orderServices?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.quotation" for="field_quotation">Quotation</label>
+                    <select class="form-control" id="field_quotation" name="quotation" [(ngModel)]="customerServices.quotationId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.customerParent" for="field_customerParent">Customer Parent</label>
+                    <select class="form-control" id="field_customerParent" name="customerParent" [(ngModel)]="customerServices.customerParentId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="customerOption.id" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

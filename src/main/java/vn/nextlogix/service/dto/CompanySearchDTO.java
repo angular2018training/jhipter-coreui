@@ -3,8 +3,6 @@
 
     import javax.validation.constraints.*;
     import java.io.Serializable;
-    import java.util.HashSet;
-    import java.util.Set;
     import java.util.Objects;
 
 /**
@@ -34,14 +32,6 @@ private String website;
 
 
 private String description;
-
-private Long provinceId;
-
-
-
-private Long districtId;
-
-
 
 public Long getId() {
     return id;
@@ -106,26 +96,6 @@ public String getDescription() {
 public void setDescription(String description) {
     this.description = description;
     }
-
-
-public Long getProvinceId() {
-    return provinceId;
-    }
-
-public void setProvinceId(Long provinceId) {
-    this.provinceId = provinceId;
-    }
-
-
-
-public Long getDistrictId() {
-    return districtId;
-    }
-
-public void setDistrictId(Long districtId) {
-    this.districtId = districtId;
-    }
-
 
 @Override
 public boolean equals(Object o) {

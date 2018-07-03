@@ -42,10 +42,6 @@ public class CompanyCriteria implements Serializable {
 
     private StringFilter description;
 
-    private LongFilter provinceId;
-
-    private LongFilter districtId;
-
     public CompanyCriteria() {
     }
 
@@ -113,22 +109,6 @@ public class CompanyCriteria implements Serializable {
         this.description = description;
     }
 
-    public LongFilter getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(LongFilter provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public LongFilter getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(LongFilter districtId) {
-        this.districtId = districtId;
-    }
-
     @Override
     public String toString() {
         return "CompanyCriteria{" +
@@ -140,8 +120,6 @@ public class CompanyCriteria implements Serializable {
                 (email != null ? "email=" + email + ", " : "") +
                 (website != null ? "website=" + website + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
-                (provinceId != null ? "provinceId=" + provinceId + ", " : "") +
-                (districtId != null ? "districtId=" + districtId + ", " : "") +
             "}";
     }
 

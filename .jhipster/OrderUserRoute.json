@@ -4,6 +4,13 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "user",
             "otherEntityName": "userExtraInfo",
             "otherEntityField": "id"
@@ -24,6 +31,13 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "orderUserRouteType",
+            "otherEntityName": "orderUserRouteType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
             "relationshipName": "ward",
             "otherEntityName": "district",
             "otherEntityField": "id"
@@ -35,13 +49,7 @@
             "otherEntityField": "id"
         }
     ],
-    "fields": [
-        {
-            "fieldName": "routeType",
-            "fieldType": "OrderUserRouteType",
-            "fieldValues": "PICKUP,DELIVERY"
-        }
-    ],
+    "fields": [],
     "changelogDate": "20180626064215",
     "entityTableName": "order_user_route",
     "dto": "mapstruct",

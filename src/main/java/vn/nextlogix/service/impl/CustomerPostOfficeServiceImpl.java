@@ -2,14 +2,20 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.CustomerPostOfficeService;
 import vn.nextlogix.domain.CustomerPostOffice;
-import vn.nextlogix.repository.CustomerPostOfficeRepository;
+
+
+    import vn.nextlogix.repository.CustomerPostOfficeRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.CustomerPostOfficeSearchRepository;
 import vn.nextlogix.service.dto.CustomerPostOfficeDTO;
 import vn.nextlogix.service.dto.CustomerPostOfficeSearchDTO;
 import org.springframework.data.domain.PageImpl;
-    import vn.nextlogix.domain.Customer;
     import vn.nextlogix.domain.Company;
     import vn.nextlogix.domain.PostOffice;
+    import vn.nextlogix.domain.Customer;
 import vn.nextlogix.service.mapper.CustomerPostOfficeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +29,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-    import vn.nextlogix.repository.search.CustomerSearchRepository;
-    import vn.nextlogix.service.mapper.CustomerMapper;
-
     import vn.nextlogix.repository.search.CompanySearchRepository;
     import vn.nextlogix.service.mapper.CompanyMapper;
 
     import vn.nextlogix.repository.search.PostOfficeSearchRepository;
     import vn.nextlogix.service.mapper.PostOfficeMapper;
+
+    import vn.nextlogix.repository.search.CustomerSearchRepository;
+    import vn.nextlogix.service.mapper.CustomerMapper;
     import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -55,29 +61,29 @@ public class CustomerPostOfficeServiceImpl implements CustomerPostOfficeService 
     private final CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository;
 
 
-        private final CustomerSearchRepository customerSearchRepository;
-        private final CustomerMapper customerMapper;
-
         private final CompanySearchRepository companySearchRepository;
         private final CompanyMapper companyMapper;
 
         private final PostOfficeSearchRepository postOfficeSearchRepository;
         private final PostOfficeMapper postOfficeMapper;
 
+        private final CustomerSearchRepository customerSearchRepository;
+        private final CustomerMapper customerMapper;
 
-    public CustomerPostOfficeServiceImpl(CustomerPostOfficeRepository customerPostOfficeRepository, CustomerPostOfficeMapper customerPostOfficeMapper, CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository     ,CustomerSearchRepository customerSearchRepository,CustomerMapper  customerMapper
-,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
+
+    public CustomerPostOfficeServiceImpl(CustomerPostOfficeRepository customerPostOfficeRepository, CustomerPostOfficeMapper customerPostOfficeMapper, CustomerPostOfficeSearchRepository customerPostOfficeSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,PostOfficeSearchRepository postOfficeSearchRepository,PostOfficeMapper  postOfficeMapper
+,CustomerSearchRepository customerSearchRepository,CustomerMapper  customerMapper
 ) {
         this.customerPostOfficeRepository = customerPostOfficeRepository;
         this.customerPostOfficeMapper = customerPostOfficeMapper;
         this.customerPostOfficeSearchRepository = customerPostOfficeSearchRepository;
-                                    this.customerSearchRepository = customerSearchRepository;
-                                     this.customerMapper = customerMapper;
                                     this.companySearchRepository = companySearchRepository;
                                      this.companyMapper = companyMapper;
                                     this.postOfficeSearchRepository = postOfficeSearchRepository;
                                      this.postOfficeMapper = postOfficeMapper;
+                                    this.customerSearchRepository = customerSearchRepository;
+                                     this.customerMapper = customerMapper;
 
     }
 
@@ -160,19 +166,29 @@ public class CustomerPostOfficeServiceImpl implements CustomerPostOfficeService 
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            if(searchDto.getPostOfficeId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("postOffice.id", searchDto.getPostOfficeId()));
+            }
+            if(searchDto.getCustomerParentId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("customerParent.id", searchDto.getCustomerParentId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<CustomerPostOffice> customerPostOfficePage= customerPostOfficeSearchRepository.search(query);
             List<CustomerPostOfficeDTO> customerPostOfficeList =  StreamSupport
             .stream(customerPostOfficePage.spliterator(), false)
             .map(customerPostOfficeMapper::toDto)
             .collect(Collectors.toList());
             customerPostOfficeList.forEach(customerPostOfficeDto -> {
-            if(customerPostOfficeDto.getCustomerId()!=null){
-                Customer customer= customerSearchRepository.findOne(customerPostOfficeDto.getCustomerId());
-                customerPostOfficeDto.setCustomerDTO(customerMapper.toDto(customer));
-            }
             if(customerPostOfficeDto.getCompanyId()!=null){
                 Company company= companySearchRepository.findOne(customerPostOfficeDto.getCompanyId());
                 customerPostOfficeDto.setCompanyDTO(companyMapper.toDto(company));
@@ -180,6 +196,10 @@ public class CustomerPostOfficeServiceImpl implements CustomerPostOfficeService 
             if(customerPostOfficeDto.getPostOfficeId()!=null){
                 PostOffice postOffice= postOfficeSearchRepository.findOne(customerPostOfficeDto.getPostOfficeId());
                 customerPostOfficeDto.setPostOfficeDTO(postOfficeMapper.toDto(postOffice));
+            }
+            if(customerPostOfficeDto.getCustomerParentId()!=null){
+                Customer customer= customerSearchRepository.findOne(customerPostOfficeDto.getCustomerParentId());
+                customerPostOfficeDto.setCustomerParentDTO(customerMapper.toDto(customer));
             }
             });
             return new PageImpl<>(customerPostOfficeList,pageable,customerPostOfficePage.getTotalElements());

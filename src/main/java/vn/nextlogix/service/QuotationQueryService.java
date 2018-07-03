@@ -103,11 +103,14 @@ public class QuotationQueryService extends QueryService<Quotation> {
             if (criteria.getIsActive() != null) {
                 specification = specification.and(buildSpecification(criteria.getIsActive(), Quotation_.isActive));
             }
+            if (criteria.getDescription() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescription(), Quotation_.description));
+            }
             if (criteria.getCreateDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCreateDate(), Quotation_.createDate));
             }
-            if (criteria.getQuotationItemId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationItemId(), Quotation_.quotationItems, QuotationItem_.id));
+            if (criteria.getQuotationItemDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationItemDetailListId(), Quotation_.quotationItemDetailLists, QuotationItem_.id));
             }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), Quotation_.company, Company_.id));

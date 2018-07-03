@@ -8,12 +8,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Customer and its DTO CustomerDTO.
  */
-@Mapper(componentModel = "spring", uses = {CustomerLegalMapper.class, CustomerPaymentMapper.class, WarehouseMapper.class, CompanyMapper.class, UserExtraInfoMapper.class, ProvinceMapper.class, DistrictMapper.class, CustomerTypeMapper.class, CustomerSourceMapper.class})
+@Mapper(componentModel = "spring", uses = {CustomerLegalMapper.class, CustomerPaymentMapper.class, CompanyMapper.class, UserExtraInfoMapper.class, ProvinceMapper.class, DistrictMapper.class, CustomerTypeMapper.class, CustomerSourceMapper.class})
 public interface CustomerMapper extends EntityMapper<CustomerDTO, Customer> {
 
     @Mapping(source = "legal.id", target = "legalId")
     @Mapping(source = "payment.id", target = "paymentId")
-    @Mapping(source = "warehouse.id", target = "warehouseId")
     @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "manageUser.id", target = "manageUserId")
     @Mapping(source = "saleUser.id", target = "saleUserId")
@@ -25,8 +24,9 @@ public interface CustomerMapper extends EntityMapper<CustomerDTO, Customer> {
 
     @Mapping(source = "legalId", target = "legal")
     @Mapping(source = "paymentId", target = "payment")
-    @Mapping(source = "warehouseId", target = "warehouse")
-    @Mapping(target = "customerPostOffices", ignore = true)
+    @Mapping(target = "customerPostOfficeDetailLists", ignore = true)
+    @Mapping(target = "customerWarehouseDetailLists", ignore = true)
+    @Mapping(target = "customerServicesDetailLists", ignore = true)
     @Mapping(source = "companyId", target = "company")
     @Mapping(source = "manageUserId", target = "manageUser")
     @Mapping(source = "saleUserId", target = "saleUser")

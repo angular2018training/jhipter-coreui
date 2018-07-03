@@ -13,6 +13,9 @@ import {NextlogixMasterFormModule} from "./master-form/master-form.module";
 import {NextlogixDetailFormModule} from "./detail-form/detail-form.module";
 import {NextlogixPostOfficeModule} from "./post-office/post-office.module";
 import {NextlogixPositionModule} from "./position/position.module";
+import {NextlogixOrderServicesModule} from "./order-services/order-services.module";
+import {NextlogixOrderServicesTypeModule} from "./order-services-type/order-services-type.module";
+import {NextlogixQuotationModule} from "./quotation/quotation.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +28,9 @@ import {NextlogixPositionModule} from "./position/position.module";
     NextlogixDetailFormModule,
     NextlogixPostOfficeModule,
     NextlogixPositionModule,
+    NextlogixOrderServicesModule,
+    NextlogixOrderServicesTypeModule,
+    NextlogixQuotationModule,
     RouterModule.forChild(setupState)
   ],
   declarations: [],

@@ -34,16 +34,21 @@ public class Quotation implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "is_active")
+    @NotNull
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @Column(name = "create_date")
+    @Column(name = "description")
+    private String description;
+
+    @NotNull
+    @Column(name = "create_date", nullable = false)
     private Instant createDate;
 
     @OneToMany(mappedBy = "quotation")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<QuotationItem> quotationItems = new HashSet<>();
+    private Set<QuotationItem> quotationItemDetailLists = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -84,6 +89,19 @@ public class Quotation implements Serializable {
         this.isActive = isActive;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Quotation description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Instant getCreateDate() {
         return createDate;
     }
@@ -97,29 +115,29 @@ public class Quotation implements Serializable {
         this.createDate = createDate;
     }
 
-    public Set<QuotationItem> getQuotationItems() {
-        return quotationItems;
+    public Set<QuotationItem> getQuotationItemDetailLists() {
+        return quotationItemDetailLists;
     }
 
-    public Quotation quotationItems(Set<QuotationItem> quotationItems) {
-        this.quotationItems = quotationItems;
+    public Quotation quotationItemDetailLists(Set<QuotationItem> quotationItems) {
+        this.quotationItemDetailLists = quotationItems;
         return this;
     }
 
-    public Quotation addQuotationItem(QuotationItem quotationItem) {
-        this.quotationItems.add(quotationItem);
+    public Quotation addQuotationItemDetailList(QuotationItem quotationItem) {
+        this.quotationItemDetailLists.add(quotationItem);
         quotationItem.setQuotation(this);
         return this;
     }
 
-    public Quotation removeQuotationItem(QuotationItem quotationItem) {
-        this.quotationItems.remove(quotationItem);
+    public Quotation removeQuotationItemDetailList(QuotationItem quotationItem) {
+        this.quotationItemDetailLists.remove(quotationItem);
         quotationItem.setQuotation(null);
         return this;
     }
 
-    public void setQuotationItems(Set<QuotationItem> quotationItems) {
-        this.quotationItems = quotationItems;
+    public void setQuotationItemDetailLists(Set<QuotationItem> quotationItems) {
+        this.quotationItemDetailLists = quotationItems;
     }
 
     public Company getCompany() {
@@ -162,6 +180,7 @@ public class Quotation implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", isActive='" + isIsActive() + "'" +
+            ", description='" + getDescription() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             "}";
     }

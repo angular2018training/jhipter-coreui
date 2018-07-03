@@ -1,11 +1,19 @@
-export interface IPostOffice {
-    id?: number;
-    code?: string;
-    name?: string;
-    description?: string;
-    provinceId?: number;
-}
+import { BaseEntity } from './../../shared';
 
-export class PostOffice implements IPostOffice {
-    constructor(public id?: number, public code?: string, public name?: string, public description?: string, public provinceId?: number) {}
+export class PostOffice implements BaseEntity {
+    constructor(
+        public id?: number,
+        public code?: string,
+        public name?: string,
+        public address?: string,
+        public sortOrder?: number,
+        public phone?: string,
+        public latitude?: number,
+        public longitude?: number,
+        public description?: string,
+        public companyId?: number,
+        public provinceId?: number,
+        public districtId?: number,
+    ) {
+    }
 }

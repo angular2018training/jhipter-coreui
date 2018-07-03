@@ -1,25 +1,13 @@
-import { Moment } from 'moment';
+import { BaseEntity } from './../../shared';
 
-export const enum QuotationItemType {
-    ONE = 'ONE'
-}
-
-export interface IQuotationItem {
-    id?: number;
-    itemType?: QuotationItemType;
-    quotationFileContentType?: string;
-    quotationFile?: any;
-    createDate?: Moment;
-    quotationId?: number;
-}
-
-export class QuotationItem implements IQuotationItem {
+export class QuotationItem implements BaseEntity {
     constructor(
         public id?: number,
-        public itemType?: QuotationItemType,
         public quotationFileContentType?: string,
         public quotationFile?: any,
-        public createDate?: Moment,
-        public quotationId?: number
-    ) {}
+        public createDate?: any,
+        public quotationId?: number,
+        public companyId?: number,
+    ) {
+    }
 }

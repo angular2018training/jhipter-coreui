@@ -18,8 +18,12 @@ public class QuotationDTO implements Serializable {
     @NotNull
     private String name;
 
+    @NotNull
     private Boolean isActive;
 
+    private String description;
+
+    @NotNull
     private Instant createDate;
 
     private Long companyId;
@@ -49,6 +53,14 @@ public class QuotationDTO implements Serializable {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Instant getCreateDate() {
@@ -102,6 +114,7 @@ public class QuotationDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", isActive='" + isIsActive() + "'" +
+            ", description='" + getDescription() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             "}";
     }

@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity OrderMain and its DTO OrderMainDTO.
  */
-@Mapper(componentModel = "spring", uses = {OrderPickupMapper.class, OrderConsigneeMapper.class, OrderFeeMapper.class, OrderDeliveryMapper.class, CompanyMapper.class, UserExtraInfoMapper.class, OrderStatusMapper.class, CustomerMapper.class, OrderServiceMapper.class, PostOfficeMapper.class})
+@Mapper(componentModel = "spring", uses = {OrderPickupMapper.class, OrderConsigneeMapper.class, OrderFeeMapper.class, OrderDeliveryMapper.class, CompanyMapper.class, UserExtraInfoMapper.class, OrderStatusMapper.class, CustomerMapper.class, OrderServicesMapper.class, PostOfficeMapper.class})
 public interface OrderMainMapper extends EntityMapper<OrderMainDTO, OrderMain> {
 
     @Mapping(source = "orderPickup.id", target = "orderPickupId")

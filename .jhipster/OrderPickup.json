@@ -4,6 +4,13 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "ward",
             "otherEntityName": "ward",
             "otherEntityField": "id"

@@ -53,10 +53,6 @@ private Long paymentId;
 
 
 
-private Long warehouseId;
-
-
-
 private Long companyId;
 
 
@@ -190,16 +186,6 @@ public Long getPaymentId() {
 
 public void setPaymentId(Long customerPaymentId) {
     this.paymentId = customerPaymentId;
-    }
-
-
-
-public Long getWarehouseId() {
-    return warehouseId;
-    }
-
-public void setWarehouseId(Long warehouseId) {
-    this.warehouseId = warehouseId;
     }
 
 

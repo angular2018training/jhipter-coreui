@@ -49,12 +49,6 @@ public class Company implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    private Province province;
-
-    @ManyToOne
-    private District district;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -153,32 +147,6 @@ public class Company implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Province getProvince() {
-        return province;
-    }
-
-    public Company province(Province province) {
-        this.province = province;
-        return this;
-    }
-
-    public void setProvince(Province province) {
-        this.province = province;
-    }
-
-    public District getDistrict() {
-        return district;
-    }
-
-    public Company district(District district) {
-        this.district = district;
-        return this;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

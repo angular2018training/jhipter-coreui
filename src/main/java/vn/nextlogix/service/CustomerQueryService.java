@@ -24,8 +24,7 @@ import vn.nextlogix.repository.search.CustomerSearchRepository;
     import vn.nextlogix.repository.search.CustomerPaymentSearchRepository;
     import vn.nextlogix.service.mapper.CustomerPaymentMapper;
 
-    import vn.nextlogix.repository.search.WarehouseSearchRepository;
-    import vn.nextlogix.service.mapper.WarehouseMapper;
+
 
 
     import vn.nextlogix.repository.search.CompanySearchRepository;
@@ -80,8 +79,7 @@ public class CustomerQueryService extends QueryService<Customer> {
         private final CustomerPaymentSearchRepository customerPaymentSearchRepository;
         private final CustomerPaymentMapper customerPaymentMapper;
 
-        private final WarehouseSearchRepository warehouseSearchRepository;
-        private final WarehouseMapper warehouseMapper;
+
 
 
         private final CompanySearchRepository companySearchRepository;
@@ -106,7 +104,6 @@ public class CustomerQueryService extends QueryService<Customer> {
 
     public CustomerQueryService(CustomerRepository customerRepository, CustomerMapper customerMapper, CustomerSearchRepository customerSearchRepository     ,CustomerLegalSearchRepository customerLegalSearchRepository,CustomerLegalMapper  customerLegalMapper
 ,CustomerPaymentSearchRepository customerPaymentSearchRepository,CustomerPaymentMapper  customerPaymentMapper
-,WarehouseSearchRepository warehouseSearchRepository,WarehouseMapper  warehouseMapper
 ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,UserExtraInfoSearchRepository userExtraInfoSearchRepository,UserExtraInfoMapper  userExtraInfoMapper
 ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
@@ -121,8 +118,6 @@ public class CustomerQueryService extends QueryService<Customer> {
                                      this.customerLegalMapper = customerLegalMapper;
                                     this.customerPaymentSearchRepository = customerPaymentSearchRepository;
                                      this.customerPaymentMapper = customerPaymentMapper;
-                                    this.warehouseSearchRepository = warehouseSearchRepository;
-                                     this.warehouseMapper = warehouseMapper;
                                     this.companySearchRepository = companySearchRepository;
                                      this.companyMapper = companyMapper;
                                     this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
@@ -209,11 +204,14 @@ public class CustomerQueryService extends QueryService<Customer> {
             if (criteria.getPaymentId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPaymentId(), Customer_.payment, CustomerPayment_.id));
             }
-            if (criteria.getWarehouseId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getWarehouseId(), Customer_.warehouse, Warehouse_.id));
+            if (criteria.getCustomerPostOfficeDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerPostOfficeDetailListId(), Customer_.customerPostOfficeDetailLists, CustomerPostOffice_.id));
             }
-            if (criteria.getCustomerPostOfficeId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerPostOfficeId(), Customer_.customerPostOffices, CustomerPostOffice_.id));
+            if (criteria.getCustomerWarehouseDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerWarehouseDetailListId(), Customer_.customerWarehouseDetailLists, CustomerWarehouse_.id));
+            }
+            if (criteria.getCustomerServicesDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerServicesDetailListId(), Customer_.customerServicesDetailLists, CustomerServices_.id));
             }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), Customer_.company, Company_.id));

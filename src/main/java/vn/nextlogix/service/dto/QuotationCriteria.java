@@ -32,9 +32,11 @@ public class QuotationCriteria implements Serializable {
 
     private BooleanFilter isActive;
 
+    private StringFilter description;
+
     private InstantFilter createDate;
 
-    private LongFilter quotationItemId;
+    private LongFilter quotationItemDetailListId;
 
     private LongFilter companyId;
 
@@ -65,6 +67,14 @@ public class QuotationCriteria implements Serializable {
         this.isActive = isActive;
     }
 
+    public StringFilter getDescription() {
+        return description;
+    }
+
+    public void setDescription(StringFilter description) {
+        this.description = description;
+    }
+
     public InstantFilter getCreateDate() {
         return createDate;
     }
@@ -73,12 +83,12 @@ public class QuotationCriteria implements Serializable {
         this.createDate = createDate;
     }
 
-    public LongFilter getQuotationItemId() {
-        return quotationItemId;
+    public LongFilter getQuotationItemDetailListId() {
+        return quotationItemDetailListId;
     }
 
-    public void setQuotationItemId(LongFilter quotationItemId) {
-        this.quotationItemId = quotationItemId;
+    public void setQuotationItemDetailListId(LongFilter quotationItemDetailListId) {
+        this.quotationItemDetailListId = quotationItemDetailListId;
     }
 
     public LongFilter getCompanyId() {
@@ -95,8 +105,9 @@ public class QuotationCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (isActive != null ? "isActive=" + isActive + ", " : "") +
+                (description != null ? "description=" + description + ", " : "") +
                 (createDate != null ? "createDate=" + createDate + ", " : "") +
-                (quotationItemId != null ? "quotationItemId=" + quotationItemId + ", " : "") +
+                (quotationItemDetailListId != null ? "quotationItemDetailListId=" + quotationItemDetailListId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }

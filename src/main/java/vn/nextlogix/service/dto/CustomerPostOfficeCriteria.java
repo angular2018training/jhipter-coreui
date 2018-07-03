@@ -34,11 +34,11 @@ public class CustomerPostOfficeCriteria implements Serializable {
 
     private InstantFilter createDate;
 
-    private LongFilter customerId;
-
     private LongFilter companyId;
 
     private LongFilter postOfficeId;
+
+    private LongFilter customerParentId;
 
     public CustomerPostOfficeCriteria() {
     }
@@ -75,14 +75,6 @@ public class CustomerPostOfficeCriteria implements Serializable {
         this.createDate = createDate;
     }
 
-    public LongFilter getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(LongFilter customerId) {
-        this.customerId = customerId;
-    }
-
     public LongFilter getCompanyId() {
         return companyId;
     }
@@ -99,6 +91,14 @@ public class CustomerPostOfficeCriteria implements Serializable {
         this.postOfficeId = postOfficeId;
     }
 
+    public LongFilter getCustomerParentId() {
+        return customerParentId;
+    }
+
+    public void setCustomerParentId(LongFilter customerParentId) {
+        this.customerParentId = customerParentId;
+    }
+
     @Override
     public String toString() {
         return "CustomerPostOfficeCriteria{" +
@@ -106,9 +106,9 @@ public class CustomerPostOfficeCriteria implements Serializable {
                 (code != null ? "code=" + code + ", " : "") +
                 (isActive != null ? "isActive=" + isActive + ", " : "") +
                 (createDate != null ? "createDate=" + createDate + ", " : "") +
-                (customerId != null ? "customerId=" + customerId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (postOfficeId != null ? "postOfficeId=" + postOfficeId + ", " : "") +
+                (customerParentId != null ? "customerParentId=" + customerParentId + ", " : "") +
             "}";
     }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity OrderPickup.
+    -->
+    <changeSet id="20180626080034-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="order_pickup"
+                                 constraintName="fk_order_pickup_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="ward_id"
+                                 baseTableName="order_pickup"
+                                 constraintName="fk_order_pickup_ward_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ward"/>
+
+        <addForeignKeyConstraint baseColumnNames="district_id"
+                                 baseTableName="order_pickup"
+                                 constraintName="fk_order_pickup_district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"/>
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="order_pickup"
+                                 constraintName="fk_order_pickup_province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="pickup_user_id"
+                                 baseTableName="order_pickup"
+                                 constraintName="fk_order_pickup_pickup_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra_info"/>
+
+    </changeSet>
+</databaseChangeLog>
