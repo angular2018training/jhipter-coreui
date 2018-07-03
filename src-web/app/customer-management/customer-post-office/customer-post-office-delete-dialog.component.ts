@@ -1,11 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { CustomerPostOffice } from './customer-post-office.model';
-import { CustomerPostOfficePopupService } from './customer-post-office-popup.service';
 import { CustomerPostOfficeService } from './customer-post-office.service';
 
 @Component({
@@ -35,30 +33,5 @@ export class CustomerPostOfficeDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-    }
-}
-
-@Component({
-    selector: 'jhi-customer-post-office-delete-popup',
-    template: ''
-})
-export class CustomerPostOfficeDeletePopupComponent implements OnInit, OnDestroy {
-
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private customerPostOfficePopupService: CustomerPostOfficePopupService
-    ) {}
-
-    ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.customerPostOfficePopupService
-                .open(CustomerPostOfficeDeleteDialogComponent as Component, params['id']);
-        });
-    }
-
-    ngOnDestroy() {
-        this.routeSub.unsubscribe();
     }
 }

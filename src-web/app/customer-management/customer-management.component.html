@@ -1,0 +1,195 @@
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed" [attr.aria-expanded]="!searchCardIsCollapsed"
+                    aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="row">
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="col-form-label" for="field_code" jhiTranslate="nextlogixApp.customer.code">Code:</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="customerSearch.code">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="col-form-label" for="field_name" jhiTranslate="nextlogixApp.customer.name">Name:</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="customerSearch.name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="col-form-label" for="field_email" jhiTranslate="nextlogixApp.customer.email">Email:</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="email" id="field_email" [(ngModel)]="customerSearch.email">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="col-form-label" for="field_phone" jhiTranslate="nextlogixApp.customer.phone">Phone:</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="phone" id="field_phone" [(ngModel)]="customerSearch.phone">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="col-form-label" for="field_isActive" jhiTranslate="nextlogixApp.customer.isActive">Is Active:</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="checkbox" class="form-control" name="isActive" id="field_isActive" [(ngModel)]="customerSearch.isActive">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="col-form-label" for="field_createDate" jhiTranslate="nextlogixApp.customer.createDate">Create Date:</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="customerSearch.createDate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer btn-group  flex-btn-group-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+            <button type="button" class="btn btn-primary btn-warning" [routerLink]="['../', 0 , 'customer']">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.customer.home.title">Kết quả tìm kiếm</strong>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" *ngIf="customers">
+            <table class="table table-striped">
+                <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="code">
+                            <span jhiTranslate="nextlogixApp.customer.code">Code</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="name">
+                            <span jhiTranslate="nextlogixApp.customer.name">Name</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="email">
+                            <span jhiTranslate="nextlogixApp.customer.email">Email</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="phone">
+                            <span jhiTranslate="nextlogixApp.customer.phone">Phone</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="isActive">
+                            <span jhiTranslate="nextlogixApp.customer.isActive">Is Active</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="customerSourceId">
+                            <span jhiTranslate="nextlogixApp.customer.customerSource">Customer Source</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th jhiSortBy="saleUserId">
+                            <span jhiTranslate="nextlogixApp.customer.saleUser">Sale User</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+
+                        <th jhiSortBy="createDate">
+                            <span jhiTranslate="nextlogixApp.customer.createDate">Create Date</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customer of customers ;trackBy: trackId">
+                        <td>{{customer.code}}</td>
+                        <td>{{customer.name}}</td>
+                        <td>{{customer.email}}</td>
+                        <td>{{customer.phone}}</td>
+                        <td>
+                            <span class="badge" [ngClass]="{'badge-success': customer.isActive, 'badge-danger' : !customer.isActive}">
+                                {{customer.isActive? ('nextlogixApp.customer.active' | translate) : ('nextlogixApp.customer.deActive' | translate)}}
+                            </span>
+                        </td>
+
+                        <td>{{customer.customerSourceId | filter : customerSources : 'id' : 'name' }}</td>
+                        <td>{{customer.saleUserDTO?.name}}</td>
+                        <td>{{customer.createDate | date:'dd.MM.yyyy'}}</td>
+
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit" [routerLink]="[customer.id,'view' ]" class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button type="button" [routerLink]="['../', customer.id , 'customer']" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button (click)="deleteItem(customer.id)" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="customers && customers.length" class="card-footer">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -4,15 +4,15 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 
 import { CustomerPaymentService } from './customer-payment.service';
 
 import { CustomerPayment } from './customer-payment.model';
-            import { Company, CompanyService } from '../../setup/company';
-            import { Bank, BankService } from '../../setup/bank';
-            import { UserExtraInfo, UserExtraInfoService } from '../../setup/user-extra-info';
-            import { PaymentType, PaymentTypeService } from '../../setup/payment-type';
+import { Company, CompanyService } from '../../setup/company';
+import { Bank, BankService } from '../../setup/bank';
+import { UserExtraInfo, UserExtraInfoService } from '../../setup/user-extra-info';
+import { PaymentType, PaymentTypeService } from '../../setup/payment-type';
 
 @Component({
     selector: 'jhi-customer-payment-update',
@@ -31,6 +31,7 @@ export class CustomerPaymentUpdateComponent implements OnInit {
 
     paymenttypes: PaymentType[];
     dateVerify: string;
+    customerId: number;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -40,14 +41,16 @@ export class CustomerPaymentUpdateComponent implements OnInit {
         private bankService: BankService,
         private userExtraInfoService: UserExtraInfoService,
         private paymentTypeService: PaymentTypeService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.route.data.subscribe(({customerPayment}) => {
-            this.customerPayment = customerPayment;
+        this.route.data.subscribe((data) => {
+            this.customerPayment = data.resolved.customerPayment;
+            this.customerId = data.resolved.customerId;
         });
         this.companyService.query()
             .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
@@ -75,26 +78,41 @@ export class CustomerPaymentUpdateComponent implements OnInit {
         window.history.back();
     }
 
-    save() {
+    save(isVerified = false) {
         this.isSaving = true;
-                this.customerPayment.dateVerify = moment(this.dateVerify, DATE_TIME_FORMAT);
-        if (this.customerPayment.id !== undefined) {
+        this.customerPayment.dateVerify = moment(this.dateVerify, DATE_TIME_FORMAT);
+        this.customerPayment.isVerify = isVerified;
+        if (this.customerPayment.id) {
             this.subscribeToSaveResponse(
-                this.customerPaymentService.update(this.customerPayment));
+                this.customerPaymentService.update(this.customerPayment, this.customerId));
         } else {
-            this.subscribeToSaveResponse(
-                this.customerPaymentService.create(this.customerPayment));
+            this.customerPaymentService.create(this.customerPayment, this.customerId).subscribe((res: HttpResponse<CustomerPayment>) => {
+                this.isSaving = false;
+                if (res.body) {
+                    this.customerPayment.id = res.body.id;
+                    this.eventManager.broadcast({
+                        name: 'update-current-customer',
+                        customer: {
+                            paymentId: this.customerPayment.id
+                        }
+                    });
+                }
+            }, (res: HttpErrorResponse) => this.onSaveError());
         }
     }
 
+    verifyData() {
+        this.dateVerify = moment().format(DATE_TIME_FORMAT);
+        this.customerPayment.isVerify = true;
+        this.save(true);
+    }
     private subscribeToSaveResponse(result: Observable<HttpResponse<CustomerPayment>>) {
         result.subscribe((res: HttpResponse<CustomerPayment>) =>
-            this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+            this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
+    private onSaveSuccess(res) {
         this.isSaving = false;
-        this.previousState();
     }
 
     private onSaveError() {
@@ -126,6 +144,8 @@ export class CustomerPaymentUpdateComponent implements OnInit {
 
     set customerPayment(customerPayment: CustomerPayment) {
         this._customerPayment = customerPayment;
-        this.dateVerify = moment(customerPayment.dateVerify).format(DATE_TIME_FORMAT);
+        if (customerPayment.dateVerify) {
+            this.dateVerify = moment(customerPayment.dateVerify).format(DATE_TIME_FORMAT);
+        }
     }
 }

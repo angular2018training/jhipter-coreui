@@ -1,27 +1,42 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NextlogixSharedLibsModule} from "../shared/shared-libs.module";
-import {NextlogixCustomerModule} from "./customer/customer.module";
-import {NextlogixCustomerLegalModule} from "./customer-legal/customer-legal.module";
-import {NextlogixCustomerPaymentModule} from "./customer-payment/customer-payment.module";
-import {NextlogixCustomerPostOfficeModule} from "./customer-post-office/customer-post-office.module";
-import {NextlogixCustomerSourceModule} from "./customer-source/customer-source.module";
-import {NextlogixCustomerTypeModule} from "./customer-type/customer-type.module";
-import {NextlogixSetupModule} from "../setup/setup.module";
+import { NextlogixSharedLibsModule } from '../shared/shared-libs.module';
+import { CustomerManagementDetailComponent } from './customer-management-detail/customer-management-detail.component';
+import { CustomerPaymentUpdateComponent } from './customer-payment/customer-payment-update.component';
+import { RouterModule } from '@angular/router';
+import { customerManagementState } from './customer-management.route';
+import { CustomerUpdateComponent } from './customer/customer-update.component';
+import { CustomerDeleteDialogComponent } from './customer/customer-delete-dialog.component';
+import { CustomerPostOfficeDialogComponent } from './customer-post-office/customer-post-office-dialog.component';
+import { CustomerPostOfficeComponent } from './customer-post-office/customer-post-office.component';
+import { CustomerPostOfficeDeleteDialogComponent } from './customer-post-office/customer-post-office-delete-dialog.component';
+import { CustomerManagementComponent } from './customer-management.component';
+
 @NgModule({
   imports: [
     CommonModule,
     NextlogixSharedLibsModule,
-    NextlogixCustomerModule,
-    NextlogixCustomerLegalModule,
-    NextlogixCustomerPaymentModule,
-    NextlogixCustomerPostOfficeModule,
-    NextlogixCustomerSourceModule,
-    NextlogixCustomerTypeModule,
-    NextlogixSetupModule
-    //RouterModule.forChild(setupState)
+    // NextlogixCustomerLegalModule,
+    RouterModule.forChild(customerManagementState)
   ],
-  declarations: [],
+  declarations: [
+    CustomerManagementComponent,
+    CustomerManagementDetailComponent,
+    // customer
+    CustomerUpdateComponent,
+    CustomerDeleteDialogComponent,
+    // payment
+    CustomerPaymentUpdateComponent,
+    // postoffice
+    CustomerPostOfficeComponent,
+    CustomerPostOfficeDialogComponent,
+    CustomerPostOfficeDeleteDialogComponent
+  ],
+  entryComponents: [
+    CustomerDeleteDialogComponent,
+    CustomerPostOfficeDialogComponent,
+    CustomerPostOfficeDeleteDialogComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NextlogixCustomerManagmentModule { }

@@ -7,6 +7,5 @@ export class CustomerType implements BaseEntity {
         public name?: string,
         public description?: string,
         public companyId?: number,
-    ) {
-    }
+    ) { }
 }

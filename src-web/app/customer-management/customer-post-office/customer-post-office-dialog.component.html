@@ -2,72 +2,89 @@
 
     <div class="modal-header">
         <h4 class="modal-title" id="myCustomerPostOfficeLabel" jhiTranslate="nextlogixApp.customerPostOffice.home.createOrEditLabel">Create or edit a Customer Post Office</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
+
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!customerPostOffice.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="customerPostOffice.id" readonly />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.code" for="field_code">Code</label>
-            <input type="text" class="form-control" name="code" id="field_code"
-                [(ngModel)]="customerPostOffice.code" required/>
-            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
+        <div class="row">
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.code" for="field_code">Code</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="customerPostOffice.code" required/>
+                        <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.createDate" for="field_createDate">Create Date</label>
-            <div class="d-flex">
-                <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="customerPostOffice.createDate"
-                required/>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.postOffice" for="field_postOffice">Post Office</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="customerPostOffice.postOfficeId" required>
+                            <option *ngIf="!editForm.value.postOffice" [ngValue]="null" selected></option>
+                            <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postoffices; trackBy: trackPostOfficeById">{{postOfficeOption.name}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.postOffice?.dirty && editForm.controls.postOffice?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.postOffice?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.createDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                    This field should be a date and time.
-                </small>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.createDate" for="field_createDate">Create Date</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <div class="d-flex">
+                            <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="customerPostOffice.createDate"
+                                required>
+                        </div>
+                        <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.createDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                                This field should be a date and time.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.customer" for="field_customer">Customer</label>
-            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="customerPostOffice.customerId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="customerOption.id" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.postOffice" for="field_postOffice">Post Office</label>
-            <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="customerPostOffice.postOfficeId"  required>
-                <option *ngIf="!editForm.value.postOffice" [ngValue]="null" selected></option>
-                <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postoffices; trackBy: trackPostOfficeById">{{postOfficeOption.id}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.postOffice?.dirty && editForm.controls.postOffice?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.postOffice?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerPostOffice.isActive" for="field_isActive">Is Active</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <label class="switch switch-3d switch-success">
+                            <input type="checkbox" class="switch-input" name="isActive" [(ngModel)]="customerPostOffice.isActive">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiTranslate="entity.action.save">Save</span>
         </button>
     </div>
 </form>

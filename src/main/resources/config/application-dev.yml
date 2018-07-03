@@ -22,7 +22,7 @@ logging:
 spring:
     profiles:
         active: dev
-        include: swagger
+        include: swagger, no-liquibase
     devtools:
         restart:
             enabled: true
@@ -32,7 +32,7 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/nextlogix
+        url: jdbc:postgresql://118.69.66.174:5432/nextlogix
         username: nextlogix
         password: 123456
     jpa:
