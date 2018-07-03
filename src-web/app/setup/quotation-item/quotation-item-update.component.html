@@ -1,0 +1,77 @@
+
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.quotationItem.home.createOrEditLabel">Create or edit a Quotation Item</strong>
+    </div>
+    <div class="card-body">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!quotationItem.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="quotationItem.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationItem.quotationFile" for="field_quotationFile">Quotation File</label>
+                    <div>
+                        <div *ngIf="quotationItem.quotationFile" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(quotationItem.quotationFileContentType, quotationItem.quotationFile)" jhiTranslate="entity.action.open">open</a><br>
+                            <span class="pull-left">{{quotationItem.quotationFileContentType}}, {{byteSize(quotationItem.quotationFile)}}</span>
+                            <button type="button" (click)="quotationItem.quotationFile=null;quotationItem.quotationFileContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_quotationFile" (change)="setFileData($event, quotationItem, 'quotationFile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="quotationFile" id="field_quotationFile"
+                        [(ngModel)]="quotationItem.quotationFile" required/>
+                    <input type="hidden" class="form-control" name="quotationFileContentType" id="field_quotationFileContentType"
+                        [(ngModel)]="quotationItem.quotationFileContentType" />
+                    <div [hidden]="!(editForm.controls.quotationFile?.dirty && editForm.controls.quotationFile?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.quotationFile?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationItem.createDate" for="field_createDate">Create Date</label>
+                    <div class="d-flex">
+                        <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="createDate"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.createDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationItem.quotation" for="field_quotation">Quotation</label>
+                    <select class="form-control" id="field_quotation" name="quotation" [(ngModel)]="quotationItem.quotationId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

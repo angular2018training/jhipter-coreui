@@ -35,6 +35,13 @@
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
             "relationshipName": "createUser",
             "otherEntityName": "userExtraInfo",
             "otherEntityField": "id"
@@ -57,7 +64,7 @@
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "mainService",
-            "otherEntityName": "orderService",
+            "otherEntityName": "orderServices",
             "otherEntityField": "id"
         },
         {

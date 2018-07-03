@@ -2,6 +2,19 @@
     "fluentMethods": true,
     "relationships": [
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "customerLegalFileUploadDetailList",
+            "otherEntityName": "customerLegalFileUpload",
+            "otherEntityRelationshipName": "customerLegalParent"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        },
+        {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
             "relationshipName": "province",
@@ -16,12 +29,11 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "",
-            "relationshipName": "fileUpload",
-            "otherEntityName": "fileUpload",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "relationshipType": "one-to-one",
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "legal"
         }
     ],
     "fields": [

@@ -2,9 +2,10 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "customer",
-            "otherEntityName": "customer",
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
             "otherEntityField": "id"
         },
         {
@@ -12,6 +13,12 @@
             "relationshipValidateRules": "required",
             "relationshipName": "postOffice",
             "otherEntityName": "postOffice",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "customerParent",
+            "otherEntityName": "customer",
             "otherEntityField": "id"
         }
     ],

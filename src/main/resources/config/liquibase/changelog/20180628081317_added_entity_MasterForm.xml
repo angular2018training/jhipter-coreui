@@ -29,7 +29,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="receive_time" type="timestamp">
+            <column name="receive_time" type="date">
                 <constraints nullable="false" />
             </column>
 
@@ -54,7 +54,6 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="master_form" columnName="receive_time" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

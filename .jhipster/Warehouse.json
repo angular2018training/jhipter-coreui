@@ -4,6 +4,13 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "province",
             "otherEntityName": "province",
             "otherEntityField": "id"
@@ -47,6 +54,10 @@
         },
         {
             "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "testStr",
             "fieldType": "String"
         },
         {

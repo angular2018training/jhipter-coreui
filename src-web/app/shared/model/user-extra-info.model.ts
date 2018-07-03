@@ -1,25 +1,19 @@
-import { IUserPosition } from 'app/shared/model//user-position.model';
-import { IRole } from 'app/shared/model//role.model';
-import { IUserGroup } from 'app/shared/model//user-group.model';
+import { BaseEntity } from './../../shared';
 
-export interface IUserExtraInfo {
-    id?: number;
-    email?: string;
-    phone?: string;
-    address?: string;
-    userPositions?: IUserPosition[];
-    roles?: IRole[];
-    userGroups?: IUserGroup[];
-}
-
-export class UserExtraInfo implements IUserExtraInfo {
+export class UserExtraInfo implements BaseEntity {
     constructor(
         public id?: number,
         public email?: string,
         public phone?: string,
         public address?: string,
-        public userPositions?: IUserPosition[],
-        public roles?: IRole[],
-        public userGroups?: IUserGroup[]
-    ) {}
+        public validDate?: any,
+        public lastLoginDate?: any,
+        public contractFileContentType?: string,
+        public contractFile?: any,
+        public contractExpirationDate?: any,
+        public userId?: number,
+        public userPostOfficeDetailLists?: BaseEntity[],
+        public companyId?: number,
+    ) {
+    }
 }

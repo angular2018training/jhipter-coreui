@@ -1,10 +1,12 @@
-export interface IOrderStatus {
-    id?: number;
-    code?: string;
-    name?: string;
-    description?: string;
-}
+import { BaseEntity } from './../../shared';
 
-export class OrderStatus implements IOrderStatus {
-    constructor(public id?: number, public code?: string, public name?: string, public description?: string) {}
+export class OrderStatus implements BaseEntity {
+    constructor(
+        public id?: number,
+        public code?: string,
+        public name?: string,
+        public description?: string,
+        public companyId?: number,
+    ) {
+    }
 }

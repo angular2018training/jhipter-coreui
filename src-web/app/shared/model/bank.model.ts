@@ -1,10 +1,12 @@
-export interface IBank {
-    id?: number;
-    code?: string;
-    name?: string;
-    description?: string;
-}
+import { BaseEntity } from './../../shared';
 
-export class Bank implements IBank {
-    constructor(public id?: number, public code?: string, public name?: string, public description?: string) {}
+export class Bank implements BaseEntity {
+    constructor(
+        public id?: number,
+        public code?: string,
+        public name?: string,
+        public description?: string,
+        public companyId?: number,
+    ) {
+    }
 }

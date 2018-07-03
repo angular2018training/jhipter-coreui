@@ -18,18 +18,29 @@
             "otherEntityRelationshipName": "customer"
         },
         {
-            "relationshipType": "one-to-one",
-            "relationshipName": "warehouse",
-            "otherEntityName": "warehouse",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "customer"
+            "relationshipType": "one-to-many",
+            "relationshipName": "customerPostOfficeDetailList",
+            "otherEntityName": "customerPostOffice",
+            "otherEntityRelationshipName": "customerParent"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "customerPostOffice",
-            "otherEntityName": "customerPostOffice",
-            "otherEntityRelationshipName": "customer"
+            "relationshipName": "customerWarehouseDetailList",
+            "otherEntityName": "customerWarehouse",
+            "otherEntityRelationshipName": "customerParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "customerServicesDetailList",
+            "otherEntityName": "customerServices",
+            "otherEntityRelationshipName": "customerParent"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
@@ -55,6 +66,20 @@
             "relationshipValidateRules": "required",
             "relationshipName": "district",
             "otherEntityName": "district",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "customerType",
+            "otherEntityName": "customerType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "customerSource",
+            "otherEntityName": "customerSource",
             "otherEntityField": "id"
         }
     ],
@@ -101,22 +126,6 @@
         {
             "fieldName": "isActive",
             "fieldType": "Boolean",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "customerType",
-            "fieldType": "CustomerType",
-            "fieldValues": "NORMAL,VIP,CLIENT,SUPPER_VIP",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "customerSource",
-            "fieldType": "CustomerSource",
-            "fieldValues": "WEB,FACEBOOK,APP,SALE",
             "fieldValidateRules": [
                 "required"
             ]

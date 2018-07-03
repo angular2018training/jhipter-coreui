@@ -6,17 +6,16 @@
             "otherEntityName": "quotation",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
         }
     ],
     "fields": [
-        {
-            "fieldName": "itemType",
-            "fieldType": "QuotationItemType",
-            "fieldValues": "ONE",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
         {
             "fieldName": "quotationFile",
             "fieldType": "byte[]",

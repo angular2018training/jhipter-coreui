@@ -2,13 +2,17 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.CompanyService;
 import vn.nextlogix.domain.Company;
-import vn.nextlogix.repository.CompanyRepository;
+
+
+    import vn.nextlogix.repository.CompanyRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.CompanySearchRepository;
 import vn.nextlogix.service.dto.CompanyDTO;
 import vn.nextlogix.service.dto.CompanySearchDTO;
 import org.springframework.data.domain.PageImpl;
-    import vn.nextlogix.domain.Province;
-    import vn.nextlogix.domain.District;
 import vn.nextlogix.service.mapper.CompanyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +25,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-    import vn.nextlogix.repository.search.ProvinceSearchRepository;
-    import vn.nextlogix.service.mapper.ProvinceMapper;
-
-    import vn.nextlogix.repository.search.DistrictSearchRepository;
-    import vn.nextlogix.service.mapper.DistrictMapper;
     import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -51,23 +49,11 @@ public class CompanyServiceImpl implements CompanyService {
     private final CompanySearchRepository companySearchRepository;
 
 
-        private final ProvinceSearchRepository provinceSearchRepository;
-        private final ProvinceMapper provinceMapper;
 
-        private final DistrictSearchRepository districtSearchRepository;
-        private final DistrictMapper districtMapper;
-
-
-    public CompanyServiceImpl(CompanyRepository companyRepository, CompanyMapper companyMapper, CompanySearchRepository companySearchRepository     ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
-,DistrictSearchRepository districtSearchRepository,DistrictMapper  districtMapper
-) {
+    public CompanyServiceImpl(CompanyRepository companyRepository, CompanyMapper companyMapper, CompanySearchRepository companySearchRepository     ) {
         this.companyRepository = companyRepository;
         this.companyMapper = companyMapper;
         this.companySearchRepository = companySearchRepository;
-                                    this.provinceSearchRepository = provinceSearchRepository;
-                                     this.provinceMapper = provinceMapper;
-                                    this.districtSearchRepository = districtSearchRepository;
-                                     this.districtMapper = districtMapper;
 
     }
 
@@ -150,41 +136,38 @@ public class CompanyServiceImpl implements CompanyService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getAddress())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getPhone())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("phone", "*"+searchDto.getPhone()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("phone", "*"+searchDto.getPhone()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getEmail())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("email", "*"+searchDto.getEmail()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("email", "*"+searchDto.getEmail()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getWebsite())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("website", "*"+searchDto.getWebsite()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("website", "*"+searchDto.getWebsite()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getDescription())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<Company> companyPage= companySearchRepository.search(query);
             List<CompanyDTO> companyList =  StreamSupport
             .stream(companyPage.spliterator(), false)
             .map(companyMapper::toDto)
             .collect(Collectors.toList());
             companyList.forEach(companyDto -> {
-            if(companyDto.getProvinceId()!=null){
-                Province province= provinceSearchRepository.findOne(companyDto.getProvinceId());
-                companyDto.setProvinceDTO(provinceMapper.toDto(province));
-            }
-            if(companyDto.getDistrictId()!=null){
-                District district= districtSearchRepository.findOne(companyDto.getDistrictId());
-                companyDto.setDistrictDTO(districtMapper.toDto(district));
-            }
             });
             return new PageImpl<>(companyList,pageable,companyPage.getTotalElements());
         }

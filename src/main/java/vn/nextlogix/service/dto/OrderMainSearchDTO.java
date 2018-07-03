@@ -284,8 +284,8 @@ public Long getMainServiceId() {
     return mainServiceId;
     }
 
-public void setMainServiceId(Long orderServiceId) {
-    this.mainServiceId = orderServiceId;
+public void setMainServiceId(Long orderServicesId) {
+    this.mainServiceId = orderServicesId;
     }
 
 

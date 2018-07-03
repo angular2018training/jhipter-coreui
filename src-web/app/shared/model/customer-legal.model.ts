@@ -1,23 +1,19 @@
-import { IFileUpload } from 'app/shared/model//file-upload.model';
+import { BaseEntity } from './../../shared';
 
-export interface ICustomerLegal {
-    id?: number;
-    contractCustomerName?: string;
-    contractContactName?: string;
-    contractContactPhone?: string;
-    taxCode?: string;
-    contractExpirationDate?: string;
-    fileUploads?: IFileUpload[];
-}
-
-export class CustomerLegal implements ICustomerLegal {
+export class CustomerLegal implements BaseEntity {
     constructor(
         public id?: number,
         public contractCustomerName?: string,
+        public contractAddress?: string,
         public contractContactName?: string,
         public contractContactPhone?: string,
         public taxCode?: string,
         public contractExpirationDate?: string,
-        public fileUploads?: IFileUpload[]
-    ) {}
+        public customerLegalFileUploadDetailLists?: BaseEntity[],
+        public companyId?: number,
+        public provinceId?: number,
+        public districtId?: number,
+        public customerId?: number,
+    ) {
+    }
 }

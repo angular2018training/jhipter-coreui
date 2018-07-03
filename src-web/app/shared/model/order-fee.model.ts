@@ -1,16 +1,6 @@
-export interface IOrderFee {
-    id?: number;
-    deliveryFee?: number;
-    pickupFee?: number;
-    codFee?: number;
-    insuranceFee?: number;
-    otherFee?: number;
-    discount?: number;
-    totalFee?: number;
-    quotationId?: number;
-}
+import { BaseEntity } from './../../shared';
 
-export class OrderFee implements IOrderFee {
+export class OrderFee implements BaseEntity {
     constructor(
         public id?: number,
         public deliveryFee?: number,
@@ -20,6 +10,8 @@ export class OrderFee implements IOrderFee {
         public otherFee?: number,
         public discount?: number,
         public totalFee?: number,
-        public quotationId?: number
-    ) {}
+        public companyId?: number,
+        public quotationId?: number,
+    ) {
+    }
 }

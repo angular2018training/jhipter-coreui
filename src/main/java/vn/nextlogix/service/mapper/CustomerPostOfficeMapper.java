@@ -8,17 +8,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity CustomerPostOffice and its DTO CustomerPostOfficeDTO.
  */
-@Mapper(componentModel = "spring", uses = {CustomerMapper.class, CompanyMapper.class, PostOfficeMapper.class})
+@Mapper(componentModel = "spring", uses = {CompanyMapper.class, PostOfficeMapper.class, CustomerMapper.class})
 public interface CustomerPostOfficeMapper extends EntityMapper<CustomerPostOfficeDTO, CustomerPostOffice> {
 
-    @Mapping(source = "customer.id", target = "customerId")
     @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "postOffice.id", target = "postOfficeId")
+    @Mapping(source = "customerParent.id", target = "customerParentId")
     CustomerPostOfficeDTO toDto(CustomerPostOffice customerPostOffice);
 
-    @Mapping(source = "customerId", target = "customer")
     @Mapping(source = "companyId", target = "company")
     @Mapping(source = "postOfficeId", target = "postOffice")
+    @Mapping(source = "customerParentId", target = "customerParent")
     CustomerPostOffice toEntity(CustomerPostOfficeDTO customerPostOfficeDTO);
 
     default CustomerPostOffice fromId(Long id) {

@@ -2,14 +2,19 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.CustomerService;
 import vn.nextlogix.domain.Customer;
-import vn.nextlogix.repository.CustomerRepository;
+
+
+    import vn.nextlogix.repository.CustomerRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.CustomerSearchRepository;
 import vn.nextlogix.service.dto.CustomerDTO;
 import vn.nextlogix.service.dto.CustomerSearchDTO;
 import org.springframework.data.domain.PageImpl;
     import vn.nextlogix.domain.CustomerLegal;
     import vn.nextlogix.domain.CustomerPayment;
-    import vn.nextlogix.domain.Warehouse;
     import vn.nextlogix.domain.Company;
     import vn.nextlogix.domain.UserExtraInfo;
     import vn.nextlogix.domain.UserExtraInfo;
@@ -36,8 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
     import vn.nextlogix.repository.search.CustomerPaymentSearchRepository;
     import vn.nextlogix.service.mapper.CustomerPaymentMapper;
 
-    import vn.nextlogix.repository.search.WarehouseSearchRepository;
-    import vn.nextlogix.service.mapper.WarehouseMapper;
+
 
 
     import vn.nextlogix.repository.search.CompanySearchRepository;
@@ -90,12 +94,12 @@ public class CustomerServiceImpl implements CustomerService {
         private final CustomerPaymentSearchRepository customerPaymentSearchRepository;
         private final CustomerPaymentMapper customerPaymentMapper;
 
-        private final WarehouseSearchRepository warehouseSearchRepository;
-        private final WarehouseMapper warehouseMapper;
+
 
 
         private final CompanySearchRepository companySearchRepository;
         private final CompanyMapper companyMapper;
+
 
         private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
         private final UserExtraInfoMapper userExtraInfoMapper;
@@ -115,7 +119,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper, CustomerSearchRepository customerSearchRepository     ,CustomerLegalSearchRepository customerLegalSearchRepository,CustomerLegalMapper  customerLegalMapper
 ,CustomerPaymentSearchRepository customerPaymentSearchRepository,CustomerPaymentMapper  customerPaymentMapper
-,WarehouseSearchRepository warehouseSearchRepository,WarehouseMapper  warehouseMapper
 ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,UserExtraInfoSearchRepository userExtraInfoSearchRepository,UserExtraInfoMapper  userExtraInfoMapper
 ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
@@ -130,8 +133,6 @@ public class CustomerServiceImpl implements CustomerService {
                                      this.customerLegalMapper = customerLegalMapper;
                                     this.customerPaymentSearchRepository = customerPaymentSearchRepository;
                                      this.customerPaymentMapper = customerPaymentMapper;
-                                    this.warehouseSearchRepository = warehouseSearchRepository;
-                                     this.warehouseMapper = warehouseMapper;
                                     this.companySearchRepository = companySearchRepository;
                                      this.companyMapper = companyMapper;
                                     this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
@@ -226,27 +227,59 @@ public class CustomerServiceImpl implements CustomerService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getAddress())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("address", "*"+searchDto.getAddress()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getEmail())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("email", "*"+searchDto.getEmail()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("email", "*"+searchDto.getEmail()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getPhone())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("phone", "*"+searchDto.getPhone()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("phone", "*"+searchDto.getPhone()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getPassword())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("password", "*"+searchDto.getPassword()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("password", "*"+searchDto.getPassword()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getApiToken())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("apiToken", "*"+searchDto.getApiToken()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("apiToken", "*"+searchDto.getApiToken()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getLegalId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("legal.id", searchDto.getLegalId()));
+            }
+            if(searchDto.getPaymentId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("payment.id", searchDto.getPaymentId()));
+            }
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            if(searchDto.getManageUserId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("manageUser.id", searchDto.getManageUserId()));
+            }
+            if(searchDto.getSaleUserId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("saleUser.id", searchDto.getSaleUserId()));
+            }
+            if(searchDto.getProvinceId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("province.id", searchDto.getProvinceId()));
+            }
+            if(searchDto.getDistrictId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("district.id", searchDto.getDistrictId()));
+            }
+            if(searchDto.getCustomerTypeId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("customerType.id", searchDto.getCustomerTypeId()));
+            }
+            if(searchDto.getCustomerSourceId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("customerSource.id", searchDto.getCustomerSourceId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<Customer> customerPage= customerSearchRepository.search(query);
             List<CustomerDTO> customerList =  StreamSupport
             .stream(customerPage.spliterator(), false)
@@ -260,10 +293,6 @@ public class CustomerServiceImpl implements CustomerService {
             if(customerDto.getPaymentId()!=null){
                 CustomerPayment customerPayment= customerPaymentSearchRepository.findOne(customerDto.getPaymentId());
                 customerDto.setPaymentDTO(customerPaymentMapper.toDto(customerPayment));
-            }
-            if(customerDto.getWarehouseId()!=null){
-                Warehouse warehouse= warehouseSearchRepository.findOne(customerDto.getWarehouseId());
-                customerDto.setWarehouseDTO(warehouseMapper.toDto(warehouse));
             }
             if(customerDto.getCompanyId()!=null){
                 Company company= companySearchRepository.findOne(customerDto.getCompanyId());

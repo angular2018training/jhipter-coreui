@@ -1,21 +1,14 @@
-import { Moment } from 'moment';
-import { IQuotationItem } from 'app/shared/model//quotation-item.model';
+import { BaseEntity } from './../../shared';
 
-export interface IQuotation {
-    id?: number;
-    name?: string;
-    isActive?: boolean;
-    createDate?: Moment;
-    quotationItems?: IQuotationItem[];
-}
-
-export class Quotation implements IQuotation {
+export class Quotation implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
         public isActive?: boolean,
-        public createDate?: Moment,
-        public quotationItems?: IQuotationItem[]
+        public description?: string,
+        public createDate?: any,
+        public quotationItemDetailLists?: BaseEntity[],
+        public companyId?: number,
     ) {
         this.isActive = false;
     }

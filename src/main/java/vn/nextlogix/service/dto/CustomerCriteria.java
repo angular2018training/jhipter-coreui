@@ -52,9 +52,11 @@ public class CustomerCriteria implements Serializable {
 
     private LongFilter paymentId;
 
-    private LongFilter warehouseId;
+    private LongFilter customerPostOfficeDetailListId;
 
-    private LongFilter customerPostOfficeId;
+    private LongFilter customerWarehouseDetailListId;
+
+    private LongFilter customerServicesDetailListId;
 
     private LongFilter companyId;
 
@@ -177,20 +179,28 @@ public class CustomerCriteria implements Serializable {
         this.paymentId = paymentId;
     }
 
-    public LongFilter getWarehouseId() {
-        return warehouseId;
+    public LongFilter getCustomerPostOfficeDetailListId() {
+        return customerPostOfficeDetailListId;
     }
 
-    public void setWarehouseId(LongFilter warehouseId) {
-        this.warehouseId = warehouseId;
+    public void setCustomerPostOfficeDetailListId(LongFilter customerPostOfficeDetailListId) {
+        this.customerPostOfficeDetailListId = customerPostOfficeDetailListId;
     }
 
-    public LongFilter getCustomerPostOfficeId() {
-        return customerPostOfficeId;
+    public LongFilter getCustomerWarehouseDetailListId() {
+        return customerWarehouseDetailListId;
     }
 
-    public void setCustomerPostOfficeId(LongFilter customerPostOfficeId) {
-        this.customerPostOfficeId = customerPostOfficeId;
+    public void setCustomerWarehouseDetailListId(LongFilter customerWarehouseDetailListId) {
+        this.customerWarehouseDetailListId = customerWarehouseDetailListId;
+    }
+
+    public LongFilter getCustomerServicesDetailListId() {
+        return customerServicesDetailListId;
+    }
+
+    public void setCustomerServicesDetailListId(LongFilter customerServicesDetailListId) {
+        this.customerServicesDetailListId = customerServicesDetailListId;
     }
 
     public LongFilter getCompanyId() {
@@ -265,8 +275,9 @@ public class CustomerCriteria implements Serializable {
                 (apiToken != null ? "apiToken=" + apiToken + ", " : "") +
                 (legalId != null ? "legalId=" + legalId + ", " : "") +
                 (paymentId != null ? "paymentId=" + paymentId + ", " : "") +
-                (warehouseId != null ? "warehouseId=" + warehouseId + ", " : "") +
-                (customerPostOfficeId != null ? "customerPostOfficeId=" + customerPostOfficeId + ", " : "") +
+                (customerPostOfficeDetailListId != null ? "customerPostOfficeDetailListId=" + customerPostOfficeDetailListId + ", " : "") +
+                (customerWarehouseDetailListId != null ? "customerWarehouseDetailListId=" + customerWarehouseDetailListId + ", " : "") +
+                (customerServicesDetailListId != null ? "customerServicesDetailListId=" + customerServicesDetailListId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (manageUserId != null ? "manageUserId=" + manageUserId + ", " : "") +
                 (saleUserId != null ? "saleUserId=" + saleUserId + ", " : "") +

@@ -12,6 +12,9 @@ import {masterFormRoute} from "./master-form/master-form.route";
 import {detailFormRoute} from "./detail-form/detail-form.route";
 import {positionRoute} from "./position/position.route";
 import {postOfficeRoute} from "./post-office/post-office.route";
+import {orderServicesRoute} from "./order-services/order-services.route";
+import {orderServicesTypeRoute} from "./order-services-type/order-services-type.route";
+import {quotationRoute} from "./quotation/quotation.route";
 const SETUP_ROUTES = [
   ...provinceRoute,
   ...districtRoute,
@@ -20,7 +23,10 @@ const SETUP_ROUTES = [
   ...masterFormRoute,
   ...detailFormRoute,
   ...positionRoute,
-  ...postOfficeRoute
+  ...postOfficeRoute,
+  ...orderServicesRoute,
+  ...orderServicesTypeRoute,
+  ...quotationRoute
 ];
 
 export const setupState: Routes = [{

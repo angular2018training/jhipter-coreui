@@ -4,8 +4,22 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "province",
             "otherEntityName": "province",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "district",
+            "otherEntityName": "district",
             "otherEntityField": "id"
         }
     ],
@@ -23,6 +37,26 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sortOrder",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Double"
         },
         {
             "fieldName": "description",

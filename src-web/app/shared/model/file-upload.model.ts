@@ -1,21 +1,14 @@
-import { Moment } from 'moment';
+import { BaseEntity } from './../../shared';
 
-export interface IFileUpload {
-    id?: number;
-    name?: string;
-    contentContentType?: string;
-    content?: any;
-    uploadTime?: Moment;
-    contentType?: string;
-}
-
-export class FileUpload implements IFileUpload {
+export class FileUpload implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
         public contentContentType?: string,
         public content?: any,
-        public uploadTime?: Moment,
-        public contentType?: string
-    ) {}
+        public uploadTime?: any,
+        public contentType?: string,
+        public companyId?: number,
+    ) {
+    }
 }

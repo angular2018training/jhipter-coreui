@@ -2,7 +2,13 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.QuotationService;
 import vn.nextlogix.domain.Quotation;
-import vn.nextlogix.repository.QuotationRepository;
+
+
+    import vn.nextlogix.repository.QuotationRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.QuotationSearchRepository;
 import vn.nextlogix.service.dto.QuotationDTO;
 import vn.nextlogix.service.dto.QuotationSearchDTO;
@@ -142,9 +148,20 @@ public class QuotationServiceImpl implements QuotationService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(StringUtils.isNotBlank(searchDto.getDescription())) {
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+            }
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<Quotation> quotationPage= quotationSearchRepository.search(query);
             List<QuotationDTO> quotationList =  StreamSupport
             .stream(quotationPage.spliterator(), false)

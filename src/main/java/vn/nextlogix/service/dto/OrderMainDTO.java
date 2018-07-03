@@ -84,7 +84,7 @@ public class OrderMainDTO implements Serializable {
 
     private Long mainServiceId;
 
-    private OrderServiceDTO  mainServiceDTO;
+    private OrderServicesDTO  mainServiceDTO;
 
 
     private Long createPostOfficeId;
@@ -329,19 +329,19 @@ public class OrderMainDTO implements Serializable {
         }
 
 
-    public OrderServiceDTO getMainServiceDTO() {
+    public OrderServicesDTO getMainServiceDTO() {
         return this.mainServiceDTO;
     }
 
-    public void setMainServiceDTO(OrderServiceDTO mainServiceDTO ) {
+    public void setMainServiceDTO(OrderServicesDTO mainServiceDTO ) {
         this.mainServiceDTO = mainServiceDTO;
     }
     public Long getMainServiceId() {
         return mainServiceId;
         }
 
-    public void setMainServiceId(Long orderServiceId) {
-        this.mainServiceId = orderServiceId;
+    public void setMainServiceId(Long orderServicesId) {
+        this.mainServiceId = orderServicesId;
         }
 
 

@@ -99,7 +99,7 @@ public class OrderMain implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    private OrderService mainService;
+    private OrderServices mainService;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -378,17 +378,17 @@ public class OrderMain implements Serializable {
         this.customer = customer;
     }
 
-    public OrderService getMainService() {
+    public OrderServices getMainService() {
         return mainService;
     }
 
-    public OrderMain mainService(OrderService orderService) {
-        this.mainService = orderService;
+    public OrderMain mainService(OrderServices orderServices) {
+        this.mainService = orderServices;
         return this;
     }
 
-    public void setMainService(OrderService orderService) {
-        this.mainService = orderService;
+    public void setMainService(OrderServices orderServices) {
+        this.mainService = orderServices;
     }
 
     public PostOffice getCreatePostOffice() {

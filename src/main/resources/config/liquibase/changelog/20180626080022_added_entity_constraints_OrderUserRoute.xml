@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity OrderUserRoute.
+    -->
+    <changeSet id="20180626080022-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_extra_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="district_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"/>
+
+        <addForeignKeyConstraint baseColumnNames="order_user_route_type_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_order_user_route_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="order_user_route_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="ward_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_ward_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="order_user_route"
+                                 constraintName="fk_order_user_route_customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+
+    </changeSet>
+</databaseChangeLog>

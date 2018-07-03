@@ -1,23 +1,15 @@
-import { Moment } from 'moment';
+import { BaseEntity } from './../../shared';
 
-export interface IOrderDelivery {
-    id?: number;
-    receiver?: string;
-    note?: string;
-    receiveTime?: Moment;
-    createDate?: Moment;
-    createUserId?: number;
-    orderStatusId?: number;
-}
-
-export class OrderDelivery implements IOrderDelivery {
+export class OrderDelivery implements BaseEntity {
     constructor(
         public id?: number,
         public receiver?: string,
         public note?: string,
-        public receiveTime?: Moment,
-        public createDate?: Moment,
+        public receiveTime?: any,
+        public createDate?: any,
+        public companyId?: number,
         public createUserId?: number,
-        public orderStatusId?: number
-    ) {}
+        public orderStatusId?: number,
+    ) {
+    }
 }

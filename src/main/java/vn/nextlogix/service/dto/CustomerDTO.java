@@ -52,11 +52,6 @@ public class CustomerDTO implements Serializable {
     private CustomerPaymentDTO  paymentDTO;
 
 
-    private Long warehouseId;
-
-    private WarehouseDTO  warehouseDTO;
-
-
     private Long companyId;
 
     private CompanyDTO  companyDTO;
@@ -209,22 +204,6 @@ public class CustomerDTO implements Serializable {
 
     public void setPaymentId(Long customerPaymentId) {
         this.paymentId = customerPaymentId;
-        }
-
-
-    public WarehouseDTO getWarehouseDTO() {
-        return this.warehouseDTO;
-    }
-
-    public void setWarehouseDTO(WarehouseDTO warehouseDTO ) {
-        this.warehouseDTO = warehouseDTO;
-    }
-    public Long getWarehouseId() {
-        return warehouseId;
-        }
-
-    public void setWarehouseId(Long warehouseId) {
-        this.warehouseId = warehouseId;
         }
 
 

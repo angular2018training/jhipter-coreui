@@ -2,7 +2,13 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.CustomerPaymentService;
 import vn.nextlogix.domain.CustomerPayment;
-import vn.nextlogix.repository.CustomerPaymentRepository;
+
+
+    import vn.nextlogix.repository.CustomerPaymentRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.CustomerPaymentSearchRepository;
 import vn.nextlogix.service.dto.CustomerPaymentDTO;
 import vn.nextlogix.service.dto.CustomerPaymentSearchDTO;
@@ -170,18 +176,35 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getBranchName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("branchName", "*"+searchDto.getBranchName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("branchName", "*"+searchDto.getBranchName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getAccountNumber())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("accountNumber", "*"+searchDto.getAccountNumber()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("accountNumber", "*"+searchDto.getAccountNumber()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getAccountName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("accountName", "*"+searchDto.getAccountName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("accountName", "*"+searchDto.getAccountName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getCardNumber())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("cardNumber", "*"+searchDto.getCardNumber()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("cardNumber", "*"+searchDto.getCardNumber()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            if(searchDto.getBankId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("bank.id", searchDto.getBankId()));
+            }
+            if(searchDto.getUserVerifyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("userVerify.id", searchDto.getUserVerifyId()));
+            }
+            if(searchDto.getPaymentTypeId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("paymentType.id", searchDto.getPaymentTypeId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<CustomerPayment> customerPaymentPage= customerPaymentSearchRepository.search(query);
             List<CustomerPaymentDTO> customerPaymentList =  StreamSupport
             .stream(customerPaymentPage.spliterator(), false)

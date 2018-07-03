@@ -39,9 +39,6 @@ public class CustomerPostOffice implements Serializable {
     @Column(name = "create_date", nullable = false)
     private Instant createDate;
 
-    @ManyToOne
-    private Customer customer;
-
     @ManyToOne(optional = false)
     @NotNull
     private Company company;
@@ -49,6 +46,9 @@ public class CustomerPostOffice implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private PostOffice postOffice;
+
+    @ManyToOne
+    private Customer customerParent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -98,19 +98,6 @@ public class CustomerPostOffice implements Serializable {
         this.createDate = createDate;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public CustomerPostOffice customer(Customer customer) {
-        this.customer = customer;
-        return this;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Company getCompany() {
         return company;
     }
@@ -135,6 +122,19 @@ public class CustomerPostOffice implements Serializable {
 
     public void setPostOffice(PostOffice postOffice) {
         this.postOffice = postOffice;
+    }
+
+    public Customer getCustomerParent() {
+        return customerParent;
+    }
+
+    public CustomerPostOffice customerParent(Customer customer) {
+        this.customerParent = customer;
+        return this;
+    }
+
+    public void setCustomerParent(Customer customer) {
+        this.customerParent = customer;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

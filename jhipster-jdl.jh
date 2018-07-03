@@ -1,15 +1,13 @@
 // Danh muc
-entity Position {
-	id Long,
-    code String required,
-    name String required,
-    description String
-}
-
 entity PostOffice {
 	id Long,
     code String required,
     name String required,
+    address String,
+    sortOrder Integer,
+    phone String,
+    latitude Double,
+    longitude Double,
     description String
 }
 
@@ -48,6 +46,13 @@ entity Bank {
     description String
 }
 
+entity OrderServicesType {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
 entity OrderStatus {
 	id Long,
     code String required,
@@ -55,7 +60,9 @@ entity OrderStatus {
     description String
 }
 
-entity OrderService {
+
+
+entity OrderServices {
 	id Long,
     code String required,
     name String required,
@@ -118,16 +125,12 @@ entity OrderUserRoute{
 entity FileUpload {
 	id Long,
     name String required,
-    content Blob required,
+    content Blob,
     uploadTime Instant required,
     contentType String required
 }
 
 // System
-entity UserPosition {
-	id Long,
-}
-
 entity UserExtraInfo {
 	id Long,
     email String,
@@ -136,8 +139,12 @@ entity UserExtraInfo {
     validDate Instant required,
     lastLoginDate Instant,
     contractFile Blob,
-    contractExpirationDate Instant,
+    contractExpirationDate Instant
     userId Long
+}
+
+entity UserPostOffice {
+	id Long
 }
 
 // Customer
@@ -184,12 +191,28 @@ entity CustomerPostOffice {
     createDate Instant required
 }
 
+entity CustomerServices {
+	id Long,
+    discountPercent Double,
+    increasePercent Double,
+    decreasePercent Double
+}
+
+entity CustomerLegalFileUpload {
+	id Long
+}
+
+entity CustomerWarehouse {
+	id Long
+}
+
 entity Warehouse {
 	id Long,
     name String required,
     contactName String required,
     contactPhone String required,
     address String,
+    testStr String,
     createDate Instant required
 }
 
@@ -197,8 +220,9 @@ entity Warehouse {
 entity Quotation {
 	id Long,
     name String required,
-    isActive Boolean,
-    createDate Instant
+    isActive Boolean required,
+    description String,
+    createDate Instant required
 }
 
 entity QuotationItem {
@@ -259,15 +283,29 @@ entity OrderDelivery {
     createDate Instant required
 }
 
-// defining multiple relationships with comments
+entity MasterForm {
+	id Long,
+    code String required,
+    note String,
+    receiveTime LocalDate required,
+    imageFile Blob required,
+    isActive Boolean required
+}
+
+entity DetailForm {
+	id Long,
+    description String,
+    createDate Instant required,
+    uploadFile Blob required,
+    isActive Boolean required
+}
+
 relationship ManyToMany {
-    UserPosition{userGroupDetailList} to UserGroup
-    CustomerLegal{fileUploadDetailList} to FileUpload
+	UserPostOffice{UserGroup required} to UserGroup
 }
 
 relationship ManyToOne {
 // Company relationship
-    Position{company required} to Company
     PostOffice{company required} to Company
     Ward{company required} to Company
     District{company required} to Company
@@ -275,7 +313,7 @@ relationship ManyToOne {
     UserGroup{company required} to Company
     Bank{company required} to Company
     OrderStatus{company required} to Company
-    OrderService{company required} to Company
+    OrderServices{company required} to Company
     CustomerType{company required} to Company
     CustomerSource{company required} to Company
     PaymentType{company required} to Company
@@ -283,12 +321,15 @@ relationship ManyToOne {
     OrderUserRouteType{company required} to Company
     OrderUserRoute{company required} to Company
     FileUpload{company required} to Company
-    UserPosition{company required} to Company
     UserExtraInfo{company required} to Company
+    UserPostOffice{company required} to Company
     Customer{company required} to Company
     CustomerLegal{company required} to Company
     CustomerPayment{company required} to Company
     CustomerPostOffice{company required} to Company
+    CustomerLegalFileUpload{company required} to Company
+    CustomerWarehouse{company required} to Company
+    CustomerServices{company required} to Company
     Warehouse{company required} to Company
     Quotation{company required} to Company
     QuotationItem{company required} to Company
@@ -307,16 +348,19 @@ relationship ManyToOne {
     Ward{district required} to District
     District{province required} to Province
     PostOffice{province required} to Province
-    UserPosition{postOffice required} to PostOffice
-    UserPosition{position required} to Position
+    PostOffice{district required} to District
     CustomerPayment{bank required} to Bank
     CustomerPayment{userVerify} to UserExtraInfo
     CustomerPayment{paymentType} to PaymentType
     CustomerPostOffice{postOffice required} to PostOffice
+    CustomerServices{orderServices required} to OrderServices
+    CustomerServices{quotation} to Quotation
+    CustomerLegalFileUpload{fileUpload required} to FileUpload
+    CustomerWarehouse{warehouse required} to Warehouse
   	OrderMain{createUser} to UserExtraInfo
     OrderMain{orderStatus required} to OrderStatus
     OrderMain{customer required} to Customer
-    OrderMain{mainService required} to OrderService
+    OrderMain{mainService required} to OrderServices
     OrderMain{createPostOffice required} to PostOffice
     OrderMain{currentPostOffice required} to PostOffice
     OrderPickup{ward required} to Ward
@@ -339,20 +383,28 @@ relationship ManyToOne {
     Warehouse{province required} to Province
     Warehouse{district required} to District
     Warehouse{ward required} to Ward
-    Company{province} to Province
-    Company{district} to District
+    MasterForm{province} to Province
+    MasterForm{district} to District
+    DetailForm{province} to Province
+    DetailForm{district} to District
+    UserPostOffice{postOffice required} to PostOffice
+    OrderServices{orderServicesType required} to OrderServicesType
+    OrderServices{quotation} to Quotation
 }
 
 relationship OneToMany {
-	Customer{customerPostOfficeDetailList} to CustomerPostOffice
-    UserExtraInfo{userPositionDetailList} to UserPosition
     Quotation{quotationItemDetailList} to QuotationItem
+    MasterForm{detailFormDetailList} to DetailForm
+    UserExtraInfo{userPostOfficeDetailList} to UserPostOffice{userExtraInfoParent}
+    Customer{customerPostOfficeDetailList} to CustomerPostOffice{customerParent}
+	CustomerLegal{customerLegalFileUploadDetailList} to CustomerLegalFileUpload{customerLegalParent}
+    Customer{customerWarehouseDetailList} to CustomerWarehouse{customerParent}
+    Customer{customerServicesDetailList} to CustomerServices{customerParent}
 }
 
 relationship OneToOne {
-    Customer{legal} to CustomerLegal
+    Customer{legal} to CustomerLegal{customer}
     Customer{payment} to CustomerPayment
-    Customer{warehouse} to Warehouse
     OrderMain{orderPickup} to OrderPickup
     OrderMain{orderConsignee} to OrderConsignee
     OrderMain{orderFee} to OrderFee

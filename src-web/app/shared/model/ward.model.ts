@@ -1,11 +1,13 @@
-export interface IWard {
-    id?: number;
-    code?: string;
-    name?: string;
-    description?: string;
-    districtId?: number;
-}
+import { BaseEntity } from './../../shared';
 
-export class Ward implements IWard {
-    constructor(public id?: number, public code?: string, public name?: string, public description?: string, public districtId?: number) {}
+export class Ward implements BaseEntity {
+    constructor(
+        public id?: number,
+        public code?: string,
+        public name?: string,
+        public description?: string,
+        public companyId?: number,
+        public districtId?: number,
+    ) {
+    }
 }

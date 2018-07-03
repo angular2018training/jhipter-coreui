@@ -24,11 +24,6 @@ public class CustomerPostOfficeDTO implements Serializable {
     @NotNull
     private Instant createDate;
 
-    private Long customerId;
-
-    private CustomerDTO  customerDTO;
-
-
     private Long companyId;
 
     private CompanyDTO  companyDTO;
@@ -37,6 +32,11 @@ public class CustomerPostOfficeDTO implements Serializable {
     private Long postOfficeId;
 
     private PostOfficeDTO  postOfficeDTO;
+
+
+    private Long customerParentId;
+
+    private CustomerDTO  customerParentDTO;
 
 
     public Long getId() {
@@ -71,22 +71,6 @@ public class CustomerPostOfficeDTO implements Serializable {
         this.createDate = createDate;
     }
 
-    public CustomerDTO getCustomerDTO() {
-        return this.customerDTO;
-    }
-
-    public void setCustomerDTO(CustomerDTO customerDTO ) {
-        this.customerDTO = customerDTO;
-    }
-    public Long getCustomerId() {
-        return customerId;
-        }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-        }
-
-
     public CompanyDTO getCompanyDTO() {
         return this.companyDTO;
     }
@@ -116,6 +100,22 @@ public class CustomerPostOfficeDTO implements Serializable {
 
     public void setPostOfficeId(Long postOfficeId) {
         this.postOfficeId = postOfficeId;
+        }
+
+
+    public CustomerDTO getCustomerParentDTO() {
+        return this.customerParentDTO;
+    }
+
+    public void setCustomerParentDTO(CustomerDTO customerParentDTO ) {
+        this.customerParentDTO = customerParentDTO;
+    }
+    public Long getCustomerParentId() {
+        return customerParentId;
+        }
+
+    public void setCustomerParentId(Long customerId) {
+        this.customerParentId = customerId;
         }
 
 
