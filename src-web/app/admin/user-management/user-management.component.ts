@@ -83,6 +83,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         moment(this.activatedRoute.snapshot.queryParams['createdDateFrom'], DATE_TIME_FORMAT).toDate(): null;
       this.userSearch.createdDateTo = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['createdDateTo'] ?
         moment(this.activatedRoute.snapshot.queryParams['createdDateTo'], DATE_TIME_FORMAT).toDate() : null;
+
       if(this.userSearch.createdDateFrom == null || this.userSearch.createdDateTo ) {
         this.createdDate = null;
       }else {
@@ -92,9 +93,17 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
             this.postOfficeService.query({"companyId.equals":this.currentAccount.companyId})
-              .subscribe((res: HttpResponse<PostOffice[]>) => { this.postOffices = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+              .subscribe((res: HttpResponse<PostOffice[]>) => {
+              this.postOffices = res.body;
+              this.userSearch.postOfficeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['postOfficeId'] ?
+                this.activatedRoute.snapshot.queryParams['postOfficeId'] : null;
+              }, (res: HttpErrorResponse) => this.onError(res.message));
             this.userGroupService.query({"companyId.equals":this.currentAccount.companyId})
-              .subscribe((res: HttpResponse<UserGroup[]>) => { this.userGroups = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+              .subscribe((res: HttpResponse<UserGroup[]>) => {
+              this.userGroups = res.body;
+              this.userSearch.userGroupId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['userGroupId'] ?
+                this.activatedRoute.snapshot.queryParams['userGroupId'] : null;
+              }, (res: HttpErrorResponse) => this.onError(res.message));
             this.loadAll();
             this.registerChangeInUsers();
         });
@@ -114,6 +123,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             activated :this.userSearch.activated,
             createdDateFrom:  this.userSearch.createdDateFrom?moment(this.userSearch.createdDateFrom).format(DATE_TIME_FORMAT):'',
             createdDateTo: this.userSearch.createdDateTo!=null? moment(this.userSearch.createdDateTo).format(DATE_TIME_FORMAT):'',
+            postOfficeId : this.userSearch.postOfficeId,
+            userGroupId : this.userSearch.userGroupId,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
           }
       });
@@ -167,6 +178,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             "createdDate.greaterOrEqualThan":  this.userSearch.createdDateFrom?moment(this.userSearch.createdDateFrom).format('YYYY-MM-DD'):null,
             "createdDate.lessOrEqualThan": this.userSearch.createdDateTo?moment(this.userSearch.createdDateTo).format('YYYY-MM-DD'):null,
             "companyId.equals":this.currentAccount.companyId,
+            "postOfficeId.equals":this.userSearch.postOfficeId,
+            "userGroupId.equals":this.userSearch.userGroupId,
             sort: this.sort()}).subscribe(
                 (res: HttpResponse<User[]>) => this.onSuccess(res.body, res.headers),
                 (res: HttpResponse<any>) => this.onError(res.body)

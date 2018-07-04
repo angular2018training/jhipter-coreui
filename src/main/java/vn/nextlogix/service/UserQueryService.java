@@ -23,6 +23,8 @@ import vn.nextlogix.domain.Quotation_;
 import vn.nextlogix.domain.User;
 import vn.nextlogix.domain.UserExtraInfo;
 import vn.nextlogix.domain.UserExtraInfo_;
+import vn.nextlogix.domain.UserGroup_;
+import vn.nextlogix.domain.UserGroup;
 import vn.nextlogix.domain.UserPostOffice;
 import vn.nextlogix.domain.UserPostOffice_;
 import vn.nextlogix.domain.User_;
@@ -86,6 +88,14 @@ public class UserQueryService extends QueryService<User>{
             		SetJoin<UserExtraInfo, UserPostOffice> userExtraInfoUserPostOffice = userUserExtraInfo.join(UserExtraInfo_.userPostOfficeDetailLists);
             		Join<UserPostOffice, PostOffice> userPostOfficePostOffice = userExtraInfoUserPostOffice.join(UserPostOffice_.postOffice);
             		return builder.equal(userPostOfficePostOffice.get(PostOffice_.id),criteria.getPostOfficeId().getEquals());
+            	});
+            }
+            if(criteria.getUserGroupId() !=null) {
+            	specification = specification.and( (root, query, builder) -> {
+            		final Join<User,UserExtraInfo> userUserExtraInfo =  root.join(User_.userExtraInfo);
+            		SetJoin<UserExtraInfo, UserPostOffice> userExtraInfoUserPostOffice = userUserExtraInfo.join(UserExtraInfo_.userPostOfficeDetailLists);
+            		Join<UserPostOffice, UserGroup> userPostOfficeUserGroup = userExtraInfoUserPostOffice.join(UserPostOffice_.userGroups);
+            		return builder.equal(userPostOfficeUserGroup.get(UserGroup_.id),criteria.getUserGroupId().getEquals());
             	});
             }
           

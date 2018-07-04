@@ -61,7 +61,7 @@
         <label class="col-md-2 col-form-label" for="field_postOffice" jhiTranslate="userManagement.postOffice">Post Office:</label>
         <div class="col-md-4 col-form-label">
           <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userSearch.postOfficeId" >
-            <option  [ngValue]="null" selected></option>
+            <option  [ngValue]="null" ></option>
             <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postOffices; trackBy: trackPostOfficeById">{{postOfficeOption.code}} - {{postOfficeOption.name}}</option>
           </select>
         </div>
@@ -69,7 +69,7 @@
                  jhiTranslate="userManagement.userGroup">User Group:</label>
           <div class="col-md-4 col-form-label">
             <select class="form-control" id="field_userGroup" name="userGroup" [(ngModel)]="userSearch.userGroupId">
-              <option  [ngValue]="null" selected></option>
+              <option  [ngValue]="null" ></option>
               <option [ngValue]="userGroupOption.id" *ngFor="let userGroupOption of userGroups; trackBy: trackUserGroupById">{{userGroupOption.code}} - {{userGroupOption.name}}</option>
             </select>
           </div>
