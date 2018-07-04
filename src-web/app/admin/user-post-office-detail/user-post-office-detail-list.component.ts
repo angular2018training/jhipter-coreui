@@ -18,6 +18,7 @@ import { UserPostOfficeDetailDeleteDialogComponent } from './user-post-office-de
     import { PostOfficeService } from '../../shared/service/post-office.service';
     import { UserGroup } from '../../shared/model/user-group.model';
     import { UserGroupService } from '../../shared/service/user-group.service';
+import { AlertService } from '../../shared/alert/alert-service';
 
 
 @Component({

@@ -1,226 +1,310 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-<div class="card">
-    <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.customer.home.createOrEditLabel">Create or edit a Customer</strong>
-    </div>
-    <div class="card-body">
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!customer.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="customer.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.code" for="field_code">Code</label>
-                    <input type="text" class="form-control" name="code" id="field_code"
-                        [(ngModel)]="customer.code" required/>
-                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
+    <div class="card">
+        <div class="card-header">
+            <strong jhiTranslate="nextlogixApp.customer.home.createOrEditLabel">Create or edit a Customer</strong>
+        </div>
+        <div class="card-body">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="row">
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.code" for="field_code">Code</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="customer.code" required/>
+                            <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.name" for="field_name">Name</label>
-                    <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="customer.name" required/>
-                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.address" for="field_address">Address</label>
-                    <input type="text" class="form-control" name="address" id="field_address"
-                        [(ngModel)]="customer.address" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.email" for="field_email">Email</label>
-                    <input type="text" class="form-control" name="email" id="field_email"
-                        [(ngModel)]="customer.email" required/>
-                    <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.phone" for="field_phone">Phone</label>
-                    <input type="text" class="form-control" name="phone" id="field_phone"
-                        [(ngModel)]="customer.phone" required/>
-                    <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.phone?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.password" for="field_password">Password</label>
-                    <input type="text" class="form-control" name="password" id="field_password"
-                        [(ngModel)]="customer.password" required/>
-                    <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.password?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.isActive" for="field_isActive">Is Active</label>
-                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
-                        [(ngModel)]="customer.isActive" />
-                    <div [hidden]="!(editForm.controls.isActive?.dirty && editForm.controls.isActive?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.isActive?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.createDate" for="field_createDate">Create Date</label>
-                    <div class="d-flex">
-                        <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="createDate"
-                        required/>
-                    </div>
-                    <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.createDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-                            This field should be a date and time.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.lastLoginDate" for="field_lastLoginDate">Last Login Date</label>
-                    <div class="d-flex">
-                        <input id="field_lastLoginDate" type="datetime-local" class="form-control" name="lastLoginDate" [(ngModel)]="lastLoginDate"
-                        />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.apiToken" for="field_apiToken">Api Token</label>
-                    <input type="text" class="form-control" name="apiToken" id="field_apiToken"
-                        [(ngModel)]="customer.apiToken" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.legal" for="field_legal">Legal</label>
-                    <select class="form-control" id="field_legal" name="legal" [(ngModel)]="customer.legalId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="customerLegalOption.id" *ngFor="let customerLegalOption of legals; trackBy: trackCustomerLegalById">{{customerLegalOption.name}}</option>
-                    </select>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.name" for="field_name">Name</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="customer.name" required/>
+                            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.payment" for="field_payment">Payment</label>
-                    <select class="form-control" id="field_payment" name="payment" [(ngModel)]="customer.paymentId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="customerPaymentOption.id" *ngFor="let customerPaymentOption of payments; trackBy: trackCustomerPaymentById">{{customerPaymentOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.password" for="field_password">Password</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="password" id="field_password" [(ngModel)]="customer.password" required/>
+                            <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.password?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.warehouse" for="field_warehouse">Warehouse</label>
-                    <select class="form-control" id="field_warehouse" name="warehouse" [(ngModel)]="customer.warehouseId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="warehouseOption.id" *ngFor="let warehouseOption of warehouses; trackBy: trackWarehouseById">{{warehouseOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.isActive" for="field_isActive">Is Active</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <label class="switch switch-3d switch-success">
+                                <input type="checkbox" class="switch-input" name="isActive" [(ngModel)]="customer.isActive">
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.company" for="field_company">Company</label>
-                    <select class="form-control" id="field_company" name="company" [(ngModel)]="customer.companyId"  required>
-                        <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
-                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.customerType" for="field_customerType">Customer Type</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_customerType" name="customerType" [(ngModel)]="customer.customerTypeId" required>
+                                <option *ngIf="!editForm.value.customerType" [ngValue]="null" selected></option>
+                                <option [ngValue]="customerTypeOption.id" *ngFor="let customerTypeOption of customertypes; trackBy: trackCustomerTypeById">{{customerTypeOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.customerType?.dirty && editForm.controls.customerType?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.customerType?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.customerSource" for="field_customerSource">Customer Source</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_customerSource" name="customerSource" [(ngModel)]="customer.customerSourceId" required>
+                                <option *ngIf="!editForm.value.customerSource" [ngValue]="null" selected></option>
+                                <option [ngValue]="customerSourceOption.id" *ngFor="let customerSourceOption of customersources; trackBy: trackCustomerSourceById">{{customerSourceOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.customerSource?.dirty && editForm.controls.customerSource?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.customerSource?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.manageUser" for="field_manageUser">Manage User</label>
-                    <select class="form-control" id="field_manageUser" name="manageUser" [(ngModel)]="customer.manageUserId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.email" for="field_email">Email</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="email" id="field_email" [(ngModel)]="customer.email" required/>
+                            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.saleUser" for="field_saleUser">Sale User</label>
-                    <select class="form-control" id="field_saleUser" name="saleUser" [(ngModel)]="customer.saleUserId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.phone" for="field_phone">Phone</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="phone" id="field_phone" [(ngModel)]="customer.phone" required/>
+                            <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.phone?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.province" for="field_province">Province</label>
-                    <select class="form-control" id="field_province" name="province" [(ngModel)]="customer.provinceId"  required>
-                        <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
-                        <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.manageUser" for="field_manageUser">Manage User</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_manageUser" name="manageUser" [(ngModel)]="customer.manageUserId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.email}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.saleUser" for="field_saleUser">Sale User</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_saleUser" name="saleUser" [(ngModel)]="customer.saleUserId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.email}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.district" for="field_district">District</label>
-                    <select class="form-control" id="field_district" name="district" [(ngModel)]="customer.districtId"  required>
-                        <option *ngIf="!editForm.value.district" [ngValue]="null" selected></option>
-                        <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.address" for="field_address">Address</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="address" id="field_address" [(ngModel)]="customer.address" />
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.district?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.apiToken" for="field_apiToken">Api Token</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="apiToken" id="field_apiToken" [(ngModel)]="customer.apiToken" />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.customerType" for="field_customerType">Customer Type</label>
-                    <select class="form-control" id="field_customerType" name="customerType" [(ngModel)]="customer.customerTypeId"  required>
-                        <option *ngIf="!editForm.value.customerType" [ngValue]="null" selected></option>
-                        <option [ngValue]="customerTypeOption.id" *ngFor="let customerTypeOption of customertypes; trackBy: trackCustomerTypeById">{{customerTypeOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.province" for="field_province">Province</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_province" name="province" [ngModel]="customer.provinceId" (ngModelChange)="onProvinceChanged($event)"
+                                required>
+                                <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                                <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.customerType?.dirty && editForm.controls.customerType?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.customerType?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.district" for="field_district">District</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_district" name="district" [(ngModel)]="customer.districtId" required>
+                                <option *ngIf="!editForm.value.district" [ngValue]="null" selected></option>
+                                <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.district?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customer.customerSource" for="field_customerSource">Customer Source</label>
-                    <select class="form-control" id="field_customerSource" name="customerSource" [(ngModel)]="customer.customerSourceId"  required>
-                        <option *ngIf="!editForm.value.customerSource" [ngValue]="null" selected></option>
-                        <option [ngValue]="customerSourceOption.id" *ngFor="let customerSourceOption of customersources; trackBy: trackCustomerSourceById">{{customerSourceOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.createDate" for="field_createDate">Create Date</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex">
+                                <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="createDate" required/>
+                            </div>
+                            <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.createDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                                    This field should be a date and time.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div [hidden]="!(editForm.controls.customerSource?.dirty && editForm.controls.customerSource?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.customerSource?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.lastLoginDate" for="field_lastLoginDate">Last Login Date</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex">
+                                <input id="field_lastLoginDate" type="datetime-local" class="form-control" name="lastLoginDate" [(ngModel)]="lastLoginDate">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
+
+                <!-- <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customer.company" for="field_company">Company</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_company" name="company" [ngModel]="customer.companyId" (ngModelChange)="onCompanyChanged($event)"
+                                required>
+                                <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
+                                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group flex-btn-group-container">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <i class="fa fa-ban"></i>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary pull-right">
+                    <i class="fa fa-save"></i>&nbsp;
+                    <span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="card-footer">
-        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
-    </div>
-</div>
 </form>
+
+<jhi-customer-post-office [customerId]="customer.id" *ngIf="customer.id"></jhi-customer-post-office>

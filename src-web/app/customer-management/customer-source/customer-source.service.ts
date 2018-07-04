@@ -11,7 +11,7 @@ export type EntityResponseType = HttpResponse<CustomerSource>;
 @Injectable({ providedIn: 'root' })
 export class CustomerSourceService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/customer-sources';
+    private resourceUrl = SERVER_API_URL + 'api/customer-sources';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/customer-sources';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/customer-sources';
 
@@ -30,7 +30,7 @@ export class CustomerSourceService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<CustomerSource>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<CustomerSource>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -41,7 +41,7 @@ export class CustomerSourceService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<CustomerSource[]>> {
@@ -50,15 +50,15 @@ export class CustomerSourceService {
             .map((res: HttpResponse<CustomerSource[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<CustomerSource[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<CustomerSource[]>> {
+        const options = createRequestOption(req);
         return this.http.get<CustomerSource[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<CustomerSource[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CustomerSource = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<CustomerSource[]>): HttpResponse<CustomerSource[]> {
@@ -67,7 +67,7 @@ export class CustomerSourceService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

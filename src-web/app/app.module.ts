@@ -78,7 +78,6 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
     NextlogixSetupModule,
 
     // NextlogixAdminModule,
-    NextlogixCustomerManagmentModule,
     Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
     ToasterModule.forRoot(),
     BrowserAnimationsModule,

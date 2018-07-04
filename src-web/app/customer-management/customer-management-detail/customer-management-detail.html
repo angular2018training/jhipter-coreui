@@ -1,0 +1,29 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="home" [routerLink]="['customer']" routerLinkActive="active">
+            <i class="icon-home"></i> Tổng quát
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="profile" [routerLink]="['source']" routerLinkActive="active">
+            <i class="icon-basket-loaded"></i> Dịch vụ & bảng giá
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="messages" [routerLink]="['warehouse', warehouseId]" routerLinkActive="active">
+            <i class="icon-social-dropbox"></i> Kho hàng</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="payment" [routerLink]="['legal', legalId]" routerLinkActive="active">
+            <i class="icon-book-open"></i> Hợp đồng</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="payment" [routerLink]="['payment', paymentId]" routerLinkActive="active">
+            <i class="icon-credit-card"></i> Thanh toán</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" role="tabpanel">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -19,15 +19,15 @@ export class CustomerPaymentService {
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
-    create(customerPayment: CustomerPayment): Observable<EntityResponseType> {
+    create(customerPayment: CustomerPayment, id: number): Observable<EntityResponseType> {
         const copy = this.convert(customerPayment);
-        return this.http.post<CustomerPayment>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http.post<CustomerPayment>(`${this.resourceUrl}?id=${id}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(customerPayment: CustomerPayment): Observable<EntityResponseType> {
+    update(customerPayment: CustomerPayment, id: number): Observable<EntityResponseType> {
         const copy = this.convert(customerPayment);
-        return this.http.put<CustomerPayment>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http.put<CustomerPayment>(`${this.resourceUrl}?id=${id}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 

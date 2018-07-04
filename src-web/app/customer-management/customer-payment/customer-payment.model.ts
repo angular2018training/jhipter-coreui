@@ -18,5 +18,6 @@ export class CustomerPayment implements BaseEntity {
         public paymentTypeId?: number,
     ) {
         this.isVerify = false;
+        this.companyId = 1;
     }
 }

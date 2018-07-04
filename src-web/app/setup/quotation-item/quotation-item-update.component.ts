@@ -14,8 +14,10 @@ import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { QuotationItemService } from '../../shared/service/quotation-item.service';
 
 import { QuotationItem } from '../../shared/model/quotation-item.model';
-            import { Quotation, QuotationService } from '../quotation';
-            import { Company, CompanyService } from '../company';
+import { Quotation } from '../../shared/model/quotation.model';
+import { QuotationService } from '../../shared/service/quotation.service';
+import { CompanyService } from '../../shared/service/company.service';
+import { Company } from '../../shared/model/company.model';
 
 @Component({
     selector: 'jhi-quotation-item-update',
