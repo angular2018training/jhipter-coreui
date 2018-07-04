@@ -20,7 +20,8 @@ import org.slf4j.LoggerFactory;
     import java.util.stream.StreamSupport;
 
     import java.util.List;
-    import java.util.stream.Collectors;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,9 @@ public class FileUploadServiceImpl implements FileUploadService {
     public FileUploadDTO save(FileUploadDTO fileUploadDTO) {
         log.debug("Request to save FileUpload : {}", fileUploadDTO);
         FileUpload fileUpload = fileUploadMapper.toEntity(fileUploadDTO);
+        if(StringUtils.isBlank(fileUpload.getHashedId())) {
+        	fileUpload.setHashedId(UUID.randomUUID().toString());
+        }
         fileUpload = fileUploadRepository.save(fileUpload);
         FileUploadDTO result = fileUploadMapper.toDto(fileUpload);
         fileUploadSearchRepository.save(fileUpload);
