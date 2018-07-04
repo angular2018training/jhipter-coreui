@@ -1,0 +1,49 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.userPostOffice.detail.title">User Post Office</span> {{userPostOffice.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="userPostOffice">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.userPostOffice.postOffice">Post Office</span></dt>
+        <dd>
+            <div *ngIf="userPostOffice.postOfficeId">
+                <a [routerLink]="['/post-office', userPostOffice.postOfficeId]">{{userPostOffice.postOfficeId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.userPostOffice.userGroup">User Group</span></dt>
+        <dd>
+            <span *ngFor="let userGroup of userPostOffice.userGroups; let last = last">
+                <a [routerLink]="['/user-group', userGroup?.id ]">{{userGroup.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.userPostOffice.userExtraInfoParent">User Extra Info Parent</span></dt>
+        <dd>
+            <div *ngIf="userPostOffice.userExtraInfoParentId">
+                <a [routerLink]="['/user-extra-info', userPostOffice.userExtraInfoParentId]">{{userPostOffice.userExtraInfoParentId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'user-post-office', userPostOffice.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

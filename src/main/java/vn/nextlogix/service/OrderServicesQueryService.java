@@ -24,8 +24,6 @@ import vn.nextlogix.repository.search.OrderServicesSearchRepository;
     import vn.nextlogix.repository.search.OrderServicesTypeSearchRepository;
     import vn.nextlogix.service.mapper.OrderServicesTypeMapper;
 
-    import vn.nextlogix.repository.search.QuotationSearchRepository;
-    import vn.nextlogix.service.mapper.QuotationMapper;
 
 import vn.nextlogix.service.dto.OrderServicesCriteria;
 
@@ -58,13 +56,10 @@ public class OrderServicesQueryService extends QueryService<OrderServices> {
         private final OrderServicesTypeSearchRepository orderServicesTypeSearchRepository;
         private final OrderServicesTypeMapper orderServicesTypeMapper;
 
-        private final QuotationSearchRepository quotationSearchRepository;
-        private final QuotationMapper quotationMapper;
 
 
     public OrderServicesQueryService(OrderServicesRepository orderServicesRepository, OrderServicesMapper orderServicesMapper, OrderServicesSearchRepository orderServicesSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,OrderServicesTypeSearchRepository orderServicesTypeSearchRepository,OrderServicesTypeMapper  orderServicesTypeMapper
-,QuotationSearchRepository quotationSearchRepository,QuotationMapper  quotationMapper
 ) {
         this.orderServicesRepository = orderServicesRepository;
         this.orderServicesMapper = orderServicesMapper;
@@ -73,8 +68,6 @@ public class OrderServicesQueryService extends QueryService<OrderServices> {
                                      this.companyMapper = companyMapper;
                                     this.orderServicesTypeSearchRepository = orderServicesTypeSearchRepository;
                                      this.orderServicesTypeMapper = orderServicesTypeMapper;
-                                    this.quotationSearchRepository = quotationSearchRepository;
-                                     this.quotationMapper = quotationMapper;
 
     }
 
@@ -129,7 +122,7 @@ public class OrderServicesQueryService extends QueryService<OrderServices> {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getOrderServicesTypeId(), OrderServices_.orderServicesType, OrderServicesType_.id));
             }
             if (criteria.getQuotationId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationId(), OrderServices_.quotation, Quotation_.id));
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationId(), OrderServices_.quotations, Quotation_.id));
             }
         }
         return specification;

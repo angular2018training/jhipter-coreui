@@ -26,7 +26,6 @@
     <include file="config/liquibase/changelog/20180626080028_added_entity_CustomerPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080029_added_entity_CustomerPostOffice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080030_added_entity_Warehouse.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180626080031_added_entity_Quotation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080032_added_entity_QuotationItem.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080033_added_entity_OrderMain.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080034_added_entity_OrderPickup.xml" relativeToChangelogFile="false"/>
@@ -40,8 +39,9 @@
     <include file="config/liquibase/changelog/20180703100124_added_entity_CustomerLegalFileUpload.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703100125_added_entity_CustomerWarehouse.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703130813_added_entity_OrderServicesType.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180703130815_added_entity_OrderServices.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703125726_added_entity_Company.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180614034637_added_entity_Quotation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180703123931_added_entity_OrderServices.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     
    
@@ -65,7 +65,6 @@
     <include file="config/liquibase/changelog/20180626080028_added_entity_constraints_CustomerPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080029_added_entity_constraints_CustomerPostOffice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080030_added_entity_constraints_Warehouse.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180626080031_added_entity_constraints_Quotation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080032_added_entity_constraints_QuotationItem.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080033_added_entity_constraints_OrderMain.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080034_added_entity_constraints_OrderPickup.xml" relativeToChangelogFile="false"/>
@@ -78,7 +77,9 @@
     <include file="config/liquibase/changelog/20180703100123_added_entity_constraints_CustomerServices.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703100124_added_entity_constraints_CustomerLegalFileUpload.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703100125_added_entity_constraints_CustomerWarehouse.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180703130815_added_entity_constraints_OrderServices.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180703123931_added_entity_constraints_OrderServices.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180614034637_added_entity_constraints_Quotation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180703123931_added_entity_constraints_OrderServices.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/99999999999999_common.xml" relativeToChangelogFile="false"/>
     

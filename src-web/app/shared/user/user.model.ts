@@ -12,7 +12,7 @@ export class User {
     public lastModifiedBy?: string;
     public lastModifiedDate?: Date;
     public password?: string;
-
+    public name?:string;
     constructor(
         id?: any,
         login?: string,

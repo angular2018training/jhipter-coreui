@@ -1,0 +1,61 @@
+
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.userPostOffice.home.createOrEditLabel">Create or edit a User Post Office</strong>
+    </div>
+    <div class="card-body">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!userPostOffice.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="userPostOffice.id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.userPostOffice.postOffice" for="field_postOffice">Post Office</label>
+                    <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userPostOffice.postOfficeId"  required>
+                        <option *ngIf="!editForm.value.postOffice" [ngValue]="null" selected></option>
+                        <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postoffices; trackBy: trackPostOfficeById">{{postOfficeOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.postOffice?.dirty && editForm.controls.postOffice?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.postOffice?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="nextlogixApp.userPostOffice.userGroup" for="field_userGroup">User Group</label>
+                    <select class="form-control" id="field_userGroup" multiple name="userGroup" [(ngModel)]="userPostOffice.userGroups" required>
+                        <option [ngValue]="getSelected(userPostOffice.userGroups, userGroupOption)" *ngFor="let userGroupOption of usergroups; trackBy: trackUserGroupById">{{userGroupOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.userGroup?.dirty && editForm.controls.userGroup?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.userGroup?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.userPostOffice.userExtraInfoParent" for="field_userExtraInfoParent">User Extra Info Parent</label>
+                    <select class="form-control" id="field_userExtraInfoParent" name="userExtraInfoParent" [(ngModel)]="userPostOffice.userExtraInfoParentId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer">
+        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

@@ -15,7 +15,6 @@ import vn.nextlogix.service.dto.OrderServicesSearchDTO;
 import org.springframework.data.domain.PageImpl;
     import vn.nextlogix.domain.Company;
     import vn.nextlogix.domain.OrderServicesType;
-    import vn.nextlogix.domain.Quotation;
 import vn.nextlogix.service.mapper.OrderServicesMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
     import vn.nextlogix.repository.search.OrderServicesTypeSearchRepository;
     import vn.nextlogix.service.mapper.OrderServicesTypeMapper;
 
-    import vn.nextlogix.repository.search.QuotationSearchRepository;
-    import vn.nextlogix.service.mapper.QuotationMapper;
     import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -67,13 +64,10 @@ public class OrderServicesServiceImpl implements OrderServicesService {
         private final OrderServicesTypeSearchRepository orderServicesTypeSearchRepository;
         private final OrderServicesTypeMapper orderServicesTypeMapper;
 
-        private final QuotationSearchRepository quotationSearchRepository;
-        private final QuotationMapper quotationMapper;
 
 
     public OrderServicesServiceImpl(OrderServicesRepository orderServicesRepository, OrderServicesMapper orderServicesMapper, OrderServicesSearchRepository orderServicesSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,OrderServicesTypeSearchRepository orderServicesTypeSearchRepository,OrderServicesTypeMapper  orderServicesTypeMapper
-,QuotationSearchRepository quotationSearchRepository,QuotationMapper  quotationMapper
 ) {
         this.orderServicesRepository = orderServicesRepository;
         this.orderServicesMapper = orderServicesMapper;
@@ -82,8 +76,6 @@ public class OrderServicesServiceImpl implements OrderServicesService {
                                      this.companyMapper = companyMapper;
                                     this.orderServicesTypeSearchRepository = orderServicesTypeSearchRepository;
                                      this.orderServicesTypeMapper = orderServicesTypeMapper;
-                                    this.quotationSearchRepository = quotationSearchRepository;
-                                     this.quotationMapper = quotationMapper;
 
     }
 
@@ -127,7 +119,7 @@ public class OrderServicesServiceImpl implements OrderServicesService {
     @Transactional(readOnly = true)
     public OrderServicesDTO findOne(Long id) {
         log.debug("Request to get OrderServices : {}", id);
-        OrderServices orderServices = orderServicesRepository.findOne(id);
+        OrderServices orderServices = orderServicesRepository.findOneWithEagerRelationships(id);
         return orderServicesMapper.toDto(orderServices);
     }
 
@@ -180,9 +172,6 @@ public class OrderServicesServiceImpl implements OrderServicesService {
             if(searchDto.getOrderServicesTypeId() !=null) {
                 boolQueryBuilder.must(QueryBuilders.matchQuery("orderServicesType.id", searchDto.getOrderServicesTypeId()));
             }
-            if(searchDto.getQuotationId() !=null) {
-                boolQueryBuilder.must(QueryBuilders.matchQuery("quotation.id", searchDto.getQuotationId()));
-            }
             NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
 
             pageable.getSort().forEach(sort -> {
@@ -202,10 +191,6 @@ public class OrderServicesServiceImpl implements OrderServicesService {
             if(orderServicesDto.getOrderServicesTypeId()!=null){
                 OrderServicesType orderServicesType= orderServicesTypeSearchRepository.findOne(orderServicesDto.getOrderServicesTypeId());
                 orderServicesDto.setOrderServicesTypeDTO(orderServicesTypeMapper.toDto(orderServicesType));
-            }
-            if(orderServicesDto.getQuotationId()!=null){
-                Quotation quotation= quotationSearchRepository.findOne(orderServicesDto.getQuotationId());
-                orderServicesDto.setQuotationDTO(quotationMapper.toDto(quotation));
             }
             });
             return new PageImpl<>(orderServicesList,pageable,orderServicesPage.getTotalElements());

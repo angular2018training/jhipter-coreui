@@ -8,6 +8,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CookieModule } from 'ngx-cookie';
 import { ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {BsDatepickerModule, TimepickerModule} from "ngx-bootstrap";
 @NgModule({
     imports: [
         NgbModule.forRoot(),
@@ -21,6 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         }),
         InfiniteScrollModule,
         CookieModule.forRoot(),
+        TimepickerModule.forRoot(),
+        BsDatepickerModule.forRoot(),
         CommonModule,
         FontAwesomeModule
     ],

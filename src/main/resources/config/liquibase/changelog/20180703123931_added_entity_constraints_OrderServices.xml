@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity OrderServices.
     -->
-    <changeSet id="20180703130815-2" author="jhipster">
+    <changeSet id="20180703123931-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="company_id"
                                  baseTableName="order_services"
@@ -20,11 +20,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="order_services_type"/>
 
-        <addForeignKeyConstraint baseColumnNames="quotation_id"
-                                 baseTableName="order_services"
-                                 constraintName="fk_order_services_quotation_id"
+        <addForeignKeyConstraint baseColumnNames="order_services_id"
+                                 baseTableName="order_services_quotation"
+                                 constraintName="fk_order_services_quotation_order_services_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="order_services"/>
+        <addForeignKeyConstraint baseColumnNames="quotations_id"
+                                 baseTableName="order_services_quotation"
+                                 constraintName="fk_order_services_quotation_quotations_id"
                                  referencedColumnNames="id"
                                  referencedTableName="quotation"/>
-
+        
     </changeSet>
 </databaseChangeLog>

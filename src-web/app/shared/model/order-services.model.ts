@@ -8,7 +8,7 @@ export class OrderServices implements BaseEntity {
         public description?: string,
         public companyId?: number,
         public orderServicesTypeId?: number,
-        public quotationId?: number,
+        public quotations?: BaseEntity[],
     ) {
     }
 }

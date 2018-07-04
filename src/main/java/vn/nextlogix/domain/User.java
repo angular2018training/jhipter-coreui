@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -55,6 +56,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
+    
+    @Formula("CONCAT(first_name,' ', last_name)")
+    private String name;
 
     @Email
     @Size(min = 5, max = 100)
@@ -214,6 +218,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	public void setUserExtraInfo(UserExtraInfo userExtraInfo) {
 		this.userExtraInfo = userExtraInfo;
 	}
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
     public boolean equals(Object o) {
@@ -236,11 +250,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", activated=" + activated + ", langKey=" + langKey
-				+ ", imageUrl=" + imageUrl + ", activationKey=" + activationKey + ", resetKey=" + resetKey
-				+ ", resetDate=" + resetDate + ", authorities=" + authorities + ", userExtraInfo=" + userExtraInfo
-				+ "]";
+				+ ", lastName=" + lastName + ", name=" + name + ", email=" + email + ", activated=" + activated
+				+ ", langKey=" + langKey + ", imageUrl=" + imageUrl + ", activationKey=" + activationKey + ", resetKey="
+				+ resetKey + ", resetDate=" + resetDate + ", authorities=" + authorities + ", userExtraInfo="
+				+ userExtraInfo + "]";
 	}
 
+	
    
 }

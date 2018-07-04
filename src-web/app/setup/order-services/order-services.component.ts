@@ -62,7 +62,6 @@ currentAccount: any;
         private router: Router,
         private eventManager: JhiEventManager,
         private orderServicesTypeService: OrderServicesTypeService,
-        private quotationService: QuotationService,
 
         private orderServicesPopupService: OrderServicesPopupService
     ) {
@@ -75,7 +74,6 @@ currentAccount: any;
 
         });
         this.orderServicesTypes =[];
-        this.quotations =[];
 
         this.orderServicesSearch = new OrderServicesSearch();
 
@@ -87,8 +85,6 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' description'] : '';
         this.orderServicesSearch.orderServicesTypeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['orderServicesTypeId'] ?
                          this.activatedRoute.snapshot.params['orderServicesTypeId'] : '';
-        this.orderServicesSearch.quotationId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['quotationId'] ?
-                         this.activatedRoute.snapshot.params['quotationId'] : '';
     }
 
     loadAll() {
@@ -101,7 +97,6 @@ currentAccount: any;
          description : this.orderServicesSearch.description,
          companyId :this.currentAccount.companyId,
          orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
-         quotationId :this.orderServicesSearch.quotationId,
          };
 
         this.orderServicesService.searchExample(obj).subscribe(
@@ -132,7 +127,6 @@ currentAccount: any;
                 description : this.orderServicesSearch.description,
                 companyId :this.currentAccount.companyId,
                 orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
-                quotationId :this.orderServicesSearch.quotationId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -167,10 +161,6 @@ currentAccount: any;
         this.principal.identity().then((account) => {
             this.currentAccount = account;
             this.loadAll();
-            this.quotationService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
-                (res: HttpResponse<Quotation[]>) => this.quotations = res.body,
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
         });
         this.registerChangeInOrderServices();
         this.orderServicesTypeService.query().subscribe(

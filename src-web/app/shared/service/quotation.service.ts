@@ -79,6 +79,8 @@ export class QuotationService {
         const copy: Quotation = Object.assign({}, quotation);
         copy.createDate = this.dateUtils
             .convertDateTimeFromServer(quotation.createDate);
+        copy.activeFrom = this.dateUtils
+            .convertLocalDateFromServer(quotation.activeFrom);
         return copy;
     }
 
@@ -89,6 +91,8 @@ export class QuotationService {
         const copy: Quotation = Object.assign({}, quotation);
 
         copy.createDate = quotation.createDate != null && quotation.createDate.isValid() ? quotation.createDate.toJSON() : null;
+        copy.activeFrom = this.dateUtils
+            .convertLocalDateToServer(quotation.activeFrom);
         return copy;
     }
 }

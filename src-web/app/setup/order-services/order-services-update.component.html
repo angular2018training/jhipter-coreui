@@ -56,10 +56,9 @@
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.orderServices.quotation" for="field_quotation">Quotation</label>
-                    <select class="form-control" id="field_quotation" name="quotation" [(ngModel)]="orderServices.quotationId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    <label jhiTranslate="nextlogixApp.orderServices.quotation" for="field_quotation">Quotation</label>
+                    <select class="form-control" id="field_quotation" multiple name="quotation" [(ngModel)]="orderServices.quotations">
+                        <option [ngValue]="getSelected(orderServices.quotations, quotationOption)" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.id}}</option>
                     </select>
                 </div>
             </div>

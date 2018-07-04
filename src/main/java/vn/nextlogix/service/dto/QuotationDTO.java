@@ -2,6 +2,7 @@ package vn.nextlogix.service.dto;
 
 
 import java.time.Instant;
+import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -25,6 +26,9 @@ public class QuotationDTO implements Serializable {
 
     @NotNull
     private Instant createDate;
+
+    @NotNull
+    private LocalDate activeFrom;
 
     private Long companyId;
 
@@ -69,6 +73,14 @@ public class QuotationDTO implements Serializable {
 
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
+    }
+
+    public LocalDate getActiveFrom() {
+        return activeFrom;
+    }
+
+    public void setActiveFrom(LocalDate activeFrom) {
+        this.activeFrom = activeFrom;
     }
 
     public CompanyDTO getCompanyDTO() {
@@ -116,6 +128,7 @@ public class QuotationDTO implements Serializable {
             ", isActive='" + isIsActive() + "'" +
             ", description='" + getDescription() + "'" +
             ", createDate='" + getCreateDate() + "'" +
+            ", activeFrom='" + getActiveFrom() + "'" +
             "}";
     }
 }

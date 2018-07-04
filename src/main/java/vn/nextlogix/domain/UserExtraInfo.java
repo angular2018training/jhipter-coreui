@@ -68,6 +68,12 @@ public class UserExtraInfo implements Serializable {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
+
+    @OneToMany(mappedBy = "userExtraInfoParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UserPostOffice> userPostOfficeDetailLists = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -229,6 +235,31 @@ public class UserExtraInfo implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	 public Set<UserPostOffice> getUserPostOfficeDetailLists() {
+	        return userPostOfficeDetailLists;
+	    }
+
+	    public UserExtraInfo userPostOfficeDetailLists(Set<UserPostOffice> userPostOffices) {
+	        this.userPostOfficeDetailLists = userPostOffices;
+	        return this;
+	    }
+
+	    public UserExtraInfo addUserPostOfficeDetailList(UserPostOffice userPostOffice) {
+	        this.userPostOfficeDetailLists.add(userPostOffice);
+	        userPostOffice.setUserExtraInfoParent(this);
+	        return this;
+	    }
+
+	    public UserExtraInfo removeUserPostOfficeDetailList(UserPostOffice userPostOffice) {
+	        this.userPostOfficeDetailLists.remove(userPostOffice);
+	        userPostOffice.setUserExtraInfoParent(null);
+	        return this;
+	    }
+
+	    public void setUserPostOfficeDetailLists(Set<UserPostOffice> userPostOffices) {
+	        this.userPostOfficeDetailLists = userPostOffices;
+	    }
 
 	@Override
     public boolean equals(Object o) {
