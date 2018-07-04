@@ -11,6 +11,8 @@ import { CustomerPostOfficeDialogComponent } from './customer-post-office/custom
 import { CustomerPostOfficeComponent } from './customer-post-office/customer-post-office.component';
 import { CustomerPostOfficeDeleteDialogComponent } from './customer-post-office/customer-post-office-delete-dialog.component';
 import { CustomerManagementComponent } from './customer-management.component';
+import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageHelper } from '../shared';
 
 @NgModule({
   imports: [
@@ -39,4 +41,13 @@ import { CustomerManagementComponent } from './customer-management.component';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class NextlogixCustomerManagmentModule { }
+export class NextlogixCustomerManagmentModule {
+
+  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    this.languageHelper.language.subscribe((languageKey: string) => {
+      if (languageKey !== undefined) {
+        this.languageService.changeLanguage(languageKey);
+      }
+    });
+  }
+}

@@ -4,8 +4,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { JhiAlertService, JhiEventManager, } from 'ng-jhipster';
-import { ProvinceService } from '../../shared/services/province.service';
-import { DistrictService } from '../../shared/services/district.service';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
 import { UserExtraInfo } from '../../shared/model/user-extra-info.model';
 import { Province } from '../../shared/model/province.model';
@@ -16,6 +14,8 @@ import { CustomerTypeService } from '../customer-type/customer-type.service';
 import { CustomerSourceService } from '../customer-source/customer-source.service';
 import { Customer } from './customer.model';
 import { CustomerService } from './customer.service';
+import { ProvinceService } from '../../shared/service/province.service';
+import { DistrictService } from '../../shared/service/district.service';
 
 @Component({
     selector: 'jhi-customer-update',

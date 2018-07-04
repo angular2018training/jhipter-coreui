@@ -149,7 +149,7 @@
                         <div class="col-md-8 col-sm-12">
                             <select class="form-control" id="field_manageUser" name="manageUser" [(ngModel)]="customer.manageUserId">
                                 <option [ngValue]="null"></option>
-                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.email}}</option>
+                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.email}}</option>
                             </select>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                         <div class="col-md-8 col-sm-12">
                             <select class="form-control" id="field_saleUser" name="saleUser" [(ngModel)]="customer.saleUserId">
                                 <option [ngValue]="null"></option>
-                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos; trackBy: trackUserExtraInfoById">{{userExtraInfoOption.email}}</option>
+                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.email}}</option>
                             </select>
                         </div>
                     </div>

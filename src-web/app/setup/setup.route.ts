@@ -8,9 +8,6 @@ import {provinceRoute} from './province/province.route';
 import {districtRoute} from './district/district.route';
 import {wardRoute} from "./ward/ward.route";
 import {warehouseRoute} from "./warehouse/warehouse.route";
-import {masterFormRoute} from "./master-form/master-form.route";
-import {detailFormRoute} from "./detail-form/detail-form.route";
-import {positionRoute} from "./position/position.route";
 import {postOfficeRoute} from "./post-office/post-office.route";
 import {orderServicesRoute} from "./order-services/order-services.route";
 import {orderServicesTypeRoute} from "./order-services-type/order-services-type.route";
@@ -20,9 +17,6 @@ const SETUP_ROUTES = [
   ...districtRoute,
   ...wardRoute,
   ...warehouseRoute,
-  ...masterFormRoute,
-  ...detailFormRoute,
-  ...positionRoute,
   ...postOfficeRoute,
   ...orderServicesRoute,
   ...orderServicesTypeRoute,

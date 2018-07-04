@@ -75,6 +75,9 @@ export const customerManagementState: Routes = [
   {
     path: ':id',
     component: CustomerManagementDetailComponent,
+    resolve: {
+      customer: CustomerResolve
+    },
     children: [
       {
         path: 'customer',

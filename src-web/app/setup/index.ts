@@ -3,5 +3,3 @@
  */
  export * from './setup.module';
  export * from './setup.route';
- export * from './province/index';
- export * from './district/index';

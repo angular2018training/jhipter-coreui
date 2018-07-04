@@ -5,11 +5,14 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { UserPostOffice } from '../user-post-office/user-post-office.model';
-import { UserPostOfficeService } from '../user-post-office/user-post-office.service';
-import { Company, CompanyService } from '../company';
-import { PostOffice, PostOfficeService } from '../post-office';
 import { UserGroup, UserGroupService } from '../user-group';
+import { UserPostOffice } from '../../shared/model/user-post-office.model';
+import { Company } from '../../shared/model/company.model';
+import { PostOffice } from '../../setup/post-office';
+import { AlertService } from '../../shared/alert/alert-service';
+import { UserPostOfficeService } from '../../shared/service/user-post-office.service';
+import { CompanyService } from '../../shared/service/company.service';
+import { PostOfficeService } from '../../shared/service/post-office.service';
 
 @Component({
     selector: 'jhi-user-post-office-detail-update',
@@ -28,7 +31,7 @@ export class UserPostOfficeDetailUpdateComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiAlertService: JhiAlertService,
+        private alertService: AlertService,
         private userPostOfficeService: UserPostOfficeService,
         private companyService: CompanyService,
         private postOfficeService: PostOfficeService,
@@ -78,7 +81,7 @@ export class UserPostOfficeDetailUpdateComponent implements OnInit {
     }
 
     private onError(error: any) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.alertService.error(error.message, null, null);
     }
 
     trackCompanyById(index: number, item: Company) {

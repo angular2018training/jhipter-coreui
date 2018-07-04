@@ -9,10 +9,14 @@ import { JhiAlertService, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { CustomerPaymentService } from './customer-payment.service';
 
 import { CustomerPayment } from './customer-payment.model';
-import { Company, CompanyService } from '../../setup/company';
-import { Bank, BankService } from '../../setup/bank';
-import { UserExtraInfo, UserExtraInfoService } from '../../setup/user-extra-info';
-import { PaymentType, PaymentTypeService } from '../../setup/payment-type';
+import { Company } from '../../shared/model/company.model';
+import { Bank } from '../../shared/model/bank.model';
+import { UserExtraInfo } from '../../shared/model/user-extra-info.model';
+import { PaymentType } from '../../setup/payment-type';
+import { CompanyService } from '../../shared/service/company.service';
+import { BankService } from '../../setup/bank';
+import { UserExtraInfoService } from '../../shared/service/user-extra-info.service';
+import { PaymentTypeService } from '../../shared/service/payment-type.service';
 
 @Component({
     selector: 'jhi-customer-payment-update',
