@@ -27,16 +27,18 @@ public class FileUpload implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "hashed_id")
+    private String hashedId;
+
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
     @Lob
-    @Column(name = "content", nullable = false)
+    @Column(name = "content")
     private byte[] content;
 
-    @Column(name = "content_content_type", nullable = false)
+    @Column(name = "content_content_type")
     private String contentContentType;
 
     @NotNull
@@ -58,6 +60,19 @@ public class FileUpload implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getHashedId() {
+        return hashedId;
+    }
+
+    public FileUpload hashedId(String hashedId) {
+        this.hashedId = hashedId;
+        return this;
+    }
+
+    public void setHashedId(String hashedId) {
+        this.hashedId = hashedId;
     }
 
     public String getName() {
@@ -163,6 +178,7 @@ public class FileUpload implements Serializable {
     public String toString() {
         return "FileUpload{" +
             "id=" + getId() +
+            ", hashedId='" + getHashedId() + "'" +
             ", name='" + getName() + "'" +
             ", content='" + getContent() + "'" +
             ", contentContentType='" + getContentContentType() + "'" +

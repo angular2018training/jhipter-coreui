@@ -124,6 +124,7 @@ entity OrderUserRoute{
 // File upload
 entity FileUpload {
 	id Long,
+	hashedId String,
     name String required,
     content Blob,
     uploadTime Instant required,

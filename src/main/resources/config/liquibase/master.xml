@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    
+
     <include file="config/liquibase/changelog/20180626080008_added_entity_PostOffice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080009_added_entity_Ward.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080010_added_entity_District.xml" relativeToChangelogFile="false"/>
@@ -19,7 +19,6 @@
     <include file="config/liquibase/changelog/20180626080019_added_entity_QuotationItemType.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080020_added_entity_OrderUserRouteType.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080022_added_entity_OrderUserRoute.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180626080023_added_entity_FileUpload.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080025_added_entity_UserExtraInfo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080026_added_entity_Customer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080027_added_entity_CustomerLegal.xml" relativeToChangelogFile="false"/>
@@ -42,9 +41,10 @@
     <include file="config/liquibase/changelog/20180703125726_added_entity_Company.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180614034637_added_entity_Quotation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703123931_added_entity_OrderServices.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180614034630_added_entity_FileUpload.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    
-   
+
+
     <include file="config/liquibase/changelog/20180626080008_added_entity_constraints_PostOffice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080009_added_entity_constraints_Ward.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080010_added_entity_constraints_District.xml" relativeToChangelogFile="false"/>
@@ -58,7 +58,6 @@
     <include file="config/liquibase/changelog/20180626080019_added_entity_constraints_QuotationItemType.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080020_added_entity_constraints_OrderUserRouteType.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080022_added_entity_constraints_OrderUserRoute.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180626080023_added_entity_constraints_FileUpload.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080025_added_entity_constraints_UserExtraInfo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080026_added_entity_constraints_Customer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180626080027_added_entity_constraints_CustomerLegal.xml" relativeToChangelogFile="false"/>
@@ -80,7 +79,8 @@
     <include file="config/liquibase/changelog/20180703123931_added_entity_constraints_OrderServices.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180614034637_added_entity_constraints_Quotation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180703123931_added_entity_constraints_OrderServices.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180614034630_added_entity_constraints_FileUpload.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/99999999999999_common.xml" relativeToChangelogFile="false"/>
-    
+
 </databaseChangeLog>

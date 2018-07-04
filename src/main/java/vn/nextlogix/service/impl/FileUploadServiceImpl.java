@@ -2,7 +2,13 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.FileUploadService;
 import vn.nextlogix.domain.FileUpload;
-import vn.nextlogix.repository.FileUploadRepository;
+
+
+    import vn.nextlogix.repository.FileUploadRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.FileUploadSearchRepository;
 import vn.nextlogix.service.dto.FileUploadDTO;
 import vn.nextlogix.service.dto.FileUploadSearchDTO;
@@ -139,13 +145,24 @@ public class FileUploadServiceImpl implements FileUploadService {
     public Page<FileUploadDTO> searchExample(FileUploadSearchDTO searchDto, Pageable pageable) {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+            if(StringUtils.isNotBlank(searchDto.getHashedId())) {
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("hashedId", "*"+searchDto.getHashedId()+"*"));
+            }
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getContentType())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contentType", "*"+searchDto.getContentType()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("contentType", "*"+searchDto.getContentType()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<FileUpload> fileUploadPage= fileUploadSearchRepository.search(query);
             List<FileUploadDTO> fileUploadList =  StreamSupport
             .stream(fileUploadPage.spliterator(), false)

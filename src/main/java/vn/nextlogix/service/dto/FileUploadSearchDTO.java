@@ -17,6 +17,9 @@ public class FileUploadSearchDTO implements Serializable {
 private Long id;
 
 
+private String hashedId;
+
+
 private String name;
 
 
@@ -40,6 +43,14 @@ public Long getId() {
 
 public void setId(Long id) {
     this.id = id;
+    }
+
+public String getHashedId() {
+    return hashedId;
+    }
+
+public void setHashedId(String hashedId) {
+    this.hashedId = hashedId;
     }
 
 public String getName() {
@@ -117,6 +128,7 @@ public int hashCode() {
 public String toString() {
     return "FileUploadSearchDTO{" +
     "id=" + getId() +
+    ", hashedId='" + getHashedId() + "'" +
     ", name='" + getName() + "'" +
     ", content='" + getContent() + "'" +
     ", uploadTime='" + getUploadTime() + "'" +
