@@ -180,4 +180,22 @@ public class FileUploadServiceImpl implements FileUploadService {
             });
             return new PageImpl<>(fileUploadList,pageable,fileUploadPage.getTotalElements());
         }
+
+	@Override
+	public FileUploadDTO findByHashedId(String hashedId) {
+		List<FileUpload> fileUpload = fileUploadRepository.findByHashedId(hashedId);
+		if(fileUpload.size()==0) return null;
+		else {
+			FileUploadDTO fileUploadDTO = fileUploadMapper.toDto(fileUpload.get(0));
+			return fileUploadDTO;
+		}
+	}
+
+	@Override
+	public void deleteByHashedId(String hashedId) {
+		List<FileUpload> fileUpload = fileUploadRepository.findByHashedId(hashedId);
+		if(fileUpload.size()>0)
+		fileUploadRepository.delete(fileUpload);
+		
+	}
 }
