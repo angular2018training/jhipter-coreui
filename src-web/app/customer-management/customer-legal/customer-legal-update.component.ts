@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JhiAlertService,  } from 'ng-jhipster';
-
-import { CustomerLegalService } from './customer-legal.service';
-
-import { CustomerLegal } from './customer-legal.model';
-            import { Company, CompanyService } from '../../setup/company';
-            import { Province, ProvinceService } from '../../setup/province';
-            import { District, DistrictService } from '../../setup/district';
-            import { FileUpload, FileUploadService } from '../../setup/file-upload';
+import { JhiAlertService, JhiEventManager, } from 'ng-jhipster';
+import { Company } from '../../setup/company';
+import { FileUpload } from '../../setup/file-upload';
+import { CustomerLegal } from '../../shared/model/customer-legal.model';
+import { CustomerLegalService } from '../../shared/service/customer-legal.service';
+import { Province } from '../../shared/model/province.model';
+import { District } from '../../shared/model/district.model';
+import { ProvinceService } from '../../shared/service/province.service';
+import { DistrictService } from '../../shared/service/district.service';
 
 @Component({
     selector: 'jhi-customer-legal-update',
@@ -19,40 +19,36 @@ import { CustomerLegal } from './customer-legal.model';
 export class CustomerLegalUpdateComponent implements OnInit {
 
     private _customerLegal: CustomerLegal;
-    isSaving: boolean;
 
-    companies: Company[];
+    isSaving: boolean;
 
     provinces: Province[];
 
     districts: District[];
-
-    fileuploads: FileUpload[];
-
+    customerId;
     constructor(
         private jhiAlertService: JhiAlertService,
         private customerLegalService: CustomerLegalService,
-        private companyService: CompanyService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
-        private fileUploadService: FileUploadService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.route.data.subscribe(({customerLegal}) => {
-            this.customerLegal = customerLegal;
+        this.route.data.subscribe((data) => {
+            this.customerLegal = data.resolved.customerLegal;
+            this.customerId = data.resolved.customerId;
+
+            if (this.customerLegal.companyId) {
+                this.getProvince(this.customerLegal.companyId);
+                if (this.customerLegal.provinceId) {
+                    this.getDistricts(this.customerLegal.provinceId);
+                }
+            }
         });
-        this.companyService.query()
-            .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.provinceService.query()
-            .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.districtService.query()
-            .subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.fileUploadService.query()
-            .subscribe((res: HttpResponse<FileUpload[]>) => { this.fileuploads = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -63,11 +59,46 @@ export class CustomerLegalUpdateComponent implements OnInit {
         this.isSaving = true;
         if (this.customerLegal.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.customerLegalService.update(this.customerLegal));
+                this.customerLegalService.update(this.customerLegal, this.customerId));
         } else {
-            this.subscribeToSaveResponse(
-                this.customerLegalService.create(this.customerLegal));
+
+            this.customerLegalService.create(this.customerLegal, this.customerId).subscribe((res: HttpResponse<CustomerLegal>) => {
+                this.isSaving = false;
+                if (res.body) {
+                    this.customerLegal.id = res.body.id;
+                    this.eventManager.broadcast({
+                        name: 'update-current-customer',
+                        customer: {
+                            legalId: this.customerLegal.id
+                        }
+                    });
+                }
+            }, (res: HttpErrorResponse) => this.onSaveError());
         }
+    }
+
+    onProvinceChanged(provinceId) {
+        this.customerLegal.provinceId = provinceId;
+        this.customerLegal.districtId = null;
+        this.getDistricts(provinceId);
+    }
+
+    private getProvince(companyId) {
+        this.districts = [];
+        this.provinces = [];
+        this.provinceService.query({
+            'companyId.equals': companyId,
+            size: 10000
+        }).subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    private getDistricts(provinceId) {
+        this.districts = [];
+        this.districtService.query({
+            'provinceId.equals': provinceId,
+            size: 10000
+        }).subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<CustomerLegal>>) {
@@ -114,6 +145,7 @@ export class CustomerLegalUpdateComponent implements OnInit {
         }
         return option;
     }
+
     get customerLegal() {
         return this._customerLegal;
     }

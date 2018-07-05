@@ -1,119 +1,153 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-<div class="card">
-    <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.customerLegal.home.createOrEditLabel">Create or edit a Customer Legal</strong>
-    </div>
-    <div class="card-body">
-            <div>
+    <div class="card">
+        <div class="card-header">
+            <strong jhiTranslate="nextlogixApp.customerLegal.home.createOrEditLabel">Create or edit a Customer Legal</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!customerLegal.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="customerLegal.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractCustomerName" for="field_contractCustomerName">Contract Customer Name</label>
-                    <input type="text" class="form-control" name="contractCustomerName" id="field_contractCustomerName"
-                        [(ngModel)]="customerLegal.contractCustomerName" required/>
-                    <div [hidden]="!(editForm.controls.contractCustomerName?.dirty && editForm.controls.contractCustomerName?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.contractCustomerName?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractAddress" for="field_contractAddress">Contract Address</label>
-                    <input type="text" class="form-control" name="contractAddress" id="field_contractAddress"
-                        [(ngModel)]="customerLegal.contractAddress" required/>
-                    <div [hidden]="!(editForm.controls.contractAddress?.dirty && editForm.controls.contractAddress?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.contractAddress?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractContactName" for="field_contractContactName">Contract Contact Name</label>
-                    <input type="text" class="form-control" name="contractContactName" id="field_contractContactName"
-                        [(ngModel)]="customerLegal.contractContactName" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractContactPhone" for="field_contractContactPhone">Contract Contact Phone</label>
-                    <input type="text" class="form-control" name="contractContactPhone" id="field_contractContactPhone"
-                        [(ngModel)]="customerLegal.contractContactPhone" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.taxCode" for="field_taxCode">Tax Code</label>
-                    <input type="text" class="form-control" name="taxCode" id="field_taxCode"
-                        [(ngModel)]="customerLegal.taxCode" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractExpirationDate" for="field_contractExpirationDate">Contract Expiration Date</label>
-                    <input type="text" class="form-control" name="contractExpirationDate" id="field_contractExpirationDate"
-                        [(ngModel)]="customerLegal.contractExpirationDate" required/>
-                    <div [hidden]="!(editForm.controls.contractExpirationDate?.dirty && editForm.controls.contractExpirationDate?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.contractExpirationDate?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.taxCode" for="field_taxCode">Tax Code</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="taxCode" id="field_taxCode" [(ngModel)]="customerLegal.taxCode">
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.company" for="field_company">Company</label>
-                    <select class="form-control" id="field_company" name="company" [(ngModel)]="customerLegal.companyId"  required>
-                        <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
-                        <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
-                    </select>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractCustomerName" for="field_contractCustomerName">Contract Customer Name</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="contractCustomerName" id="field_contractCustomerName" [(ngModel)]="customerLegal.contractCustomerName"
+                                required/>
+                            <div [hidden]="!(editForm.controls.contractCustomerName?.dirty && editForm.controls.contractCustomerName?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.contractCustomerName?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractContactName" for="field_contractContactName">Contract Contact Name</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="contractContactName" id="field_contractContactName" [(ngModel)]="customerLegal.contractContactName">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.province" for="field_province">Province</label>
-                    <select class="form-control" id="field_province" name="province" [(ngModel)]="customerLegal.provinceId"  required>
-                        <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
-                        <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractContactPhone" for="field_contractContactPhone">Contract Contact Phone</label>
+
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="contractContactPhone" id="field_contractContactPhone" [(ngModel)]="customerLegal.contractContactPhone">
+
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractAddress" for="field_contractAddress">Contract Address</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="contractAddress" id="field_contractAddress" [(ngModel)]="customerLegal.contractAddress"
+                                required/>
+                            <div [hidden]="!(editForm.controls.contractAddress?.dirty && editForm.controls.contractAddress?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.contractAddress?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.district" for="field_district">District</label>
-                    <select class="form-control" id="field_district" name="district" [(ngModel)]="customerLegal.districtId"  required>
-                        <option *ngIf="!editForm.value.district" [ngValue]="null" selected></option>
-                        <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
-                    </select>
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.contractExpirationDate" for="field_contractExpirationDate">Contract Expiration Date</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <input type="text" class="form-control" name="contractExpirationDate" id="field_contractExpirationDate" [(ngModel)]="customerLegal.contractExpirationDate"
+                                required/>
+                            <div [hidden]="!(editForm.controls.contractExpirationDate?.dirty && editForm.controls.contractExpirationDate?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.contractExpirationDate?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.district?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.province" for="field_province">Province</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_province" name="province" [ngModel]="customerLegal.provinceId" (ngModelChange)="onProvinceChanged($event)"
+                                required>
+                                <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                                <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label jhiTranslate="nextlogixApp.customerLegal.fileUpload" for="field_fileUpload">File Upload</label>
-                    <select class="form-control" id="field_fileUpload" multiple name="fileUpload" [(ngModel)]="customerLegal.fileUploads">
-                        <option [ngValue]="getSelected(customerLegal.fileUploads, fileUploadOption)" *ngFor="let fileUploadOption of fileuploads; trackBy: trackFileUploadById">{{fileUploadOption.id}}</option>
-                    </select>
+
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.customerLegal.district" for="field_district">District</label>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <select class="form-control" id="field_district" name="district" [(ngModel)]="customerLegal.districtId" required>
+                                <option *ngIf="!editForm.value.district" [ngValue]="null" selected></option>
+                                <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.district?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group flex-btn-group-container">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;
+                    <span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="card-footer">
-        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
-    </div>
-</div>
 </form>
+
+<jhi-customer-legal-file-upload [legalId]="customerLegal.id"></jhi-customer-legal-file-upload>

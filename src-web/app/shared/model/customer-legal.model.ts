@@ -15,5 +15,6 @@ export class CustomerLegal implements BaseEntity {
         public districtId?: number,
         public customerId?: number,
     ) {
+        this.companyId = 1;
     }
 }

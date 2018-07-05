@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "customerLegalFileUpload" : {
+            "home": {
+                "title": "Customer Legal File Uploads",
+                "createLabel": "Thêm mới một Customer Legal File Upload",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer Legal File Upload",
+                "search": "Tìm Customer Legal File Upload"
+            },
+            "created": "Một Customer Legal File Upload mới được tạo với định danh {{ param }}",
+            "updated": "Một Customer Legal File Upload cập nhật với định danh {{ param }}",
+            "deleted": "Một Customer Legal File Upload đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Customer Legal File Upload {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Legal File Upload"
+            },
+            "company": "Company",
+            "fileUpload": "File Upload",
+            "customerLegalParent": "Customer Legal Parent"
+        }
+    }
+}

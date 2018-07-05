@@ -9,7 +9,7 @@ import { CustomerPostOffice } from './customer-post-office.model';
 import { CustomerPostOfficePopupService } from './customer-post-office-popup.service';
 import { CustomerPostOfficeService } from './customer-post-office.service';
 import { CustomerPostOfficeDeleteDialogComponent } from './customer-post-office-delete-dialog.component';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { Principal } from '../../shared';
 import { PostOffice } from '../../shared/model/post-office.model';
 import { PostOfficeService } from '../../setup/post-office/post-office.service';
 import { CustomerPostOfficeDialogComponent } from './customer-post-office-dialog.component';
@@ -65,7 +65,7 @@ export class CustomerPostOfficeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
@@ -75,6 +75,8 @@ export class CustomerPostOfficeComponent implements OnInit, OnDestroy {
             (res: HttpResponse<PostOffice[]>) => this.postOffices = res.body,
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        this.loadAll();
     }
 
     ngOnDestroy() {
@@ -87,14 +89,6 @@ export class CustomerPostOfficeComponent implements OnInit, OnDestroy {
 
     registerChangeInCustomerPostOffices() {
         this.eventSubscriber = this.eventManager.subscribe('customerPostOfficeListModification', (response) => this.loadAll());
-    }
-
-    sort() {
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        if (this.predicate !== 'id') {
-            result.push('id');
-        }
-        return result;
     }
 
     showPostOffice(id) {

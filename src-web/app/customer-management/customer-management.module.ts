@@ -13,6 +13,10 @@ import { CustomerPostOfficeDeleteDialogComponent } from './customer-post-office/
 import { CustomerManagementComponent } from './customer-management.component';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from '../shared';
+import { CustomerLegalUpdateComponent } from './customer-legal/customer-legal-update.component';
+import { CustomerLegalFileUploadComponent } from './customer-legal-file-upload/customer-legal-file-upload.component';
+import { CustomerLegalFileUploadDeleteDialogComponent } from './customer-legal-file-upload/customer-legal-file-upload-delete-dialog.component';
+import { FileUploadDialogComponent } from './customer-legal-file-upload/file-upload/file-upload-dialog.component';
 
 @NgModule({
   imports: [
@@ -32,12 +36,19 @@ import { JhiLanguageHelper } from '../shared';
     // postoffice
     CustomerPostOfficeComponent,
     CustomerPostOfficeDialogComponent,
-    CustomerPostOfficeDeleteDialogComponent
+    CustomerPostOfficeDeleteDialogComponent,
+    // legal
+    CustomerLegalUpdateComponent,
+    CustomerLegalFileUploadComponent,
+    CustomerLegalFileUploadDeleteDialogComponent,
+    FileUploadDialogComponent
   ],
   entryComponents: [
     CustomerDeleteDialogComponent,
     CustomerPostOfficeDialogComponent,
-    CustomerPostOfficeDeleteDialogComponent
+    CustomerPostOfficeDeleteDialogComponent,
+    CustomerLegalFileUploadDeleteDialogComponent,
+    FileUploadDialogComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

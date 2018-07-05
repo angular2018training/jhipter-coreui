@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "customerLegalFileUpload" : {
+            "home": {
+                "title": "Customer Legal File Uploads",
+                "createLabel": "Create a new Customer Legal File Upload",
+                "createOrEditLabel": "Create or edit a Customer Legal File Upload",
+                "search": "Search for Customer Legal File Upload"
+            },
+            "created": "A new Customer Legal File Upload is created with identifier {{ param }}",
+            "updated": "A Customer Legal File Upload is updated with identifier {{ param }}",
+            "deleted": "A Customer Legal File Upload is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Legal File Upload {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Legal File Upload"
+            },
+            "company": "Company",
+            "fileUpload": "File Upload",
+            "customerLegalParent": "Customer Legal Parent"
+        }
+    }
+}

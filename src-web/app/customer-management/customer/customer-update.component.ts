@@ -56,7 +56,7 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         // tslint:disable-next-line:no-debugger
         debugger;
-        this.routeSubcription = this.route.parent.parent.data.subscribe(({ customer }) => {
+        this.routeSubcription = this.route.parent.data.subscribe(({ customer }) => {
             this.customer = customer;
             if (this.customer.companyId) {
                 this.getProvince(this.customer.companyId);
