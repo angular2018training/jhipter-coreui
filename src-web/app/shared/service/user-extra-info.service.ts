@@ -75,29 +75,31 @@ export class UserExtraInfoService {
     /**
      * Convert a returned JSON object to UserExtraInfo.
      */
-    private convertItemFromServer(userExtraInfo: UserExtraInfo): UserExtraInfo {
+    public convertItemFromServer(userExtraInfo: UserExtraInfo): UserExtraInfo {
         const copy: UserExtraInfo = Object.assign({}, userExtraInfo);
-      copy.validDate = this.dateUtils
-        .convertLocalDateFromServer(userExtraInfo.validDate);
-        copy.lastLoginDate = this.dateUtils
-            .convertDateTimeFromServer(userExtraInfo.lastLoginDate);
-        copy.contractExpirationDate = this.dateUtils
-            .convertDateTimeFromServer(userExtraInfo.contractExpirationDate);
+      copy.validDate = this.dateUtils.convertLocalDateFromServer(userExtraInfo.validDate);
+      copy.lastLoginDate = this.dateUtils.convertDateTimeFromServer(userExtraInfo.lastLoginDate);
+      copy.contractExpirationDate = this.dateUtils.convertDateTimeFromServer(userExtraInfo.contractExpirationDate);
         return copy;
     }
 
     /**
      * Convert a UserExtraInfo to a JSON which can be sent to the server.
      */
-    private convert(userExtraInfo: UserExtraInfo): UserExtraInfo {
+    public convert(userExtraInfo: UserExtraInfo): UserExtraInfo {
         const copy: UserExtraInfo = Object.assign({}, userExtraInfo);
+        if(typeof copy.validDate =='string'){
+          copy.validDate = this.dateUtils.convertLocalDateToServer(userExtraInfo.validDate);
+        }
+        console.log(typeof userExtraInfo.lastLoginDate)
+        if(typeof copy.lastLoginDate == 'object'){
+          copy.lastLoginDate = userExtraInfo.lastLoginDate != null ? userExtraInfo.lastLoginDate.toJSON() : null;
+        }
+        if(typeof copy.contractExpirationDate == 'object'){
+          copy.contractExpirationDate = userExtraInfo.contractExpirationDate != null  ? userExtraInfo.contractExpirationDate.toJSON() : null;
+        }
 
-      copy.validDate = this.dateUtils
-        .convertLocalDateToServer(userExtraInfo.validDate);
 
-        copy.lastLoginDate = userExtraInfo.lastLoginDate != null && userExtraInfo.lastLoginDate.isValid() ? userExtraInfo.lastLoginDate.toJSON() : null;
-
-        copy.contractExpirationDate = userExtraInfo.contractExpirationDate != null && userExtraInfo.contractExpirationDate.isValid() ? userExtraInfo.contractExpirationDate.toJSON() : null;
         return copy;
     }
 }

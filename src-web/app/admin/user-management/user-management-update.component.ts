@@ -7,6 +7,7 @@ import {UserExtraInfo} from "../../shared/model/user-extra-info.model";
 import {DATE_PICKEK_CONFIG, DATE_TIME_FORMAT} from "../../shared/constants/input.constants";
 import * as moment from 'moment';
 import {JhiDataUtils} from "ng-jhipster";
+import {Principal} from "../../shared/auth/principal.service";
 
 @Component({
     selector: 'jhi-user-mgmt-update',
@@ -20,21 +21,31 @@ export class UserMgmtUpdateComponent implements OnInit {
     validDateDp: any;
     lastLoginDate: string;
     bsConfig:any =DATE_PICKEK_CONFIG;
+    isNew :boolean;
+    currentAccount:any;
     constructor(
         private languageHelper: JhiLanguageHelper,
         private userService: UserService,
         private route: ActivatedRoute,
         private router: Router,
         private dataUtils: JhiDataUtils,
+        private principal: Principal
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.route.data.subscribe(({ user }) => {
             this.user = user.body ? user.body : user;
-
+            if(!user.id) this.isNew = true;
             if(!this.user.userExtraInfo) {
               this.user.userExtraInfo = new UserExtraInfo();
+              this.principal.identity().then((account) => {
+                this.currentAccount = account;
+                if(!this.user.userExtraInfo.companyId) {
+                  this.user.userExtraInfo.companyId = this.currentAccount.companyId;
+                }
+              });
+
             }
         });
         this.authorities = [];
@@ -60,7 +71,6 @@ export class UserMgmtUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        //this.user.userExtraInfo.lastLoginDate = moment(this.lastLoginDate, DATE_TIME_FORMAT);
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
         } else {
@@ -70,7 +80,11 @@ export class UserMgmtUpdateComponent implements OnInit {
 
     private onSaveSuccess(result) {
         this.isSaving = false;
-        this.previousState();
+        if(this.isNew){
+          let url :string = '/admin/user-management/'+this.user.login+'/edit';
+          this.router.navigate([url]);
+        }
+        //this.previousState();
     }
 
     private onSaveError() {

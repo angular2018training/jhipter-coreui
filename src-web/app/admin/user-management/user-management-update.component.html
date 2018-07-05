@@ -77,7 +77,6 @@
                                [(ngModel)]="user.authorities">
                     </ng-select>
 
-
                   </div>
                   <label  class="col-md-2 col-form-label" jhiTranslate="userManagement.langKey" *ngIf="languages && languages.length > 0">Lang Key</label>
                   <div class="col-md-4 col-form-label">
@@ -107,7 +106,7 @@
 
                   <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userExtraInfo.lastLoginDate" for="field_lastLoginDate">Đăng nhập cuối</label>
                   <div class="col-md-4">
-                    <input  class="form-control" value="{{user.userExtraInfo.lastLoginDate| date : 'dd/MM/yyyy'}}" disabled ></input>
+                    <input id="field_lastLoginDate" class="form-control" value="{{user.userExtraInfo.lastLoginDate| date : 'dd/MM/yyyy'}}" disabled ></input>
 
                   </div>
                 </div>
@@ -185,4 +184,4 @@
       </button>
     </div>
   </div>
-  <jhi-user-post-office-detail-list [userExtraInfoParentId]=""></jhi-user-post-office-detail-list>
+  <jhi-user-post-office-detail-list [userExtraInfoParentId]="user.userExtraInfo.id"></jhi-user-post-office-detail-list>

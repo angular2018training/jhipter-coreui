@@ -6,12 +6,13 @@ import { SERVER_API_URL } from '../../app.constants';
 import { User } from './user.model';
 import { createRequestOption } from '../model/request-util';
 import {JhiDateUtils} from "ng-jhipster";
+import {UserExtraInfoService} from "../service/user-extra-info.service";
 export type EntityResponseType = HttpResponse<User>;
 @Injectable()
 export class UserService {
     private resourceUrl = SERVER_API_URL + 'api/users';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils,private userExtraInfoService:UserExtraInfoService) { }
 
     create(user: User): Observable<HttpResponse<User>> {
         const copy = this.convert(user);
@@ -55,21 +56,17 @@ export class UserService {
    */
   private convert(user: User): User {
     const copy: User = Object.assign({}, user);
-    if(user.userExtraInfo){
-      //copy.userExtraInfo.validDate = this.dateUtils.convertLocalDateToServer(user.userExtraInfo.validDate);
-      copy.userExtraInfo.lastLoginDate = user.userExtraInfo.lastLoginDate != null ? user.userExtraInfo.lastLoginDate.toJSON() : null;
-      copy.userExtraInfo.contractExpirationDate = user.userExtraInfo.contractExpirationDate != null ? user.userExtraInfo.contractExpirationDate.toJSON() : null;
+    if(copy.userExtraInfo){
+      copy.userExtraInfo = this.userExtraInfoService.convert(copy.userExtraInfo);
+
     }
     return copy;
   }
   private convertItemFromServer(user: User): User {
     const copy: User = Object.assign({}, user);
-    copy.userExtraInfo.validDate = this.dateUtils
-      .convertLocalDateFromServer(user.userExtraInfo.validDate);
-    copy.userExtraInfo.lastLoginDate = this.dateUtils
-      .convertDateTimeFromServer(user.userExtraInfo.lastLoginDate);
-    copy.userExtraInfo.contractExpirationDate = this.dateUtils
-      .convertDateTimeFromServer(user.userExtraInfo.contractExpirationDate);
+    if(copy.userExtraInfo){
+      copy.userExtraInfo = this.userExtraInfoService.convertItemFromServer(copy.userExtraInfo);
+    }
     return copy;
   }
 
