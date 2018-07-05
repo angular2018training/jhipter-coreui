@@ -15,54 +15,53 @@
         </div>
 
         <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_code"
-                       jhiTranslate="nextlogixApp.orderServices.code">Code:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="code" id="field_code"
-                           [(ngModel)]="orderServicesSearch.code" />
+            <div class="row">
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <label class="col-form-label" for="field_code" jhiTranslate="nextlogixApp.orderServices.code">Code:</label>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="orderServicesSearch.code" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_name"
-                       jhiTranslate="nextlogixApp.orderServices.name">Name:</label>
-                <div class="col-md-4">
 
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           [(ngModel)]="orderServicesSearch.name" />
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="col-form-label" for="field_name" jhiTranslate="nextlogixApp.orderServices.name">Name:</label>
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="orderServicesSearch.name" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_description"
-                       jhiTranslate="nextlogixApp.orderServices.description">Description:</label>
-                <div class="col-md-4">
 
-                    <input type="text" class="form-control" name="description" id="field_description"
-                           [(ngModel)]="orderServicesSearch.description" />
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <label class="col-form-label" for="field_orderServicesType" jhiTranslate="nextlogixApp.orderServices.orderServicesType">>Order Services Type:</label>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <select class="form-control" id="field_orderServicesType" name="orderServicesType" [(ngModel)]="orderServicesSearch.orderServicesTypeId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="orderServicesTypeOption.id" *ngFor="let orderServicesTypeOption of orderservicestypes; trackBy: trackOrderServicesTypeById">{{orderServicesTypeOption.name}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_orderServicesType"
-                       jhiTranslate="nextlogixApp.orderServices.orderServicesType">>Order Services Type:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_orderServicesType" name="orderServicesType" [(ngModel)]="orderServicesSearch.orderServicesTypeId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="orderServicesTypeOption.id" *ngFor="let orderServicesTypeOption of orderservicestypes; trackBy: trackOrderServicesTypeById">{{orderServicesTypeOption.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_quotation"
-                       jhiTranslate="nextlogixApp.orderServices.quotation">>Quotation:</label>
-                <div class="col-md-4">
-                    <label jhiTranslate="nextlogixApp.orderServices.quotation" for="field_quotation">Quotation</label>
-                    <select class="form-control" id="field_quotation" multiple name="quotation" [(ngModel)]="orderServicesSearch.quotations">
-                    <option [ngValue]="getSelected(orderServices.quotations, quotationOption)" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.id}}</option>
-                    </select>
-                </div>
+                <!-- <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="col-form-label" for="field_name">Status:</label>
+                        </div>
+                        <div class="col-md-10 col-sm-12">
+                            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="orderServicesSearch.status" />
+                        </div>
+                    </div>
+                </div> -->
             </div>
 
         </div>
@@ -89,7 +88,7 @@
     <div class="card-body">
 
         <div class="table-responsive" *ngIf="orderServices">
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered datatable">
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
