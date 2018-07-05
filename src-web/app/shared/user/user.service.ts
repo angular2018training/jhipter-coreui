@@ -5,23 +5,26 @@ import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 import { User } from './user.model';
 import { createRequestOption } from '../model/request-util';
-
+import {JhiDateUtils} from "ng-jhipster";
+export type EntityResponseType = HttpResponse<User>;
 @Injectable()
 export class UserService {
     private resourceUrl = SERVER_API_URL + 'api/users';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
     create(user: User): Observable<HttpResponse<User>> {
-        return this.http.post<User>(this.resourceUrl, user, { observe: 'response' });
+        const copy = this.convert(user);
+        return this.http.post<User>(this.resourceUrl, copy, { observe: 'response' }).map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     update(user: User): Observable<HttpResponse<User>> {
-        return this.http.put<User>(this.resourceUrl, user, { observe: 'response' });
+        const copy = this.convert(user);
+        return this.http.put<User>(this.resourceUrl, copy, { observe: 'response' }).map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(login: string): Observable<HttpResponse<User>> {
-        return this.http.get<User>(`${this.resourceUrl}/${login}`, { observe: 'response' });
+        return this.http.get<User>(`${this.resourceUrl}/${login}`, { observe: 'response' }).map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     query(req?: any): Observable<HttpResponse<User[]>> {
@@ -36,5 +39,39 @@ export class UserService {
     authorities(): Observable<string[]> {
         return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
     }
+    authoritiesAll(): Observable<any[]> {
+      return this.http.get<any[]>(SERVER_API_URL + 'api/users/authorities-all');
+    }
+
+  private convertResponse(res: EntityResponseType): EntityResponseType {
+    const body: User = this.convertItemFromServer(res.body);
+    return res.clone({body});
+  }
+  /**
+   * Convert a returned JSON object to User.
+   */
+  /**
+   * Convert a UserExtraInfo to a JSON which can be sent to the server.
+   */
+  private convert(user: User): User {
+    const copy: User = Object.assign({}, user);
+    if(user.userExtraInfo){
+      //copy.userExtraInfo.validDate = this.dateUtils.convertLocalDateToServer(user.userExtraInfo.validDate);
+      copy.userExtraInfo.lastLoginDate = user.userExtraInfo.lastLoginDate != null ? user.userExtraInfo.lastLoginDate.toJSON() : null;
+      copy.userExtraInfo.contractExpirationDate = user.userExtraInfo.contractExpirationDate != null ? user.userExtraInfo.contractExpirationDate.toJSON() : null;
+    }
+    return copy;
+  }
+  private convertItemFromServer(user: User): User {
+    const copy: User = Object.assign({}, user);
+    copy.userExtraInfo.validDate = this.dateUtils
+      .convertLocalDateFromServer(user.userExtraInfo.validDate);
+    copy.userExtraInfo.lastLoginDate = this.dateUtils
+      .convertDateTimeFromServer(user.userExtraInfo.lastLoginDate);
+    copy.userExtraInfo.contractExpirationDate = this.dateUtils
+      .convertDateTimeFromServer(user.userExtraInfo.contractExpirationDate);
+    return copy;
+  }
+
 
 }

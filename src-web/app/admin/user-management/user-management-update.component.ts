@@ -3,7 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {User} from "../../shared/user/user.model";
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
 import {UserService} from "../../shared/user/user.service";
-
+import {UserExtraInfo} from "../../shared/model/user-extra-info.model";
+import {DATE_PICKEK_CONFIG, DATE_TIME_FORMAT} from "../../shared/constants/input.constants";
+import * as moment from 'moment';
+import {JhiDataUtils} from "ng-jhipster";
 
 @Component({
     selector: 'jhi-user-mgmt-update',
@@ -14,21 +17,28 @@ export class UserMgmtUpdateComponent implements OnInit {
     languages: any[];
     authorities: any[];
     isSaving: boolean;
-
+    validDateDp: any;
+    lastLoginDate: string;
+    bsConfig:any =DATE_PICKEK_CONFIG;
     constructor(
         private languageHelper: JhiLanguageHelper,
         private userService: UserService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private dataUtils: JhiDataUtils,
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.route.data.subscribe(({ user }) => {
             this.user = user.body ? user.body : user;
+
+            if(!this.user.userExtraInfo) {
+              this.user.userExtraInfo = new UserExtraInfo();
+            }
         });
         this.authorities = [];
-        this.userService.authorities().subscribe(authorities => {
+        this.userService.authoritiesAll().subscribe(authorities => {
             this.authorities = authorities;
         });
         this.languageHelper.getAll().then(languages => {
@@ -40,8 +50,17 @@ export class UserMgmtUpdateComponent implements OnInit {
         this.router.navigate(['/admin/user-management']);
     }
 
+    setFileData(event, entity, field, isImage) {
+      this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    byteSize(field) {
+      return this.dataUtils.byteSize(field);
+    }
+
     save() {
         this.isSaving = true;
+        //this.user.userExtraInfo.lastLoginDate = moment(this.lastLoginDate, DATE_TIME_FORMAT);
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
         } else {

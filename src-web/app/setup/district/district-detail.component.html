@@ -1,47 +1,57 @@
+
 <div class="card ">
-  <div class="card-header">
-    <span jhiTranslate="nextlogixApp.district.detail.title">District</span> {{district.id}}
-  </div>
-  <div class="card-body">
-    <div *ngIf="district">
-      <h2><span jhiTranslate="nextlogixApp.district.detail.title">District</span> {{district.id}}</h2>
-      <hr>
-      <jhi-alert-error></jhi-alert-error>
-      <dl class="row-md jh-entity-details">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.district.detail.title">District</span> {{district.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="district">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
         <dt><span jhiTranslate="nextlogixApp.district.code">Code</span></dt>
         <dd>
-          <span>{{district.code}}</span>
+            <span>{{district.code}}</span>
         </dd>
         <dt><span jhiTranslate="nextlogixApp.district.name">Name</span></dt>
         <dd>
-          <span>{{district.name}}</span>
+            <span>{{district.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.district.pickupActive">Pickup Active</span></dt>
+        <dd>
+            <span>{{district.pickupActive}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.district.deliveryActive">Delivery Active</span></dt>
+        <dd>
+            <span>{{district.deliveryActive}}</span>
         </dd>
         <dt><span jhiTranslate="nextlogixApp.district.description">Description</span></dt>
         <dd>
-          <span>{{district.description}}</span>
+            <span>{{district.description}}</span>
         </dd>
         <dt><span jhiTranslate="nextlogixApp.district.province">Province</span></dt>
         <dd>
-          <div *ngIf="district.provinceId">
-            <a [routerLink]="['/setup/province', 'detail',district.provinceId]">{{district.provinceDTO.name}}</a>
-          </div>
+            <div *ngIf="district.provinceId">
+                <a [routerLink]="['/province', district.provinceId]">{{district.provinceId}}</a>
+            </div>
         </dd>
-      </dl>
-    </div>
-  </div>
-  <div class="card-footer">
+    </dl>
 
+
+</div>
+</div>
+<div class="card-footer">
     <button type="submit"
             (click)="previousState()"
-            [routerLink]="['/setup','district']"
             class="btn btn-info">
-      <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
     <button type="button"
-            [routerLink]="['/setup','district','edit', district.id]"
+            [routerLink]="['../../', 'district', district.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
             class="btn btn-primary">
-      <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
-  </div>
+</div>
 </div>

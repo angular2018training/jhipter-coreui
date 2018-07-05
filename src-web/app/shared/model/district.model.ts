@@ -5,9 +5,13 @@ export class District implements BaseEntity {
         public id?: number,
         public code?: string,
         public name?: string,
+        public pickupActive?: boolean,
+        public deliveryActive?: boolean,
         public description?: string,
         public companyId?: number,
         public provinceId?: number,
     ) {
+        this.pickupActive = false;
+        this.deliveryActive = false;
     }
 }

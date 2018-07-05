@@ -81,6 +81,8 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' code'] : '';
         this.orderServicesSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
                         this.activatedRoute.snapshot.params[' name'] : '';
+        this.orderServicesSearch.isActive = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['isActive'] ?
+                        this.activatedRoute.snapshot.params[' isActive'] : '';
         this.orderServicesSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
                         this.activatedRoute.snapshot.params[' description'] : '';
         this.orderServicesSearch.orderServicesTypeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['orderServicesTypeId'] ?
@@ -94,6 +96,7 @@ currentAccount: any;
          sort: this.sort(),
          code : this.orderServicesSearch.code,
          name : this.orderServicesSearch.name,
+         isActive : this.orderServicesSearch.isActive,
          description : this.orderServicesSearch.description,
          companyId :this.currentAccount.companyId,
          orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
@@ -124,6 +127,7 @@ currentAccount: any;
                 search: this.currentSearch,
                 code : this.orderServicesSearch.code,
                 name : this.orderServicesSearch.name,
+                isActive : this.orderServicesSearch.isActive,
                 description : this.orderServicesSearch.description,
                 companyId :this.currentAccount.companyId,
                 orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,

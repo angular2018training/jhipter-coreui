@@ -32,6 +32,8 @@ public class OrderServicesCriteria implements Serializable {
 
     private StringFilter name;
 
+    private BooleanFilter isActive;
+
     private StringFilter description;
 
     private LongFilter companyId;
@@ -65,6 +67,14 @@ public class OrderServicesCriteria implements Serializable {
 
     public void setName(StringFilter name) {
         this.name = name;
+    }
+
+    public BooleanFilter getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(BooleanFilter isActive) {
+        this.isActive = isActive;
     }
 
     public StringFilter getDescription() {
@@ -105,6 +115,7 @@ public class OrderServicesCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (code != null ? "code=" + code + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
+                (isActive != null ? "isActive=" + isActive + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (orderServicesTypeId != null ? "orderServicesTypeId=" + orderServicesTypeId + ", " : "") +

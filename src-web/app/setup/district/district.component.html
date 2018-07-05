@@ -1,132 +1,163 @@
-<form name="searchForm" class="form-horizontal" #searchForm="ngForm" (ngSubmit)="searchInForm()">
-  <div class="card ">
-    <div class="card-header">
-      <i class="fa fa-filter"></i>
-      <strong jhiTranslate="common.filter.header">Filter</strong>
-      <div class="card-header-actions">
 
-        <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
-           [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
-          <i class="icon-arrow-up"></i>
-        </a>
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
 
-      </div>
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_code"
+                       jhiTranslate="nextlogixApp.district.code">Code:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           [(ngModel)]="districtSearch.code" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_name"
+                       jhiTranslate="nextlogixApp.district.name">Name:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           [(ngModel)]="districtSearch.name" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_pickupActive"
+                       jhiTranslate="nextlogixApp.district.pickupActive">Pickup Active:</label>
+                <div class="col-md-4">
+
+                    <input type="checkbox" class="form-control" name="pickupActive" id="field_pickupActive"
+                           [(ngModel)]="districtSearch.pickupActive" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_deliveryActive"
+                       jhiTranslate="nextlogixApp.district.deliveryActive">Delivery Active:</label>
+                <div class="col-md-4">
+
+                    <input type="checkbox" class="form-control" name="deliveryActive" id="field_deliveryActive"
+                           [(ngModel)]="districtSearch.deliveryActive" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_description"
+                       jhiTranslate="nextlogixApp.district.description">Description:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           [(ngModel)]="districtSearch.description" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_province"
+                       jhiTranslate="nextlogixApp.district.province">>Province:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_province" name="province" [(ngModel)]="districtSearch.provinceId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+        </div>
     </div>
-
-    <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
-
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="districtSearch-code"
-               jhiTranslate="nextlogixApp.district.code">Code:</label>
-        <div class="col-md-4">
-          <input type="text" id="districtSearch-code" name="districtSearch-code" [(ngModel)]="districtSearch.code"
-                 class="form-control" placeholder="">
-        </div>
-        <label class="col-md-2 col-form-label" for="districtSearch-name"
-               jhiTranslate="nextlogixApp.district.name">Name:</label>
-        <div class="col-md-4">
-          <input type="text" id="districtSearch-name" name="districtSearch-name" [(ngModel)]="districtSearch.name"
-                 class="form-control" placeholder="">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="districtSearch-description"
-               jhiTranslate="nextlogixApp.district.description">Description:</label>
-        <div class="col-md-4">
-          <input type="text" id="districtSearch-description" name="districtSearch-description"
-                 [(ngModel)]="districtSearch.description" class="form-control" placeholder="">
-        </div>
-        <label class="col-md-2 col-form-label" for="districtSearch-province"
-               jhiTranslate="nextlogixApp.district.province">Province:</label>
-        <div class="col-md-4">
-          <select id="districtSearch-province" name="districtSearch-province"  [(ngModel)]="districtSearch.provinceId" class="form-control">
-            <option value="" jhiTranslate="nextlogixApp.district.province">Please select</option>
-            <option *ngFor="let province of provinces " [ngValue]="province.id">{{province.name}}</option>
-          </select>
-        </div>
-      </div>
-
-    </div>
-    <div class="card-footer">
-    <button type="submit" class="btn btn-primary">
-      <i class="fa fa-search"></i> {{'common.button.search' |translate }}
-    </button>
-    <button type="reset" class="btn btn-primary btn-danger" (click)="searchForm.reset()">
-      <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
-    </button>
-    <button type="reset" class="btn btn-primary btn-success">
-      <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
-    </button>
-    <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-      <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-    </button>
-
-  </div>
-  </div>
 </form>
 <div class="card">
-  <div class="card-body">
-    <div class="table-responsive" *ngIf="districts">
-      <table class="table table-striped">
-        <thead>
-        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-          <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span></th>
-          <th><span jhiTranslate="nextlogixApp.district.code">Code</span></th>
-          <th><span jhiTranslate="nextlogixApp.district.name">Name</span></th>
-          <th><span jhiTranslate="nextlogixApp.district.description">Description</span></th>
-          <th><span jhiTranslate="nextlogixApp.district.province">Province</span></th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody >
-        <tr *ngFor="let district of districts ;trackBy: trackId">
-          <td><a [routerLink]="['detail', district.id ]">{{district.id}}</a></td>
-          <td>{{district.code}}</td>
-          <td>{{district.name}}</td>
-          <td>{{district.description}}</td>
-          <td>
-            <div *ngIf="district.provinceId">
-              <a [routerLink]="['../province', district.provinceId  ]">{{district.provinceDTO.name}}</a>
-            </div>
-          </td>
-          <td class="text-right">
-            <div class="btn-group flex-btn-group-container">
-              <button type="submit"
-                      [routerLink]="['detail', district.id ]"
-                      class="btn btn-info btn-sm">
-                <span class="fa fa-eye"></span>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-              <button type="submit"
-                      [routerLink]="[ 'edit',district.id]"
-                      replaceUrl="true"
-                      queryParamsHandling="merge"
-                      class="btn btn-primary btn-sm">
-                <span class="fa fa-pencil"></span>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-              <button type="submit"
-                      (click)="deleteItem(district.id)"
-                      class="btn btn-danger btn-sm">
-                <span class="fa fa-remove"></span>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.district.home.title">Kết quả tìm kiếm</strong>
     </div>
-  </div>
-  <div class="card-footer">
+    <div class="card-body">
 
-    <div *ngIf="districts && districts.length">
-      <div class="row justify-content-center">
-        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-      </div>
-      <div class="row justify-content-center">
-        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-      </div>
+        <div class="table-responsive" *ngIf="districts">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.district.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.district.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="pickupActive"><span jhiTranslate="nextlogixApp.district.pickupActive">Pickup Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="deliveryActive"><span jhiTranslate="nextlogixApp.district.deliveryActive">Delivery Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.district.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.district.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let district of districts ;trackBy: trackId">
+                    <td><a [routerLink]="[ district.id,'view']">{{district.id}}</a></td>
+                    <td>{{district.code}}</td>
+                    <td>{{district.name}}</td>
+                    <td>{{district.pickupActive}}</td>
+                    <td>{{district.deliveryActive}}</td>
+                    <td>{{district.description}}</td>
+                    <td>
+        <div *ngIf="district.provinceId">
+        <a [routerLink]="['../province', 'detail',district.provinceId ]" >{{district.provinceDTO?.name}}</a>
     </div>
-  </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[district.id,'view' ]"
+                    class="btn btn-info btn-sm">
+                <i class="fa fa-eye"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+            </button>
+            <button type="submit"
+                    [routerLink]="[district.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button (click)="deleteItem(district.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
 </div>
+</div>
+<div *ngIf="districts && districts.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>
+
+

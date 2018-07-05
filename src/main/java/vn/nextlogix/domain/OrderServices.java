@@ -36,6 +36,9 @@ public class OrderServices implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @Column(name = "description")
     private String description;
 
@@ -87,6 +90,19 @@ public class OrderServices implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public OrderServices isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public String getDescription() {
@@ -178,6 +194,7 @@ public class OrderServices implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

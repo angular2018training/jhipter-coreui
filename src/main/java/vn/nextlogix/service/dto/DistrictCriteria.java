@@ -32,6 +32,10 @@ public class DistrictCriteria implements Serializable {
 
     private StringFilter name;
 
+    private BooleanFilter pickupActive;
+
+    private BooleanFilter deliveryActive;
+
     private StringFilter description;
 
     private LongFilter companyId;
@@ -65,6 +69,22 @@ public class DistrictCriteria implements Serializable {
         this.name = name;
     }
 
+    public BooleanFilter getPickupActive() {
+        return pickupActive;
+    }
+
+    public void setPickupActive(BooleanFilter pickupActive) {
+        this.pickupActive = pickupActive;
+    }
+
+    public BooleanFilter getDeliveryActive() {
+        return deliveryActive;
+    }
+
+    public void setDeliveryActive(BooleanFilter deliveryActive) {
+        this.deliveryActive = deliveryActive;
+    }
+
     public StringFilter getDescription() {
         return description;
     }
@@ -95,6 +115,8 @@ public class DistrictCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (code != null ? "code=" + code + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
+                (pickupActive != null ? "pickupActive=" + pickupActive + ", " : "") +
+                (deliveryActive != null ? "deliveryActive=" + deliveryActive + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (provinceId != null ? "provinceId=" + provinceId + ", " : "") +

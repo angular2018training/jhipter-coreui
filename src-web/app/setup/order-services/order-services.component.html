@@ -34,6 +34,15 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_isActive"
+                       jhiTranslate="nextlogixApp.orderServices.isActive">Is Active:</label>
+                <div class="col-md-4">
+
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                           [(ngModel)]="orderServicesSearch.isActive" />
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.orderServices.description">Description:</label>
                 <div class="col-md-4">
@@ -95,6 +104,7 @@
                 <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.orderServices.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.orderServices.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="isActive"><span jhiTranslate="nextlogixApp.orderServices.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.orderServices.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="orderServicesTypeId"><span jhiTranslate="nextlogixApp.orderServices.orderServicesType">Order Services Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
@@ -105,6 +115,7 @@
                     <td><a [routerLink]="[ orderServices.id,'view']">{{orderServices.id}}</a></td>
                     <td>{{orderServices.code}}</td>
                     <td>{{orderServices.name}}</td>
+                    <td>{{orderServices.isActive}}</td>
                     <td>{{orderServices.description}}</td>
                     <td>
         <div *ngIf="orderServices.orderServicesTypeId">

@@ -20,6 +20,12 @@ public class DistrictDTO implements Serializable {
     @NotNull
     private String name;
 
+    @NotNull
+    private Boolean pickupActive;
+
+    @NotNull
+    private Boolean deliveryActive;
+
     private String description;
 
     private Long companyId;
@@ -54,6 +60,22 @@ public class DistrictDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isPickupActive() {
+        return pickupActive;
+    }
+
+    public void setPickupActive(Boolean pickupActive) {
+        this.pickupActive = pickupActive;
+    }
+
+    public Boolean isDeliveryActive() {
+        return deliveryActive;
+    }
+
+    public void setDeliveryActive(Boolean deliveryActive) {
+        this.deliveryActive = deliveryActive;
     }
 
     public String getDescription() {
@@ -123,6 +145,8 @@ public class DistrictDTO implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", pickupActive='" + isPickupActive() + "'" +
+            ", deliveryActive='" + isDeliveryActive() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

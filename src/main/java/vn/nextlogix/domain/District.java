@@ -34,6 +34,14 @@ public class District implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotNull
+    @Column(name = "pickup_active", nullable = false)
+    private Boolean pickupActive;
+
+    @NotNull
+    @Column(name = "delivery_active", nullable = false)
+    private Boolean deliveryActive;
+
     @Column(name = "description")
     private String description;
 
@@ -78,6 +86,32 @@ public class District implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isPickupActive() {
+        return pickupActive;
+    }
+
+    public District pickupActive(Boolean pickupActive) {
+        this.pickupActive = pickupActive;
+        return this;
+    }
+
+    public void setPickupActive(Boolean pickupActive) {
+        this.pickupActive = pickupActive;
+    }
+
+    public Boolean isDeliveryActive() {
+        return deliveryActive;
+    }
+
+    public District deliveryActive(Boolean deliveryActive) {
+        this.deliveryActive = deliveryActive;
+        return this;
+    }
+
+    public void setDeliveryActive(Boolean deliveryActive) {
+        this.deliveryActive = deliveryActive;
     }
 
     public String getDescription() {
@@ -146,6 +180,8 @@ public class District implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", pickupActive='" + isPickupActive() + "'" +
+            ", deliveryActive='" + isDeliveryActive() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

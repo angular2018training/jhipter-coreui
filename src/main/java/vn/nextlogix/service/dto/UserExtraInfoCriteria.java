@@ -6,6 +6,7 @@ import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
 import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
@@ -34,7 +35,7 @@ public class UserExtraInfoCriteria implements Serializable {
 
     private StringFilter address;
 
-    private InstantFilter validDate;
+    private LocalDateFilter validDate;
 
     private InstantFilter lastLoginDate;
 
@@ -79,15 +80,16 @@ public class UserExtraInfoCriteria implements Serializable {
         this.address = address;
     }
 
-    public InstantFilter getValidDate() {
-        return validDate;
-    }
 
-    public void setValidDate(InstantFilter validDate) {
-        this.validDate = validDate;
-    }
+    public LocalDateFilter getValidDate() {
+		return validDate;
+	}
 
-    public InstantFilter getLastLoginDate() {
+	public void setValidDate(LocalDateFilter validDate) {
+		this.validDate = validDate;
+	}
+
+	public InstantFilter getLastLoginDate() {
         return lastLoginDate;
     }
 

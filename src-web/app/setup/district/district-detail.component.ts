@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { District } from './district.model';
-import { DistrictService } from './district.service';
+import { District } from '../../shared/model/district.model';
+import { DistrictService } from '../../shared/service/district.service';
 
 @Component({
     selector: 'jhi-district-detail',
@@ -25,7 +25,6 @@ export class DistrictDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.district = new District();
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });

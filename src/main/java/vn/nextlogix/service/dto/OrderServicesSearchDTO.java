@@ -21,6 +21,9 @@ private String code;
 private String name;
 
 
+private Boolean isActive;
+
+
 private String description;
 
 private Long companyId;
@@ -55,6 +58,14 @@ public String getName() {
 
 public void setName(String name) {
     this.name = name;
+    }
+
+public Boolean isIsActive() {
+    return isActive;
+    }
+
+public void setIsActive(Boolean isActive) {
+    this.isActive = isActive;
     }
 
 public String getDescription() {
@@ -120,6 +131,7 @@ public String toString() {
     "id=" + getId() +
     ", code='" + getCode() + "'" +
     ", name='" + getName() + "'" +
+    ", isActive='" + isIsActive() + "'" +
     ", description='" + getDescription() + "'" +
     "}";
     }

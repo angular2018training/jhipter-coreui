@@ -19,6 +19,7 @@
             },
             "code": "Code",
             "name": "Name",
+            "isActive": "Is Active",
             "description": "Description",
             "company": "Company",
             "orderServicesType": "Order Services Type",

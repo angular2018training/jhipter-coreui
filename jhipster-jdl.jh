@@ -22,6 +22,8 @@ entity District {
 	id Long,
     code String required,
     name String required,
+    pickupActive Boolean required,
+    deliveryActive Boolean required,
     description String
 }
 
@@ -60,12 +62,11 @@ entity OrderStatus {
     description String
 }
 
-
-
 entity OrderServices {
 	id Long,
     code String required,
     name String required,
+    isActive Boolean,
     description String
 }
 
@@ -134,10 +135,9 @@ entity FileUpload {
 // System
 entity UserExtraInfo {
 	id Long,
-    email String,
     phone String,
     address String,
-    validDate Instant required,
+    validDate LocalDate required,
     lastLoginDate Instant,
     contractFile Blob,
     contractExpirationDate Instant
@@ -303,114 +303,113 @@ entity DetailForm {
 }
 
 relationship ManyToMany {
-	UserPostOffice{UserGroup required} to UserGroup
+	UserPostOffice{UserGroup required} to UserGroup,
 	OrderServices{quotation} to Quotation
 }
 
 relationship ManyToOne {
 // Company relationship
-    PostOffice{company required} to Company
-    Ward{company required} to Company
-    District{company required} to Company
-    Province{company required} to Company
-    UserGroup{company required} to Company
-    Bank{company required} to Company
-    OrderStatus{company required} to Company
-    OrderServices{company required} to Company
-    CustomerType{company required} to Company
-    CustomerSource{company required} to Company
-    PaymentType{company required} to Company
-    QuotationItemType{company required} to Company
-    OrderUserRouteType{company required} to Company
-    OrderUserRoute{company required} to Company
-    FileUpload{company required} to Company
-    UserExtraInfo{company required} to Company
-    UserPostOffice{company required} to Company
-    Customer{company required} to Company
-    CustomerLegal{company required} to Company
-    CustomerPayment{company required} to Company
-    CustomerPostOffice{company required} to Company
-    CustomerLegalFileUpload{company required} to Company
-    CustomerWarehouse{company required} to Company
-    CustomerServices{company required} to Company
-    Warehouse{company required} to Company
-    Quotation{company required} to Company
-    QuotationItem{company required} to Company
-    OrderMain{company required} to Company
-    OrderPickup{company required} to Company
-    OrderConsignee{company required} to Company
-    OrderFee{company required} to Company
-    OrderDelivery{company required} to Company
+    PostOffice{company required} to Company,
+    Ward{company required} to Company,
+    District{company required} to Company,
+    Province{company required} to Company,
+    UserGroup{company required} to Company,
+    Bank{company required} to Company,
+    OrderStatus{company required} to Company,
+    OrderServices{company required} to Company,
+    CustomerType{company required} to Company,
+    CustomerSource{company required} to Company,
+    PaymentType{company required} to Company,
+    QuotationItemType{company required} to Company,
+    OrderUserRouteType{company required} to Company,
+    OrderUserRoute{company required} to Company,
+    FileUpload{company required} to Company,
+    UserExtraInfo{company required} to Company,
+    UserPostOffice{company required} to Company,
+    Customer{company required} to Company,
+    CustomerLegal{company required} to Company,
+    CustomerPayment{company required} to Company,
+    CustomerPostOffice{company required} to Company,
+    CustomerLegalFileUpload{company required} to Company,
+    CustomerWarehouse{company required} to Company,
+    CustomerServices{company required} to Company,
+    Warehouse{company required} to Company,
+    Quotation{company required} to Company,
+    QuotationItem{company required} to Company,
+    OrderMain{company required} to Company,
+    OrderPickup{company required} to Company,
+    OrderConsignee{company required} to Company,
+    OrderFee{company required} to Company,
+    OrderDelivery{company required} to Company,
 // Others
-    Customer{manageUser} to UserExtraInfo
-    Customer{saleUser} to UserExtraInfo
-    Customer{province required} to Province
-    Customer{district required} to District
-    Customer{customerType required} to CustomerType
-    Customer{customerSource required} to CustomerSource
-    Ward{district required} to District
-    District{province required} to Province
-    PostOffice{province required} to Province
-    PostOffice{district required} to District
-    CustomerPayment{bank required} to Bank
-    CustomerPayment{userVerify} to UserExtraInfo
-    CustomerPayment{paymentType} to PaymentType
-    CustomerPostOffice{postOffice required} to PostOffice
-    CustomerServices{orderServices required} to OrderServices
-    CustomerServices{quotation} to Quotation
-    CustomerLegalFileUpload{fileUpload required} to FileUpload
-    CustomerWarehouse{warehouse required} to Warehouse
-  	OrderMain{createUser} to UserExtraInfo
-    OrderMain{orderStatus required} to OrderStatus
-    OrderMain{customer required} to Customer
-    OrderMain{mainService required} to OrderServices
-    OrderMain{createPostOffice required} to PostOffice
-    OrderMain{currentPostOffice required} to PostOffice
-    OrderPickup{ward required} to Ward
-    OrderPickup{district required} to District
-    OrderPickup{province required} to Province
-    OrderPickup{pickupUser} to UserExtraInfo
-    OrderConsignee{district required} to District
-    OrderConsignee{province required} to Province
-    OrderFee{quotation required} to Quotation
-    OrderDelivery{createUser required} to UserExtraInfo
-    OrderDelivery{orderStatus required} to OrderStatus
-    OrderUserRoute{user required} to UserExtraInfo
-    OrderUserRoute{province required} to Province
-    OrderUserRoute{district required} to District
-    OrderUserRoute{orderUserRouteType required} to OrderUserRouteType
-    OrderUserRoute{ward} to District
-    OrderUserRoute{customer} to Customer
-    CustomerLegal{province required} to Province
-    CustomerLegal{district required} to District
-    Warehouse{province required} to Province
-    Warehouse{district required} to District
-    Warehouse{ward required} to Ward
-    MasterForm{province} to Province
-    MasterForm{district} to District
-    DetailForm{province} to Province
-    DetailForm{district} to District
-    UserPostOffice{postOffice required} to PostOffice
+    Customer{manageUser} to UserExtraInfo,
+    Customer{saleUser} to UserExtraInfo,
+    Customer{province required} to Province,
+    Customer{district required} to District,
+    Customer{customerType required} to CustomerType,
+    Customer{customerSource required} to CustomerSource,
+    Ward{district required} to District,
+    District{province required} to Province,
+    PostOffice{province required} to Province,
+    PostOffice{district required} to District,
+    CustomerPayment{bank required} to Bank,
+    CustomerPayment{userVerify} to UserExtraInfo,
+    CustomerPayment{paymentType} to PaymentType,
+    CustomerPostOffice{postOffice required} to PostOffice,
+	CustomerServices{orderServices required} to OrderServices
+    CustomerServices{quotation} to Quotation,
+    CustomerLegalFileUpload{fileUpload required} to FileUpload,
+    CustomerWarehouse{warehouse required} to Warehouse,
+  	OrderMain{createUser} to UserExtraInfo,
+    OrderMain{orderStatus required} to OrderStatus,
+    OrderMain{customer required} to Customer,
+    OrderMain{mainService required} to OrderServices,
+    OrderMain{createPostOffice required} to PostOffice,
+    OrderMain{currentPostOffice required} to PostOffice,
+    OrderPickup{ward required} to Ward,
+    OrderPickup{district required} to District,
+    OrderPickup{province required} to Province,
+    OrderPickup{pickupUser} to UserExtraInfo,
+    OrderConsignee{district required} to District,
+    OrderConsignee{province required} to Province,
+    OrderFee{quotation required} to Quotation,
+    OrderDelivery{createUser required} to UserExtraInfo,
+    OrderDelivery{orderStatus required} to OrderStatus,
+    OrderUserRoute{user required} to UserExtraInfo,
+    OrderUserRoute{province required} to Province,
+    OrderUserRoute{district required} to District,
+    OrderUserRoute{orderUserRouteType required} to OrderUserRouteType,
+    OrderUserRoute{ward} to District,
+    OrderUserRoute{customer} to Customer,
+    CustomerLegal{province required} to Province,
+    CustomerLegal{district required} to District,
+    Warehouse{province required} to Province,
+    Warehouse{district required} to District,
+    Warehouse{ward required} to Ward,
+    MasterForm{province} to Province,
+    MasterForm{district} to District,
+    DetailForm{province} to Province,
+    DetailForm{district} to District,
+    UserPostOffice{postOffice required} to PostOffice,
     OrderServices{orderServicesType required} to OrderServicesType
-   
 }
 
 relationship OneToMany {
-    Quotation{quotationItemDetailList} to QuotationItem
-    MasterForm{detailFormDetailList} to DetailForm
-    UserExtraInfo{userPostOfficeDetailList} to UserPostOffice{userExtraInfoParent}
-    Customer{customerPostOfficeDetailList} to CustomerPostOffice{customerParent}
-	CustomerLegal{customerLegalFileUploadDetailList} to CustomerLegalFileUpload{customerLegalParent}
-    Customer{customerWarehouseDetailList} to CustomerWarehouse{customerParent}
+    Quotation{quotationItemDetailList} to QuotationItem,
+    MasterForm{detailFormDetailList} to DetailForm,
+    UserExtraInfo{userPostOfficeDetailList} to UserPostOffice{userExtraInfoParent},
+    Customer{customerPostOfficeDetailList} to CustomerPostOffice{customerParent},
+	CustomerLegal{customerLegalFileUploadDetailList} to CustomerLegalFileUpload{customerLegalParent},
+    Customer{customerWarehouseDetailList} to CustomerWarehouse{customerParent},
     Customer{customerServicesDetailList} to CustomerServices{customerParent}
 }
 
 relationship OneToOne {
-    Customer{legal} to CustomerLegal{customer}
-    Customer{payment} to CustomerPayment
-    OrderMain{orderPickup} to OrderPickup
-    OrderMain{orderConsignee} to OrderConsignee
-    OrderMain{orderFee} to OrderFee
+    Customer{legal} to CustomerLegal{customer},
+    Customer{payment} to CustomerPayment,
+    OrderMain{orderPickup} to OrderPickup,
+    OrderMain{orderConsignee} to OrderConsignee,
+    OrderMain{orderFee} to OrderFee,
     OrderMain{orderDelivery} to OrderDelivery
 }
 

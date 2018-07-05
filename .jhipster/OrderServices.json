@@ -40,6 +40,10 @@
             ]
         },
         {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
+        },
+        {
             "fieldName": "description",
             "fieldType": "String"
         }

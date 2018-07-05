@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "userPostOffice" : {
+            "home": {
+                "title": "User Post Offices",
+                "createLabel": "Thêm mới một User Post Office",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật User Post Office",
+                "search": "Tìm User Post Office"
+            },
+            "created": "Một User Post Office mới được tạo với định danh {{ param }}",
+            "updated": "Một User Post Office cập nhật với định danh {{ param }}",
+            "deleted": "Một User Post Office đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa User Post Office {{ id }}?"
+            },
+            "detail": {
+                "title": "User Post Office"
+            },
+            "company": "Company",
+            "postOffice": "Post Office",
+            "userGroup": "User Group",
+            "userExtraInfoParent": "User Extra Info Parent"
+        }
+    }
+}

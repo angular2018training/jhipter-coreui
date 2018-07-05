@@ -77,8 +77,8 @@ export class UserExtraInfoService {
      */
     private convertItemFromServer(userExtraInfo: UserExtraInfo): UserExtraInfo {
         const copy: UserExtraInfo = Object.assign({}, userExtraInfo);
-        copy.validDate = this.dateUtils
-            .convertDateTimeFromServer(userExtraInfo.validDate);
+      copy.validDate = this.dateUtils
+        .convertLocalDateFromServer(userExtraInfo.validDate);
         copy.lastLoginDate = this.dateUtils
             .convertDateTimeFromServer(userExtraInfo.lastLoginDate);
         copy.contractExpirationDate = this.dateUtils
@@ -92,7 +92,8 @@ export class UserExtraInfoService {
     private convert(userExtraInfo: UserExtraInfo): UserExtraInfo {
         const copy: UserExtraInfo = Object.assign({}, userExtraInfo);
 
-        copy.validDate = userExtraInfo.validDate != null && userExtraInfo.validDate.isValid() ? userExtraInfo.validDate.toJSON() : null;
+      copy.validDate = this.dateUtils
+        .convertLocalDateToServer(userExtraInfo.validDate);
 
         copy.lastLoginDate = userExtraInfo.lastLoginDate != null && userExtraInfo.lastLoginDate.isValid() ? userExtraInfo.lastLoginDate.toJSON() : null;
 

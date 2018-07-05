@@ -21,6 +21,12 @@ private String code;
 private String name;
 
 
+private Boolean pickupActive;
+
+
+private Boolean deliveryActive;
+
+
 private String description;
 
 private Long companyId;
@@ -53,6 +59,22 @@ public String getName() {
 
 public void setName(String name) {
     this.name = name;
+    }
+
+public Boolean isPickupActive() {
+    return pickupActive;
+    }
+
+public void setPickupActive(Boolean pickupActive) {
+    this.pickupActive = pickupActive;
+    }
+
+public Boolean isDeliveryActive() {
+    return deliveryActive;
+    }
+
+public void setDeliveryActive(Boolean deliveryActive) {
+    this.deliveryActive = deliveryActive;
     }
 
 public String getDescription() {
@@ -110,6 +132,8 @@ public String toString() {
     "id=" + getId() +
     ", code='" + getCode() + "'" +
     ", name='" + getName() + "'" +
+    ", pickupActive='" + isPickupActive() + "'" +
+    ", deliveryActive='" + isDeliveryActive() + "'" +
     ", description='" + getDescription() + "'" +
     "}";
     }

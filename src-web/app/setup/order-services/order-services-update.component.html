@@ -37,6 +37,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.orderServices.isActive" for="field_isActive">Is Active</label>
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                        [(ngModel)]="orderServices.isActive" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="nextlogixApp.orderServices.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="orderServices.description" />

@@ -9,8 +9,10 @@ import vn.nextlogix.security.AuthoritiesConstants;
 import vn.nextlogix.service.MailService;
 import vn.nextlogix.service.UserQueryService;
 import vn.nextlogix.service.UserService;
+import vn.nextlogix.service.dto.AuthorityDTO;
 import vn.nextlogix.service.dto.UserCriteria;
 import vn.nextlogix.service.dto.UserDTO;
+import vn.nextlogix.service.mapper.UserExtraInfoMapper;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.errors.EmailAlreadyUsedException;
 import vn.nextlogix.web.rest.errors.LoginAlreadyUsedException;
@@ -76,14 +78,17 @@ public class UserResource {
     private final UserSearchRepository userSearchRepository;
     
     private final UserQueryService userQueryService;
+    
+    private final UserExtraInfoMapper userExtraInfoMapper;
 
-    public UserResource(UserRepository userRepository, UserService userService, MailService mailService, UserSearchRepository userSearchRepository, UserQueryService userQueryService) {
+    public UserResource(UserRepository userRepository, UserService userService, MailService mailService, UserSearchRepository userSearchRepository, UserQueryService userQueryService, UserExtraInfoMapper userExtraInfoMapper) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.userSearchRepository = userSearchRepository;
         this.userQueryService = userQueryService;
+        this.userExtraInfoMapper = userExtraInfoMapper;
     }
 
     /**
@@ -170,6 +175,17 @@ public class UserResource {
     public List<String> getAuthorities() {
         return userService.getAuthorities();
     }
+    
+    /**
+     * @return a string list of the all of the roles
+     */
+    @GetMapping("/users/authorities-all")
+    @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
+    public List<AuthorityDTO> getAuthoritiesAll() {
+        return userService.getAuthoritiesAll();
+    }
+
 
     /**
      * GET /users/:login : get the "login" user.
@@ -181,9 +197,12 @@ public class UserResource {
     @Timed
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
-        return ResponseUtil.wrapOrNotFound(
-            userService.getUserWithAuthoritiesByLogin(login)
-                .map(UserDTO::new));
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login);
+        Optional<UserDTO> userDTO = user.map(UserDTO::new);
+        if(userDTO.isPresent()) {
+        	userDTO.get().setUserExtraInfo(userExtraInfoMapper.toDto(user.get().getUserExtraInfo()));
+        }
+        return ResponseUtil.wrapOrNotFound(userDTO);
     }
 
     /**

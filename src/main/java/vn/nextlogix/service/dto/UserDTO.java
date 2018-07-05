@@ -55,6 +55,8 @@ public class UserDTO {
 
     private Long companyId;
 
+    private UserExtraInfoDTO userExtraInfo;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -76,6 +78,7 @@ public class UserDTO {
             .map(Authority::getName)
             .collect(Collectors.toSet());
         this.companyId = user.getUserExtraInfo()!=null?(user.getUserExtraInfo().getCompany()!=null?user.getUserExtraInfo().getCompany().getId():null):null;
+
     }
 
     public Long getId() {
@@ -181,8 +184,8 @@ public class UserDTO {
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
     }
-    
-    
+
+
 
     public Long getCompanyId() {
 		return companyId;
@@ -190,6 +193,16 @@ public class UserDTO {
 
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+	
+	
+
+	public UserExtraInfoDTO getUserExtraInfo() {
+		return userExtraInfo;
+	}
+
+	public void setUserExtraInfo(UserExtraInfoDTO userExtraInfo) {
+		this.userExtraInfo = userExtraInfo;
 	}
 
 	@Override
@@ -201,5 +214,5 @@ public class UserDTO {
 				+ "]";
 	}
 
-	
+
 }
