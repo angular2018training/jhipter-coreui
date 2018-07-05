@@ -1,2 +1,2 @@
-id;email;phone;address;valid_date;last_login_date;contract_file;contract_file_content_type;contract_expiration_date;company_id;user_id
-1;thanhtrung3t@gmail.com;1231313;123213;'1999-01-08 04:05:06';'1999-01-08 04:05:06';;;'1999-01-08 04:05:06';1;3
+id;phone;address;valid_date;last_login_date;contract_file;contract_file_content_type;contract_expiration_date;company_id;user_id
+1;1231313;123213;'1999-01-08 04:05:06';'1999-01-08 04:05:06';;;'1999-01-08 04:05:06';1;3

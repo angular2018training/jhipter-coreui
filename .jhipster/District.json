@@ -32,6 +32,20 @@
             ]
         },
         {
+            "fieldName": "pickupActive",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "deliveryActive",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "description",
             "fieldType": "String"
         }

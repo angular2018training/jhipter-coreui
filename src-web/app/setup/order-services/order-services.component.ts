@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 import {AlertService} from '../../shared/alert/alert-service';
-import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -14,16 +13,9 @@ import { OrderServicesService } from '../../shared/service/order-services.servic
 import { OrderServicesDeleteDialogComponent } from './order-services-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {OrderServicesSearch} from '../../shared/model/order-services.search.model';
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
-    import { OrderServicesType } from '../../shared/model/order-services-type.model';
-    import { OrderServicesTypeService } from '../../shared/service/order-services-type.service';
-
-    import { Quotation } from '../../shared/model/quotation.model';
-    import { QuotationService } from '../../shared/service/quotation.service';
-
-
+import { OrderServicesType } from '../../shared/model/order-services-type.model';
+import { OrderServicesTypeService } from '../../shared/service/order-services-type.service';
+import { Quotation } from '../../shared/model/quotation.model';
 
 @Component({
     selector: 'jhi-order-services',
@@ -89,7 +81,7 @@ currentAccount: any;
 
     loadAll() {
          var obj = {
-         page: this.page -1,
+         page: this.page - 1,
          size: this.itemsPerPage,
          sort: this.sort(),
          code : this.orderServicesSearch.code,
@@ -164,7 +156,7 @@ currentAccount: any;
         });
         this.registerChangeInOrderServices();
         this.orderServicesTypeService.query().subscribe(
-            (res: HttpResponse<OrderServicesType[]>) => this.orderServicesTypes = res.body,
+            (res: HttpResponse<OrderServicesType[]>) => { this.orderServicesTypes = res.body; console.log(this.orderServicesTypes);},
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
@@ -199,8 +191,12 @@ currentAccount: any;
         this.alertService.error(error.message, null, null);
     }
 
-    public deleteItem(id:number){
+    public deleteItem(id: number) {
         this.orderServicesPopupService
             .open(OrderServicesDeleteDialogComponent as Component, id);
+    }
+    public getOrderServiceTypeName(id: number) {
+        const foundOrderType = this.orderServicesTypes.find((x) => x.id === id);
+        return foundOrderType.name;
     }
 }

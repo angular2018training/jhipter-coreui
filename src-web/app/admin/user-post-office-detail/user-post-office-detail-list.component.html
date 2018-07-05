@@ -3,7 +3,7 @@
     <div class="card-header">
         <strong jhiTranslate="nextlogixApp.userPostOffice.home.title">Kết quả tìm kiếm</strong>
         <div class="card-header-actions">
-            <button type="button" class="btn btn-primary btn-warning pull-right"  (click)="createDetailForm()">
+            <button type="button" class="btn btn-primary btn-warning pull-right" [disabled]="!userExtraInfoParentId"  (click)="createDetailForm()">
                 <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
             </button>
 

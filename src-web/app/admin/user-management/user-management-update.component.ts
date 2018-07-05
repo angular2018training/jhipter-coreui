@@ -3,7 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {User} from "../../shared/user/user.model";
 import {JhiLanguageHelper} from "../../shared/language/language.helper";
 import {UserService} from "../../shared/user/user.service";
-
+import {UserExtraInfo} from "../../shared/model/user-extra-info.model";
+import {DATE_PICKEK_CONFIG, DATE_TIME_FORMAT} from "../../shared/constants/input.constants";
+import * as moment from 'moment';
+import {JhiDataUtils} from "ng-jhipster";
+import {Principal} from "../../shared/auth/principal.service";
 
 @Component({
     selector: 'jhi-user-mgmt-update',
@@ -14,21 +18,38 @@ export class UserMgmtUpdateComponent implements OnInit {
     languages: any[];
     authorities: any[];
     isSaving: boolean;
-
+    validDateDp: any;
+    lastLoginDate: string;
+    bsConfig:any =DATE_PICKEK_CONFIG;
+    isNew :boolean;
+    currentAccount:any;
     constructor(
         private languageHelper: JhiLanguageHelper,
         private userService: UserService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private dataUtils: JhiDataUtils,
+        private principal: Principal
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.route.data.subscribe(({ user }) => {
             this.user = user.body ? user.body : user;
+            if(!user.id) this.isNew = true;
+            if(!this.user.userExtraInfo) {
+              this.user.userExtraInfo = new UserExtraInfo();
+              this.principal.identity().then((account) => {
+                this.currentAccount = account;
+                if(!this.user.userExtraInfo.companyId) {
+                  this.user.userExtraInfo.companyId = this.currentAccount.companyId;
+                }
+              });
+
+            }
         });
         this.authorities = [];
-        this.userService.authorities().subscribe(authorities => {
+        this.userService.authoritiesAll().subscribe(authorities => {
             this.authorities = authorities;
         });
         this.languageHelper.getAll().then(languages => {
@@ -38,6 +59,14 @@ export class UserMgmtUpdateComponent implements OnInit {
 
     previousState() {
         this.router.navigate(['/admin/user-management']);
+    }
+
+    setFileData(event, entity, field, isImage) {
+      this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    byteSize(field) {
+      return this.dataUtils.byteSize(field);
     }
 
     save() {
@@ -51,7 +80,11 @@ export class UserMgmtUpdateComponent implements OnInit {
 
     private onSaveSuccess(result) {
         this.isSaving = false;
-        this.previousState();
+        if(this.isNew){
+          let url :string = '/admin/user-management/'+this.user.login+'/edit';
+          this.router.navigate([url]);
+        }
+        //this.previousState();
     }
 
     private onSaveError() {

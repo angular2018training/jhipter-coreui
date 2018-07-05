@@ -5,109 +5,175 @@
     </div>
     <div class="card-body">
 
-                <div class="form-group" [hidden]="!user.id">
-                    <label jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" name="id"
-                        [(ngModel)]="user.id" readonly>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="userManagement.login">Login</label>
-                    <input type="text" class="form-control" name="login" #loginInput="ngModel"
-                        [(ngModel)]="user.login" required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" jhiTranslate="userManagement.login">Login</label>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" name="login" #loginInput="ngModel"
+                             [(ngModel)]="user.login" required minlength="1" maxlength="50" pattern="^[_.@A-Za-z0-9-]*$">
 
-                    <div *ngIf="loginInput.dirty && loginInput.invalid">
+                      <div *ngIf="loginInput.dirty && loginInput.invalid">
                         <small class="form-text text-danger"
-                        *ngIf="loginInput.errors.required" jhiTranslate="entity.validation.required">
-                            This field is required.
+                               *ngIf="loginInput.errors.required" jhiTranslate="entity.validation.required">
+                          This field is required.
                         </small>
 
                         <small class="form-text text-danger"
-                        *ngIf="loginInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
-                        translateValues="{max: 50}">
-                            This field cannot be longer than 50 characters.
+                               *ngIf="loginInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
+                               translateValues="{max: 50}">
+                          This field cannot be longer than 50 characters.
                         </small>
 
                         <small class="form-text text-danger"
-                        *ngIf="loginInput.errors.pattern" jhiTranslate="entity.validation.patternLogin">
-                            This field can only contain letters, digits and e-mail addresses.
+                               *ngIf="loginInput.errors.pattern" jhiTranslate="entity.validation.patternLogin">
+                          This field can only contain letters, digits and e-mail addresses.
                         </small>
+                      </div>
+                  </div>
+                  <label class="col-md-2 col-form-label" jhiTranslate="userManagement.firstName">First Name</label>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="firstName" #firstNameInput="ngModel"
+                             [(ngModel)]="user.firstName" maxlength="50">
+                      <input type="text" class="form-control " name="lastName" #lastNameInput="ngModel"
+                             [(ngModel)]="user.lastName" maxlength="50">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="userManagement.firstName">First Name</label>
-                    <input type="text" class="form-control" name="firstName" #firstNameInput="ngModel"
-                        [(ngModel)]="user.firstName" maxlength="50">
-
                     <div *ngIf="firstNameInput.dirty && firstNameInput.invalid">
-                        <small class="form-text text-danger"
-                        *ngIf="firstNameInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
-                        translateValues="{max: 50}">
-                            This field cannot be longer than 50 characters.
-                        </small>
+                      <small class="form-text text-danger"
+                             *ngIf="firstNameInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
+                             translateValues="{max: 50}">
+                        This field cannot be longer than 50 characters.
+                      </small>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="userManagement.lastName">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" #lastNameInput="ngModel"
-                        [(ngModel)]="user.lastName" maxlength="50">
-
                     <div *ngIf="lastNameInput.dirty && lastNameInput.invalid">
-                        <small class="form-text text-danger"
-                        *ngIf="lastNameInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
-                        translateValues="{max: 50}">
-                            This field cannot be longer than 50 characters.
-                        </small>
+                      <small class="form-text text-danger"
+                             *ngIf="lastNameInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
+                             translateValues="{max: 50}">
+                        This field cannot be longer than 50 characters.
+                      </small>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="userManagement.email">Email</label>
-                    <input type="email" class="form-control" name="email" #emailInput="ngModel"
-                        [(ngModel)]="user.email" minlength="5" required maxlength="254" email>
+                  </div>
 
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" jhiTranslate="userManagement.activated">Activated</label>
+                  <div class="col-md-4 col-form-label">
+                    <div class="form-check form-check-inline mr-1">
+                      <input class="form-check-input" type="radio" id="inline-radio1" value="false" name="inline-radios"  [(ngModel)]="user.activated">
+                      <label class="form-check-label" for="inline-radio1">Khóa</label>
+                    </div>
+                    <div class="form-check form-check-inline mr-1">
+                      <input class="form-check-input" type="radio" id="inline-radio2" value="true" name="inline-radios"  [(ngModel)]="user.activated">
+                      <label class="form-check-label" for="inline-radio2">Kích hoạt</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" jhiTranslate="userManagement.profiles">Profiles</label>
+                  <div class="col-md-4 col-form-label">
+                    <ng-select  [items]="authorities" [multiple]="true" class="bootstrap"
+                               bindLabel="description"
+                               bindValue="name" [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="user.authorities">
+                    </ng-select>
+
+                  </div>
+                  <label  class="col-md-2 col-form-label" jhiTranslate="userManagement.langKey" *ngIf="languages && languages.length > 0">Lang Key</label>
+                  <div class="col-md-4 col-form-label">
+                    <select class="form-control" id="langKey" name="langKey" [(ngModel)]="user.langKey" *ngIf="languages && languages.length > 0">
+                      <option *ngFor="let language of languages" [value]="language">{{language | findLanguageFromKey}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userExtraInfo.validDate" for="field_validDate">Hạn sử dụng</label>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <input id="field_validDate" type="text" class="form-control" name="validDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  #validDateDp="bsDatepicker"
+                             bsDatepicker  [(ngModel)]="user.userExtraInfo.validDate"
+                             required/>
+                      <span class="input-group-append">
+                        <button type="button" class="btn btn-secondary" (click)="validDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.validDate?.dirty && editForm.controls.validDate?.invalid)">
+                      <small class="form-text text-danger"
+                             [hidden]="!editForm.controls.validDate?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                      </small>
+                    </div>
+                  </div>
+
+                  <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userExtraInfo.lastLoginDate" for="field_lastLoginDate">Đăng nhập cuối</label>
+                  <div class="col-md-4">
+                    <input id="field_lastLoginDate" class="form-control" value="{{user.userExtraInfo.lastLoginDate| date : 'dd/MM/yyyy'}}" disabled ></input>
+
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userExtraInfo.address" for="field_address">Địa chỉ</label>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" name="address" id="field_address"
+                           [(ngModel)]="user.userExtraInfo.address" />
+                  </div>
+
+                  <label class="col-md-2 col-form-label" jhiTranslate="nextlogixApp.userExtraInfo.contractFile" for="field_contractFile">Hợp đồng</label>
+                  <div class="col-md-4">
+                    <div>
+                      <div *ngIf="user.userExtraInfo.contractFile" class="form-text text-danger ">
+                        <a class="pull-left" (click)="openFile(user.userExtraInfo.contractFileContentType, user.userExtraInfo.contractFile)" jhiTranslate="entity.action.open">open</a><br>
+                        <span class="pull-left">{{user.userExtraInfo.contractFileContentType}}, {{byteSize(user.userExtraInfo.contractFile)}}</span>
+                        <button type="button" (click)="user.userExtraInfo.contractFile=null;user.userExtraInfo.contractFileContentType=null;"
+                                class="btn btn-secondary btn-xs pull-right">
+                          <fa-icon [icon]="'times'"></fa-icon>
+                        </button>
+                      </div>
+                      <input type="file" id="file_contractFile" (change)="setFileData($event, user.userExtraInfo, 'contractFile', false)" jhiTranslate="entity.action.addblob"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="contractFile" id="field_contractFile"
+                           [(ngModel)]="user.userExtraInfo.contractFile" />
+                    <input type="hidden" class="form-control" name="contractFileContentType" id="field_contractFileContentType"
+                           [(ngModel)]="user.userExtraInfo.contractFileContentType" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="field_email" jhiTranslate="userManagement.email">Email</label>
+                  <div class="col-md-4">
+                    <input type="email" class="form-control" name="email" id="field_email" #emailInput="ngModel"
+                           [(ngModel)]="user.email" minlength="5" required maxlength="254" email>
                     <div *ngIf="emailInput.dirty && emailInput.invalid">
-                        <small class="form-text text-danger"
-                        *ngIf="emailInput.errors.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
+                      <small class="form-text text-danger"
+                             *ngIf="emailInput.errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                      </small>
 
-                        <small class="form-text text-danger"
-                        *ngIf="emailInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
-                        translateValues="{max: 100}">
-                            This field cannot be longer than 100 characters.
-                        </small>
+                      <small class="form-text text-danger"
+                             *ngIf="emailInput.errors.maxlength" jhiTranslate="entity.validation.maxlength"
+                             translateValues="{max: 100}">
+                        This field cannot be longer than 100 characters.
+                      </small>
 
-                        <small class="form-text text-danger"
-                        *ngIf="emailInput.errors.minlength" jhiTranslate="entity.validation.minlength"
-                        translateValues="{min: 5}">
-                            This field is required to be at least 5 characters.
-                        </small>
+                      <small class="form-text text-danger"
+                             *ngIf="emailInput.errors.minlength" jhiTranslate="entity.validation.minlength"
+                             translateValues="{min: 5}">
+                        This field is required to be at least 5 characters.
+                      </small>
 
-                        <small class="form-text text-danger"
-                        *ngIf="emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
-                            Your email is invalid.
-                        </small>
+                      <small class="form-text text-danger"
+                             *ngIf="emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
+                        Your email is invalid.
+                      </small>
                     </div>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label" for="activated">
-                        <input class="form-check-input" [disabled]="user.id === null" type="checkbox" id="activated" name="activated" [(ngModel)]="user.activated">
-                        <span jhiTranslate="userManagement.activated">Activated</span>
-                    </label>
+                  </div>
+
+                  <label class="col-md-2 col-form-label" fjhiTranslate="nextlogixApp.userExtraInfo.phone" for="field_phone">Điện thoại</label>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           [(ngModel)]="user.userExtraInfo.phone" />
+                  </div>
                 </div>
 
-                <div class="form-group" *ngIf="languages && languages.length > 0">
-                    <label jhiTranslate="userManagement.langKey">Lang Key</label>
-                    <select class="form-control" id="langKey" name="langKey" [(ngModel)]="user.langKey">
-                        <option *ngFor="let language of languages" [value]="language">{{language | findLanguageFromKey}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="userManagement.profiles">Profiles</label>
-                    <select class="form-control" multiple name="authority" [(ngModel)]="user.authorities">
-                        <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
-                    </select>
-                </div>
     </div>
     <div class="card-footer">
       <button type="button" class="btn btn-secondary" (click)="previousState()">
@@ -118,3 +184,4 @@
       </button>
     </div>
   </div>
+  <jhi-user-post-office-detail-list [userExtraInfoParentId]="user.userExtraInfo.id"></jhi-user-post-office-detail-list>

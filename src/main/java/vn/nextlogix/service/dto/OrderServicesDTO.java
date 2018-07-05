@@ -20,6 +20,8 @@ public class OrderServicesDTO implements Serializable {
     @NotNull
     private String name;
 
+    private Boolean isActive;
+
     private String description;
 
     private Long companyId;
@@ -56,6 +58,14 @@ public class OrderServicesDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public String getDescription() {
@@ -133,6 +143,7 @@ public class OrderServicesDTO implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
     }

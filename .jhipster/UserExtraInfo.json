@@ -17,10 +17,6 @@
     ],
     "fields": [
         {
-            "fieldName": "email",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "phone",
             "fieldType": "String"
         },
@@ -30,7 +26,7 @@
         },
         {
             "fieldName": "validDate",
-            "fieldType": "Instant",
+            "fieldType": "LocalDate",
             "fieldValidateRules": [
                 "required"
             ]

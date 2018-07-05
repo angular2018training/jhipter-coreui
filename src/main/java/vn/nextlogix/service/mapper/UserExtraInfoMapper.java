@@ -17,6 +17,11 @@ public interface UserExtraInfoMapper extends EntityMapper<UserExtraInfoDTO, User
     @Mapping(target = "userPositions", ignore = true)
     @Mapping(source = "companyId", target = "company")
     UserExtraInfo toEntity(UserExtraInfoDTO userExtraInfoDTO);
+    
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "lastLoginDate", ignore = true)
+    void updateEntity(UserExtraInfoDTO userExtraInfoDTO,@MappingTarget UserExtraInfo entity);
+    
 
     default UserExtraInfo fromId(Long id) {
         if (id == null) {

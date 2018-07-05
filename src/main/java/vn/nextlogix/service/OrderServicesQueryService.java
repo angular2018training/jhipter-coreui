@@ -112,6 +112,9 @@ public class OrderServicesQueryService extends QueryService<OrderServices> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), OrderServices_.name));
             }
+            if (criteria.getIsActive() != null) {
+                specification = specification.and(buildSpecification(criteria.getIsActive(), OrderServices_.isActive));
+            }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), OrderServices_.description));
             }

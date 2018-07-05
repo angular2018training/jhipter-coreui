@@ -7,4 +7,3 @@ export * from './dialogs/user-group-delete-dialog/user-group-delete-dialog.compo
 export * from './components/user-group/user-group.component';
 export * from './components/user-group-detail/user-group-detail.component';
 export * from './components/user-group-update/user-group-update.component';
-export * from './pipes/datafilterpipe';

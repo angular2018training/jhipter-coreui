@@ -19,6 +19,8 @@
             },
             "code": "Code",
             "name": "Name",
+            "pickupActive": "Pickup Active",
+            "deliveryActive": "Delivery Active",
             "description": "Description",
             "company": "Company",
             "province": "Province"

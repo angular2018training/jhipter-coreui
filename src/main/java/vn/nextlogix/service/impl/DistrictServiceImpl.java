@@ -2,7 +2,13 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.DistrictService;
 import vn.nextlogix.domain.District;
-import vn.nextlogix.repository.DistrictRepository;
+
+
+    import vn.nextlogix.repository.DistrictRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.DistrictSearchRepository;
 import vn.nextlogix.service.dto.DistrictDTO;
 import vn.nextlogix.service.dto.DistrictSearchDTO;
@@ -18,7 +24,6 @@ import org.slf4j.LoggerFactory;
     import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,9 +39,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
-
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -154,22 +156,26 @@ public class DistrictServiceImpl implements DistrictService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("code", "*"+searchDto.getCode()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("name", "*"+searchDto.getName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getDescription())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("description", "*"+searchDto.getDescription()+"*"));
             }
-            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder);
-            if( pageable.getSort() !=null) {
-            	pageable.getSort().forEach(sort -> {
-            		queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection()==Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
-            	});
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
             }
-          
-            SearchQuery  query = queryBuilder.withPageable(pageable).build();
+            if(searchDto.getProvinceId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("province.id", searchDto.getProvinceId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<District> districtPage= districtSearchRepository.search(query);
             List<DistrictDTO> districtList =  StreamSupport
             .stream(districtPage.spliterator(), false)

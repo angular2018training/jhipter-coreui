@@ -3,7 +3,7 @@
     "nextlogixApp": {
         "userGroup" : {
             "home": {
-                "title": "Nhóm người dùngs",
+                "title": "Nhóm người dùng",
                 "createLabel": "Thêm mới một Nhóm người dùng",
                 "createOrEditLabel": "Thêm mới hoặc cập nhật Nhóm người dùng",
                 "search": "Tìm Nhóm người dùng"
@@ -21,7 +21,8 @@
             "name": "Tên",
             "role": "Quyền",
             "description": "Mô tả",
-            "company": "Công ty"
+            "company": "Công ty",
+            "userGroupList":"Danh sách nhóm người dùng"
         }
     }
 }

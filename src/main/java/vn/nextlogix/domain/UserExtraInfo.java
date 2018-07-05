@@ -1,6 +1,9 @@
 package vn.nextlogix.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,6 +13,7 @@ import javax.validation.constraints.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -21,6 +25,9 @@ import java.util.Objects;
 @Table(name = "user_extra_info")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "userextrainfo")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class UserExtraInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,8 +37,6 @@ public class UserExtraInfo implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "phone")
     private String phone;
@@ -41,7 +46,7 @@ public class UserExtraInfo implements Serializable {
 
     @NotNull
     @Column(name = "valid_date", nullable = false)
-    private Instant validDate;
+    private LocalDate validDate;
 
     @Column(name = "last_login_date")
     private Instant lastLoginDate;
@@ -83,19 +88,6 @@ public class UserExtraInfo implements Serializable {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public UserExtraInfo email(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -122,16 +114,16 @@ public class UserExtraInfo implements Serializable {
         this.address = address;
     }
 
-    public Instant getValidDate() {
+    public LocalDate getValidDate() {
         return validDate;
     }
 
-    public UserExtraInfo validDate(Instant validDate) {
+    public UserExtraInfo validDate(LocalDate validDate) {
         this.validDate = validDate;
         return this;
     }
 
-    public void setValidDate(Instant validDate) {
+    public void setValidDate(LocalDate validDate) {
         this.validDate = validDate;
     }
 
@@ -287,7 +279,6 @@ public class UserExtraInfo implements Serializable {
     public String toString() {
         return "UserExtraInfo{" +
             "id=" + getId() +
-            ", email='" + getEmail() + "'" +
             ", phone='" + getPhone() + "'" +
             ", address='" + getAddress() + "'" +
             ", validDate='" + getValidDate() + "'" +

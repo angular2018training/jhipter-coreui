@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="row">
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!orderServices.id">
+                <div class="form-group" [hidden]="true">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" [(ngModel)]="orderServices.id" readonly />
                 </div>
@@ -17,7 +17,7 @@
                             <label class="form-control-label" jhiTranslate="nextlogixApp.orderServices.code" for="field_code">Code</label>
                         </div>
                         <div class="col-md-9 col-sm-12">
-                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="orderServices.code" required/>
+                            <input type="text" [disabled]="orderServices.code" class="form-control" name="code" id="field_code" [(ngModel)]="orderServices.code" required/>
                             <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
                                 <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
                                     This field is required.
@@ -69,9 +69,9 @@
                             <label jhiTranslate="nextlogixApp.orderServices.quotation" for="field_quotation">Quotation</label>
                         </div>
                         <div class="col-md-9 col-sm-12">
-                            <select class="form-control" id="field_quotation" name="quotation" [(ngModel)]="orderServices.quotations">
-                                <option [ngValue]="getSelected(orderServices.quotations, quotationOption)" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.id}}</option>
-                            </select>
+                            <ng-select [items]="quotations" [multiple]="true" class="bootstrap" bindLabel="description" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="orderServices.quotations">
+                            </ng-select>
                         </div>
                     </div>
                 </div>
@@ -87,17 +87,20 @@
                         </div>
                     </div>
                 </div>
-                                
+
             </div>
+
             <div class="card-footer">
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;
-                    <span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;
-                    <span jhiTranslate="entity.action.save">Save</span>
-                </button>
+                <div class="btn-group flex-btn-group-container">
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                        <i class="fa fa-dot-circle-o"></i>&nbsp;
+                        <span jhiTranslate="entity.action.save">Save</span>
+                    </button>
+                    <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()">
+                        <i class="fa fa-undo"></i>&nbsp;
+                        <span jhiTranslate="entity.action.cancel">Cancel</span>
+                    </button>
+                </div>
             </div>
         </div>
 </form>

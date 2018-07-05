@@ -37,6 +37,8 @@ import {JhiLanguageService} from 'ng-jhipster';
 import {JhiLanguageHelper} from '../shared/language/language.helper';
 import {UserMgmtUpdateComponent} from './user-management/user-management-update.component';
 import {BsDatepickerModule, TimepickerModule} from "ngx-bootstrap";
+import {NgSelectModule} from "@ng-select/ng-select";
+import {NextlogixUserPostOfficeDetailModule} from "./user-post-office-detail/user-post-office-detail.module";
 
 @NgModule({
   imports: [
@@ -45,7 +47,9 @@ import {BsDatepickerModule, TimepickerModule} from "ngx-bootstrap";
     RouterModule.forChild(adminState),
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    NgSelectModule,
+    NextlogixUserPostOfficeDetailModule
     /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
   ],
   declarations: [

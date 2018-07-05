@@ -4,21 +4,25 @@ import vn.nextlogix.config.CacheConfiguration;
 import vn.nextlogix.domain.Authority;
 import vn.nextlogix.domain.Company_;
 import vn.nextlogix.domain.User;
+import vn.nextlogix.domain.UserExtraInfo;
 import vn.nextlogix.domain.UserGroup;
 import vn.nextlogix.domain.UserGroup_;
 import vn.nextlogix.domain.User_;
 import vn.nextlogix.repository.AuthorityRepository;
+import vn.nextlogix.repository.UserExtraInfoRepository;
 import vn.nextlogix.config.Constants;
 import vn.nextlogix.repository.UserRepository;
+import vn.nextlogix.repository.search.UserExtraInfoSearchRepository;
 import vn.nextlogix.repository.search.UserSearchRepository;
 import vn.nextlogix.security.AuthoritiesConstants;
 import vn.nextlogix.security.SecurityUtils;
 import vn.nextlogix.service.util.RandomUtil;
 import vn.nextlogix.web.rest.errors.InvalidPasswordException;
+import vn.nextlogix.service.dto.AuthorityDTO;
 import vn.nextlogix.service.dto.UserCriteria;
 import vn.nextlogix.service.dto.UserDTO;
 import vn.nextlogix.service.dto.UserGroupCriteria;
-
+import vn.nextlogix.service.mapper.UserExtraInfoMapper;
 import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,13 +58,22 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+    
+    private final UserExtraInfoMapper userExtraInfoMapper;
+    
+    private final UserExtraInfoRepository userExtraInfoRepository;
+    
+    private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager,UserExtraInfoMapper userExtraInfoMapper,UserExtraInfoRepository userExtraInfoRepository,UserExtraInfoSearchRepository userExtraInfoSearchRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userExtraInfoMapper = userExtraInfoMapper;
+        this.userExtraInfoRepository = userExtraInfoRepository;
+        this.userExtraInfoSearchRepository =userExtraInfoSearchRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -157,7 +170,16 @@ public class UserService {
         user.setResetDate(Instant.now());
         user.setActivated(true);
         userRepository.save(user);
+       
         userSearchRepository.save(user);
+        if(userDTO.getUserExtraInfo()!=null) {
+        	UserExtraInfo userExtraInfo = userExtraInfoMapper.toEntity(userDTO.getUserExtraInfo());
+        	userExtraInfo.setUser(user);
+        	user.setUserExtraInfo(userExtraInfo);
+        	userExtraInfoRepository.save(userExtraInfo);
+        	userExtraInfoSearchRepository.save(userExtraInfo);
+        	
+        }
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLogin());
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(user.getEmail());
         log.debug("Created Information for User: {}", user);
@@ -212,6 +234,19 @@ public class UserService {
                     .map(authorityRepository::findOne)
                     .forEach(managedAuthorities::add);
                 userSearchRepository.save(user);
+                if(userDTO.getUserExtraInfo()!= null) {
+                	if(user.getUserExtraInfo()!=null) {
+                		userExtraInfoMapper.updateEntity(userDTO.getUserExtraInfo(), user.getUserExtraInfo());
+                		userExtraInfoRepository.save(user.getUserExtraInfo());
+                	}else {
+                		UserExtraInfo userExtraInfo = userExtraInfoMapper.toEntity(userDTO.getUserExtraInfo());
+                    	userExtraInfo.setUser(user);
+                    	user.setUserExtraInfo(userExtraInfo);
+                    	userExtraInfoRepository.save(userExtraInfo);
+                    	userExtraInfoSearchRepository.save(userExtraInfo);
+                	}
+                	
+                }
                 cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLogin());
                 cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(user.getEmail());
                 log.debug("Changed Information for User: {}", user);
@@ -293,6 +328,10 @@ public class UserService {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
+
+	public List<AuthorityDTO> getAuthoritiesAll() {
+		return authorityRepository.findAll().stream().map(AuthorityDTO ::new).collect(Collectors.toList());
+	}
 
 	
 	

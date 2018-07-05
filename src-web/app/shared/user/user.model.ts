@@ -1,3 +1,4 @@
+import {UserExtraInfo} from "../model/user-extra-info.model";
 export class User {
     public id?: any;
     public login?: string;
@@ -13,6 +14,7 @@ export class User {
     public lastModifiedDate?: Date;
     public password?: string;
     public name?:string;
+    public userExtraInfo? : UserExtraInfo;
     constructor(
         id?: any,
         login?: string,

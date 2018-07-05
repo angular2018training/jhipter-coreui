@@ -97,9 +97,6 @@ public class UserExtraInfoQueryService extends QueryService<UserExtraInfo> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), UserExtraInfo_.id));
             }
-            if (criteria.getEmail() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getEmail(), UserExtraInfo_.email));
-            }
             if (criteria.getPhone() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPhone(), UserExtraInfo_.phone));
             }

@@ -52,7 +52,7 @@ export class OrderServicesUpdateComponent implements OnInit {
         this.principal.identity().then((account) => {
             this.currentAccount = account;
             this.quotationService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
-            .subscribe((res: HttpResponse<Quotation[]>) => { this.quotations = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: HttpResponse<Quotation[]>) => { this.quotations = res.body;}, (res: HttpErrorResponse) => this.onError(res.message));
         });
         this.orderServicesTypeService.query()
             .subscribe((res: HttpResponse<OrderServicesType[]>) => { this.orderservicestypes = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));

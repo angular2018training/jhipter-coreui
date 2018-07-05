@@ -1,21 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { NextlogixSharedModule } from '../../shared';
 import {
-    DistrictService,
-    DistrictPopupService,
-    DistrictComponent,
+DistrictComponent,
     DistrictDetailComponent,
-    DistrictDialogComponent,
-    DistrictPopupComponent,
+    DistrictUpdateComponent,
     DistrictDeletePopupComponent,
     DistrictDeleteDialogComponent,
     districtRoute,
     districtPopupRoute,
+    DistrictPopupService
 } from './';
-import {NgJhipsterModule} from "ng-jhipster";
-import {NextlogixProvinceModule} from "../province/province.module";
 
 const ENTITY_STATES = [
     ...districtRoute,
@@ -25,29 +20,25 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-        RouterModule.forChild(ENTITY_STATES),
-        NextlogixProvinceModule
-
-    ],
-    declarations: [
-        DistrictComponent,
-        DistrictDetailComponent,
-        DistrictDialogComponent,
-        DistrictDeleteDialogComponent,
-        DistrictPopupComponent,
-        DistrictDeletePopupComponent,
-    ],
+RouterModule.forChild(ENTITY_STATES)
+],
+declarations: [
+    DistrictComponent,
+    DistrictDetailComponent,
+    DistrictUpdateComponent,
+    DistrictDeleteDialogComponent,
+    DistrictDeletePopupComponent,
+],
     entryComponents: [
-        DistrictComponent,
-        DistrictDialogComponent,
-        DistrictPopupComponent,
-        DistrictDeleteDialogComponent,
-        DistrictDeletePopupComponent,
-    ],
-    providers: [
-        DistrictService,
-        DistrictPopupService,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    DistrictComponent,
+    DistrictUpdateComponent,
+    DistrictDeleteDialogComponent,
+    DistrictDeletePopupComponent,
+],
+providers: [
+    DistrictPopupService,
+],
+
+schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NextlogixDistrictModule {}

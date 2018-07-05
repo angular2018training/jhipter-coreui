@@ -3,7 +3,7 @@
     "nextlogixApp": {
         "orderServices" : {
             "home": {
-                "title": "Dịch vụ",
+                "title": "Danh sách dịch vụ",
                 "createLabel": "Thêm mới một Dịch vụ",
                 "createOrEditLabel": "Thêm mới hoặc cập nhật Dịch vụ",
                 "search": "Tìm Dịch vụ"
@@ -22,7 +22,8 @@
             "description": "Mô tả",
             "company": "Công ty",
             "orderServicesType": "Loại dịch vụ",
-            "quotation": "Bảng giá"
+            "quotation": "Bảng giá",
+            "action": "Chức năng"
         }
     }
 }

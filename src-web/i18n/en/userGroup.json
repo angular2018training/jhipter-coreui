@@ -21,7 +21,8 @@
             "name": "Name",
             "role": "Role",
             "description": "Description",
-            "company": "Company"
+            "company": "Company",
+            "userGroupList": "User group list"
         }
     }
 }

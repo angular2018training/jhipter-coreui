@@ -2,6 +2,8 @@ package vn.nextlogix.service.dto;
 
 
 import java.time.Instant;
+import java.time.LocalDate;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -16,14 +18,13 @@ public class UserExtraInfoDTO implements Serializable {
 
     private Long id;
 
-    private String email;
 
     private String phone;
 
     private String address;
 
     @NotNull
-    private Instant validDate;
+    private LocalDate validDate;
 
     private Instant lastLoginDate;
 
@@ -46,14 +47,7 @@ public class UserExtraInfoDTO implements Serializable {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+  
     public String getPhone() {
         return phone;
     }
@@ -70,15 +64,17 @@ public class UserExtraInfoDTO implements Serializable {
         this.address = address;
     }
 
-    public Instant getValidDate() {
-        return validDate;
-    }
+   
 
-    public void setValidDate(Instant validDate) {
-        this.validDate = validDate;
-    }
+    public LocalDate getValidDate() {
+		return validDate;
+	}
 
-    public Instant getLastLoginDate() {
+	public void setValidDate(LocalDate validDate) {
+		this.validDate = validDate;
+	}
+
+	public Instant getLastLoginDate() {
         return lastLoginDate;
     }
 
@@ -151,7 +147,6 @@ public class UserExtraInfoDTO implements Serializable {
     public String toString() {
         return "UserExtraInfoDTO{" +
             "id=" + getId() +
-            ", email='" + getEmail() + "'" +
             ", phone='" + getPhone() + "'" +
             ", address='" + getAddress() + "'" +
             ", validDate='" + getValidDate() + "'" +
