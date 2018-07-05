@@ -10,7 +10,7 @@ import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
 import io.github.jhipster.service.filter.InstantFilter;
-
+import io.github.jhipster.service.filter.LocalDateFilter;
 
 
 
@@ -35,6 +35,8 @@ public class QuotationCriteria implements Serializable {
     private StringFilter description;
 
     private InstantFilter createDate;
+
+    private LocalDateFilter activeFrom;
 
     private LongFilter quotationItemDetailListId;
 
@@ -83,6 +85,14 @@ public class QuotationCriteria implements Serializable {
         this.createDate = createDate;
     }
 
+    public LocalDateFilter getActiveFrom() {
+        return activeFrom;
+    }
+
+    public void setActiveFrom(LocalDateFilter activeFrom) {
+        this.activeFrom = activeFrom;
+    }
+
     public LongFilter getQuotationItemDetailListId() {
         return quotationItemDetailListId;
     }
@@ -107,6 +117,7 @@ public class QuotationCriteria implements Serializable {
                 (isActive != null ? "isActive=" + isActive + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
                 (createDate != null ? "createDate=" + createDate + ", " : "") +
+                (activeFrom != null ? "activeFrom=" + activeFrom + ", " : "") +
                 (quotationItemDetailListId != null ? "quotationItemDetailListId=" + quotationItemDetailListId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";

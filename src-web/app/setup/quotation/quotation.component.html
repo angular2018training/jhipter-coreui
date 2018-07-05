@@ -53,6 +53,20 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_activeFrom"
+                       jhiTranslate="nextlogixApp.quotation.activeFrom">Active From:</label>
+                <div class="col-md-4">
+
+                    <div class="input-group">
+                        <input id="field_activeFrom" type="text" class="form-control" name="activeFrom" ngbDatepicker  #activeFromDp="ngbDatepicker" [(ngModel)]="quotationSearch.activeFrom"
+                        required/>
+                        <span class="input-group-append">
+                        <button type="button" class="btn btn-secondary" (click)="activeFromDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                    </span>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -87,6 +101,7 @@
                 <th jhiSortBy="isActive"><span jhiTranslate="nextlogixApp.quotation.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.quotation.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="createDate"><span jhiTranslate="nextlogixApp.quotation.createDate">Create Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="activeFrom"><span jhiTranslate="nextlogixApp.quotation.activeFrom">Active From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -97,6 +112,7 @@
                     <td>{{quotation.isActive}}</td>
                     <td>{{quotation.description}}</td>
                     <td>{{quotation.createDate | date:'medium'}}</td>
+                    <td>{{quotation.activeFrom | date:'mediumDate'}}</td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"

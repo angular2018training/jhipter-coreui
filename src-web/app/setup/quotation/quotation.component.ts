@@ -78,6 +78,8 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' description'] : '';
         this.quotationSearch.createDate = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['createDate'] ?
                         this.activatedRoute.snapshot.params[' createDate'] : '';
+        this.quotationSearch.activeFrom = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['activeFrom'] ?
+                        this.activatedRoute.snapshot.params[' activeFrom'] : '';
     }
 
     loadAll() {
@@ -89,6 +91,7 @@ currentAccount: any;
          isActive : this.quotationSearch.isActive,
          description : this.quotationSearch.description,
          createDate : this.quotationSearch.createDate,
+         activeFrom : this.quotationSearch.activeFrom,
          companyId :this.currentAccount.companyId,
          };
 
@@ -119,6 +122,7 @@ currentAccount: any;
                 isActive : this.quotationSearch.isActive,
                 description : this.quotationSearch.description,
                 createDate : this.quotationSearch.createDate,
+                activeFrom : this.quotationSearch.activeFrom,
                 companyId :this.currentAccount.companyId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }

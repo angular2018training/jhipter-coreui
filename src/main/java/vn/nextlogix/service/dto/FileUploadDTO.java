@@ -16,10 +16,11 @@ public class FileUploadDTO implements Serializable {
 
     private Long id;
 
+    private String hashedId;
+
     @NotNull
     private String name;
 
-    @NotNull
     @Lob
     private byte[] content;
     private String contentContentType;
@@ -41,6 +42,14 @@ public class FileUploadDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getHashedId() {
+        return hashedId;
+    }
+
+    public void setHashedId(String hashedId) {
+        this.hashedId = hashedId;
     }
 
     public String getName() {
@@ -124,6 +133,7 @@ public class FileUploadDTO implements Serializable {
     public String toString() {
         return "FileUploadDTO{" +
             "id=" + getId() +
+            ", hashedId='" + getHashedId() + "'" +
             ", name='" + getName() + "'" +
             ", content='" + getContent() + "'" +
             ", uploadTime='" + getUploadTime() + "'" +

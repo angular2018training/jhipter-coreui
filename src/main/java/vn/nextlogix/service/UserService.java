@@ -2,7 +2,11 @@ package vn.nextlogix.service;
 
 import vn.nextlogix.config.CacheConfiguration;
 import vn.nextlogix.domain.Authority;
+import vn.nextlogix.domain.Company_;
 import vn.nextlogix.domain.User;
+import vn.nextlogix.domain.UserGroup;
+import vn.nextlogix.domain.UserGroup_;
+import vn.nextlogix.domain.User_;
 import vn.nextlogix.repository.AuthorityRepository;
 import vn.nextlogix.config.Constants;
 import vn.nextlogix.repository.UserRepository;
@@ -11,13 +15,17 @@ import vn.nextlogix.security.AuthoritiesConstants;
 import vn.nextlogix.security.SecurityUtils;
 import vn.nextlogix.service.util.RandomUtil;
 import vn.nextlogix.web.rest.errors.InvalidPasswordException;
+import vn.nextlogix.service.dto.UserCriteria;
 import vn.nextlogix.service.dto.UserDTO;
+import vn.nextlogix.service.dto.UserGroupCriteria;
 
+import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -285,5 +293,9 @@ public class UserService {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
+
+	
+	
+	
 
 }

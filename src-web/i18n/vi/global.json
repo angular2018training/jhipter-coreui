@@ -118,12 +118,12 @@
       },
       "notify" : "Thông báo",
       "button":{
-        "search":"Tìm",
+        "search":"Tìm kiếm",
         "reset":"Làm lại",
         "export":{
-          "excel":"Export Excel"
+          "excel":"Xuất Excel"
         },
-        "create" :"Create"
+        "create" :"Tạo mới"
       }
     },
     "entity": {

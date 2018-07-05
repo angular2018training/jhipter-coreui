@@ -11,6 +11,10 @@
     ],
     "fields": [
         {
+            "fieldName": "hashedId",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [

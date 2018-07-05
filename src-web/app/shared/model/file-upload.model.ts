@@ -3,6 +3,7 @@ import { BaseEntity } from './../../shared';
 export class FileUpload implements BaseEntity {
     constructor(
         public id?: number,
+        public hashedId?: string,
         public name?: string,
         public contentContentType?: string,
         public content?: any,

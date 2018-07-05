@@ -32,10 +32,7 @@ public class OrderServicesDTO implements Serializable {
     private OrderServicesTypeDTO  orderServicesTypeDTO;
 
 
-    private Long quotationId;
-
-    private QuotationDTO  quotationDTO;
-
+    private Set<QuotationDTO> quotations = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -101,21 +98,13 @@ public class OrderServicesDTO implements Serializable {
         }
 
 
-    public QuotationDTO getQuotationDTO() {
-        return this.quotationDTO;
+    public Set<QuotationDTO> getQuotations() {
+        return quotations;
     }
 
-    public void setQuotationDTO(QuotationDTO quotationDTO ) {
-        this.quotationDTO = quotationDTO;
+    public void setQuotations(Set<QuotationDTO> quotations) {
+        this.quotations = quotations;
     }
-    public Long getQuotationId() {
-        return quotationId;
-        }
-
-    public void setQuotationId(Long quotationId) {
-        this.quotationId = quotationId;
-        }
-
 
     @Override
     public boolean equals(Object o) {

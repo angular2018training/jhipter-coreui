@@ -95,6 +95,9 @@ public class FileUploadQueryService extends QueryService<FileUpload> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), FileUpload_.id));
             }
+            if (criteria.getHashedId() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getHashedId(), FileUpload_.hashedId));
+            }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), FileUpload_.name));
             }

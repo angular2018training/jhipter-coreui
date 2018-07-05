@@ -1,16 +1,102 @@
+<form name="searchForm" #searchForm="ngForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+  <div class="card ">
+    <div class="card-header">
+      <i class="fa fa-filter"></i>
+      <strong jhiTranslate="common.filter.header">Filter</strong>
+      <div class="card-header-actions">
+        <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed" [attr.aria-expanded]="!searchCardIsCollapsed"
+           aria-controls="searchCard">
+          <i class="icon-arrow-up"></i>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="field_login" jhiTranslate="userManagement.login">Login:</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="login" id="field_login" [(ngModel)]="userSearch.login" />
+        </div>
+
+        <label class="col-md-2 col-form-label" for="field_name" jhiTranslate="userManagement.name">Name:</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="userSearch.name" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="field_email" jhiTranslate="userManagement.email">Email:</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="email" id="field_email" [(ngModel)]="userSearch.email" />
+        </div>
+
+        <label class="col-md-2 col-form-label" for="field_phone" jhiTranslate="userManagement.phone">Phone:</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="phone" id="field_phone" [(ngModel)]="userSearch.phone" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="field_activated" jhiTranslate="userManagement.activated">Active:</label>
+        <div class="col-md-4 col-form-label">
+          <div class="form-check form-check-inline mr-1" >
+            <input class="form-check-input" id="field_activated" type="radio" id="inline-radio1" value="" [(ngModel)]="userSearch.activated" name="inline-radios">
+            <label class="form-check-label" for="inline-radio1">Tất cả</label>
+          </div>
+          <div class="form-check form-check-inline mr-1">
+            <input class="form-check-input" type="radio" id="inline-radio2" value="true" [(ngModel)]="userSearch.activated" name="inline-radios">
+            <label class="form-check-label" for="inline-radio2">Kích hoạt</label>
+          </div>
+          <div class="form-check form-check-inline mr-1">
+            <input class="form-check-input" type="radio" id="inline-radio3" value="false" [(ngModel)]="userSearch.activated" name="inline-radios">
+            <label class="form-check-label" for="inline-radio3">Khóa</label>
+          </div>
+        </div>
+        <label class="col-md-2 col-form-label" for="field_createdDate" jhiTranslate="userManagement.createdDate">Active:</label>
+        <div class="col-md-4 col-form-label">
+          <input class="form-control" name="createdDate" id="field_createdDate" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="createdDateConfig" [(ngModel)]="createdDate">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="field_postOffice" jhiTranslate="userManagement.postOffice">Post Office:</label>
+        <div class="col-md-4 col-form-label">
+          <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userSearch.postOfficeId" >
+            <option  [ngValue]="null" ></option>
+            <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postOffices; trackBy: trackPostOfficeById">{{postOfficeOption.code}} - {{postOfficeOption.name}}</option>
+          </select>
+        </div>
+        <label class="col-md-2 col-form-label" for="field_userGroup"
+                 jhiTranslate="userManagement.userGroup">User Group:</label>
+          <div class="col-md-4 col-form-label">
+            <select class="form-control" id="field_userGroup" name="userGroup" [(ngModel)]="userSearch.userGroupId">
+              <option  [ngValue]="null" ></option>
+              <option [ngValue]="userGroupOption.id" *ngFor="let userGroupOption of userGroups; trackBy: trackUserGroupById">{{userGroupOption.code}} - {{userGroupOption.name}}</option>
+            </select>
+          </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+      </button>
+      <button type="reset" class="btn btn-danger" (click)="clear()">
+        <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+      </button>
+      <!-- <button type="reset" class="btn btn-primary btn-success">
+          <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+      </button> -->
+      <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
+        <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+      </button>
+    </div>
+  </div>
+</form>
 <div class="card">
   <div class="card-header">
     <strong>Users</strong>
   </div>
   <div class="card-body">
     <div>
-      <h2>
-        <button class="btn btn-primary float-right jh-create-entity"
-                [routerLink]="['new']">
-          <span class="fa fa-plus"></span> <span>Create a new User</span>
-        </button>
-      </h2>
-      <jhi-alert></jhi-alert>
       <div class="table-responsive" *ngIf="users">
         <table class="table table-striped">
           <thead>

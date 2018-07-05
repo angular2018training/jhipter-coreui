@@ -2,6 +2,7 @@
 
 
     import java.time.Instant;
+    import java.time.LocalDate;
     import javax.validation.constraints.*;
     import java.io.Serializable;
     import java.util.HashSet;
@@ -26,6 +27,9 @@ private String description;
 
 
 private Instant createDate;
+
+
+private LocalDate activeFrom;
 
 private Long companyId;
 
@@ -71,6 +75,14 @@ public void setCreateDate(Instant createDate) {
     this.createDate = createDate;
     }
 
+public LocalDate getActiveFrom() {
+    return activeFrom;
+    }
+
+public void setActiveFrom(LocalDate activeFrom) {
+    this.activeFrom = activeFrom;
+    }
+
 
 public Long getCompanyId() {
     return companyId;
@@ -110,6 +122,7 @@ public String toString() {
     ", isActive='" + isIsActive() + "'" +
     ", description='" + getDescription() + "'" +
     ", createDate='" + getCreateDate() + "'" +
+    ", activeFrom='" + getActiveFrom() + "'" +
     "}";
     }
     }

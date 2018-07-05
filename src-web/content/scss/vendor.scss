@@ -15,14 +15,14 @@ eg $input-color: red;
 @import  url('../../../node_modules/flag-icon-css/css/flag-icon.css');
 @import  url('../../../node_modules/font-awesome/css/font-awesome.css');
 @import  url('../../../node_modules/simple-line-icons/css/simple-line-icons.css');
-// If you want to override variables do it here
-@import "../../scss/variables";
+
 
 // Import styles
 // @import "node_modules/@coreui/coreui-pro/scss/variables";
 @import "node_modules/@coreui/coreui-pro/scss/coreui.scss";
-
-// If you want to add something do it here
-@import "../../scss/custom";
 @import 'node_modules/angular2-toaster/src/toaster';
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss";
+
+
+
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */

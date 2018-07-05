@@ -7,7 +7,9 @@ import vn.nextlogix.repository.UserRepository;
 import vn.nextlogix.repository.search.UserSearchRepository;
 import vn.nextlogix.security.AuthoritiesConstants;
 import vn.nextlogix.service.MailService;
+import vn.nextlogix.service.UserQueryService;
 import vn.nextlogix.service.UserService;
+import vn.nextlogix.service.dto.UserCriteria;
 import vn.nextlogix.service.dto.UserDTO;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.errors.EmailAlreadyUsedException;
@@ -72,13 +74,16 @@ public class UserResource {
     private final MailService mailService;
 
     private final UserSearchRepository userSearchRepository;
+    
+    private final UserQueryService userQueryService;
 
-    public UserResource(UserRepository userRepository, UserService userService, MailService mailService, UserSearchRepository userSearchRepository) {
+    public UserResource(UserRepository userRepository, UserService userService, MailService mailService, UserSearchRepository userSearchRepository, UserQueryService userQueryService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.userSearchRepository = userSearchRepository;
+        this.userQueryService = userQueryService;
     }
 
     /**
@@ -150,8 +155,8 @@ public class UserResource {
      */
     @GetMapping("/users")
     @Timed
-    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
-        final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
+    public ResponseEntity<List<UserDTO>> getAllUsers(UserCriteria userCriteria, Pageable pageable) {
+        final Page<UserDTO> page = userQueryService.getAllManagedUsers(userCriteria,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

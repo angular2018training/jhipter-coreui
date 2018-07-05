@@ -37,28 +37,3 @@ export class CustomerDeleteDialogComponent {
         });
     }
 }
-
-@Component({
-    selector: 'jhi-customer-delete-popup',
-    template: ''
-})
-export class CustomerDeletePopupComponent implements OnInit, OnDestroy {
-
-    routeSub: any;
-
-    constructor(
-        private route: ActivatedRoute,
-        private customerPopupService: CustomerPopupService
-    ) {}
-
-    ngOnInit() {
-        this.routeSub = this.route.params.subscribe((params) => {
-            this.customerPopupService
-                .open(CustomerDeleteDialogComponent as Component, params['id']);
-        });
-    }
-
-    ngOnDestroy() {
-        this.routeSub.unsubscribe();
-    }
-}

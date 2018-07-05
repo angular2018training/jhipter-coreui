@@ -28,9 +28,9 @@
         </dd>
         <dt><span jhiTranslate="nextlogixApp.orderServices.quotation">Quotation</span></dt>
         <dd>
-            <div *ngIf="orderServices.quotationId">
-                <a [routerLink]="['/quotation', orderServices.quotationId]">{{orderServices.quotationId}}</a>
-            </div>
+            <span *ngFor="let quotation of orderServices.quotations; let last = last">
+                <a [routerLink]="['/quotation', quotation?.id ]">{{quotation.id}}</a>{{last ? '' : ', '}}
+            </span>
         </dd>
     </dl>
 

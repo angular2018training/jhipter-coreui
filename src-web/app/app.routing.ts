@@ -8,22 +8,23 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
-import { adminState } from "./admin/admin.route";
-import { DashboardModule } from "./views/dashboard/dashboard.module";
-import { NextlogixAdminModule } from "./admin/admin.module";
-import { BaseModule } from "./views/base/base.module";
-import { ButtonsModule } from "./views/buttons/buttons.module";
-import { ChartJSModule } from "./views/chartjs/chartjs.module";
-import { IconsModule } from "./views/icons/icons.module";
-import { NotificationsModule } from "./views/notifications/notifications.module";
-import { ThemeModule } from "./views/theme/theme.module";
-import { WidgetsModule } from "./views/widgets/widgets.module";
-import { errorRoute } from "./layouts/error/error.route";
-import { NextlogixSetupModule } from "./setup/setup.module";
-import { setupRouter } from "@angular/router/src/router_module";
-import { setupState } from "./setup/setup.route";
-import { customerManagementState } from "./customer-management/customer-management.route";
-import { NextlogixAccountModule } from "./account/account.module";
+import { adminState } from './admin/admin.route';
+import { DashboardModule } from './views/dashboard/dashboard.module';
+import { NextlogixAdminModule } from './admin/admin.module';
+import { BaseModule } from './views/base/base.module';
+import { ButtonsModule } from './views/buttons/buttons.module';
+import { ChartJSModule } from './views/chartjs/chartjs.module';
+import { IconsModule } from './views/icons/icons.module';
+import { NotificationsModule } from './views/notifications/notifications.module';
+import { ThemeModule } from './views/theme/theme.module';
+import { WidgetsModule } from './views/widgets/widgets.module';
+import { errorRoute } from './layouts/error/error.route';
+import { NextlogixSetupModule } from './setup/setup.module';
+import { setupRouter } from '@angular/router/src/router_module';
+import { setupState } from './setup/setup.route';
+import { customerManagementState } from './customer-management/customer-management.route';
+import { NextlogixAccountModule } from './account/account.module';
+import { NextlogixCustomerManagmentModule } from './customer-management/customer-management.module';
 
 export const routes: Routes = [
 
@@ -98,31 +99,31 @@ export const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => NextlogixAdminModule,
-        //children:adminState,
+        // children:adminState,
         data: {
-          breadcrumb: "Admin"
+          breadcrumb: 'Admin'
         }
       },
       {
         path: 'setup',
-        //children:setupState,
+        // children:setupState,
         loadChildren: () => NextlogixSetupModule,
         data: {
-          breadcrumb: "Setup "
+          breadcrumb: 'Setup '
         }
       },
       {
         path: 'customer-management',
-        children: customerManagementState,
+        loadChildren: () => NextlogixCustomerManagmentModule,
         data: {
-          breadcrumb: "Customer Management "
+          breadcrumb: 'Customer Management '
         }
       },
       {
         path: 'account',
         loadChildren: () => NextlogixAccountModule,
         data: {
-          breadcrumb: "Account "
+          breadcrumb: 'Account '
         }
       },
       ...errorRoute

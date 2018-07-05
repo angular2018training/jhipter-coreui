@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -44,6 +45,10 @@ public class Quotation implements Serializable {
     @NotNull
     @Column(name = "create_date", nullable = false)
     private Instant createDate;
+
+    @NotNull
+    @Column(name = "active_from", nullable = false)
+    private LocalDate activeFrom;
 
     @OneToMany(mappedBy = "quotation")
     @JsonIgnore
@@ -115,6 +120,19 @@ public class Quotation implements Serializable {
         this.createDate = createDate;
     }
 
+    public LocalDate getActiveFrom() {
+        return activeFrom;
+    }
+
+    public Quotation activeFrom(LocalDate activeFrom) {
+        this.activeFrom = activeFrom;
+        return this;
+    }
+
+    public void setActiveFrom(LocalDate activeFrom) {
+        this.activeFrom = activeFrom;
+    }
+
     public Set<QuotationItem> getQuotationItemDetailLists() {
         return quotationItemDetailLists;
     }
@@ -182,6 +200,7 @@ public class Quotation implements Serializable {
             ", isActive='" + isIsActive() + "'" +
             ", description='" + getDescription() + "'" +
             ", createDate='" + getCreateDate() + "'" +
+            ", activeFrom='" + getActiveFrom() + "'" +
             "}";
     }
 }

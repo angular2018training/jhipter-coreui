@@ -52,6 +52,10 @@ public interface FileUploadService {
     Page<FileUploadDTO> search(String query, Pageable pageable);
 
     Page<FileUploadDTO> searchExample( FileUploadSearchDTO searchDTO, Pageable pageable);
+
+	FileUploadDTO findByHashedId(String hashedId);
+
+	void deleteByHashedId(String hashedId);
     
 
     }

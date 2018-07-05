@@ -9,7 +9,8 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { CustomerLegal } from './customer-legal.model';
 import { CustomerLegalPopupService } from './customer-legal-popup.service';
 import { CustomerLegalService } from './customer-legal.service';
-import { FileUpload, FileUploadService } from '../file-upload';
+import { FileUpload } from '../../shared/model/file-upload.model';
+import { FileUploadService } from '../../setup/file-upload';
 
 @Component({
     selector: 'jhi-customer-legal-dialog',

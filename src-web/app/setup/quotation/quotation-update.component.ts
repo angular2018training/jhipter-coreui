@@ -14,7 +14,8 @@ import { JhiAlertService,  } from 'ng-jhipster';
 import { QuotationService } from '../../shared/service/quotation.service';
 
 import { Quotation } from '../../shared/model/quotation.model';
-            import { Company, CompanyService } from '../company';
+            import { Company } from '../../shared/model/company.model';
+            import { CompanyService} from '../../shared/service/company.service';
 
 @Component({
     selector: 'jhi-quotation-update',
@@ -26,6 +27,7 @@ export class QuotationUpdateComponent implements OnInit {
     isSaving: boolean;
     private currentAccount : any;
         createDate: string;
+        activeFromDp: any;
 
     constructor(
         private alertService: AlertService,

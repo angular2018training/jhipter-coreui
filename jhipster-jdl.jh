@@ -124,6 +124,7 @@ entity OrderUserRoute{
 // File upload
 entity FileUpload {
 	id Long,
+	hashedId String,
     name String required,
     content Blob,
     uploadTime Instant required,
@@ -222,7 +223,8 @@ entity Quotation {
     name String required,
     isActive Boolean required,
     description String,
-    createDate Instant required
+    createDate Instant required,
+	activeFrom LocalDate required
 }
 
 entity QuotationItem {
@@ -302,6 +304,7 @@ entity DetailForm {
 
 relationship ManyToMany {
 	UserPostOffice{UserGroup required} to UserGroup
+	OrderServices{quotation} to Quotation
 }
 
 relationship ManyToOne {
@@ -389,7 +392,7 @@ relationship ManyToOne {
     DetailForm{district} to District
     UserPostOffice{postOffice required} to PostOffice
     OrderServices{orderServicesType required} to OrderServicesType
-    OrderServices{quotation} to Quotation
+   
 }
 
 relationship OneToMany {

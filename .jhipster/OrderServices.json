@@ -16,10 +16,12 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
             "relationshipName": "quotation",
             "otherEntityName": "quotation",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "fields": [

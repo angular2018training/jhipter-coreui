@@ -31,9 +31,7 @@ private Long orderServicesTypeId;
 
 
 
-private Long quotationId;
-
-
+private Set<QuotationDTO> quotations = new HashSet<>();
 
 public Long getId() {
     return id;
@@ -87,15 +85,13 @@ public void setOrderServicesTypeId(Long orderServicesTypeId) {
     }
 
 
-
-public Long getQuotationId() {
-    return quotationId;
+public Set<QuotationDTO> getQuotations() {
+    return quotations;
     }
 
-public void setQuotationId(Long quotationId) {
-    this.quotationId = quotationId;
+public void setQuotations(Set<QuotationDTO> quotations) {
+    this.quotations = quotations;
     }
-
 
 @Override
 public boolean equals(Object o) {

@@ -33,6 +33,13 @@ export class QuotationPopupService {
                         const quotation: Quotation = quotationResponse.body;
                         quotation.createDate = this.datePipe
                             .transform(quotation.createDate, 'yyyy-MM-ddTHH:mm:ss');
+                        if (quotation.activeFrom) {
+                            quotation.activeFrom = {
+                                year: quotation.activeFrom.getFullYear(),
+                                month: quotation.activeFrom.getMonth() + 1,
+                                day: quotation.activeFrom.getDate()
+                            };
+                        }
                         this.ngbModalRef = this.quotationModalRef(component, quotation);
                         resolve(this.ngbModalRef);
                     });

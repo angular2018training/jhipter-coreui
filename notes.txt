@@ -1,6 +1,9 @@
 -- DROP table and run liquibase
 mvn liquibase:dropAll liquibase:update
 
+-- Check different
+mvn liquibase:diff
+
 -- Remove check sum in table databasechangelog
 mvn liquibase:clearCheckSums
 

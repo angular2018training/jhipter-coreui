@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -45,8 +47,12 @@ public class OrderServices implements Serializable {
     @NotNull
     private OrderServicesType orderServicesType;
 
-    @ManyToOne
-    private Quotation quotation;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "order_services_quotation",
+               joinColumns = @JoinColumn(name="order_services_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="quotations_id", referencedColumnName="id"))
+    private Set<Quotation> quotations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -122,17 +128,27 @@ public class OrderServices implements Serializable {
         this.orderServicesType = orderServicesType;
     }
 
-    public Quotation getQuotation() {
-        return quotation;
+    public Set<Quotation> getQuotations() {
+        return quotations;
     }
 
-    public OrderServices quotation(Quotation quotation) {
-        this.quotation = quotation;
+    public OrderServices quotations(Set<Quotation> quotations) {
+        this.quotations = quotations;
         return this;
     }
 
-    public void setQuotation(Quotation quotation) {
-        this.quotation = quotation;
+    public OrderServices addQuotation(Quotation quotation) {
+        this.quotations.add(quotation);
+        return this;
+    }
+
+    public OrderServices removeQuotation(Quotation quotation) {
+        this.quotations.remove(quotation);
+        return this;
+    }
+
+    public void setQuotations(Set<Quotation> quotations) {
+        this.quotations = quotations;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

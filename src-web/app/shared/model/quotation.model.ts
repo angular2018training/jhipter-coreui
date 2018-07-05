@@ -7,6 +7,7 @@ export class Quotation implements BaseEntity {
         public isActive?: boolean,
         public description?: string,
         public createDate?: any,
+        public activeFrom?: any,
         public quotationItemDetailLists?: BaseEntity[],
         public companyId?: number,
     ) {

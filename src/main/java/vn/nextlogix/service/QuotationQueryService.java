@@ -1,6 +1,6 @@
 package vn.nextlogix.service;
 
-
+import java.time.LocalDate;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -108,6 +108,9 @@ public class QuotationQueryService extends QueryService<Quotation> {
             }
             if (criteria.getCreateDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCreateDate(), Quotation_.createDate));
+            }
+            if (criteria.getActiveFrom() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getActiveFrom(), Quotation_.activeFrom));
             }
             if (criteria.getQuotationItemDetailListId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationItemDetailListId(), Quotation_.quotationItemDetailLists, QuotationItem_.id));

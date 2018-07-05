@@ -3,7 +3,8 @@ import {RouterModule} from '@angular/router';
 
 import {NextlogixSharedModule} from '../shared';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
-
+// Ng2-select
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import {
   adminState,
   AuditsComponent,
@@ -35,12 +36,16 @@ import {NextlogixUserGroupModule} from './user-group/user-group.module';
 import {JhiLanguageService} from 'ng-jhipster';
 import {JhiLanguageHelper} from '../shared/language/language.helper';
 import {UserMgmtUpdateComponent} from './user-management/user-management-update.component';
+import {BsDatepickerModule, TimepickerModule} from "ngx-bootstrap";
 
 @NgModule({
   imports: [
     NextlogixSharedModule,
     NextlogixUserGroupModule,
-    RouterModule.forChild(adminState)
+    RouterModule.forChild(adminState),
+    TimepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TypeaheadModule.forRoot()
     /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
   ],
   declarations: [

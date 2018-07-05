@@ -28,6 +28,8 @@ public class FileUploadCriteria implements Serializable {
 
     private LongFilter id;
 
+    private StringFilter hashedId;
+
     private StringFilter name;
 
     private InstantFilter uploadTime;
@@ -45,6 +47,14 @@ public class FileUploadCriteria implements Serializable {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public StringFilter getHashedId() {
+        return hashedId;
+    }
+
+    public void setHashedId(StringFilter hashedId) {
+        this.hashedId = hashedId;
     }
 
     public StringFilter getName() {
@@ -83,6 +93,7 @@ public class FileUploadCriteria implements Serializable {
     public String toString() {
         return "FileUploadCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (hashedId != null ? "hashedId=" + hashedId + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (uploadTime != null ? "uploadTime=" + uploadTime + ", " : "") +
                 (contentType != null ? "contentType=" + contentType + ", " : "") +
