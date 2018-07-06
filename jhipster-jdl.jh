@@ -11,6 +11,13 @@ entity PostOffice {
     description String
 }
 
+entity Region {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
 entity Ward {
 	id Long,
     code String required,
@@ -24,6 +31,13 @@ entity District {
     name String required,
     pickupActive Boolean required,
     deliveryActive Boolean required,
+    description String
+}
+
+entity DistrictType {
+	id Long,
+    code String required,
+    name String required,
     description String
 }
 
@@ -48,6 +62,14 @@ entity Bank {
     description String
 }
 
+entity Weight {
+	id Long,
+    minAmount Double required,
+    maxAmount Double required,
+    name String required,
+    description String
+}
+
 entity OrderServicesType {
 	id Long,
     code String required,
@@ -56,6 +78,21 @@ entity OrderServicesType {
 }
 
 entity OrderStatus {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity OrderSubServices {
+	id Long,
+    code String required,
+    name String required,
+    isActive Boolean,
+    description String
+}
+
+entity OrderSubServicesType {
 	id Long,
     code String required,
     name String required,
@@ -99,6 +136,13 @@ entity QuotationItemType {
 }
 
 entity OrderUserRouteType {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity QuotationType {
 	id Long,
     code String required,
     name String required,
@@ -227,11 +271,53 @@ entity Quotation {
 	activeFrom LocalDate required
 }
 
-entity QuotationItem {
+entity QuotationPickup {
 	id Long,
-    quotationFile Blob required,
-    createDate Instant required
+    amount Double required
 }
+
+entity QuotationDomesticDelivery {
+	id Long,
+    amount Double required
+}
+
+entity QuotationReturn {
+	id Long,
+    feePercent Double required
+}
+
+entity QuotationGiveBack {
+	id Long,
+    feePercent Double required
+}
+
+entity QuotationInsurance {
+	id Long,
+	amountFrom Double required,
+	amountTo Double required,
+	feeAmountMin Double required,
+	feeAmountMax Double required,
+    feePercent Double required
+}
+
+entity QuotationCod {
+	id Long,
+	amountFrom Double required,
+	amountTo Double required,
+	feeAmountMin Double required,
+    feeAmount Double required
+}
+
+entity QuotationSubServices {
+	id Long,
+	amountFrom Double required,
+	amountTo Double required,
+	feeAmountMin Double required,
+	feeAmountMax Double required,
+    feeAmount Double required,
+    autoSelect Boolean required
+}
+
 
 // Order
 entity OrderMain {
@@ -312,6 +398,7 @@ relationship ManyToOne {
     PostOffice{company required} to Company,
     Ward{company required} to Company,
     District{company required} to Company,
+    DistrictType{company required} to Company,
     Province{company required} to Company,
     UserGroup{company required} to Company,
     Bank{company required} to Company,
@@ -335,12 +422,21 @@ relationship ManyToOne {
     CustomerServices{company required} to Company,
     Warehouse{company required} to Company,
     Quotation{company required} to Company,
-    QuotationItem{company required} to Company,
+    QuotationPickup{company required} to Company,
+    QuotationDomesticDelivery{company required} to Company,
+    QuotationReturn{company required} to Company,
+    QuotationGiveBack{company required} to Company,
+    QuotationInsurance{company required} to Company,
+    QuotationCod{company required} to Company,
+    OrderSubServices{company required} to Company,
+    OrderSubServicesType{company required} to Company,
+    QuotationSubServices{company required} to Company,
     OrderMain{company required} to Company,
     OrderPickup{company required} to Company,
     OrderConsignee{company required} to Company,
     OrderFee{company required} to Company,
     OrderDelivery{company required} to Company,
+    Region{company required} to Company,
 // Others
     Customer{manageUser} to UserExtraInfo,
     Customer{saleUser} to UserExtraInfo,
@@ -350,13 +446,14 @@ relationship ManyToOne {
     Customer{customerSource required} to CustomerSource,
     Ward{district required} to District,
     District{province required} to Province,
+    District{districtType required} to DistrictType,
     PostOffice{province required} to Province,
     PostOffice{district required} to District,
     CustomerPayment{bank required} to Bank,
     CustomerPayment{userVerify} to UserExtraInfo,
     CustomerPayment{paymentType} to PaymentType,
     CustomerPostOffice{postOffice required} to PostOffice,
-	CustomerServices{orderServices required} to OrderServices
+	CustomerServices{orderServices required} to OrderServices,
     CustomerServices{quotation} to Quotation,
     CustomerLegalFileUpload{fileUpload required} to FileUpload,
     CustomerWarehouse{warehouse required} to Warehouse,
@@ -391,11 +488,30 @@ relationship ManyToOne {
     DetailForm{province} to Province,
     DetailForm{district} to District,
     UserPostOffice{postOffice required} to PostOffice,
-    OrderServices{orderServicesType required} to OrderServicesType
+    OrderServices{orderServicesType required} to OrderServicesType,
+    QuotationPickup{province required} to Province,
+    QuotationPickup{districtType required} to DistrictType,
+    QuotationDomesticDelivery{districtType required} to DistrictType,
+    QuotationDomesticDelivery{region required} to Region,
+    QuotationDomesticDelivery{weight required} to Weight,
+    QuotationReturn{districtType required} to DistrictType,
+    QuotationReturn{region required} to Region,
+    QuotationGiveBack{districtType required} to DistrictType,
+    QuotationGiveBack{region required} to Region,
+    QuotationInsurance{districtType required} to DistrictType,
+    QuotationCod{districtType required} to DistrictType,
+    QuotationSubServices{orderSubServicesType} to OrderSubServicesType,
+    QuotationSubServices{orderSubServices} to OrderSubServices
 }
 
 relationship OneToMany {
-    Quotation{quotationItemDetailList} to QuotationItem,
+    Quotation{quotationPickupDetailList} to QuotationPickup{quotationParent},
+    Quotation{quotationDomesticDeliveryDetailList} to QuotationDomesticDelivery{quotationParent},
+    Quotation{quotationReturnDetailList} to QuotationReturn{quotationParent},
+    Quotation{quotationGiveBackDetailList} to QuotationGiveBack{quotationParent},
+    Quotation{quotationInsuranceDetailList} to QuotationInsurance{quotationParent},
+    Quotation{quotationCodDetailList} to QuotationCod{quotationParent},
+    Quotation{quotationSubServicesDetailList} to QuotationSubServices{quotationParent},
     MasterForm{detailFormDetailList} to DetailForm,
     UserExtraInfo{userPostOfficeDetailList} to UserPostOffice{userExtraInfoParent},
     Customer{customerPostOfficeDetailList} to CustomerPostOffice{customerParent},
