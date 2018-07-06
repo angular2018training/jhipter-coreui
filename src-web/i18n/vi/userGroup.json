@@ -3,25 +3,26 @@
     "nextlogixApp": {
         "userGroup" : {
             "home": {
-                "title": "User Groups",
-                "createLabel": "Thêm mới một User Group",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật User Group",
-                "search": "Tìm User Group"
+                "title": "Nhóm người dùng",
+                "createLabel": "Thêm mới một Nhóm người dùng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Nhóm người dùng",
+                "search": "Tìm Nhóm người dùng"
             },
-            "created": "Một User Group mới được tạo với định danh {{ param }}",
-            "updated": "Một User Group cập nhật với định danh {{ param }}",
-            "deleted": "Một User Group đã xóa với định danh {{ param }}",
+            "created": "Một Nhóm người dùng mới được tạo với định danh {{ param }}",
+            "updated": "Một Nhóm người dùng cập nhật với định danh {{ param }}",
+            "deleted": "Một Nhóm người dùng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa User Group {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Nhóm người dùng {{ code }} - {{name}}?"
             },
             "detail": {
-                "title": "User Group"
+                "title": "Nhóm người dùng"
             },
             "code": "Mã",
             "name": "Tên",
             "role": "Quyền",
             "description": "Mô tả",
-            "company": "Công ty"
+            "company": "Công ty",
+            "userGroupList":"Danh sách nhóm người dùng"
         }
     }
 }

@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { userGroupRoute, userGroupPopupRoute } from './user-group.route';
 import { NextlogixSharedModule } from '../../shared';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import {
     UserGroupComponent,
@@ -10,7 +11,6 @@ import {
     UserGroupDeletePopupComponent,
     UserGroupDeleteDialogComponent,
     UserGroupPopupService,
-    DataFilterPipe
 } from './';
 
 const ENTITY_STATES = [
@@ -21,7 +21,8 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        NgSelectModule
     ],
     declarations: [
         UserGroupComponent,
@@ -29,7 +30,6 @@ const ENTITY_STATES = [
         UserGroupUpdateComponent,
         UserGroupDeleteDialogComponent,
         UserGroupDeletePopupComponent,
-        DataFilterPipe
     ],
     entryComponents: [
         UserGroupComponent,
@@ -39,7 +39,6 @@ const ENTITY_STATES = [
     ],
     providers: [
         UserGroupPopupService,
-        DataFilterPipe
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -17,7 +17,7 @@
                             <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.code" for="field_code">Code</label>
                         </div>
                         <div class="col-md-10 col-sm-12">
-                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="userGroup.code" required/>
+                            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="userGroup.code" [disabled]="userGroup.id" required/>
                             <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
                                 <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required" jhiTranslate="entity.validation.required">
                                     This field is required.
@@ -49,9 +49,9 @@
                             <label class="col-form-label" jhiTranslate="nextlogixApp.userGroup.role">Role</label>
                         </div>
                         <div class="col-md-11 col-sm-12">
-                            <select #selectAuthority id="select2id" name="authorities" class="form-control select2-multiple" multiple [(ngModel)]="userGroup.authorities">
-                                <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
-                            </select>
+                            <ng-select [items]="authorities" [multiple]="true" class="bootstrap" [ngModelOptions]="{standalone: true}"
+                                 [(ngModel)]="userGroup.authorities">
+                            </ng-select>
                         </div>
                     </div>
                 </div>
@@ -69,14 +69,16 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;
-                <span jhiTranslate="entity.action.save">Save</span>
-            </button>&nbsp;
-            <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()">
-                <i class="fa fa-undo"></i>&nbsp;
-                <span jhiTranslate="entity.action.cancel">Cancel</span>
-            </button>
+            <div class="btn-group flex-btn-group-container">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <i class="fa fa-dot-circle-o"></i>&nbsp;
+                    <span jhiTranslate="entity.action.save">Save</span>
+                </button>
+                <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()">
+                    <i class="fa fa-undo"></i>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+            </div>
         </div>
     </div>
 </form>

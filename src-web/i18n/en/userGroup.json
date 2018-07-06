@@ -12,7 +12,7 @@
             "updated": "A User Group is updated with identifier {{ param }}",
             "deleted": "A User Group is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete User Group {{ id }}?"
+                "question": "Are you sure you want to delete User Group {{ code }} - {{name}}?"
             },
             "detail": {
                 "title": "User Group"
@@ -21,7 +21,8 @@
             "name": "Name",
             "role": "Role",
             "description": "Description",
-            "company": "Company"
+            "company": "Company",
+            "userGroupList": "User group list"
         }
     }
 }
