@@ -97,13 +97,12 @@
                             <span jhiTranslate="nextlogixApp.orderServices.name">Name</span>
                             <fa-icon [icon]="'sort'"></fa-icon>
                         </th>
-                        <th jhiSortBy="orderServicesTypeId">
+                        <th jhiSortBy="orderServicesType.name">
                             <span jhiTranslate="nextlogixApp.orderServices.orderServicesType">Order Services Type</span>
                             <fa-icon [icon]="'sort'"></fa-icon>
                         </th>
-                        <th jhiSortBy="orderServicesTypeId">
+                        <th>
                             <span jhiTranslate="nextlogixApp.orderServices.quotation">Quotation</span>
-                            <fa-icon [icon]="'sort'"></fa-icon>
                         </th>
                         <th><span jhiTranslate="nextlogixApp.orderServices.action">Action</span></th>
                     </tr>
@@ -114,7 +113,7 @@
                         <td>{{orderServices.name}}</td>
                         <td>
                             <div *ngIf="orderServices.orderServicesTypeId">
-                                <a [routerLink]="['../order-services-type', 'detail',orderServices.orderServicesTypeId ]">{{getOrderServiceTypeName(orderServices.orderServicesTypeId)}}</a>
+                                <a [routerLink]="['../order-services-type', 'detail',orderServices.orderServicesTypeId ]">{{orderServices.orderServicesTypeDTO?.name}}</a>
                             </div>
                         </td>
                         <td>
