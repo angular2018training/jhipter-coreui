@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 import {AlertService} from '../../shared/alert/alert-service';
-import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -14,16 +13,9 @@ import { OrderServicesService } from '../../shared/service/order-services.servic
 import { OrderServicesDeleteDialogComponent } from './order-services-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {OrderServicesSearch} from '../../shared/model/order-services.search.model';
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
-    import { OrderServicesType } from '../../shared/model/order-services-type.model';
-    import { OrderServicesTypeService } from '../../shared/service/order-services-type.service';
-
-    import { Quotation } from '../../shared/model/quotation.model';
-    import { QuotationService } from '../../shared/service/quotation.service';
-
-
+import { OrderServicesType } from '../../shared/model/order-services-type.model';
+import { OrderServicesTypeService } from '../../shared/service/order-services-type.service';
+import { Quotation } from '../../shared/model/quotation.model';
 
 @Component({
     selector: 'jhi-order-services',
@@ -46,11 +38,11 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
-    orderServicesSearch : OrderServicesSearch;
+    orderServicesSearch: OrderServicesSearch;
 
-    orderServicesTypes : OrderServicesType[];
+    orderServicesTypes: OrderServicesType[];
 
-    quotations : Quotation[];
+    quotations: Quotation[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -81,8 +73,6 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' code'] : '';
         this.orderServicesSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
                         this.activatedRoute.snapshot.params[' name'] : '';
-        this.orderServicesSearch.isActive = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['isActive'] ?
-                        this.activatedRoute.snapshot.params[' isActive'] : '';
         this.orderServicesSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
                         this.activatedRoute.snapshot.params[' description'] : '';
         this.orderServicesSearch.orderServicesTypeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['orderServicesTypeId'] ?
@@ -91,15 +81,14 @@ currentAccount: any;
 
     loadAll() {
          var obj = {
-         page: this.page -1,
+         page: this.page - 1,
          size: this.itemsPerPage,
          sort: this.sort(),
          code : this.orderServicesSearch.code,
          name : this.orderServicesSearch.name,
-         isActive : this.orderServicesSearch.isActive,
          description : this.orderServicesSearch.description,
-         companyId :this.currentAccount.companyId,
-         orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
+         companyId : this.currentAccount.companyId,
+         orderServicesTypeId : this.orderServicesSearch.orderServicesTypeId,
          };
 
         this.orderServicesService.searchExample(obj).subscribe(
@@ -127,7 +116,6 @@ currentAccount: any;
                 search: this.currentSearch,
                 code : this.orderServicesSearch.code,
                 name : this.orderServicesSearch.name,
-                isActive : this.orderServicesSearch.isActive,
                 description : this.orderServicesSearch.description,
                 companyId :this.currentAccount.companyId,
                 orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
@@ -168,7 +156,7 @@ currentAccount: any;
         });
         this.registerChangeInOrderServices();
         this.orderServicesTypeService.query().subscribe(
-            (res: HttpResponse<OrderServicesType[]>) => this.orderServicesTypes = res.body,
+            (res: HttpResponse<OrderServicesType[]>) => { this.orderServicesTypes = res.body;},
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
@@ -203,8 +191,12 @@ currentAccount: any;
         this.alertService.error(error.message, null, null);
     }
 
-    public deleteItem(id:number){
+    public deleteItem(id: number) {
         this.orderServicesPopupService
             .open(OrderServicesDeleteDialogComponent as Component, id);
+    }
+    public getOrderServiceTypeName(id: number) {
+        const foundOrderType = this.orderServicesTypes.find((x) => x.id === id);
+        return foundOrderType.name;
     }
 }

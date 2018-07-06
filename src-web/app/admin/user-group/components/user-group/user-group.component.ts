@@ -104,7 +104,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
         }
     }
     transition() {
-        this.router.navigate(['/setup/user-group'], {
+        this.router.navigate(['/admin/user-group'], {
             queryParams:
             {
                 page: this.page,
@@ -123,7 +123,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
     clear() {
         this.page = 0;
         this.currentSearch = '';
-        this.router.navigate(['/setup/user-group', {
+        this.router.navigate(['/admin/user-group', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
@@ -135,7 +135,7 @@ export class UserGroupComponent implements OnInit, OnDestroy {
         }
         this.page = 0;
         this.currentSearch = query;
-        this.router.navigate(['/setup/user-group', {
+        this.router.navigate(['/admin/user-group', {
             search: this.currentSearch,
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
