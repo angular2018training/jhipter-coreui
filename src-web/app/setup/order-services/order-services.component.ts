@@ -38,11 +38,11 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
-    orderServicesSearch : OrderServicesSearch;
+    orderServicesSearch: OrderServicesSearch;
 
-    orderServicesTypes : OrderServicesType[];
+    orderServicesTypes: OrderServicesType[];
 
-    quotations : Quotation[];
+    quotations: Quotation[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -87,8 +87,8 @@ currentAccount: any;
          code : this.orderServicesSearch.code,
          name : this.orderServicesSearch.name,
          description : this.orderServicesSearch.description,
-         companyId :this.currentAccount.companyId,
-         orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
+         companyId : this.currentAccount.companyId,
+         orderServicesTypeId : this.orderServicesSearch.orderServicesTypeId,
          };
 
         this.orderServicesService.searchExample(obj).subscribe(
@@ -156,7 +156,7 @@ currentAccount: any;
         });
         this.registerChangeInOrderServices();
         this.orderServicesTypeService.query().subscribe(
-            (res: HttpResponse<OrderServicesType[]>) => { this.orderServicesTypes = res.body; console.log(this.orderServicesTypes);},
+            (res: HttpResponse<OrderServicesType[]>) => { this.orderServicesTypes = res.body;},
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
