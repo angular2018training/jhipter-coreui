@@ -1,0 +1,138 @@
+
+
+
+<form name="editForm" role="form" class="form-horizontal" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.quotationInsurance.home.createOrEditLabel">Create or edit a Quotation Insurance</strong>
+    </div>
+    <div class="card-body">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!quotationInsurance.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="quotationInsurance.id" readonly />
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.amountFrom" for="field_amountFrom">Amount From</label>
+                    <div class="col-md-4">
+                    <input type="number" class="form-control" name="amountFrom" id="field_amountFrom"
+                        [(ngModel)]="quotationInsurance.amountFrom" required/>
+                    <div [hidden]="!(editForm.controls.amountFrom?.dirty && editForm.controls.amountFrom?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.amountFrom?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.amountFrom?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.amountTo" for="field_amountTo">Amount To</label>
+                    <div class="col-md-4">
+                    <input type="number" class="form-control" name="amountTo" id="field_amountTo"
+                        [(ngModel)]="quotationInsurance.amountTo" required/>
+                    <div [hidden]="!(editForm.controls.amountTo?.dirty && editForm.controls.amountTo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.amountTo?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.amountTo?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.feeAmountMin" for="field_feeAmountMin">Fee Amount Min</label>
+                    <div class="col-md-4">
+                    <input type="number" class="form-control" name="feeAmountMin" id="field_feeAmountMin"
+                        [(ngModel)]="quotationInsurance.feeAmountMin" required/>
+                    <div [hidden]="!(editForm.controls.feeAmountMin?.dirty && editForm.controls.feeAmountMin?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.feeAmountMin?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.feeAmountMin?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.feeAmountMax" for="field_feeAmountMax">Fee Amount Max</label>
+                    <div class="col-md-4">
+                    <input type="number" class="form-control" name="feeAmountMax" id="field_feeAmountMax"
+                        [(ngModel)]="quotationInsurance.feeAmountMax" required/>
+                    <div [hidden]="!(editForm.controls.feeAmountMax?.dirty && editForm.controls.feeAmountMax?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.feeAmountMax?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.feeAmountMax?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.feePercent" for="field_feePercent">Fee Percent</label>
+                    <div class="col-md-4">
+                    <input type="number" class="form-control" name="feePercent" id="field_feePercent"
+                        [(ngModel)]="quotationInsurance.feePercent" required/>
+                    <div [hidden]="!(editForm.controls.feePercent?.dirty && editForm.controls.feePercent?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.feePercent?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.feePercent?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.districtType" for="field_districtType">District Type</label>
+                    <div class="col-md-4">
+                    <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="quotationInsurance.districtTypeId"  required>
+                        <option *ngIf="!editForm.value.districtType" [ngValue]="null" selected></option>
+                        <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districttypes; trackBy: trackDistrictTypeById">{{districtTypeOption.name}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div [hidden]="!(editForm.controls.districtType?.dirty && editForm.controls.districtType?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.districtType?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationInsurance.quotationParent" for="field_quotationParent">Quotation Parent</label>
+                    <div class="col-md-4">
+                    <select class="form-control" id="field_quotationParent" name="quotationParent" [(ngModel)]="quotationInsurance.quotationParentId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer">
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <i class="fa fa-dot-circle-o"></i>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+        <button type="reset" class="btn btn-danger" id="cancel-save" (click)="previousState()">
+            <i class="fa fa-undo"></i>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+    </div>
+</div>
+</form>

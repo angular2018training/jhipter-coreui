@@ -38,7 +38,19 @@ public class QuotationCriteria implements Serializable {
 
     private LocalDateFilter activeFrom;
 
-    private LongFilter quotationItemDetailListId;
+    private LongFilter quotationPickupDetailListId;
+
+    private LongFilter quotationDomesticDeliveryDetailListId;
+
+    private LongFilter quotationReturnDetailListId;
+
+    private LongFilter quotationGiveBackDetailListId;
+
+    private LongFilter quotationInsuranceDetailListId;
+
+    private LongFilter quotationCodDetailListId;
+
+    private LongFilter quotationSubServicesDetailListId;
 
     private LongFilter companyId;
 
@@ -93,12 +105,60 @@ public class QuotationCriteria implements Serializable {
         this.activeFrom = activeFrom;
     }
 
-    public LongFilter getQuotationItemDetailListId() {
-        return quotationItemDetailListId;
+    public LongFilter getQuotationPickupDetailListId() {
+        return quotationPickupDetailListId;
     }
 
-    public void setQuotationItemDetailListId(LongFilter quotationItemDetailListId) {
-        this.quotationItemDetailListId = quotationItemDetailListId;
+    public void setQuotationPickupDetailListId(LongFilter quotationPickupDetailListId) {
+        this.quotationPickupDetailListId = quotationPickupDetailListId;
+    }
+
+    public LongFilter getQuotationDomesticDeliveryDetailListId() {
+        return quotationDomesticDeliveryDetailListId;
+    }
+
+    public void setQuotationDomesticDeliveryDetailListId(LongFilter quotationDomesticDeliveryDetailListId) {
+        this.quotationDomesticDeliveryDetailListId = quotationDomesticDeliveryDetailListId;
+    }
+
+    public LongFilter getQuotationReturnDetailListId() {
+        return quotationReturnDetailListId;
+    }
+
+    public void setQuotationReturnDetailListId(LongFilter quotationReturnDetailListId) {
+        this.quotationReturnDetailListId = quotationReturnDetailListId;
+    }
+
+    public LongFilter getQuotationGiveBackDetailListId() {
+        return quotationGiveBackDetailListId;
+    }
+
+    public void setQuotationGiveBackDetailListId(LongFilter quotationGiveBackDetailListId) {
+        this.quotationGiveBackDetailListId = quotationGiveBackDetailListId;
+    }
+
+    public LongFilter getQuotationInsuranceDetailListId() {
+        return quotationInsuranceDetailListId;
+    }
+
+    public void setQuotationInsuranceDetailListId(LongFilter quotationInsuranceDetailListId) {
+        this.quotationInsuranceDetailListId = quotationInsuranceDetailListId;
+    }
+
+    public LongFilter getQuotationCodDetailListId() {
+        return quotationCodDetailListId;
+    }
+
+    public void setQuotationCodDetailListId(LongFilter quotationCodDetailListId) {
+        this.quotationCodDetailListId = quotationCodDetailListId;
+    }
+
+    public LongFilter getQuotationSubServicesDetailListId() {
+        return quotationSubServicesDetailListId;
+    }
+
+    public void setQuotationSubServicesDetailListId(LongFilter quotationSubServicesDetailListId) {
+        this.quotationSubServicesDetailListId = quotationSubServicesDetailListId;
     }
 
     public LongFilter getCompanyId() {
@@ -118,7 +178,13 @@ public class QuotationCriteria implements Serializable {
                 (description != null ? "description=" + description + ", " : "") +
                 (createDate != null ? "createDate=" + createDate + ", " : "") +
                 (activeFrom != null ? "activeFrom=" + activeFrom + ", " : "") +
-                (quotationItemDetailListId != null ? "quotationItemDetailListId=" + quotationItemDetailListId + ", " : "") +
+                (quotationPickupDetailListId != null ? "quotationPickupDetailListId=" + quotationPickupDetailListId + ", " : "") +
+                (quotationDomesticDeliveryDetailListId != null ? "quotationDomesticDeliveryDetailListId=" + quotationDomesticDeliveryDetailListId + ", " : "") +
+                (quotationReturnDetailListId != null ? "quotationReturnDetailListId=" + quotationReturnDetailListId + ", " : "") +
+                (quotationGiveBackDetailListId != null ? "quotationGiveBackDetailListId=" + quotationGiveBackDetailListId + ", " : "") +
+                (quotationInsuranceDetailListId != null ? "quotationInsuranceDetailListId=" + quotationInsuranceDetailListId + ", " : "") +
+                (quotationCodDetailListId != null ? "quotationCodDetailListId=" + quotationCodDetailListId + ", " : "") +
+                (quotationSubServicesDetailListId != null ? "quotationSubServicesDetailListId=" + quotationSubServicesDetailListId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }

@@ -24,6 +24,9 @@ import vn.nextlogix.repository.search.DistrictSearchRepository;
     import vn.nextlogix.repository.search.ProvinceSearchRepository;
     import vn.nextlogix.service.mapper.ProvinceMapper;
 
+    import vn.nextlogix.repository.search.DistrictTypeSearchRepository;
+    import vn.nextlogix.service.mapper.DistrictTypeMapper;
+
 import vn.nextlogix.service.dto.DistrictCriteria;
 
 import vn.nextlogix.service.dto.DistrictDTO;
@@ -55,9 +58,13 @@ public class DistrictQueryService extends QueryService<District> {
         private final ProvinceSearchRepository provinceSearchRepository;
         private final ProvinceMapper provinceMapper;
 
+        private final DistrictTypeSearchRepository districtTypeSearchRepository;
+        private final DistrictTypeMapper districtTypeMapper;
+
 
     public DistrictQueryService(DistrictRepository districtRepository, DistrictMapper districtMapper, DistrictSearchRepository districtSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+,DistrictTypeSearchRepository districtTypeSearchRepository,DistrictTypeMapper  districtTypeMapper
 ) {
         this.districtRepository = districtRepository;
         this.districtMapper = districtMapper;
@@ -66,6 +73,8 @@ public class DistrictQueryService extends QueryService<District> {
                                      this.companyMapper = companyMapper;
                                     this.provinceSearchRepository = provinceSearchRepository;
                                      this.provinceMapper = provinceMapper;
+                                    this.districtTypeSearchRepository = districtTypeSearchRepository;
+                                     this.districtTypeMapper = districtTypeMapper;
 
     }
 
@@ -110,6 +119,12 @@ public class DistrictQueryService extends QueryService<District> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), District_.name));
             }
+            if (criteria.getPickupActive() != null) {
+                specification = specification.and(buildSpecification(criteria.getPickupActive(), District_.pickupActive));
+            }
+            if (criteria.getDeliveryActive() != null) {
+                specification = specification.and(buildSpecification(criteria.getDeliveryActive(), District_.deliveryActive));
+            }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), District_.description));
             }
@@ -118,6 +133,9 @@ public class DistrictQueryService extends QueryService<District> {
             }
             if (criteria.getProvinceId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getProvinceId(), District_.province, Province_.id));
+            }
+            if (criteria.getDistrictTypeId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictTypeId(), District_.districtType, DistrictType_.id));
             }
         }
         return specification;

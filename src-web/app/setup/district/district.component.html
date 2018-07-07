@@ -73,6 +73,17 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_districtType"
+                       jhiTranslate="nextlogixApp.district.districtType">>District Type:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="districtSearch.districtTypeId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districttypes; trackBy: trackDistrictTypeById">{{districtTypeOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
@@ -84,15 +95,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.district.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.district.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -107,6 +121,7 @@
                 <th jhiSortBy="deliveryActive"><span jhiTranslate="nextlogixApp.district.deliveryActive">Delivery Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.district.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.district.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="districtTypeId"><span jhiTranslate="nextlogixApp.district.districtType">District Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -123,24 +138,21 @@
         <a [routerLink]="['../province', 'detail',district.provinceId ]" >{{district.provinceDTO?.name}}</a>
     </div>
     </td>
+                    <td>
+        <div *ngIf="district.districtTypeId">
+        <a [routerLink]="['../district-type', 'detail',district.districtTypeId ]" >{{district.districtTypeDTO?.name}}</a>
+    </div>
+    </td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[district.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[district.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(district.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -159,5 +171,3 @@
 </div>
 
 </div>
-
-

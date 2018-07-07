@@ -1,0 +1,32 @@
+
+{
+    "nextlogixApp": {
+        "quotationSubServices" : {
+            "home": {
+                "title": "Quotation Sub Services",
+                "createLabel": "Create a new Quotation Sub Services",
+                "createOrEditLabel": "Create or edit a Quotation Sub Services",
+                "search": "Search for Quotation Sub Services"
+            },
+            "created": "A new Quotation Sub Services is created with identifier {{ param }}",
+            "updated": "A Quotation Sub Services is updated with identifier {{ param }}",
+            "deleted": "A Quotation Sub Services is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Sub Services {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Sub Services"
+            },
+            "amountFrom": "Amount From",
+            "amountTo": "Amount To",
+            "feeAmountMin": "Fee Amount Min",
+            "feeAmountMax": "Fee Amount Max",
+            "feeAmount": "Fee Amount",
+            "autoSelect": "Auto Select",
+            "company": "Company",
+            "orderSubServicesType": "Order Sub Services Type",
+            "orderSubServices": "Order Sub Services",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

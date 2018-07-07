@@ -19,8 +19,16 @@
             },
             "name": "Name",
             "isActive": "Is Active",
+            "description": "Description",
             "createDate": "Create Date",
-            "quotationItem": "Quotation Item",
+            "activeFrom": "Active From",
+            "quotationPickupDetailList": "Quotation Pickup Detail List",
+            "quotationDomesticDeliveryDetailList": "Quotation Domestic Delivery Detail List",
+            "quotationReturnDetailList": "Quotation Return Detail List",
+            "quotationGiveBackDetailList": "Quotation Give Back Detail List",
+            "quotationInsuranceDetailList": "Quotation Insurance Detail List",
+            "quotationCodDetailList": "Quotation Cod Detail List",
+            "quotationSubServicesDetailList": "Quotation Sub Services Detail List",
             "company": "Company"
         }
     }

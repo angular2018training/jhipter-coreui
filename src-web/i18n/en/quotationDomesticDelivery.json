@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "quotationDomesticDelivery" : {
+            "home": {
+                "title": "Quotation Domestic Deliveries",
+                "createLabel": "Create a new Quotation Domestic Delivery",
+                "createOrEditLabel": "Create or edit a Quotation Domestic Delivery",
+                "search": "Search for Quotation Domestic Delivery"
+            },
+            "created": "A new Quotation Domestic Delivery is created with identifier {{ param }}",
+            "updated": "A Quotation Domestic Delivery is updated with identifier {{ param }}",
+            "deleted": "A Quotation Domestic Delivery is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Domestic Delivery {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Domestic Delivery"
+            },
+            "amount": "Amount",
+            "company": "Company",
+            "districtType": "District Type",
+            "region": "Region",
+            "weight": "Weight",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "quotationReturn" : {
+            "home": {
+                "title": "Quotation Returns",
+                "createLabel": "Create a new Quotation Return",
+                "createOrEditLabel": "Create or edit a Quotation Return",
+                "search": "Search for Quotation Return"
+            },
+            "created": "A new Quotation Return is created with identifier {{ param }}",
+            "updated": "A Quotation Return is updated with identifier {{ param }}",
+            "deleted": "A Quotation Return is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Return {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Return"
+            },
+            "feePercent": "Fee Percent",
+            "company": "Company",
+            "districtType": "District Type",
+            "region": "Region",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

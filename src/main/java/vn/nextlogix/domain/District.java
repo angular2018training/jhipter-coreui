@@ -53,6 +53,10 @@ public class District implements Serializable {
     @NotNull
     private Province province;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private DistrictType districtType;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -151,6 +155,19 @@ public class District implements Serializable {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public DistrictType getDistrictType() {
+        return districtType;
+    }
+
+    public District districtType(DistrictType districtType) {
+        this.districtType = districtType;
+        return this;
+    }
+
+    public void setDistrictType(DistrictType districtType) {
+        this.districtType = districtType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

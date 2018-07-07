@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity QuotationReturn.
+    -->
+    <changeSet id="20180706034338-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="quotation_return"
+                                 constraintName="fk_quotation_return_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="district_type_id"
+                                 baseTableName="quotation_return"
+                                 constraintName="fk_quotation_return_district_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="region_id"
+                                 baseTableName="quotation_return"
+                                 constraintName="fk_quotation_return_region_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="region"/>
+
+        <addForeignKeyConstraint baseColumnNames="quotation_parent_id"
+                                 baseTableName="quotation_return"
+                                 constraintName="fk_quotation_return_quotation_parent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="quotation"/>
+
+    </changeSet>
+</databaseChangeLog>

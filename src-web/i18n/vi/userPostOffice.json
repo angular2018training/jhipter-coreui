@@ -3,9 +3,9 @@
     "nextlogixApp": {
         "userPostOffice" : {
             "home": {
-                "title": "User Post Offices",
+                "title": "Chi nhánh được quyền truy cập",
                 "createLabel": "Thêm mới một User Post Office",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật User Post Office",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Chi nhánh",
                 "search": "Tìm User Post Office"
             },
             "created": "Một User Post Office mới được tạo với định danh {{ param }}",
@@ -18,9 +18,10 @@
                 "title": "User Post Office"
             },
             "company": "Company",
-            "postOffice": "Post Office",
-            "userGroup": "User Group",
+            "postOffice": "Chi nhánh",
+            "userGroup": "Nhóm",
             "userExtraInfoParent": "User Extra Info Parent"
         }
-    }
+    },
+  "userPostOffice.duplicate.record" : "Một chi nhánh đã được gắn quyền. Vui lòng chọn chi nhánh khác"
 }

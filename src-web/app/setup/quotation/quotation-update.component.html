@@ -1,7 +1,7 @@
 
 
 
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<form name="editForm" role="form" class="form-horizontal" novalidate (ngSubmit)="save()" #editForm="ngForm">
 <div class="card">
     <div class="card-header">
         <strong jhiTranslate="nextlogixApp.quotation.home.createOrEditLabel">Create or edit a Quotation</strong>
@@ -14,8 +14,9 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="quotation.id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotation.name" for="field_name">Name</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotation.name" for="field_name">Name</label>
+                    <div class="col-md-4">
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="quotation.name" required/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
@@ -24,9 +25,11 @@
                         This field is required.
                         </small>
                     </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotation.isActive" for="field_isActive">Is Active</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotation.isActive" for="field_isActive">Is Active</label>
+                    <div class="col-md-4">
                     <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
                         [(ngModel)]="quotation.isActive" />
                     <div [hidden]="!(editForm.controls.isActive?.dirty && editForm.controls.isActive?.invalid)">
@@ -35,14 +38,18 @@
                         This field is required.
                         </small>
                     </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotation.description" for="field_description">Description</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotation.description" for="field_description">Description</label>
+                    <div class="col-md-4">
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="quotation.description" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotation.createDate" for="field_createDate">Create Date</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotation.createDate" for="field_createDate">Create Date</label>
+                    <div class="col-md-4">
                     <div class="d-flex">
                         <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="createDate"
                         required/>
@@ -57,9 +64,11 @@
                             This field should be a date and time.
                         </small>
                     </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotation.activeFrom" for="field_activeFrom">Active From</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotation.activeFrom" for="field_activeFrom">Active From</label>
+                    <div class="col-md-4">
                     <div class="input-group">
                         <input id="field_activeFrom" type="text" class="form-control" name="activeFrom" ngbDatepicker  #activeFromDp="ngbDatepicker" [(ngModel)]="quotation.activeFrom"
                         required/>
@@ -73,16 +82,24 @@
                         This field is required.
                         </small>
                     </div>
+                    </div>
                 </div>
 
             </div>
+            <jhi-quotation-pickup-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-pickup-detail-list>
+            <jhi-quotation-domestic-delivery-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-domestic-delivery-detail-list>
+            <jhi-quotation-return-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-return-detail-list>
+            <jhi-quotation-give-back-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-give-back-detail-list>
+            <jhi-quotation-insurance-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-insurance-detail-list>
+            <jhi-quotation-cod-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-cod-detail-list>
+            <jhi-quotation-sub-services-detail-list [quotationParentId]="quotation.id" ></jhi-quotation-sub-services-detail-list>
     </div>
     <div class="card-footer">
-        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
         <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <i class="fa fa-dot-circle-o"></i>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+        <button type="reset" class="btn btn-danger" id="cancel-save" (click)="previousState()">
+            <i class="fa fa-undo"></i>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
     </div>
 </div>

@@ -14,7 +14,13 @@ public interface QuotationMapper extends EntityMapper<QuotationDTO, Quotation> {
     @Mapping(source = "company.id", target = "companyId")
     QuotationDTO toDto(Quotation quotation);
 
-    @Mapping(target = "quotationItemDetailLists", ignore = true)
+    @Mapping(target = "quotationPickupDetailLists", ignore = true)
+    @Mapping(target = "quotationDomesticDeliveryDetailLists", ignore = true)
+    @Mapping(target = "quotationReturnDetailLists", ignore = true)
+    @Mapping(target = "quotationGiveBackDetailLists", ignore = true)
+    @Mapping(target = "quotationInsuranceDetailLists", ignore = true)
+    @Mapping(target = "quotationCodDetailLists", ignore = true)
+    @Mapping(target = "quotationSubServicesDetailLists", ignore = true)
     @Mapping(source = "companyId", target = "company")
     Quotation toEntity(QuotationDTO quotationDTO);
 

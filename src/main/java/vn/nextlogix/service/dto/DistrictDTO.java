@@ -38,6 +38,11 @@ public class DistrictDTO implements Serializable {
     private ProvinceDTO  provinceDTO;
 
 
+    private Long districtTypeId;
+
+    private DistrictTypeDTO  districtTypeDTO;
+
+
     public Long getId() {
         return id;
     }
@@ -115,6 +120,22 @@ public class DistrictDTO implements Serializable {
 
     public void setProvinceId(Long provinceId) {
         this.provinceId = provinceId;
+        }
+
+
+    public DistrictTypeDTO getDistrictTypeDTO() {
+        return this.districtTypeDTO;
+    }
+
+    public void setDistrictTypeDTO(DistrictTypeDTO districtTypeDTO ) {
+        this.districtTypeDTO = districtTypeDTO;
+    }
+    public Long getDistrictTypeId() {
+        return districtTypeId;
+        }
+
+    public void setDistrictTypeId(Long districtTypeId) {
+        this.districtTypeId = districtTypeId;
         }
 
 

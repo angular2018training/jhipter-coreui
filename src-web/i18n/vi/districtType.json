@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "districtType" : {
+            "home": {
+                "title": "District Types",
+                "createLabel": "Thêm mới một District Type",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật District Type",
+                "search": "Tìm District Type"
+            },
+            "created": "Một District Type mới được tạo với định danh {{ param }}",
+            "updated": "Một District Type cập nhật với định danh {{ param }}",
+            "deleted": "Một District Type đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa District Type {{ id }}?"
+            },
+            "detail": {
+                "title": "District Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

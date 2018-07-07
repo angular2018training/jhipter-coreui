@@ -14,8 +14,26 @@ import { QuotationService } from '../../shared/service/quotation.service';
 import { QuotationDeleteDialogComponent } from './quotation-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {QuotationSearch} from '../../shared/model/quotation.search.model';
-    import { QuotationItem } from '../../shared/model/quotation-item.model';
-    import { QuotationItemService } from '../../shared/service/quotation-item.service';
+    import { QuotationPickup } from '../../shared/model/quotation-pickup.model';
+    import { QuotationPickupService } from '../../shared/service/quotation-pickup.service';
+
+    import { QuotationDomesticDelivery } from '../../shared/model/quotation-domestic-delivery.model';
+    import { QuotationDomesticDeliveryService } from '../../shared/service/quotation-domestic-delivery.service';
+
+    import { QuotationReturn } from '../../shared/model/quotation-return.model';
+    import { QuotationReturnService } from '../../shared/service/quotation-return.service';
+
+    import { QuotationGiveBack } from '../../shared/model/quotation-give-back.model';
+    import { QuotationGiveBackService } from '../../shared/service/quotation-give-back.service';
+
+    import { QuotationInsurance } from '../../shared/model/quotation-insurance.model';
+    import { QuotationInsuranceService } from '../../shared/service/quotation-insurance.service';
+
+    import { QuotationCod } from '../../shared/model/quotation-cod.model';
+    import { QuotationCodService } from '../../shared/service/quotation-cod.service';
+
+    import { QuotationSubServices } from '../../shared/model/quotation-sub-services.model';
+    import { QuotationSubServicesService } from '../../shared/service/quotation-sub-services.service';
 
     import { Company } from '../../shared/model/company.model';
     import { CompanyService } from '../../shared/service/company.service';
@@ -45,7 +63,19 @@ currentAccount: any;
     reverse: any;
     quotationSearch : QuotationSearch;
 
-    quotationItems : QuotationItem[];
+    quotationPickups : QuotationPickup[];
+
+    quotationDomesticDeliveries : QuotationDomesticDelivery[];
+
+    quotationReturns : QuotationReturn[];
+
+    quotationGiveBacks : QuotationGiveBack[];
+
+    quotationInsurances : QuotationInsurance[];
+
+    quotationCods : QuotationCod[];
+
+    quotationSubServices : QuotationSubServices[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(

@@ -1,0 +1,70 @@
+
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.quotationCod.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+            <button type="button" class="btn btn-primary btn-warning pull-right"  (click)="createDetailForm()">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="quotationCods">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationCod.amountFrom">Amount From</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationCod.amountTo">Amount To</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationCod.feeAmountMin">Fee Amount Min</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationCod.feeAmount">Fee Amount</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationCod.company">Company</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationCod.districtType">District Type</span></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quotationCod of quotationCods ;trackBy: trackId">
+                    <td><a [routerLink]="[ quotationCod.id,'view']">{{quotationCod.id}}</a></td>
+                    <td>{{quotationCod.amountFrom}}</td>
+                    <td>{{quotationCod.amountTo}}</td>
+                    <td>{{quotationCod.feeAmountMin}}</td>
+                    <td>{{quotationCod.feeAmount}}</td>
+                    <td>
+        <div *ngIf="quotationCod.companyId">
+        <a [routerLink]="['../company', 'detail',quotationCod.companyId ]" >{{quotationCod.companyDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationCod.districtTypeId">
+        <a [routerLink]="['../district-type', 'detail',quotationCod.districtTypeId ]" >{{quotationCod.districtTypeDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+
+            <button type="button"
+                    (click)="editDetailForm(quotationCod.id)"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button type="button" (click)="deleteDetailForm(quotationCod.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+
+
+</div>
+
+

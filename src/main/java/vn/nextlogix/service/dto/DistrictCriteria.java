@@ -42,6 +42,8 @@ public class DistrictCriteria implements Serializable {
 
     private LongFilter provinceId;
 
+    private LongFilter districtTypeId;
+
     public DistrictCriteria() {
     }
 
@@ -109,6 +111,14 @@ public class DistrictCriteria implements Serializable {
         this.provinceId = provinceId;
     }
 
+    public LongFilter getDistrictTypeId() {
+        return districtTypeId;
+    }
+
+    public void setDistrictTypeId(LongFilter districtTypeId) {
+        this.districtTypeId = districtTypeId;
+    }
+
     @Override
     public String toString() {
         return "DistrictCriteria{" +
@@ -120,6 +130,7 @@ public class DistrictCriteria implements Serializable {
                 (description != null ? "description=" + description + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (provinceId != null ? "provinceId=" + provinceId + ", " : "") +
+                (districtTypeId != null ? "districtTypeId=" + districtTypeId + ", " : "") +
             "}";
     }
 

@@ -37,6 +37,10 @@ private Long provinceId;
 
 
 
+private Long districtTypeId;
+
+
+
 public Long getId() {
     return id;
     }
@@ -102,6 +106,16 @@ public Long getProvinceId() {
 
 public void setProvinceId(Long provinceId) {
     this.provinceId = provinceId;
+    }
+
+
+
+public Long getDistrictTypeId() {
+    return districtTypeId;
+    }
+
+public void setDistrictTypeId(Long districtTypeId) {
+    this.districtTypeId = districtTypeId;
     }
 
 

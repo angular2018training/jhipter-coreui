@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "orderSubServices" : {
+            "home": {
+                "title": "Order Sub Services",
+                "createLabel": "Create a new Order Sub Services",
+                "createOrEditLabel": "Create or edit a Order Sub Services",
+                "search": "Search for Order Sub Services"
+            },
+            "created": "A new Order Sub Services is created with identifier {{ param }}",
+            "updated": "A Order Sub Services is updated with identifier {{ param }}",
+            "deleted": "A Order Sub Services is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Sub Services {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Sub Services"
+            },
+            "code": "Code",
+            "name": "Name",
+            "isActive": "Is Active",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

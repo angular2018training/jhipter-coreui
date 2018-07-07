@@ -19,4 +19,8 @@ public interface UserPostOfficeRepository extends JpaRepository<UserPostOffice, 
     @Query("select user_post_office from UserPostOffice user_post_office left join fetch user_post_office.userGroups where user_post_office.id =:id")
     UserPostOffice findOneWithEagerRelationships(@Param("id") Long id);
 
+	List<UserPostOffice> findByUserExtraInfoParent_IdAndPostOfficeId(Long userExtraInfoId, Long postOfficeId);
+	
+	List<UserPostOffice> findByUserExtraInfoParent_Id(Long userExtraInfoId);
+
 }

@@ -20,6 +20,9 @@ import {DistrictSearch} from '../../shared/model/district.search.model';
     import { Province } from '../../shared/model/province.model';
     import { ProvinceService } from '../../shared/service/province.service';
 
+    import { DistrictType } from '../../shared/model/district-type.model';
+    import { DistrictTypeService } from '../../shared/service/district-type.service';
+
 
 
 @Component({
@@ -46,6 +49,8 @@ currentAccount: any;
     districtSearch : DistrictSearch;
 
     provinces : Province[];
+
+    districtTypes : DistrictType[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -57,6 +62,7 @@ currentAccount: any;
         private router: Router,
         private eventManager: JhiEventManager,
         private provinceService: ProvinceService,
+        private districtTypeService: DistrictTypeService,
 
         private districtPopupService: DistrictPopupService
     ) {
@@ -69,6 +75,7 @@ currentAccount: any;
 
         });
         this.provinces =[];
+        this.districtTypes =[];
 
         this.districtSearch = new DistrictSearch();
 
@@ -84,6 +91,8 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' description'] : '';
         this.districtSearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['provinceId'] ?
                          this.activatedRoute.snapshot.params['provinceId'] : '';
+        this.districtSearch.districtTypeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtTypeId'] ?
+                         this.activatedRoute.snapshot.params['districtTypeId'] : '';
     }
 
     loadAll() {
@@ -98,6 +107,7 @@ currentAccount: any;
          description : this.districtSearch.description,
          companyId :this.currentAccount.companyId,
          provinceId :this.districtSearch.provinceId,
+         districtTypeId :this.districtSearch.districtTypeId,
          };
 
         this.districtService.searchExample(obj).subscribe(
@@ -130,6 +140,7 @@ currentAccount: any;
                 description : this.districtSearch.description,
                 companyId :this.currentAccount.companyId,
                 provinceId :this.districtSearch.provinceId,
+                districtTypeId :this.districtSearch.districtTypeId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -166,6 +177,10 @@ currentAccount: any;
             this.loadAll();
             this.provinceService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
                 (res: HttpResponse<Province[]>) => this.provinces = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.districtTypeService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<DistrictType[]>) => this.districtTypes = res.body,
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
         });
