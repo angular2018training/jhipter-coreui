@@ -50,7 +50,7 @@ currentAccount: any;
         private parseLinks: JhiParseLinks,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
-        private alertService :AlertService,
+        private alertService: AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
         private orderServicesTypeService: OrderServicesTypeService,
@@ -65,7 +65,7 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.orderServicesTypes =[];
+        this.orderServicesTypes = [];
 
         this.orderServicesSearch = new OrderServicesSearch();
 
@@ -80,15 +80,15 @@ currentAccount: any;
     }
 
     loadAll() {
-         var obj = {
-         page: this.page - 1,
-         size: this.itemsPerPage,
-         sort: this.sort(),
-         code : this.orderServicesSearch.code,
-         name : this.orderServicesSearch.name,
-         description : this.orderServicesSearch.description,
-         companyId : this.currentAccount.companyId,
-         orderServicesTypeId : this.orderServicesSearch.orderServicesTypeId,
+        const obj = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            code : this.orderServicesSearch.code,
+            name : this.orderServicesSearch.name,
+            description : this.orderServicesSearch.description,
+            companyId : this.currentAccount.companyId,
+            orderServicesTypeId : this.orderServicesSearch.orderServicesTypeId,
          };
 
         this.orderServicesService.searchExample(obj).subscribe(
@@ -97,7 +97,7 @@ currentAccount: any;
         );
 
     }
-    searchInForm(){
+    searchInForm() {
           this.page = 0;
           this.transition();
 
@@ -114,11 +114,10 @@ currentAccount: any;
                 page: this.page,
                 size: this.itemsPerPage,
                 search: this.currentSearch,
-                code : this.orderServicesSearch.code,
-                name : this.orderServicesSearch.name,
+                code: this.orderServicesSearch.code,
+                name: this.orderServicesSearch.name,
                 description : this.orderServicesSearch.description,
-                companyId :this.currentAccount.companyId,
-                orderServicesTypeId :this.orderServicesSearch.orderServicesTypeId,
+                orderServicesTypeId: this.orderServicesSearch.orderServicesTypeId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
