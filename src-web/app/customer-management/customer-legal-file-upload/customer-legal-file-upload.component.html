@@ -1,0 +1,60 @@
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.customerLegalFileUpload.home.title">Kết quả tìm kiếm</strong>
+        <button class="pull-right btn btn-primary" (click)="uploadAFile()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <span jhiTranslate="global.field.id">ID</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerLegalFileUpload.fileUpload">File Upload</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerLegalFileUpload.customerParent">Customer Parent</span>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customerLegalFileUpload of customerLegalFileUploads ;trackBy: trackId">
+                        <td>
+                            <a [routerLink]="[ customerLegalFileUpload.id,'view']">{{customerLegalFileUpload.id}}</a>
+                        </td>
+                        <td>
+                            <div *ngIf="customerLegalFileUpload.fileUploadId">
+                                <a [routerLink]="['../file-upload', 'detail',customerLegalFileUpload.fileUploadId ]">download</a>
+                            </div>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit" [routerLink]="[customerLegalFileUpload.id,'view' ]" class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+                                <button type="submit" [routerLink]="[customerLegalFileUpload.id,'edit']" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button (click)="deleteItem(customerLegalFileUpload.id)" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

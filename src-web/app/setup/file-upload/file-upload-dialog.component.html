@@ -2,24 +2,20 @@
 
     <div class="modal-header">
         <h4 class="modal-title" id="myFileUploadLabel" jhiTranslate="nextlogixApp.fileUpload.home.createOrEditLabel">Create or edit a File Upload</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!fileUpload.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="fileUpload.id" readonly />
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="fileUpload.id" readonly />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="nextlogixApp.fileUpload.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="fileUpload.name" required/>
+            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="fileUpload.name" required/>
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
@@ -27,23 +23,20 @@
             <label class="form-control-label" jhiTranslate="nextlogixApp.fileUpload.content" for="field_content">Content</label>
             <div>
                 <div *ngIf="fileUpload.content" class="form-text text-danger clearfix">
-                    <a class="pull-left" (click)="openFile(fileUpload.contentContentType, fileUpload.content)" jhiTranslate="entity.action.open">open</a><br>
+                    <a class="pull-left" (click)="openFile(fileUpload.contentContentType, fileUpload.content)" jhiTranslate="entity.action.open">open</a>
+                    <br>
                     <span class="pull-left">{{fileUpload.contentContentType}}, {{byteSize(fileUpload.content)}}</span>
-                    <button type="button" (click)="fileUpload.content=null;fileUpload.contentContentType=null;"
-                            class="btn btn-secondary btn-xs pull-right">
+                    <button type="button" (click)="fileUpload.content=null;fileUpload.contentContentType=null;" class="btn btn-secondary btn-xs pull-right">
                         <span class="fa fa-times"></span>
                     </button>
                 </div>
-                <input type="file" id="file_content" (change)="setFileData($event, fileUpload, 'content', false)" jhiTranslate="entity.action.addblob"/>
+                <input type="file" id="file_content" (change)="setFileData($event, fileUpload, 'content', false)" jhiTranslate="entity.action.addblob">
             </div>
-            <input type="hidden" class="form-control" name="content" id="field_content"
-                [(ngModel)]="fileUpload.content" required/>
-            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
-                [(ngModel)]="fileUpload.contentContentType" />
+            <input type="hidden" class="form-control" name="content" id="field_content" [(ngModel)]="fileUpload.content" required/>
+            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType" [(ngModel)]="fileUpload.contentContentType">
             <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.content?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.content?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
@@ -51,27 +44,23 @@
             <label class="form-control-label" jhiTranslate="nextlogixApp.fileUpload.uploadTime" for="field_uploadTime">Upload Time</label>
             <div class="d-flex">
                 <input id="field_uploadTime" type="datetime-local" class="form-control" name="uploadTime" [(ngModel)]="fileUpload.uploadTime"
-                required/>
+                    required/>
             </div>
             <div [hidden]="!(editForm.controls.uploadTime?.dirty && editForm.controls.uploadTime?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.uploadTime?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.uploadTime?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.uploadTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.uploadTime?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
                     This field should be a date and time.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="nextlogixApp.fileUpload.contentType" for="field_contentType">Content Type</label>
-            <input type="text" class="form-control" name="contentType" id="field_contentType"
-                [(ngModel)]="fileUpload.contentType" required/>
+            <input type="text" class="form-control" name="contentType" id="field_contentType" [(ngModel)]="fileUpload.contentType" required/>
             <div [hidden]="!(editForm.controls.contentType?.dirty && editForm.controls.contentType?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.contentType?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                <small class="form-text text-danger" [hidden]="!editForm.controls.contentType?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
@@ -79,10 +68,12 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiTranslate="entity.action.save">Save</span>
         </button>
     </div>
 </form>

@@ -5,12 +5,14 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Principal, ITEMS_PER_PAGE } from '../shared';
-import { CustomerPostOffice } from './customer-post-office/customer-post-office.model';
 import { CustomerPopupService } from './customer/customer-popup.service';
-import { Customer } from './customer/customer.model';
-import { CustomerSearch } from './customer/customer.search.model';
-import { CustomerService } from './customer/customer.service';
 import { CustomerDeleteDialogComponent } from './customer/customer-delete-dialog.component';
+import { Customer } from '../shared/model/customer.model';
+import { CustomerSearch } from '../shared/model/customer.search.model';
+import { CustomerService } from '../shared/model/customer.service';
+import { CustomerPostOffice } from '../shared/model/customer-post-office.model';
+import { CustomerSourceService } from '../shared/service/customer-source.service';
+import { CustomerSource } from '../shared/model/customer-source.model';
 
 @Component({
     selector: 'jhi-customer-management',
@@ -40,10 +42,12 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
 
     searchCardIsCollapsed;
 
+    customerSources: CustomerSource[] = [];
+    bsValue = { dateInputFormat: 'DD/MM/YYYY' };
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
-
+        private customerSourceService: CustomerSourceService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -91,8 +95,6 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot.params['legalId'] : '';
         this.customerSearch.paymentId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['paymentId'] ?
             this.activatedRoute.snapshot.params['paymentId'] : '';
-        this.customerSearch.warehouseId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['warehouseId'] ?
-            this.activatedRoute.snapshot.params['warehouseId'] : '';
         this.customerSearch.companyId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['companyId'] ?
             this.activatedRoute.snapshot.params['companyId'] : '';
         this.customerSearch.manageUserId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['manageUserId'] ?
@@ -126,7 +128,6 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
             apiToken: this.customerSearch.apiToken,
             legalId: this.customerSearch.legalId,
             paymentId: this.customerSearch.paymentId,
-            warehouseId: this.customerSearch.warehouseId,
             companyId: this.customerSearch.companyId,
             manageUserId: this.customerSearch.manageUserId,
             saleUserId: this.customerSearch.saleUserId,
@@ -144,6 +145,8 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
     }
 
     searchInForm() {
+        // tslint:disable-next-line:no-debugger
+        debugger;
         this.page = 0;
         this.transition();
     }
@@ -156,7 +159,7 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/customer-management/search'], {
+        this.router.navigate(['/customer-management'], {
             queryParams:
             {
                 page: this.page,
@@ -174,7 +177,6 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
                 apiToken: this.customerSearch.apiToken,
                 legalId: this.customerSearch.legalId,
                 paymentId: this.customerSearch.paymentId,
-                warehouseId: this.customerSearch.warehouseId,
                 companyId: this.customerSearch.companyId,
                 manageUserId: this.customerSearch.manageUserId,
                 saleUserId: this.customerSearch.saleUserId,
@@ -191,7 +193,7 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
     clear() {
         this.page = 0;
         this.currentSearch = '';
-        this.router.navigate(['/customer-management/customer', {
+        this.router.navigate(['/customer-management', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
@@ -204,7 +206,7 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
         }
         this.page = 0;
         this.currentSearch = query;
-        this.router.navigate(['/customer-management/customer', {
+        this.router.navigate(['/customer-management', {
             search: this.currentSearch,
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -220,10 +222,10 @@ export class CustomerManagementComponent implements OnInit, OnDestroy {
         });
         this.registerChangeInCustomers();
 
-        // this.customerSourceService.query().subscribe(
-        //     (res: HttpResponse<CustomerSource[]>) => this.customerSources = res.body,
-        //     (res: HttpErrorResponse) => this.onError(res.message)
-        // );
+        this.customerSourceService.query().subscribe(
+            (res: HttpResponse<CustomerSource[]>) => this.customerSources = res.body,
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     ngOnDestroy() {

@@ -3,26 +3,28 @@
     "nextlogixApp": {
         "customerPostOffice" : {
             "home": {
-                "title": "Customer Post Offices",
-                "createLabel": "Thêm mới một Customer Post Office",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer Post Office",
-                "search": "Tìm Customer Post Office"
+                "title": "Chi nhánh phát sinh doanh thu",
+                "createLabel": "Chi nhánh phát sinh doanh thu",
+                "createOrEditLabel": "Thêm / Cập nhật Chi nhánh",
+                "search": "Tìm chi nhánh"
             },
-            "created": "Một Customer Post Office mới được tạo với định danh {{ param }}",
-            "updated": "Một Customer Post Office cập nhật với định danh {{ param }}",
-            "deleted": "Một Customer Post Office đã xóa với định danh {{ param }}",
+            "created": "Chi nhánh có mã ({{ param }}) đã được thêm!",
+            "updated": "Chi nhánh có mã ({{ param }}) đã được cập nhật!",
+            "deleted": "Chi nhánh có mã ({{ param }}) đã được xóa!",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Customer Post Office {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Chi nhánh có mã {{ id }}?"
             },
             "detail": {
-                "title": "Customer Post Office"
+                "title": "Chi nhánh phát sinh doanh thu"
             },
-            "code": "Code",
-            "isActive": "Is Active",
-            "createDate": "Create Date",
-            "customer": "Customer",
-            "company": "Company",
-            "postOffice": "Post Office"
+            "code": "Mã",
+            "isActive": "Trạng thái",
+            "createDate": "Ngày tạo",
+            "customer": "Khách hàng",
+            "company": "Công ty",
+            "postOffice": "Chi nhánh",
+            "activated": "Kích hoạt",
+            "deActivated": "Vô hiệu hóa"
         }
     }
 }

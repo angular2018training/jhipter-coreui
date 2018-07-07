@@ -37,7 +37,9 @@
             "province": "Province",
             "district": "District",
             "customerType": "Customer Type",
-            "customerSource": "Customer Source"
+            "customerSource": "Customer Source",
+            "deActive": "Deactive",
+            "active": "Active"
         }
     }
 }

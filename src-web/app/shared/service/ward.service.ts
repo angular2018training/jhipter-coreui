@@ -11,7 +11,7 @@ export type EntityResponseType = HttpResponse<Ward>;
 @Injectable({ providedIn: 'root' })
 export class WardService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/wards';
+    private resourceUrl = SERVER_API_URL + 'api/wards';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/wards';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/wards';
 
@@ -30,7 +30,7 @@ export class WardService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Ward>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Ward>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -41,7 +41,7 @@ export class WardService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<Ward[]>> {
@@ -50,15 +50,15 @@ export class WardService {
             .map((res: HttpResponse<Ward[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<Ward[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<Ward[]>> {
+        const options = createRequestOption(req);
         return this.http.get<Ward[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Ward[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Ward = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Ward[]>): HttpResponse<Ward[]> {
@@ -67,7 +67,7 @@ export class WardService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

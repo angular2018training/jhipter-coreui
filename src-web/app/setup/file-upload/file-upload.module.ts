@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { NextlogixSharedModule } from '../../shared';
 import {
-FileUploadComponent,
+    FileUploadComponent,
     FileUploadDetailComponent,
     FileUploadUpdateComponent,
     FileUploadDeletePopupComponent,
@@ -21,25 +21,25 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-RouterModule.forChild(ENTITY_STATES)
-],
-declarations: [
-    FileUploadComponent,
-    FileUploadDetailComponent,
-    FileUploadUpdateComponent,
-    FileUploadDeleteDialogComponent,
-    FileUploadDeletePopupComponent,
-],
+        RouterModule.forChild(ENTITY_STATES)
+    ],
+    declarations: [
+        FileUploadComponent,
+        FileUploadDetailComponent,
+        FileUploadUpdateComponent,
+        FileUploadDeleteDialogComponent,
+        FileUploadDeletePopupComponent,
+    ],
     entryComponents: [
-    FileUploadComponent,
-    FileUploadUpdateComponent,
-    FileUploadDeleteDialogComponent,
-    FileUploadDeletePopupComponent,
-],
-providers: [
-    FileUploadPopupService,
-],
+        FileUploadComponent,
+        FileUploadUpdateComponent,
+        FileUploadDeleteDialogComponent,
+        FileUploadDeletePopupComponent,
+    ],
+    providers: [
+        FileUploadPopupService,
+    ],
 
-schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class NextlogixFileUploadModule {}
+export class NextlogixFileUploadModule { }

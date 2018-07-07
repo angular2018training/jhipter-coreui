@@ -2,10 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { CustomerPostOffice } from './customer-post-office.model';
-import { CustomerPostOfficeService } from './customer-post-office.service';
-import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
-import * as moment from 'moment';
+import { CustomerPostOfficeService } from '../../shared/service/customer-post-office.service';
+import { CustomerPostOffice } from '../../shared/model/customer-post-office.model';
 
 @Injectable()
 export class CustomerPostOfficePopupService {
@@ -29,8 +27,7 @@ export class CustomerPostOfficePopupService {
                 this.customerPostOfficeService.find(id)
                     .subscribe((customerPostOfficeResponse: HttpResponse<CustomerPostOffice>) => {
                         const customerPostOffice: CustomerPostOffice = customerPostOfficeResponse.body;
-                        customerPostOffice.createDate = moment(customerPostOffice.createDate).format(DATE_TIME_FORMAT);
-                        customerPostOffice.customerId = customerId;
+                        customerPostOffice.customerParentId = customerId;
                         this.ngbModalRef = this.customerPostOfficeModalRef(component, customerPostOffice);
                         resolve(this.ngbModalRef);
                     });
@@ -38,8 +35,8 @@ export class CustomerPostOfficePopupService {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
                     const customerPostOffice = new CustomerPostOffice();
-                    customerPostOffice.customerId = customerId;
-                    customerPostOffice.createDate = moment().format(DATE_TIME_FORMAT);
+                    customerPostOffice.customerParentId = customerId;
+                    customerPostOffice.createDate = new Date();
                     this.ngbModalRef = this.customerPostOfficeModalRef(component, customerPostOffice);
                     resolve(this.ngbModalRef);
                 }, 0);

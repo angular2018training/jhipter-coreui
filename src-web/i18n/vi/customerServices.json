@@ -1,0 +1,29 @@
+
+{
+    "nextlogixApp": {
+        "customerServices" : {
+            "home": {
+                "title": "Dịch vụ / Bảng giá",
+                "createLabel": "Thêm Dịch vụ / Bảng giá",
+                "createOrEditLabel": "Thông tin Dịch vụ / Bảng giá",
+                "search": "Tìm"
+            },
+            "created": "Dịch vụ có mã ({{ param }}) đã được thêm!",
+            "updated": "Dịch vụ có mã ({{ param }}) đã được cập nhật!",
+            "deleted": "Dịch vụ có mã ({{ param }}) đã được xóa!",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Dịch vụ với mã ({{ id }})?"
+            },
+            "detail": {
+                "title": "Danh sách Dịch vụ / Bảng giá"
+            },
+            "discountPercent": "Hoa hồng (%)",
+            "increasePercent": "Giá tăng (%)",
+            "decreasePercent": "Giá giảm (%)",
+            "company": "Công ty",
+            "orderService": "Dịch vụ",
+            "quotation": "Bảng giá",
+            "customerParent": "Khách hàng"
+        }
+    }
+}

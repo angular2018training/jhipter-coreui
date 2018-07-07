@@ -13,7 +13,7 @@ export type EntityResponseType = HttpResponse<Warehouse>;
 @Injectable({ providedIn: 'root' })
 export class WarehouseService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/warehouses';
+    private resourceUrl = SERVER_API_URL + 'api/warehouses';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/warehouses';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/warehouses';
 
@@ -32,7 +32,7 @@ export class WarehouseService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Warehouse>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Warehouse>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -43,7 +43,7 @@ export class WarehouseService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<Warehouse[]>> {
@@ -52,15 +52,15 @@ export class WarehouseService {
             .map((res: HttpResponse<Warehouse[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<Warehouse[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<Warehouse[]>> {
+        const options = createRequestOption(req);
         return this.http.get<Warehouse[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Warehouse[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Warehouse = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Warehouse[]>): HttpResponse<Warehouse[]> {
@@ -69,7 +69,7 @@ export class WarehouseService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

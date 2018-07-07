@@ -1,6 +1,5 @@
 package vn.nextlogix.service.dto;
 
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -12,104 +11,99 @@ import java.util.Objects;
  */
 public class CustomerWarehouseDTO implements Serializable {
 
-    private Long id;
+	private Long id;
 
-    private Long companyId;
+	private Long companyId;
 
-    private CompanyDTO  companyDTO;
+	private CompanyDTO companyDTO;
 
+	private Long warehouseId;
 
-    private Long warehouseId;
+	private WarehouseDTO warehouseDTO;
 
-    private WarehouseDTO  warehouseDTO;
+	private Long customerParentId;
 
+	private CustomerDTO customerParentDTO;
 
-    private Long customerParentId;
+	public Long getId() {
+		return id;
+	}
 
-    private CustomerDTO  customerParentDTO;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
+	public CompanyDTO getCompanyDTO() {
+		return this.companyDTO;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setCompanyDTO(CompanyDTO companyDTO) {
+		this.companyDTO = companyDTO;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getCompanyId() {
+		return companyId;
+	}
 
-    public CompanyDTO getCompanyDTO() {
-        return this.companyDTO;
-    }
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
 
-    public void setCompanyDTO(CompanyDTO companyDTO ) {
-        this.companyDTO = companyDTO;
-    }
-    public Long getCompanyId() {
-        return companyId;
-        }
+	public WarehouseDTO getWarehouseDTO() {
+		return this.warehouseDTO;
+	}
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-        }
+	public void setWarehouseDTO(WarehouseDTO warehouseDTO) {
+		this.warehouseDTO = warehouseDTO;
+	}
 
+	public Long getWarehouseId() {
+		return warehouseId;
+	}
 
-    public WarehouseDTO getWarehouseDTO() {
-        return this.warehouseDTO;
-    }
+	public void setWarehouseId(Long warehouseId) {
+		this.warehouseId = warehouseId;
+	}
 
-    public void setWarehouseDTO(WarehouseDTO warehouseDTO ) {
-        this.warehouseDTO = warehouseDTO;
-    }
-    public Long getWarehouseId() {
-        return warehouseId;
-        }
+	public CustomerDTO getCustomerParentDTO() {
+		return this.customerParentDTO;
+	}
 
-    public void setWarehouseId(Long warehouseId) {
-        this.warehouseId = warehouseId;
-        }
+	public void setCustomerParentDTO(CustomerDTO customerParentDTO) {
+		this.customerParentDTO = customerParentDTO;
+	}
 
+	public Long getCustomerParentId() {
+		return customerParentId;
+	}
 
-    public CustomerDTO getCustomerParentDTO() {
-        return this.customerParentDTO;
-    }
+	public void setCustomerParentId(Long customerId) {
+		this.customerParentId = customerId;
+	}
 
-    public void setCustomerParentDTO(CustomerDTO customerParentDTO ) {
-        this.customerParentDTO = customerParentDTO;
-    }
-    public Long getCustomerParentId() {
-        return customerParentId;
-        }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-    public void setCustomerParentId(Long customerId) {
-        this.customerParentId = customerId;
-        }
+		CustomerWarehouseDTO customerWarehouseDTO = (CustomerWarehouseDTO) o;
+		if (customerWarehouseDTO.getId() == null || getId() == null) {
+			return false;
+		}
+		return Objects.equals(getId(), customerWarehouseDTO.getId());
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(getId());
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CustomerWarehouseDTO customerWarehouseDTO = (CustomerWarehouseDTO) o;
-        if(customerWarehouseDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), customerWarehouseDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerWarehouseDTO{" +
-            "id=" + getId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "CustomerWarehouseDTO{" + "id=" + getId() + "}";
+	}
 }

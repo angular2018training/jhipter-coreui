@@ -13,26 +13,26 @@ export type EntityResponseType = HttpResponse<CustomerPayment>;
 @Injectable({ providedIn: 'root' })
 export class CustomerPaymentService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/customer-payments';
+    private resourceUrl = SERVER_API_URL + 'api/customer-payments';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/customer-payments';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/customer-payments';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
-    create(customerPayment: CustomerPayment): Observable<EntityResponseType> {
+    create(customerPayment: CustomerPayment, customerId: number): Observable<EntityResponseType> {
         const copy = this.convert(customerPayment);
-        return this.http.post<CustomerPayment>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http.post<CustomerPayment>(`${this.resourceUrl}?customerId=${customerId}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(customerPayment: CustomerPayment): Observable<EntityResponseType> {
+    update(customerPayment: CustomerPayment, customerId: number): Observable<EntityResponseType> {
         const copy = this.convert(customerPayment);
-        return this.http.put<CustomerPayment>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http.put<CustomerPayment>(`${this.resourceUrl}?customerId=${customerId}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<CustomerPayment>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<CustomerPayment>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -43,7 +43,7 @@ export class CustomerPaymentService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<CustomerPayment[]>> {
@@ -52,15 +52,15 @@ export class CustomerPaymentService {
             .map((res: HttpResponse<CustomerPayment[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<CustomerPayment[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<CustomerPayment[]>> {
+        const options = createRequestOption(req);
         return this.http.get<CustomerPayment[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<CustomerPayment[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CustomerPayment = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<CustomerPayment[]>): HttpResponse<CustomerPayment[]> {
@@ -69,7 +69,7 @@ export class CustomerPaymentService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

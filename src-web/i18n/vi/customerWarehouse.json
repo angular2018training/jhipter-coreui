@@ -1,0 +1,25 @@
+
+{
+    "nextlogixApp": {
+        "customerWarehouse" : {
+            "home": {
+                "title": "Kho hàng",
+                "createLabel": "Thêm kho hàng mới",
+                "createOrEditLabel": "Thêm / Cập nhật kho hàng",
+                "search": "Tìm"
+            },
+            "created": "Kho hàng có mã {{ param }} đã được thêm!",
+            "updated": "Kho hàng có mã {{ param }} đã được cập nhật!",
+            "deleted": "Kho hàng có mã {{ param }} đã được xóa!",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Kho hàng có mã {{ id }}?"
+            },
+            "detail": {
+                "title": "Kho hàng"
+            },
+            "company": "Công ty",
+            "warehouse": "Kho hàng",
+            "customerParent": "khách hàng"
+        }
+    }
+}

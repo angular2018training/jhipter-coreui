@@ -4,10 +4,10 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-
-import { CustomerPostOffice } from './customer-post-office.model';
-import { CustomerPostOfficeService } from './customer-post-office.service';
-import { PostOffice, PostOfficeService } from '../../setup/post-office';
+import { PostOffice } from '../../shared/model/post-office.model';
+import { CustomerPostOfficeService } from '../../shared/service/customer-post-office.service';
+import { PostOfficeService } from '../../shared/service/post-office.service';
+import { CustomerPostOffice } from '../../shared/model/customer-post-office.model';
 
 @Component({
     selector: 'jhi-customer-post-office-dialog',
@@ -20,6 +20,7 @@ export class CustomerPostOfficeDialogComponent implements OnInit {
     isSaving: boolean;
 
     postoffices: PostOffice[];
+    bsConfig = { dateInputFormat: 'DD/MM/YYYY' };
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -32,7 +33,7 @@ export class CustomerPostOfficeDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-       this.postOfficeService.query()
+        this.postOfficeService.query()
             .subscribe((res: HttpResponse<PostOffice[]>) => { this.postoffices = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 

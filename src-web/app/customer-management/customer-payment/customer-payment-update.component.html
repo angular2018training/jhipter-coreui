@@ -13,7 +13,6 @@
                         </div>
                         <div class="col-md-8 col-sm-12">
                             <input type="text" class="form-control" name="accountNumber" id="field_accountNumber" [(ngModel)]="customerPayment.accountNumber">
-
                         </div>
                     </div>
                 </div>
@@ -138,8 +137,8 @@
                             <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.userVerify" for="field_userVerify">User Verify</label>
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <input id="field_userVerify" type="text" class="form-control" name="userVerify" [ngModel]="customerPayment.userVerifyId | filter : userextrainfos : 'id': 'name'"
-                                disabled>
+                            <!-- <input id="field_userVerify" type="text" class="form-control" name="userVerify" [ngModel]="customerPayment.userVerifyId | filter : userextrainfos : 'id': 'name'"
+                                disabled> -->
                         </div>
                     </div>
                 </div>

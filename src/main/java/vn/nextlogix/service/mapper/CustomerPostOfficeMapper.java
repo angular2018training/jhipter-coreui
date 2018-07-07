@@ -11,6 +11,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {CompanyMapper.class, PostOfficeMapper.class, CustomerMapper.class})
 public interface CustomerPostOfficeMapper extends EntityMapper<CustomerPostOfficeDTO, CustomerPostOffice> {
 
+	@Mapping(source = "postOffice", target = "postOfficeDTO")
     @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "postOffice.id", target = "postOfficeId")
     @Mapping(source = "customerParent.id", target = "customerParentId")
