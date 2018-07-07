@@ -12,10 +12,10 @@ import { CustomerType } from '../customer-type/customer-type.model';
 import { CustomerSource } from '../customer-source/customer-source.model';
 import { CustomerTypeService } from '../customer-type/customer-type.service';
 import { CustomerSourceService } from '../customer-source/customer-source.service';
-import { Customer } from './customer.model';
-import { CustomerService } from './customer.service';
 import { ProvinceService } from '../../shared/service/province.service';
 import { DistrictService } from '../../shared/service/district.service';
+import { Customer } from '../../shared/model/customer.model';
+import { CustomerService } from '../../shared/service/customer.service';
 
 @Component({
     selector: 'jhi-customer-update',
@@ -39,6 +39,8 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
     createDate: string;
     lastLoginDate: string;
     routeSubcription: Subscription;
+
+    bsConfig = { dateInputFormat: 'DD/MM/YYYY' };
     constructor(
         private jhiAlertService: JhiAlertService,
         private customerService: CustomerService,
@@ -54,8 +56,6 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.isSaving = false;
-        // tslint:disable-next-line:no-debugger
-        debugger;
         this.routeSubcription = this.route.parent.data.subscribe(({ customer }) => {
             this.customer = customer;
             if (this.customer.companyId) {
@@ -84,8 +84,8 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
 
     save() {
         this.isSaving = true;
-        this.customer.createDate = moment(this.createDate, DATE_TIME_FORMAT);
-        this.customer.lastLoginDate = moment(this.lastLoginDate, DATE_TIME_FORMAT);
+        // this.customer.createDate = moment(this.createDate, DATE_TIME_FORMAT);
+        // this.customer.lastLoginDate = moment(this.lastLoginDate, DATE_TIME_FORMAT);
         if (this.customer.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.customerService.update(this.customer));
@@ -142,7 +142,6 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
             'provinceId.equals': provinceId,
             size: 10000
         }).subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-
     }
 
     trackProvinceById(index: number, item: Province) {
@@ -165,8 +164,9 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
     }
 
     set customer(customer: Customer) {
+        if (!customer.createDate) {
+            customer.createDate = new Date();
+        }
         this._customer = customer;
-        this.createDate = moment(customer.createDate).format(DATE_TIME_FORMAT);
-        this.lastLoginDate = moment(customer.lastLoginDate).format(DATE_TIME_FORMAT);
     }
 }

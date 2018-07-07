@@ -27,5 +27,6 @@ export class Customer implements BaseEntity {
         public customerSourceId?: number,
     ) {
         this.isActive = false;
+        this.companyId = 1;
     }
 }

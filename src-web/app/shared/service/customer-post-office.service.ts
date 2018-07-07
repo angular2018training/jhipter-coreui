@@ -13,7 +13,7 @@ export type EntityResponseType = HttpResponse<CustomerPostOffice>;
 @Injectable({ providedIn: 'root' })
 export class CustomerPostOfficeService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/customer-post-offices';
+    private resourceUrl = SERVER_API_URL + 'api/customer-post-offices';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/customer-post-offices';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/customer-post-offices';
 
@@ -32,7 +32,7 @@ export class CustomerPostOfficeService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<CustomerPostOffice>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<CustomerPostOffice>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -43,7 +43,7 @@ export class CustomerPostOfficeService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<CustomerPostOffice[]>> {
@@ -52,15 +52,15 @@ export class CustomerPostOfficeService {
             .map((res: HttpResponse<CustomerPostOffice[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<CustomerPostOffice[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<CustomerPostOffice[]>> {
+        const options = createRequestOption(req);
         return this.http.get<CustomerPostOffice[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<CustomerPostOffice[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CustomerPostOffice = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<CustomerPostOffice[]>): HttpResponse<CustomerPostOffice[]> {
@@ -69,7 +69,7 @@ export class CustomerPostOfficeService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -87,8 +87,6 @@ export class CustomerPostOfficeService {
      */
     private convert(customerPostOffice: CustomerPostOffice): CustomerPostOffice {
         const copy: CustomerPostOffice = Object.assign({}, customerPostOffice);
-
-        copy.createDate = customerPostOffice.createDate != null && customerPostOffice.createDate.isValid() ? customerPostOffice.createDate.toJSON() : null;
         return copy;
     }
 }

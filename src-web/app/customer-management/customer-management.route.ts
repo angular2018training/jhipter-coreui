@@ -10,8 +10,6 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CustomerPayment } from './customer-payment/customer-payment.model';
-import { Customer } from './customer/customer.model';
-import { CustomerService } from './customer/customer.service';
 import { CustomerUpdateComponent } from './customer/customer-update.component';
 import { JhiResolvePagingParams } from 'ng-jhipster';
 import { CustomerPaymentUpdateComponent } from './customer-payment/customer-payment-update.component';
@@ -19,13 +17,15 @@ import { CustomerLegalUpdateComponent } from './customer-legal/customer-legal-up
 import { CustomerLegal } from '../shared/model/customer-legal.model';
 import { CustomerLegalService } from '../shared/service/customer-legal.service';
 import { CustomerPaymentService } from '../shared/service/customer-payment.service';
+import { CustomerService } from '../shared/service/customer.service';
+import { Customer } from '../shared/model/customer.model';
+import { CustomerWarehouseComponent } from './customer-warehouse/customer-warehouse.component';
+import { CustomerServicesComponent } from './customer-services/customer-services.component';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerLegalResolve implements Resolve<CustomerLegal> {
   constructor(private service: CustomerLegalService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     const legalId = route.params['id'] ? +route.params['id'] : null;
     const customerId = route.parent.params['id'] ? +route.parent.params['id'] : null;
     if (Number(legalId) > 0) {
@@ -70,8 +70,6 @@ export class CustomerResolve implements Resolve<Customer> {
   constructor(private service: CustomerService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     const id = route.params['id'] ? route.params['id'] : null;
     if (+id) {
       return this.service.find(id).map((customer: HttpResponse<Customer>) => customer.body);
@@ -132,6 +130,26 @@ export const customerManagementState: Routes = [
           title: 'nextlogixApp.customerLegal.home.title'
         },
         canActivate: [UserRouteAccessService, CanActivateAnotherTab]
+      },
+      {
+        path: 'warehouse',
+        component: CustomerWarehouseComponent,
+        data: {
+          authorities: ['ROLE_USER'],
+          pageTitle: 'nextlogixApp.customerLegal.home.title',
+          title: 'nextlogixApp.customerLegal.home.title'
+        },
+        canActivate: [CanActivateAnotherTab]
+      },
+      {
+        path: 'service',
+        component: CustomerServicesComponent,
+        data: {
+          authorities: ['ROLE_USER'],
+          pageTitle: 'nextlogixApp.customerLegal.home.title',
+          title: 'nextlogixApp.customerLegal.home.title'
+        },
+        canActivate: [CanActivateAnotherTab]
       }
     ]
   }

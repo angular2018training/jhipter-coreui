@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NextlogixSharedLibsModule } from '../shared/shared-libs.module';
 import { CustomerManagementDetailComponent } from './customer-management-detail/customer-management-detail.component';
 import { CustomerPaymentUpdateComponent } from './customer-payment/customer-payment-update.component';
 import { RouterModule } from '@angular/router';
@@ -12,18 +11,26 @@ import { CustomerPostOfficeComponent } from './customer-post-office/customer-pos
 import { CustomerPostOfficeDeleteDialogComponent } from './customer-post-office/customer-post-office-delete-dialog.component';
 import { CustomerManagementComponent } from './customer-management.component';
 import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from '../shared';
+import { JhiLanguageHelper, NextlogixSharedModule } from '../shared';
 import { CustomerLegalUpdateComponent } from './customer-legal/customer-legal-update.component';
 import { CustomerLegalFileUploadComponent } from './customer-legal-file-upload/customer-legal-file-upload.component';
 import { CustomerLegalFileUploadDeleteDialogComponent } from './customer-legal-file-upload/customer-legal-file-upload-delete-dialog.component';
 import { FileUploadDialogComponent } from './customer-legal-file-upload/file-upload/file-upload-dialog.component';
+import { CustomerWarehouseComponent } from './customer-warehouse/customer-warehouse.component';
+import { WarehouseUpdateComponent } from './customer-warehouse/warehouse/warehouse-update.component';
+import { CustomerWarehouseDeleteDialogComponent } from './customer-warehouse/customer-warehouse-delete-dialog.component';
+import { CustomerServicesUpdateComponent } from './customer-services/customer-services-update.component';
+import { CustomerServicesDeleteDialogComponent } from './customer-services/customer-services-delete-dialog.component';
+import { CustomerServicesComponent } from './customer-services/customer-services.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    NextlogixSharedLibsModule,
+    NextlogixSharedModule,
     // NextlogixCustomerLegalModule,
-    RouterModule.forChild(customerManagementState)
+    RouterModule.forChild(customerManagementState),
+    BsDatepickerModule,
   ],
   declarations: [
     CustomerManagementComponent,
@@ -41,14 +48,26 @@ import { FileUploadDialogComponent } from './customer-legal-file-upload/file-upl
     CustomerLegalUpdateComponent,
     CustomerLegalFileUploadComponent,
     CustomerLegalFileUploadDeleteDialogComponent,
-    FileUploadDialogComponent
+    FileUploadDialogComponent,
+    // warehouse
+    CustomerWarehouseComponent,
+    WarehouseUpdateComponent,
+    CustomerWarehouseDeleteDialogComponent,
+    // service
+    CustomerServicesComponent,
+    CustomerServicesUpdateComponent,
+    CustomerServicesDeleteDialogComponent
   ],
   entryComponents: [
     CustomerDeleteDialogComponent,
     CustomerPostOfficeDialogComponent,
     CustomerPostOfficeDeleteDialogComponent,
     CustomerLegalFileUploadDeleteDialogComponent,
-    FileUploadDialogComponent
+    FileUploadDialogComponent,
+    WarehouseUpdateComponent,
+    CustomerWarehouseDeleteDialogComponent,
+    CustomerServicesUpdateComponent,
+    CustomerServicesDeleteDialogComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

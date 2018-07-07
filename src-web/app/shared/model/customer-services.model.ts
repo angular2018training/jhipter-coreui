@@ -11,5 +11,6 @@ export class CustomerServices implements BaseEntity {
         public quotationId?: number,
         public customerParentId?: number,
     ) {
+        this.companyId = 1;
     }
 }

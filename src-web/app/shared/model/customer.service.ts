@@ -5,15 +5,15 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { JhiDateUtils } from 'ng-jhipster';
 
-import { Customer } from './customer.model';
 import { createRequestOption } from '../../shared';
+import { Customer } from './customer.model';
 
 export type EntityResponseType = HttpResponse<Customer>;
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/customers';
+    private resourceUrl = SERVER_API_URL + 'api/customers';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/customers';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/customers';
 
@@ -32,7 +32,7 @@ export class CustomerService {
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<Customer>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<Customer>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -43,7 +43,7 @@ export class CustomerService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<Customer[]>> {
@@ -52,15 +52,15 @@ export class CustomerService {
             .map((res: HttpResponse<Customer[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<Customer[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<Customer[]>> {
+        const options = createRequestOption(req);
         return this.http.get<Customer[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Customer[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Customer = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<Customer[]>): HttpResponse<Customer[]> {
@@ -69,7 +69,7 @@ export class CustomerService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

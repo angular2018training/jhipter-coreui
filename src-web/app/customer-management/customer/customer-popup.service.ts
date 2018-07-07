@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { Customer } from './customer.model';
-import { CustomerService } from './customer.service';
+import { CustomerService } from '../../shared/model/customer.service';
+import { Customer } from '../../shared/model/customer.model';
+import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
 
 @Injectable()
 export class CustomerPopupService {
@@ -15,7 +16,6 @@ export class CustomerPopupService {
         private modalService: NgbModal,
         private router: Router,
         private customerService: CustomerService
-
     ) {
         this.ngbModalRef = null;
     }
@@ -32,16 +32,21 @@ export class CustomerPopupService {
                     .subscribe((customerResponse: HttpResponse<Customer>) => {
                         const customer: Customer = customerResponse.body;
                         customer.createDate = this.datePipe
-                            .transform(customer.createDate, 'yyyy-MM-ddTHH:mm:ss');
+                            .transform(customer.createDate, DATE_TIME_FORMAT);
                         customer.lastLoginDate = this.datePipe
-                            .transform(customer.lastLoginDate, 'yyyy-MM-ddTHH:mm:ss');
+                            .transform(customer.lastLoginDate, DATE_TIME_FORMAT);
                         this.ngbModalRef = this.customerModalRef(component, customer);
                         resolve(this.ngbModalRef);
                     });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.customerModalRef(component, new Customer());
+                    // tslint:disable-next-line:no-debugger
+                    debugger;
+                    const customer = new Customer();
+                    customer.createDate = this.datePipe
+                        .transform(new Date(), DATE_TIME_FORMAT);
+                    this.ngbModalRef = this.customerModalRef(component, customer);
                     resolve(this.ngbModalRef);
                 }, 0);
             }

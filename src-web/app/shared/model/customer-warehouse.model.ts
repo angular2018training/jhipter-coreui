@@ -6,6 +6,8 @@ export class CustomerWarehouse implements BaseEntity {
         public companyId?: number,
         public warehouseId?: number,
         public customerParentId?: number,
+        public warehouseDTO?: any
     ) {
+        this.companyId = 1;
     }
 }

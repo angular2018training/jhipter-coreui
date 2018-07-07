@@ -1,7 +1,7 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
     <div class="card">
         <div class="card-header">
-            <strong jhiTranslate="nextlogixApp.customer.home.createOrEditLabel">Create or edit a Customer</strong>
+            <strong jhiTranslate="nextlogixApp.customer.detail.title">Create or edit a Customer</strong>
         </div>
         <div class="card-body">
             <jhi-alert-error></jhi-alert-error>
@@ -237,9 +237,19 @@
                             <label class="form-control-label" jhiTranslate="nextlogixApp.customer.createDate" for="field_createDate">Create Date</label>
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <div class="d-flex">
-                                <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="createDate" required/>
+                            <div class="input-group">
+                                <input id="field_createDate" type="text" class="form-control" name="createDate" [bsConfig]="bsConfig" bsDatepicker [(ngModel)]="customer.createDate"
+                                    required disabled #createDate="bsDatepicker">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary" (click)="createDate.toggle()">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
                             </div>
+                            <!-- <div class="d-flex">
+                                <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [ngModel]="createDate" disabled
+                                    required/>
+                            </div> -->
                             <div [hidden]="!(editForm.controls.createDate?.dirty && editForm.controls.createDate?.invalid)">
                                 <small class="form-text text-danger" [hidden]="!editForm.controls.createDate?.errors?.required" jhiTranslate="entity.validation.required">
                                     This field is required.
@@ -260,8 +270,15 @@
 
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <div class="d-flex">
-                                <input id="field_lastLoginDate" type="datetime-local" class="form-control" name="lastLoginDate" [(ngModel)]="lastLoginDate">
+
+                            <div class="input-group">
+                                <input id="field_lastLoginDate" type="text" class="form-control" name="lastLoginDate" [bsConfig]="bsConfig" bsDatepicker
+                                    [(ngModel)]="customer.lastLoginDate" required disabled #createDate="bsDatepicker">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary" (click)="createDate.toggle()">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
                     </div>

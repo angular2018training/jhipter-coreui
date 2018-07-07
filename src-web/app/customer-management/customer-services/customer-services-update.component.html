@@ -1,0 +1,88 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCustomerServicesLabel" jhiTranslate="nextlogixApp.customerServices.home.createOrEditLabel">Create or edit a Customer Services</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.orderService" for="field_orderService">Order Service</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_orderService" name="orderService" [(ngModel)]="customerServices.orderServicesId" required>
+                            <option *ngIf="!editForm.value.orderService" [ngValue]="null" selected></option>
+                            <option [ngValue]="orderServiceOption.id" *ngFor="let orderServiceOption of orderservices">{{orderServiceOption.name}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.orderService?.dirty && editForm.controls.orderService?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.orderService?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.quotation" for="field_quotation">Quotation</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_quotation" name="quotation" [(ngModel)]="customerServices.quotationId">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations">{{quotationOption.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.discountPercent" for="field_discountPercent">Discount Percent</label>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="discountPercent" id="field_discountPercent" [(ngModel)]="customerServices.discountPercent">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.increasePercent" for="field_increasePercent">Increase Percent</label>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="increasePercent" id="field_increasePercent" [(ngModel)]="customerServices.increasePercent">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.customerServices.decreasePercent" for="field_decreasePercent">Decrease Percent</label>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="decreasePercent" id="field_decreasePercent" [(ngModel)]="customerServices.decreasePercent">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+                <span class="fa fa-ban"></span>&nbsp;
+                <span jhiTranslate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <span class="fa fa-save"></span>&nbsp;
+                <span jhiTranslate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+</form>

@@ -88,11 +88,12 @@ export class CustomerService {
      * Convert a Customer to a JSON which can be sent to the server.
      */
     private convert(customer: Customer): Customer {
-        const copy: Customer = Object.assign({}, customer);
+        // const copy: Customer = Object.assign({}, customer);
 
-        copy.createDate = customer.createDate != null && customer.createDate.isValid() ? customer.createDate.toJSON() : null;
+        // copy.createDate = customer.createDate != null && customer.createDate.isValid() ? customer.createDate.toJSON() : null;
 
-        copy.lastLoginDate = customer.lastLoginDate != null && customer.lastLoginDate.isValid() ? customer.lastLoginDate.toJSON() : null;
-        return copy;
+        // copy.lastLoginDate = customer.lastLoginDate != null && customer.lastLoginDate.isValid() ? customer.lastLoginDate.toJSON() : null;
+        // return copy;
+        return customer;
     }
 }

@@ -6,5 +6,5 @@ export interface IOrderService {
 }
 
 export class OrderService implements IOrderService {
-    constructor(public id?: number, public code?: string, public name?: string, public description?: string) {}
+    constructor(public id?: number, public code?: string, public name?: string, public description?: string) { }
 }

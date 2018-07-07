@@ -1,0 +1,167 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="nextlogixApp.warehouse.home.createOrEditLabel">Create or edit a Warehouse</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.name" for="field_name">Name</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="warehouse.name" required/>
+                        <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.contactName" for="field_contactName">Contact Name</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" class="form-control" name="contactName" id="field_contactName" [(ngModel)]="warehouse.contactName" required/>
+                        <div [hidden]="!(editForm.controls.contactName?.dirty && editForm.controls.contactName?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.contactName?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.contactPhone" for="field_contactPhone">Contact Phone</label>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" class="form-control" name="contactPhone" id="field_contactPhone" [(ngModel)]="warehouse.contactPhone"
+                            required/>
+                        <div [hidden]="!(editForm.controls.contactPhone?.dirty && editForm.controls.contactPhone?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.contactPhone?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.address" for="field_address">Address</label>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="text" class="form-control" name="address" id="field_address" [(ngModel)]="warehouse.address" />
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.createDate" for="field_createDate">Create Date</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <div class="input-group">
+                            <input id="field_createDate" type="text" class="form-control" name="createDate" [bsConfig]="bsConfig" bsDatepicker [ngModel]="warehouse.createDate"
+                                required disabled #createDate="bsDatepicker">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.province" for="field_province">Province</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_province" name="province" [ngModel]="warehouse.provinceId" (ngModelChange)="onProvinceChanged($event)"
+                            required>
+                            <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                            <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.district" for="field_district">District</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_district" name="district" [ngModel]="warehouse.districtId" (ngModelChange)="onDistrictChanged($event)"
+                            required>
+                            <option *ngIf="!editForm.value.district" [ngValue]="null" selected></option>
+                            <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                        </select>
+
+                        <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.district?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.warehouse.ward" for="field_ward">Ward</label>
+
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_ward" name="ward" [(ngModel)]="warehouse.wardId" required>
+                            <option *ngIf="!editForm.value.ward" [ngValue]="null" selected></option>
+                            <option [ngValue]="wardOption.id" *ngFor="let wardOption of wards; trackBy: trackWardById">{{wardOption.name}}</option>
+                        </select>
+
+                        <div [hidden]="!(editForm.controls.ward?.dirty && editForm.controls.ward?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.ward?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;
+            <span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

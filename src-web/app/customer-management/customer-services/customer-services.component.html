@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.customerServices.home.title">Kết quả tìm kiếm</strong>
+        <button class="pull-right btn btn-primary" (click)="createNewService()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="customerServices">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerServices.orderService">Order Service</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerServices.discountPercent">Discount Percent</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerServices.increasePercent">Increase Percent</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerServices.decreasePercent">Decrease Percent</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.customerServices.quotation">Quotation</span>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customerServices of customerServices; trackBy: trackId">
+                        <td>{{customerServices.orderServicesId | filter: orderServices : 'id': 'name'}} </td>
+                        <td>{{customerServices.discountPercent}}</td>
+                        <td>{{customerServices.increasePercent}}</td>
+                        <td>{{customerServices.decreasePercent}}</td>
+                        <td>{{customerServices.quotationId | filter: quotations : 'id': 'name'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="showCustomerServiceDetail(customerServices.id)">
+                                    <i class="fa fa-pencil"></i>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button (click)="deleteItem(customerServices.id)" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

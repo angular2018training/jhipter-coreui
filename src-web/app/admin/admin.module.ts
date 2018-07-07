@@ -36,9 +36,9 @@ import {NextlogixUserGroupModule} from './user-group/user-group.module';
 import {JhiLanguageService} from 'ng-jhipster';
 import {JhiLanguageHelper} from '../shared/language/language.helper';
 import {UserMgmtUpdateComponent} from './user-management/user-management-update.component';
-import {BsDatepickerModule, TimepickerModule} from "ngx-bootstrap";
-import {NgSelectModule} from "@ng-select/ng-select";
-import {NextlogixUserPostOfficeDetailModule} from "./user-post-office-detail/user-post-office-detail.module";
+import {BsDatepickerModule, TimepickerModule} from 'ngx-bootstrap';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {NextlogixUserPostOfficeDetailModule} from './user-post-office-detail/user-post-office-detail.module';
 
 @NgModule({
   imports: [

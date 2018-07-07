@@ -965,8 +965,6 @@
     width: 1px !important
 }
 
-
-
 // Here you can add other styles
 .table thead th {
     border-top: 0;
@@ -986,4 +984,10 @@ label {
 
 .white-text {
     color: white;
+}
+
+.flex-btn-group-container {
+    button {
+        min-width: 30px;
+    }
 }
