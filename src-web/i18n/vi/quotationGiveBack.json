@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "quotationGiveBack" : {
+            "home": {
+                "title": "Quotation Give Backs",
+                "createLabel": "Thêm mới một Quotation Give Back",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Give Back",
+                "search": "Tìm Quotation Give Back"
+            },
+            "created": "Một Quotation Give Back mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Give Back cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Give Back đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Give Back {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Give Back"
+            },
+            "feePercent": "Fee Percent",
+            "company": "Company",
+            "districtType": "District Type",
+            "region": "Region",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

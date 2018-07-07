@@ -1,0 +1,100 @@
+
+
+
+<form name="editForm" role="form" class="form-horizontal" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.quotationDomesticDelivery.home.createOrEditLabel">Create or edit a Quotation Domestic Delivery</strong>
+    </div>
+    <div class="card-body">
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!quotationDomesticDelivery.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="quotationDomesticDelivery.id" readonly />
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationDomesticDelivery.amount" for="field_amount">Amount</label>
+                    <div class="col-md-4">
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                        [(ngModel)]="quotationDomesticDelivery.amount" required/>
+                    <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationDomesticDelivery.districtType" for="field_districtType">District Type</label>
+                    <div class="col-md-4">
+                    <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="quotationDomesticDelivery.districtTypeId"  required>
+                        <option *ngIf="!editForm.value.districtType" [ngValue]="null" selected></option>
+                        <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districttypes; trackBy: trackDistrictTypeById">{{districtTypeOption.name}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div [hidden]="!(editForm.controls.districtType?.dirty && editForm.controls.districtType?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.districtType?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationDomesticDelivery.region" for="field_region">Region</label>
+                    <div class="col-md-4">
+                    <select class="form-control" id="field_region" name="region" [(ngModel)]="quotationDomesticDelivery.regionId"  required>
+                        <option *ngIf="!editForm.value.region" [ngValue]="null" selected></option>
+                        <option [ngValue]="regionOption.id" *ngFor="let regionOption of regions; trackBy: trackRegionById">{{regionOption.name}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div [hidden]="!(editForm.controls.region?.dirty && editForm.controls.region?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.region?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationDomesticDelivery.weight" for="field_weight">Weight</label>
+                    <div class="col-md-4">
+                    <select class="form-control" id="field_weight" name="weight" [(ngModel)]="quotationDomesticDelivery.weightId"  required>
+                        <option *ngIf="!editForm.value.weight" [ngValue]="null" selected></option>
+                        <option [ngValue]="weightOption.id" *ngFor="let weightOption of weights; trackBy: trackWeightById">{{weightOption.name}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div [hidden]="!(editForm.controls.weight?.dirty && editForm.controls.weight?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.weight?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationDomesticDelivery.quotationParent" for="field_quotationParent">Quotation Parent</label>
+                    <div class="col-md-4">
+                    <select class="form-control" id="field_quotationParent" name="quotationParent" [(ngModel)]="quotationDomesticDelivery.quotationParentId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card-footer">
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <i class="fa fa-dot-circle-o"></i>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+        <button type="reset" class="btn btn-danger" id="cancel-save" (click)="previousState()">
+            <i class="fa fa-undo"></i>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+    </div>
+</div>
+</form>

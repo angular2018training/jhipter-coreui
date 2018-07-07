@@ -1,0 +1,201 @@
+
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_amountFrom"
+                       jhiTranslate="nextlogixApp.quotationSubServices.amountFrom">Amount From:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="amountFrom" id="field_amountFrom"
+                           [(ngModel)]="quotationSubServicesSearch.amountFrom" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_amountTo"
+                       jhiTranslate="nextlogixApp.quotationSubServices.amountTo">Amount To:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="amountTo" id="field_amountTo"
+                           [(ngModel)]="quotationSubServicesSearch.amountTo" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_feeAmountMin"
+                       jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMin">Fee Amount Min:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="feeAmountMin" id="field_feeAmountMin"
+                           [(ngModel)]="quotationSubServicesSearch.feeAmountMin" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_feeAmountMax"
+                       jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMax">Fee Amount Max:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="feeAmountMax" id="field_feeAmountMax"
+                           [(ngModel)]="quotationSubServicesSearch.feeAmountMax" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_feeAmount"
+                       jhiTranslate="nextlogixApp.quotationSubServices.feeAmount">Fee Amount:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="feeAmount" id="field_feeAmount"
+                           [(ngModel)]="quotationSubServicesSearch.feeAmount" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_autoSelect"
+                       jhiTranslate="nextlogixApp.quotationSubServices.autoSelect">Auto Select:</label>
+                <div class="col-md-4">
+
+                    <input type="checkbox" class="form-control" name="autoSelect" id="field_autoSelect"
+                           [(ngModel)]="quotationSubServicesSearch.autoSelect" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_orderSubServicesType"
+                       jhiTranslate="nextlogixApp.quotationSubServices.orderSubServicesType">>Order Sub Services Type:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_orderSubServicesType" name="orderSubServicesType" [(ngModel)]="quotationSubServicesSearch.orderSubServicesTypeId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="orderSubServicesTypeOption.id" *ngFor="let orderSubServicesTypeOption of ordersubservicestypes; trackBy: trackOrderSubServicesTypeById">{{orderSubServicesTypeOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_orderSubServices"
+                       jhiTranslate="nextlogixApp.quotationSubServices.orderSubServices">>Order Sub Services:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_orderSubServices" name="orderSubServices" [(ngModel)]="quotationSubServicesSearch.orderSubServicesId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="orderSubServicesOption.id" *ngFor="let orderSubServicesOption of ordersubservices; trackBy: trackOrderSubServicesById">{{orderSubServicesOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_quotationParent"
+                       jhiTranslate="nextlogixApp.quotationSubServices.quotationParent">>Quotation Parent:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_quotationParent" name="quotationParent" [(ngModel)]="quotationSubServicesSearch.quotationParentId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.quotationSubServices.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="quotationSubServices">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="amountFrom"><span jhiTranslate="nextlogixApp.quotationSubServices.amountFrom">Amount From</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="amountTo"><span jhiTranslate="nextlogixApp.quotationSubServices.amountTo">Amount To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="feeAmountMin"><span jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMin">Fee Amount Min</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="feeAmountMax"><span jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMax">Fee Amount Max</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="feeAmount"><span jhiTranslate="nextlogixApp.quotationSubServices.feeAmount">Fee Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="autoSelect"><span jhiTranslate="nextlogixApp.quotationSubServices.autoSelect">Auto Select</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="orderSubServicesTypeId"><span jhiTranslate="nextlogixApp.quotationSubServices.orderSubServicesType">Order Sub Services Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="orderSubServicesId"><span jhiTranslate="nextlogixApp.quotationSubServices.orderSubServices">Order Sub Services</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="quotationParentId"><span jhiTranslate="nextlogixApp.quotationSubServices.quotationParent">Quotation Parent</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quotationSubServices of quotationSubServices ;trackBy: trackId">
+                    <td><a [routerLink]="[ quotationSubServices.id,'view']">{{quotationSubServices.id}}</a></td>
+                    <td>{{quotationSubServices.amountFrom}}</td>
+                    <td>{{quotationSubServices.amountTo}}</td>
+                    <td>{{quotationSubServices.feeAmountMin}}</td>
+                    <td>{{quotationSubServices.feeAmountMax}}</td>
+                    <td>{{quotationSubServices.feeAmount}}</td>
+                    <td>{{quotationSubServices.autoSelect}}</td>
+                    <td>
+        <div *ngIf="quotationSubServices.orderSubServicesTypeId">
+        <a [routerLink]="['../order-sub-services-type', 'detail',quotationSubServices.orderSubServicesTypeId ]" >{{quotationSubServices.orderSubServicesTypeDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationSubServices.orderSubServicesId">
+        <a [routerLink]="['../order-sub-services', 'detail',quotationSubServices.orderSubServicesId ]" >{{quotationSubServices.orderSubServicesDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationSubServices.quotationParentId">
+        <a [routerLink]="['../quotation', 'detail',quotationSubServices.quotationParentId ]" >{{quotationSubServices.quotationParentDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[quotationSubServices.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-edit "></i>
+            </button>
+            <button (click)="deleteItem(quotationSubServices.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-trash-o "></i>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="quotationSubServices && quotationSubServices.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>

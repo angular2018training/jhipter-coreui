@@ -1,0 +1,163 @@
+
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_amount"
+                       jhiTranslate="nextlogixApp.quotationDomesticDelivery.amount">Amount:</label>
+                <div class="col-md-4">
+
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                           [(ngModel)]="quotationDomesticDeliverySearch.amount" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_districtType"
+                       jhiTranslate="nextlogixApp.quotationDomesticDelivery.districtType">>District Type:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="quotationDomesticDeliverySearch.districtTypeId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districttypes; trackBy: trackDistrictTypeById">{{districtTypeOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_region"
+                       jhiTranslate="nextlogixApp.quotationDomesticDelivery.region">>Region:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_region" name="region" [(ngModel)]="quotationDomesticDeliverySearch.regionId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="regionOption.id" *ngFor="let regionOption of regions; trackBy: trackRegionById">{{regionOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_weight"
+                       jhiTranslate="nextlogixApp.quotationDomesticDelivery.weight">>Weight:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_weight" name="weight" [(ngModel)]="quotationDomesticDeliverySearch.weightId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="weightOption.id" *ngFor="let weightOption of weights; trackBy: trackWeightById">{{weightOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_quotationParent"
+                       jhiTranslate="nextlogixApp.quotationDomesticDelivery.quotationParent">>Quotation Parent:</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="field_quotationParent" name="quotationParent" [(ngModel)]="quotationDomesticDeliverySearch.quotationParentId">
+                    <option [ngValue]="null"></option>
+                    <option [ngValue]="quotationOption.id" *ngFor="let quotationOption of quotations; trackBy: trackQuotationById">{{quotationOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.quotationDomesticDelivery.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="quotationDomesticDeliveries">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="amount"><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="districtTypeId"><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.districtType">District Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="regionId"><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.region">Region</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="weightId"><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.weight">Weight</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="quotationParentId"><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.quotationParent">Quotation Parent</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quotationDomesticDelivery of quotationDomesticDeliveries ;trackBy: trackId">
+                    <td><a [routerLink]="[ quotationDomesticDelivery.id,'view']">{{quotationDomesticDelivery.id}}</a></td>
+                    <td>{{quotationDomesticDelivery.amount}}</td>
+                    <td>
+        <div *ngIf="quotationDomesticDelivery.districtTypeId">
+        <a [routerLink]="['../district-type', 'detail',quotationDomesticDelivery.districtTypeId ]" >{{quotationDomesticDelivery.districtTypeDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationDomesticDelivery.regionId">
+        <a [routerLink]="['../region', 'detail',quotationDomesticDelivery.regionId ]" >{{quotationDomesticDelivery.regionDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationDomesticDelivery.weightId">
+        <a [routerLink]="['../weight', 'detail',quotationDomesticDelivery.weightId ]" >{{quotationDomesticDelivery.weightDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationDomesticDelivery.quotationParentId">
+        <a [routerLink]="['../quotation', 'detail',quotationDomesticDelivery.quotationParentId ]" >{{quotationDomesticDelivery.quotationParentDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[quotationDomesticDelivery.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-edit "></i>
+            </button>
+            <button (click)="deleteItem(quotationDomesticDelivery.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-trash-o "></i>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="quotationDomesticDeliveries && quotationDomesticDeliveries.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>

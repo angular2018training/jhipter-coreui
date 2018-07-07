@@ -1,0 +1,79 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myQuotationPickupLabel" jhiTranslate="nextlogixApp.quotationPickup.home.createOrEditLabel">Create or edit a Quotation Pickup</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!quotationPickup.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="quotationPickup.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="quotationPickup.amount" required/>
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.company" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" [(ngModel)]="quotationPickup.companyId"  required>
+                <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
+                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.province" for="field_province">Province</label>
+            <select class="form-control" id="field_province" name="province" [(ngModel)]="quotationPickup.provinceId"  required>
+                <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.districtType" for="field_districtType">District Type</label>
+            <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="quotationPickup.districtTypeId"  required>
+                <option *ngIf="!editForm.value.districtType" [ngValue]="null" selected></option>
+                <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districttypes; trackBy: trackDistrictTypeById">{{districtTypeOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.districtType?.dirty && editForm.controls.districtType?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.districtType?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

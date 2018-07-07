@@ -11,26 +11,26 @@ export type EntityResponseType = HttpResponse<CustomerLegal>;
 @Injectable({ providedIn: 'root' })
 export class CustomerLegalService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/customer-legals';
+    private resourceUrl = SERVER_API_URL + 'api/customer-legals';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/customer-legals';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/customer-legals';
 
     constructor(private http: HttpClient) { }
 
-    create(customerLegal: CustomerLegal): Observable<EntityResponseType> {
+    create(customerLegal: CustomerLegal, customerId: number): Observable<EntityResponseType> {
         const copy = this.convert(customerLegal);
-        return this.http.post<CustomerLegal>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http.post<CustomerLegal>(`${this.resourceUrl}?customerId=${customerId}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(customerLegal: CustomerLegal): Observable<EntityResponseType> {
+    update(customerLegal: CustomerLegal, customerId: number): Observable<EntityResponseType> {
         const copy = this.convert(customerLegal);
-        return this.http.put<CustomerLegal>(this.resourceUrl, copy, { observe: 'response' })
+        return this.http.put<CustomerLegal>(`this.resourceUrl?customerId=${customerId}`, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<CustomerLegal>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<CustomerLegal>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -41,7 +41,7 @@ export class CustomerLegalService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<CustomerLegal[]>> {
@@ -50,15 +50,15 @@ export class CustomerLegalService {
             .map((res: HttpResponse<CustomerLegal[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<CustomerLegal[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<CustomerLegal[]>> {
+        const options = createRequestOption(req);
         return this.http.get<CustomerLegal[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<CustomerLegal[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CustomerLegal = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<CustomerLegal[]>): HttpResponse<CustomerLegal[]> {
@@ -67,7 +67,7 @@ export class CustomerLegalService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**

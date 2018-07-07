@@ -16,6 +16,8 @@ import { District } from '../../shared/model/district.model';
             import { CompanyService} from '../../shared/service/company.service';
             import { Province } from '../../shared/model/province.model';
             import { ProvinceService} from '../../shared/service/province.service';
+            import { DistrictType } from '../../shared/model/district-type.model';
+            import { DistrictTypeService} from '../../shared/service/district-type.service';
 
 @Component({
     selector: 'jhi-district-update',
@@ -29,12 +31,15 @@ export class DistrictUpdateComponent implements OnInit {
 
     provinces: Province[];
 
+    districttypes: DistrictType[];
+
     constructor(
         private alertService: AlertService,
         private districtService: DistrictService,
         private principal : Principal,
         private companyService: CompanyService,
         private provinceService: ProvinceService,
+        private districtTypeService: DistrictTypeService,
         private route: ActivatedRoute
     ) {
     }
@@ -48,6 +53,8 @@ export class DistrictUpdateComponent implements OnInit {
             this.currentAccount = account;
             this.provinceService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
             .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+            this.districtTypeService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
+            .subscribe((res: HttpResponse<DistrictType[]>) => { this.districttypes = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         });
 
     }
@@ -91,6 +98,10 @@ export class DistrictUpdateComponent implements OnInit {
     }
 
     trackProvinceById(index: number, item: Province) {
+        return item.id;
+    }
+
+    trackDistrictTypeById(index: number, item: DistrictType) {
         return item.id;
     }
     get district() {

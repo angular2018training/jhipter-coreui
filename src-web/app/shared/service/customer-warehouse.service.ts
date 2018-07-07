@@ -5,32 +5,33 @@ import { SERVER_API_URL } from '../../app.constants';
 
 import { CustomerWarehouse } from '../model/customer-warehouse.model';
 import { createRequestOption } from '../../shared';
+import { CustomerWarehouseWrapperModel } from '../model/customer-warehouse-wrapper.model';
 
 export type EntityResponseType = HttpResponse<CustomerWarehouse>;
 
 @Injectable({ providedIn: 'root' })
 export class CustomerWarehouseService {
 
-    private resourceUrl =  SERVER_API_URL + 'api/customer-warehouses';
+    private resourceUrl = SERVER_API_URL + 'api/customer-warehouses';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/customer-warehouses';
     private resourceSearchExampleUrl = SERVER_API_URL + 'api/_search_example/customer-warehouses';
 
     constructor(private http: HttpClient) { }
 
-    create(customerWarehouse: CustomerWarehouse): Observable<EntityResponseType> {
-        const copy = this.convert(customerWarehouse);
+    create(wrapper: CustomerWarehouseWrapperModel): Observable<EntityResponseType> {
+        const copy = this.convert(wrapper);
         return this.http.post<CustomerWarehouse>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(customerWarehouse: CustomerWarehouse): Observable<EntityResponseType> {
-        const copy = this.convert(customerWarehouse);
+    update(wrapper: CustomerWarehouseWrapperModel): Observable<EntityResponseType> {
+        const copy = this.convert(wrapper);
         return this.http.put<CustomerWarehouse>(this.resourceUrl, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http.get<CustomerWarehouse>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+        return this.http.get<CustomerWarehouse>(`${this.resourceUrl}/${id}`, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
@@ -41,7 +42,7 @@ export class CustomerWarehouseService {
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     search(req?: any): Observable<HttpResponse<CustomerWarehouse[]>> {
@@ -50,15 +51,15 @@ export class CustomerWarehouseService {
             .map((res: HttpResponse<CustomerWarehouse[]>) => this.convertArrayResponse(res));
 
     }
-    searchExample(req? : any): Observable<HttpResponse<CustomerWarehouse[]>> {
-            const options = createRequestOption(req);
+    searchExample(req?: any): Observable<HttpResponse<CustomerWarehouse[]>> {
+        const options = createRequestOption(req);
         return this.http.get<CustomerWarehouse[]>(this.resourceSearchExampleUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<CustomerWarehouse[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: CustomerWarehouse = this.convertItemFromServer(res.body);
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     private convertArrayResponse(res: HttpResponse<CustomerWarehouse[]>): HttpResponse<CustomerWarehouse[]> {
@@ -67,7 +68,7 @@ export class CustomerWarehouseService {
         for (let i = 0; i < jsonResponse.length; i++) {
             body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return res.clone({body});
+        return res.clone({ body });
     }
 
     /**
@@ -81,8 +82,8 @@ export class CustomerWarehouseService {
     /**
      * Convert a CustomerWarehouse to a JSON which can be sent to the server.
      */
-    private convert(customerWarehouse: CustomerWarehouse): CustomerWarehouse {
-        const copy: CustomerWarehouse = Object.assign({}, customerWarehouse);
-        return copy;
+    private convert(wrapper: CustomerWarehouseWrapperModel): CustomerWarehouseWrapperModel {
+        // wrapper.warehouseDTO.createDate = wrapper.warehouseDTO.createDate != null && wrapper.warehouseDTO.createDate.isValid() ? wrapper.warehouseDTO.createDate.toJSON() : null;
+        return wrapper;
     }
 }

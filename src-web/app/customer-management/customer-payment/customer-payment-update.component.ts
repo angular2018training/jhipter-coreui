@@ -6,17 +6,15 @@ import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
 import { JhiAlertService, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 
-import { CustomerPaymentService } from './customer-payment.service';
-
 import { CustomerPayment } from './customer-payment.model';
 import { Company } from '../../shared/model/company.model';
 import { Bank } from '../../shared/model/bank.model';
 import { UserExtraInfo } from '../../shared/model/user-extra-info.model';
 import { PaymentType } from '../../setup/payment-type';
-import { CompanyService } from '../../shared/service/company.service';
 import { BankService } from '../../setup/bank';
 import { UserExtraInfoService } from '../../shared/service/user-extra-info.service';
 import { PaymentTypeService } from '../../shared/service/payment-type.service';
+import { CustomerPaymentService } from '../../shared/service/customer-payment.service';
 
 @Component({
     selector: 'jhi-customer-payment-update',
@@ -26,8 +24,6 @@ export class CustomerPaymentUpdateComponent implements OnInit {
 
     private _customerPayment: CustomerPayment;
     isSaving: boolean;
-
-    companies: Company[];
 
     banks: Bank[];
 
@@ -41,14 +37,12 @@ export class CustomerPaymentUpdateComponent implements OnInit {
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private customerPaymentService: CustomerPaymentService,
-        private companyService: CompanyService,
         private bankService: BankService,
         private userExtraInfoService: UserExtraInfoService,
         private paymentTypeService: PaymentTypeService,
         private route: ActivatedRoute,
         private eventManager: JhiEventManager
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.isSaving = false;
@@ -56,8 +50,6 @@ export class CustomerPaymentUpdateComponent implements OnInit {
             this.customerPayment = data.resolved.customerPayment;
             this.customerId = data.resolved.customerId;
         });
-        this.companyService.query()
-            .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.bankService.query()
             .subscribe((res: HttpResponse<Bank[]>) => { this.banks = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.userExtraInfoService.query()

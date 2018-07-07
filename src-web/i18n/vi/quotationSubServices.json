@@ -1,0 +1,32 @@
+
+{
+    "nextlogixApp": {
+        "quotationSubServices" : {
+            "home": {
+                "title": "Quotation Sub Services",
+                "createLabel": "Thêm mới một Quotation Sub Services",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Sub Services",
+                "search": "Tìm Quotation Sub Services"
+            },
+            "created": "Một Quotation Sub Services mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Sub Services cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Sub Services đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Sub Services {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Sub Services"
+            },
+            "amountFrom": "Amount From",
+            "amountTo": "Amount To",
+            "feeAmountMin": "Fee Amount Min",
+            "feeAmountMax": "Fee Amount Max",
+            "feeAmount": "Fee Amount",
+            "autoSelect": "Auto Select",
+            "company": "Company",
+            "orderSubServicesType": "Order Sub Services Type",
+            "orderSubServices": "Order Sub Services",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

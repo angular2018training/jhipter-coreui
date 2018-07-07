@@ -1,0 +1,80 @@
+
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.quotationSubServices.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+            <button type="button" class="btn btn-primary btn-warning pull-right"  (click)="createDetailForm()">
+                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+            </button>
+
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="quotationSubServices">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.amountFrom">Amount From</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.amountTo">Amount To</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMin">Fee Amount Min</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMax">Fee Amount Max</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.feeAmount">Fee Amount</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.autoSelect">Auto Select</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.company">Company</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.orderSubServicesType">Order Sub Services Type</span></th>
+                <th><span jhiTranslate="nextlogixApp.quotationSubServices.orderSubServices">Order Sub Services</span></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quotationSubServices of quotationSubServices ;trackBy: trackId">
+                    <td><a [routerLink]="[ quotationSubServices.id,'view']">{{quotationSubServices.id}}</a></td>
+                    <td>{{quotationSubServices.amountFrom}}</td>
+                    <td>{{quotationSubServices.amountTo}}</td>
+                    <td>{{quotationSubServices.feeAmountMin}}</td>
+                    <td>{{quotationSubServices.feeAmountMax}}</td>
+                    <td>{{quotationSubServices.feeAmount}}</td>
+                    <td>{{quotationSubServices.autoSelect}}</td>
+                    <td>
+        <div *ngIf="quotationSubServices.companyId">
+        <a [routerLink]="['../company', 'detail',quotationSubServices.companyId ]" >{{quotationSubServices.companyDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationSubServices.orderSubServicesTypeId">
+        <a [routerLink]="['../order-sub-services-type', 'detail',quotationSubServices.orderSubServicesTypeId ]" >{{quotationSubServices.orderSubServicesTypeDTO?.name}}</a>
+    </div>
+    </td>
+                    <td>
+        <div *ngIf="quotationSubServices.orderSubServicesId">
+        <a [routerLink]="['../order-sub-services', 'detail',quotationSubServices.orderSubServicesId ]" >{{quotationSubServices.orderSubServicesDTO?.name}}</a>
+    </div>
+    </td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+
+            <button type="button"
+                    (click)="editDetailForm(quotationSubServices.id)"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+            <button type="button" (click)="deleteDetailForm(quotationSubServices.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-times"></i>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+
+
+</div>
+
+

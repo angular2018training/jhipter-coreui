@@ -9,7 +9,9 @@ export class CustomerPostOffice implements BaseEntity {
         public companyId?: number,
         public postOfficeId?: number,
         public customerParentId?: number,
+        public postOfficeDTO?: any
     ) {
         this.isActive = false;
+        this.companyId = 1;
     }
 }

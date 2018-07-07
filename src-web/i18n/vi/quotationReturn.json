@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "quotationReturn" : {
+            "home": {
+                "title": "Quotation Returns",
+                "createLabel": "Thêm mới một Quotation Return",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Return",
+                "search": "Tìm Quotation Return"
+            },
+            "created": "Một Quotation Return mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Return cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Return đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Return {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Return"
+            },
+            "feePercent": "Fee Percent",
+            "company": "Company",
+            "districtType": "District Type",
+            "region": "Region",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

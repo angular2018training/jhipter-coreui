@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "quotationPickup" : {
+            "home": {
+                "title": "Quotation Pickups",
+                "createLabel": "Create a new Quotation Pickup",
+                "createOrEditLabel": "Create or edit a Quotation Pickup",
+                "search": "Search for Quotation Pickup"
+            },
+            "created": "A new Quotation Pickup is created with identifier {{ param }}",
+            "updated": "A Quotation Pickup is updated with identifier {{ param }}",
+            "deleted": "A Quotation Pickup is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Pickup {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Pickup"
+            },
+            "amount": "Amount",
+            "company": "Company",
+            "province": "Province",
+            "districtType": "District Type",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

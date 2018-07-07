@@ -15,6 +15,7 @@ import vn.nextlogix.service.dto.DistrictSearchDTO;
 import org.springframework.data.domain.PageImpl;
     import vn.nextlogix.domain.Company;
     import vn.nextlogix.domain.Province;
+    import vn.nextlogix.domain.DistrictType;
 import vn.nextlogix.service.mapper.DistrictMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 
     import vn.nextlogix.repository.search.ProvinceSearchRepository;
     import vn.nextlogix.service.mapper.ProvinceMapper;
+
+    import vn.nextlogix.repository.search.DistrictTypeSearchRepository;
+    import vn.nextlogix.service.mapper.DistrictTypeMapper;
     import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -63,9 +67,13 @@ public class DistrictServiceImpl implements DistrictService {
         private final ProvinceSearchRepository provinceSearchRepository;
         private final ProvinceMapper provinceMapper;
 
+        private final DistrictTypeSearchRepository districtTypeSearchRepository;
+        private final DistrictTypeMapper districtTypeMapper;
+
 
     public DistrictServiceImpl(DistrictRepository districtRepository, DistrictMapper districtMapper, DistrictSearchRepository districtSearchRepository     ,CompanySearchRepository companySearchRepository,CompanyMapper  companyMapper
 ,ProvinceSearchRepository provinceSearchRepository,ProvinceMapper  provinceMapper
+,DistrictTypeSearchRepository districtTypeSearchRepository,DistrictTypeMapper  districtTypeMapper
 ) {
         this.districtRepository = districtRepository;
         this.districtMapper = districtMapper;
@@ -74,6 +82,8 @@ public class DistrictServiceImpl implements DistrictService {
                                      this.companyMapper = companyMapper;
                                     this.provinceSearchRepository = provinceSearchRepository;
                                      this.provinceMapper = provinceMapper;
+                                    this.districtTypeSearchRepository = districtTypeSearchRepository;
+                                     this.districtTypeMapper = districtTypeMapper;
 
     }
 
@@ -170,6 +180,9 @@ public class DistrictServiceImpl implements DistrictService {
             if(searchDto.getProvinceId() !=null) {
                 boolQueryBuilder.must(QueryBuilders.matchQuery("province.id", searchDto.getProvinceId()));
             }
+            if(searchDto.getDistrictTypeId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("districtType.id", searchDto.getDistrictTypeId()));
+            }
             NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
 
             pageable.getSort().forEach(sort -> {
@@ -189,6 +202,10 @@ public class DistrictServiceImpl implements DistrictService {
             if(districtDto.getProvinceId()!=null){
                 Province province= provinceSearchRepository.findOne(districtDto.getProvinceId());
                 districtDto.setProvinceDTO(provinceMapper.toDto(province));
+            }
+            if(districtDto.getDistrictTypeId()!=null){
+                DistrictType districtType= districtTypeSearchRepository.findOne(districtDto.getDistrictTypeId());
+                districtDto.setDistrictTypeDTO(districtTypeMapper.toDto(districtType));
             }
             });
             return new PageImpl<>(districtList,pageable,districtPage.getTotalElements());

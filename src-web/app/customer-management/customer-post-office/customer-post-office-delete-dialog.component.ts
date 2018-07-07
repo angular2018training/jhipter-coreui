@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
-
-import { CustomerPostOffice } from './customer-post-office.model';
-import { CustomerPostOfficeService } from './customer-post-office.service';
+import { CustomerPostOffice } from '../../shared/model/customer-post-office.model';
+import { CustomerPostOfficeService } from '../../shared/service/customer-post-office.service';
 
 @Component({
     selector: 'jhi-customer-post-office-delete-dialog',

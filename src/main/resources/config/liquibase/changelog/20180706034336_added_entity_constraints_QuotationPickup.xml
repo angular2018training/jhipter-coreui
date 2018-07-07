@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity QuotationPickup.
+    -->
+    <changeSet id="20180706034336-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="quotation_pickup"
+                                 constraintName="fk_quotation_pickup_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="province_id"
+                                 baseTableName="quotation_pickup"
+                                 constraintName="fk_quotation_pickup_province_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="province"/>
+
+        <addForeignKeyConstraint baseColumnNames="district_type_id"
+                                 baseTableName="quotation_pickup"
+                                 constraintName="fk_quotation_pickup_district_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="quotation_parent_id"
+                                 baseTableName="quotation_pickup"
+                                 constraintName="fk_quotation_pickup_quotation_parent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="quotation"/>
+
+    </changeSet>
+</databaseChangeLog>

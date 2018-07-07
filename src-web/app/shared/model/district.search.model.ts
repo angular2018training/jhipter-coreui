@@ -10,6 +10,7 @@ export class DistrictSearch implements BaseEntity {
     public description?: string,
     public companyId?: number,
     public provinceId?: number,
+    public districtTypeId?: number,
 ) {
         this.pickupActive = false;
         this.deliveryActive = false;

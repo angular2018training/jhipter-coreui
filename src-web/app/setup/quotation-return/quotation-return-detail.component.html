@@ -1,0 +1,53 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.quotationReturn.detail.title">Quotation Return</span> {{quotationReturn.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="quotationReturn">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.quotationReturn.feePercent">Fee Percent</span></dt>
+        <dd>
+            <span>{{quotationReturn.feePercent}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationReturn.districtType">District Type</span></dt>
+        <dd>
+            <div *ngIf="quotationReturn.districtTypeId">
+                <a [routerLink]="['/district-type', quotationReturn.districtTypeId]">{{quotationReturn.districtTypeId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationReturn.region">Region</span></dt>
+        <dd>
+            <div *ngIf="quotationReturn.regionId">
+                <a [routerLink]="['/region', quotationReturn.regionId]">{{quotationReturn.regionId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationReturn.quotationParent">Quotation Parent</span></dt>
+        <dd>
+            <div *ngIf="quotationReturn.quotationParentId">
+                <a [routerLink]="['/quotation', quotationReturn.quotationParentId]">{{quotationReturn.quotationParentId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'quotation-return', quotationReturn.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

@@ -22,5 +22,6 @@
             "userGroup": "User Group",
             "userExtraInfoParent": "User Extra Info Parent"
         }
-    }
+    },
+    "userPostOffice.duplicate.record" : "Post office has been assigned. Please choose another post office"
 }

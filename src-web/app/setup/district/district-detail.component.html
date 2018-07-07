@@ -34,6 +34,12 @@
                 <a [routerLink]="['/province', district.provinceId]">{{district.provinceId}}</a>
             </div>
         </dd>
+        <dt><span jhiTranslate="nextlogixApp.district.districtType">District Type</span></dt>
+        <dd>
+            <div *ngIf="district.districtTypeId">
+                <a [routerLink]="['/district-type', district.districtTypeId]">{{district.districtTypeId}}</a>
+            </div>
+        </dd>
     </dl>
 
 

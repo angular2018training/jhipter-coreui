@@ -3,9 +3,45 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "quotationItemDetailList",
-            "otherEntityName": "quotationItem",
-            "otherEntityRelationshipName": "quotation"
+            "relationshipName": "quotationPickupDetailList",
+            "otherEntityName": "quotationPickup",
+            "otherEntityRelationshipName": "quotationParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationDomesticDeliveryDetailList",
+            "otherEntityName": "quotationDomesticDelivery",
+            "otherEntityRelationshipName": "quotationParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationReturnDetailList",
+            "otherEntityName": "quotationReturn",
+            "otherEntityRelationshipName": "quotationParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationGiveBackDetailList",
+            "otherEntityName": "quotationGiveBack",
+            "otherEntityRelationshipName": "quotationParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationInsuranceDetailList",
+            "otherEntityName": "quotationInsurance",
+            "otherEntityRelationshipName": "quotationParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationCodDetailList",
+            "otherEntityName": "quotationCod",
+            "otherEntityRelationshipName": "quotationParent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "quotationSubServicesDetailList",
+            "otherEntityName": "quotationSubServices",
+            "otherEntityRelationshipName": "quotationParent"
         },
         {
             "relationshipType": "many-to-one",

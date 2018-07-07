@@ -1,0 +1,29 @@
+
+{
+    "nextlogixApp": {
+        "quotationCod" : {
+            "home": {
+                "title": "Quotation Cods",
+                "createLabel": "Thêm mới một Quotation Cod",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Cod",
+                "search": "Tìm Quotation Cod"
+            },
+            "created": "Một Quotation Cod mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Cod cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Cod đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Cod {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Cod"
+            },
+            "amountFrom": "Amount From",
+            "amountTo": "Amount To",
+            "feeAmountMin": "Fee Amount Min",
+            "feeAmount": "Fee Amount",
+            "company": "Company",
+            "districtType": "District Type",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

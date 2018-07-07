@@ -1,0 +1,30 @@
+
+{
+    "nextlogixApp": {
+        "quotationInsurance" : {
+            "home": {
+                "title": "Quotation Insurances",
+                "createLabel": "Create a new Quotation Insurance",
+                "createOrEditLabel": "Create or edit a Quotation Insurance",
+                "search": "Search for Quotation Insurance"
+            },
+            "created": "A new Quotation Insurance is created with identifier {{ param }}",
+            "updated": "A Quotation Insurance is updated with identifier {{ param }}",
+            "deleted": "A Quotation Insurance is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Insurance {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Insurance"
+            },
+            "amountFrom": "Amount From",
+            "amountTo": "Amount To",
+            "feeAmountMin": "Fee Amount Min",
+            "feeAmountMax": "Fee Amount Max",
+            "feePercent": "Fee Percent",
+            "company": "Company",
+            "districtType": "District Type",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

@@ -964,3 +964,30 @@
     position: absolute !important;
     width: 1px !important
 }
+
+// Here you can add other styles
+.table thead th {
+    border-top: 0;
+}
+
+.flex-center-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+label {
+    &.mb-0 {
+        margin-bottom: 0
+    }
+}
+
+.white-text {
+    color: white;
+}
+
+.flex-btn-group-container {
+    button {
+        min-width: 30px;
+    }
+}

@@ -22,7 +22,9 @@
             "createDate": "Create Date",
             "customer": "Customer",
             "company": "Company",
-            "postOffice": "Post Office"
+            "postOffice": "Post Office",
+            "activated": "Activated",
+            "deActivated": "Deactivated"
         }
     }
 }

@@ -1,0 +1,117 @@
+
+<form name="searchForm" class="form-horizontal" (ngSubmit)="searchInForm()">
+    <div class="card ">
+        <div class="card-header">
+            <i class="fa fa-filter"></i>
+            <strong jhiTranslate="common.filter.header">Filter</strong>
+            <div class="card-header-actions">
+
+                <a class="card-header-action btn-minimize" (click)="searchCardIsCollapsed = !searchCardIsCollapsed"
+                   [attr.aria-expanded]="!searchCardIsCollapsed" aria-controls="searchCard">
+                    <i class="icon-arrow-up"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="card-body " id="searchCard" [ngbCollapse]="searchCardIsCollapsed">
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_code"
+                       jhiTranslate="nextlogixApp.quotationType.code">Code:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           [(ngModel)]="quotationTypeSearch.code" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_name"
+                       jhiTranslate="nextlogixApp.quotationType.name">Name:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           [(ngModel)]="quotationTypeSearch.name" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_description"
+                       jhiTranslate="nextlogixApp.quotationType.description">Description:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           [(ngModel)]="quotationTypeSearch.description" />
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> {{'common.button.search' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
+                <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
+            </button>
+            <button type="reset" class="btn btn-primary btn-success">
+                <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
+            </button>
+
+        </div>
+    </div>
+</form>
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.quotationType.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive" *ngIf="quotationTypes">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.quotationType.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.quotationType.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.quotationType.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let quotationType of quotationTypes ;trackBy: trackId">
+                    <td><a [routerLink]="[ quotationType.id,'view']">{{quotationType.id}}</a></td>
+                    <td>{{quotationType.code}}</td>
+                    <td>{{quotationType.name}}</td>
+                    <td>{{quotationType.description}}</td>
+    <td class="text-right">
+        <div class="btn-group flex-btn-group-container">
+            <button type="submit"
+                    [routerLink]="[quotationType.id,'edit']"
+                    class="btn btn-primary btn-sm">
+                <i class="fa fa-edit "></i>
+            </button>
+            <button (click)="deleteItem(quotationType.id)"
+                    class="btn btn-danger btn-sm">
+                <i class="fa fa-trash-o "></i>
+            </button>
+        </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<div *ngIf="quotationTypes && quotationTypes.length" class="card-footer">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
+
+</div>

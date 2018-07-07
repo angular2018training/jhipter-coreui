@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-header">
+        <strong jhiTranslate="nextlogixApp.customerWarehouse.home.title">Kết quả tìm kiếm</strong>
+        <button class="pull-right btn btn-primary" (click)="showWareHouseDetail()">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" *ngIf="customerWarehouses">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.warehouse.name">Name</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.warehouse.contactName">Contact Name</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.warehouse.contactPhone">Contact Phone</span>
+                        </th>
+                        <th>
+                            <span jhiTranslate="nextlogixApp.warehouse.address">Address</span>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let customerWarehouse of customerWarehouses ;trackBy: trackId">
+                        <td>{{customerWarehouse.warehouseDTO?.name}}</td>
+                        <td>{{customerWarehouse.warehouseDTO?.contactName}}</td>
+                        <td>{{customerWarehouse.warehouseDTO?.contactPhone}}</td>
+                        <td>{{customerWarehouse.warehouseDTO?.address}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="showWareHouseDetail(customerWarehouse)">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button (click)="deleteItem(customerWarehouse.id)" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

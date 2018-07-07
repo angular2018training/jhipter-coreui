@@ -1,0 +1,43 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.districtType.detail.title">District Type</span> {{districtType.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="districtType">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.districtType.code">Code</span></dt>
+        <dd>
+            <span>{{districtType.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.districtType.name">Name</span></dt>
+        <dd>
+            <span>{{districtType.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.districtType.description">Description</span></dt>
+        <dd>
+            <span>{{districtType.description}}</span>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'district-type', districtType.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

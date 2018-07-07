@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "orderSubServicesType" : {
+            "home": {
+                "title": "Order Sub Services Types",
+                "createLabel": "Create a new Order Sub Services Type",
+                "createOrEditLabel": "Create or edit a Order Sub Services Type",
+                "search": "Search for Order Sub Services Type"
+            },
+            "created": "A new Order Sub Services Type is created with identifier {{ param }}",
+            "updated": "A Order Sub Services Type is updated with identifier {{ param }}",
+            "deleted": "A Order Sub Services Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Sub Services Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Sub Services Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

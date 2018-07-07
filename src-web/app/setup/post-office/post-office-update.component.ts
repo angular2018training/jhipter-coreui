@@ -8,13 +8,15 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
+import {PostOffice} from "../../shared/model/post-office.model";
+import {Province} from "../../shared/model/province.model";
+import {District} from "../../shared/model/district.model";
+import {PostOfficeService} from "../../shared/service/post-office.service";
+import {CompanyService} from "../../shared/service/company.service";
+import {ProvinceService} from "../../shared/service/province.service";
+import {DistrictService} from "../../shared/service/district.service";
+import {Company} from "../../shared/model/company.model";
 
-import { PostOfficeService } from './post-office.service';
-
-import { PostOffice } from './post-office.model';
-            import { Company, CompanyService } from '../company';
-            import { Province, ProvinceService } from '../province';
-            import { District, DistrictService } from '../district';
 
 @Component({
     selector: 'jhi-post-office-update',

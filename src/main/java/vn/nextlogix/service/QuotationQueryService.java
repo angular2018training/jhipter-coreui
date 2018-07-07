@@ -19,6 +19,12 @@ import vn.nextlogix.repository.QuotationRepository;
 import vn.nextlogix.repository.search.QuotationSearchRepository;
 
 
+
+
+
+
+
+
     import vn.nextlogix.repository.search.CompanySearchRepository;
     import vn.nextlogix.service.mapper.CompanyMapper;
 
@@ -45,6 +51,12 @@ public class QuotationQueryService extends QueryService<Quotation> {
     private final QuotationMapper quotationMapper;
 
     private final QuotationSearchRepository quotationSearchRepository;
+
+
+
+
+
+
 
 
 
@@ -112,8 +124,26 @@ public class QuotationQueryService extends QueryService<Quotation> {
             if (criteria.getActiveFrom() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getActiveFrom(), Quotation_.activeFrom));
             }
-            if (criteria.getQuotationItemDetailListId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationItemDetailListId(), Quotation_.quotationItemDetailLists, QuotationItem_.id));
+            if (criteria.getQuotationPickupDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationPickupDetailListId(), Quotation_.quotationPickupDetailLists, QuotationPickup_.id));
+            }
+            if (criteria.getQuotationDomesticDeliveryDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationDomesticDeliveryDetailListId(), Quotation_.quotationDomesticDeliveryDetailLists, QuotationDomesticDelivery_.id));
+            }
+            if (criteria.getQuotationReturnDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationReturnDetailListId(), Quotation_.quotationReturnDetailLists, QuotationReturn_.id));
+            }
+            if (criteria.getQuotationGiveBackDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationGiveBackDetailListId(), Quotation_.quotationGiveBackDetailLists, QuotationGiveBack_.id));
+            }
+            if (criteria.getQuotationInsuranceDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationInsuranceDetailListId(), Quotation_.quotationInsuranceDetailLists, QuotationInsurance_.id));
+            }
+            if (criteria.getQuotationCodDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationCodDetailListId(), Quotation_.quotationCodDetailLists, QuotationCod_.id));
+            }
+            if (criteria.getQuotationSubServicesDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getQuotationSubServicesDetailListId(), Quotation_.quotationSubServicesDetailLists, QuotationSubServices_.id));
             }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), Quotation_.company, Company_.id));

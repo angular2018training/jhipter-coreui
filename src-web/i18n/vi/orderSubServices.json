@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "orderSubServices" : {
+            "home": {
+                "title": "Order Sub Services",
+                "createLabel": "Thêm mới một Order Sub Services",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Sub Services",
+                "search": "Tìm Order Sub Services"
+            },
+            "created": "Một Order Sub Services mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Sub Services cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Sub Services đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Sub Services {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Sub Services"
+            },
+            "code": "Code",
+            "name": "Name",
+            "isActive": "Is Active",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

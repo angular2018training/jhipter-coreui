@@ -13,6 +13,5 @@ export class Warehouse implements BaseEntity {
         public provinceId?: number,
         public districtId?: number,
         public wardId?: number,
-    ) {
-    }
+    ) { }
 }

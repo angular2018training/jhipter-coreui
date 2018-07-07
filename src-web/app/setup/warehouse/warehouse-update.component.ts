@@ -5,14 +5,17 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
 import { JhiAlertService,  } from 'ng-jhipster';
+import {Warehouse} from "../../shared/model/warehouse.model";
+import {Company} from "../../shared/model/company.model";
+import {Province} from "../../shared/model/province.model";
+import {District} from "../../shared/model/district.model";
+import {Ward} from "../../shared/model/ward.model";
+import {WarehouseService} from "../../shared/service/warehouse.service";
+import {CompanyService} from "../../shared/service/company.service";
+import {ProvinceService} from "../../shared/service/province.service";
+import {DistrictService} from "../../shared/service/district.service";
+import {WardService} from "../../shared/service/ward.service";
 
-import { WarehouseService } from './warehouse.service';
-
-import { Warehouse } from './warehouse.model';
-            import { Company, CompanyService } from '../company';
-            import { Province, ProvinceService } from '../province';
-            import { District, DistrictService } from '../district';
-            import { Ward, WardService } from '../ward';
 
 @Component({
     selector: 'jhi-warehouse-update',

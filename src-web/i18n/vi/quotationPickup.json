@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "quotationPickup" : {
+            "home": {
+                "title": "Quotation Pickups",
+                "createLabel": "Thêm mới một Quotation Pickup",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Pickup",
+                "search": "Tìm Quotation Pickup"
+            },
+            "created": "Một Quotation Pickup mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Pickup cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Pickup đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Pickup {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Pickup"
+            },
+            "amount": "Amount",
+            "company": "Company",
+            "province": "Province",
+            "districtType": "District Type",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

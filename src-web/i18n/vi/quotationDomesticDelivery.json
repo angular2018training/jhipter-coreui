@@ -1,0 +1,28 @@
+
+{
+    "nextlogixApp": {
+        "quotationDomesticDelivery" : {
+            "home": {
+                "title": "Quotation Domestic Deliveries",
+                "createLabel": "Thêm mới một Quotation Domestic Delivery",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Domestic Delivery",
+                "search": "Tìm Quotation Domestic Delivery"
+            },
+            "created": "Một Quotation Domestic Delivery mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Domestic Delivery cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Domestic Delivery đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Domestic Delivery {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Domestic Delivery"
+            },
+            "amount": "Amount",
+            "company": "Company",
+            "districtType": "District Type",
+            "region": "Region",
+            "weight": "Weight",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

@@ -3,41 +3,43 @@
     "nextlogixApp": {
         "customer" : {
             "home": {
-                "title": "Customers",
-                "createLabel": "Thêm mới một Customer",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Customer",
-                "search": "Tìm Customer"
+                "title": "Khách hàng",
+                "createLabel": "Thêm Khách hàng",
+                "createOrEditLabel": "Cập nhật Khách hàng",
+                "search": "Tìm Khách hàng"
             },
-            "created": "Một Customer mới được tạo với định danh {{ param }}",
-            "updated": "Một Customer cập nhật với định danh {{ param }}",
-            "deleted": "Một Customer đã xóa với định danh {{ param }}",
+            "created": "Khách hàng có mã ({{ param }}) đã được thêm!",
+            "updated": "Khách hàng mã số ({{ param }}) đã được cập nhật!",
+            "deleted": "Khách hàng mã số ({{ param }}) đã được xóa!",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Customer {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Khách hàng có mã số {{ id }}?"
             },
             "detail": {
-                "title": "Customer"
+                "title": "Khách hàng"
             },
-            "code": "Code",
-            "name": "Name",
-            "address": "Address",
+            "code": "Mã",
+            "name": "Tên",
+            "address": "Địa chỉ",
             "email": "Email",
-            "phone": "Phone",
-            "password": "Password",
-            "isActive": "Is Active",
-            "createDate": "Create Date",
-            "lastLoginDate": "Last Login Date",
+            "phone": "Điện thoại",
+            "password": "Mật khẩu",
+            "isActive": "Trạng thái",
+            "createDate": "Ngày tạo",
+            "lastLoginDate": "Lần đăng nhập cuối",
             "apiToken": "Api Token",
-            "legal": "Legal",
-            "payment": "Payment",
+            "legal": "Hợp đồng",
+            "payment": "Thanh toán",
             "warehouse": "Warehouse",
-            "customerPostOffice": "Customer Post Office",
-            "company": "Company",
-            "manageUser": "Manage User",
-            "saleUser": "Sale User",
-            "province": "Province",
-            "district": "District",
-            "customerType": "Customer Type",
-            "customerSource": "Customer Source"
+            "customerPostOffice": "Kho hàng",
+            "company": "Công ty",
+            "manageUser": "Người quản lý",
+            "saleUser": "Saleman",
+            "province": "Tỉnh / Thành",
+            "district": "Quận / Huyện",
+            "customerType": "Loại",
+            "customerSource": "Nguồn",
+            "deActive": "Vô hiệu hóa",
+            "active": "Kích hoạt"
         }
     }
 }

@@ -1,0 +1,26 @@
+
+{
+    "nextlogixApp": {
+        "orderSubServicesType" : {
+            "home": {
+                "title": "Order Sub Services Types",
+                "createLabel": "Thêm mới một Order Sub Services Type",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Order Sub Services Type",
+                "search": "Tìm Order Sub Services Type"
+            },
+            "created": "Một Order Sub Services Type mới được tạo với định danh {{ param }}",
+            "updated": "Một Order Sub Services Type cập nhật với định danh {{ param }}",
+            "deleted": "Một Order Sub Services Type đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Order Sub Services Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Sub Services Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "company": "Company"
+        }
+    }
+}

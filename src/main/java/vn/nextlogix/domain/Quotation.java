@@ -50,10 +50,40 @@ public class Quotation implements Serializable {
     @Column(name = "active_from", nullable = false)
     private LocalDate activeFrom;
 
-    @OneToMany(mappedBy = "quotation")
+    @OneToMany(mappedBy = "quotationParent")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<QuotationItem> quotationItemDetailLists = new HashSet<>();
+    private Set<QuotationPickup> quotationPickupDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotationParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<QuotationDomesticDelivery> quotationDomesticDeliveryDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotationParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<QuotationReturn> quotationReturnDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotationParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<QuotationGiveBack> quotationGiveBackDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotationParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<QuotationInsurance> quotationInsuranceDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotationParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<QuotationCod> quotationCodDetailLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotationParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<QuotationSubServices> quotationSubServicesDetailLists = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -133,29 +163,179 @@ public class Quotation implements Serializable {
         this.activeFrom = activeFrom;
     }
 
-    public Set<QuotationItem> getQuotationItemDetailLists() {
-        return quotationItemDetailLists;
+    public Set<QuotationPickup> getQuotationPickupDetailLists() {
+        return quotationPickupDetailLists;
     }
 
-    public Quotation quotationItemDetailLists(Set<QuotationItem> quotationItems) {
-        this.quotationItemDetailLists = quotationItems;
+    public Quotation quotationPickupDetailLists(Set<QuotationPickup> quotationPickups) {
+        this.quotationPickupDetailLists = quotationPickups;
         return this;
     }
 
-    public Quotation addQuotationItemDetailList(QuotationItem quotationItem) {
-        this.quotationItemDetailLists.add(quotationItem);
-        quotationItem.setQuotation(this);
+    public Quotation addQuotationPickupDetailList(QuotationPickup quotationPickup) {
+        this.quotationPickupDetailLists.add(quotationPickup);
+        quotationPickup.setQuotationParent(this);
         return this;
     }
 
-    public Quotation removeQuotationItemDetailList(QuotationItem quotationItem) {
-        this.quotationItemDetailLists.remove(quotationItem);
-        quotationItem.setQuotation(null);
+    public Quotation removeQuotationPickupDetailList(QuotationPickup quotationPickup) {
+        this.quotationPickupDetailLists.remove(quotationPickup);
+        quotationPickup.setQuotationParent(null);
         return this;
     }
 
-    public void setQuotationItemDetailLists(Set<QuotationItem> quotationItems) {
-        this.quotationItemDetailLists = quotationItems;
+    public void setQuotationPickupDetailLists(Set<QuotationPickup> quotationPickups) {
+        this.quotationPickupDetailLists = quotationPickups;
+    }
+
+    public Set<QuotationDomesticDelivery> getQuotationDomesticDeliveryDetailLists() {
+        return quotationDomesticDeliveryDetailLists;
+    }
+
+    public Quotation quotationDomesticDeliveryDetailLists(Set<QuotationDomesticDelivery> quotationDomesticDeliveries) {
+        this.quotationDomesticDeliveryDetailLists = quotationDomesticDeliveries;
+        return this;
+    }
+
+    public Quotation addQuotationDomesticDeliveryDetailList(QuotationDomesticDelivery quotationDomesticDelivery) {
+        this.quotationDomesticDeliveryDetailLists.add(quotationDomesticDelivery);
+        quotationDomesticDelivery.setQuotationParent(this);
+        return this;
+    }
+
+    public Quotation removeQuotationDomesticDeliveryDetailList(QuotationDomesticDelivery quotationDomesticDelivery) {
+        this.quotationDomesticDeliveryDetailLists.remove(quotationDomesticDelivery);
+        quotationDomesticDelivery.setQuotationParent(null);
+        return this;
+    }
+
+    public void setQuotationDomesticDeliveryDetailLists(Set<QuotationDomesticDelivery> quotationDomesticDeliveries) {
+        this.quotationDomesticDeliveryDetailLists = quotationDomesticDeliveries;
+    }
+
+    public Set<QuotationReturn> getQuotationReturnDetailLists() {
+        return quotationReturnDetailLists;
+    }
+
+    public Quotation quotationReturnDetailLists(Set<QuotationReturn> quotationReturns) {
+        this.quotationReturnDetailLists = quotationReturns;
+        return this;
+    }
+
+    public Quotation addQuotationReturnDetailList(QuotationReturn quotationReturn) {
+        this.quotationReturnDetailLists.add(quotationReturn);
+        quotationReturn.setQuotationParent(this);
+        return this;
+    }
+
+    public Quotation removeQuotationReturnDetailList(QuotationReturn quotationReturn) {
+        this.quotationReturnDetailLists.remove(quotationReturn);
+        quotationReturn.setQuotationParent(null);
+        return this;
+    }
+
+    public void setQuotationReturnDetailLists(Set<QuotationReturn> quotationReturns) {
+        this.quotationReturnDetailLists = quotationReturns;
+    }
+
+    public Set<QuotationGiveBack> getQuotationGiveBackDetailLists() {
+        return quotationGiveBackDetailLists;
+    }
+
+    public Quotation quotationGiveBackDetailLists(Set<QuotationGiveBack> quotationGiveBacks) {
+        this.quotationGiveBackDetailLists = quotationGiveBacks;
+        return this;
+    }
+
+    public Quotation addQuotationGiveBackDetailList(QuotationGiveBack quotationGiveBack) {
+        this.quotationGiveBackDetailLists.add(quotationGiveBack);
+        quotationGiveBack.setQuotationParent(this);
+        return this;
+    }
+
+    public Quotation removeQuotationGiveBackDetailList(QuotationGiveBack quotationGiveBack) {
+        this.quotationGiveBackDetailLists.remove(quotationGiveBack);
+        quotationGiveBack.setQuotationParent(null);
+        return this;
+    }
+
+    public void setQuotationGiveBackDetailLists(Set<QuotationGiveBack> quotationGiveBacks) {
+        this.quotationGiveBackDetailLists = quotationGiveBacks;
+    }
+
+    public Set<QuotationInsurance> getQuotationInsuranceDetailLists() {
+        return quotationInsuranceDetailLists;
+    }
+
+    public Quotation quotationInsuranceDetailLists(Set<QuotationInsurance> quotationInsurances) {
+        this.quotationInsuranceDetailLists = quotationInsurances;
+        return this;
+    }
+
+    public Quotation addQuotationInsuranceDetailList(QuotationInsurance quotationInsurance) {
+        this.quotationInsuranceDetailLists.add(quotationInsurance);
+        quotationInsurance.setQuotationParent(this);
+        return this;
+    }
+
+    public Quotation removeQuotationInsuranceDetailList(QuotationInsurance quotationInsurance) {
+        this.quotationInsuranceDetailLists.remove(quotationInsurance);
+        quotationInsurance.setQuotationParent(null);
+        return this;
+    }
+
+    public void setQuotationInsuranceDetailLists(Set<QuotationInsurance> quotationInsurances) {
+        this.quotationInsuranceDetailLists = quotationInsurances;
+    }
+
+    public Set<QuotationCod> getQuotationCodDetailLists() {
+        return quotationCodDetailLists;
+    }
+
+    public Quotation quotationCodDetailLists(Set<QuotationCod> quotationCods) {
+        this.quotationCodDetailLists = quotationCods;
+        return this;
+    }
+
+    public Quotation addQuotationCodDetailList(QuotationCod quotationCod) {
+        this.quotationCodDetailLists.add(quotationCod);
+        quotationCod.setQuotationParent(this);
+        return this;
+    }
+
+    public Quotation removeQuotationCodDetailList(QuotationCod quotationCod) {
+        this.quotationCodDetailLists.remove(quotationCod);
+        quotationCod.setQuotationParent(null);
+        return this;
+    }
+
+    public void setQuotationCodDetailLists(Set<QuotationCod> quotationCods) {
+        this.quotationCodDetailLists = quotationCods;
+    }
+
+    public Set<QuotationSubServices> getQuotationSubServicesDetailLists() {
+        return quotationSubServicesDetailLists;
+    }
+
+    public Quotation quotationSubServicesDetailLists(Set<QuotationSubServices> quotationSubServices) {
+        this.quotationSubServicesDetailLists = quotationSubServices;
+        return this;
+    }
+
+    public Quotation addQuotationSubServicesDetailList(QuotationSubServices quotationSubServices) {
+        this.quotationSubServicesDetailLists.add(quotationSubServices);
+        quotationSubServices.setQuotationParent(this);
+        return this;
+    }
+
+    public Quotation removeQuotationSubServicesDetailList(QuotationSubServices quotationSubServices) {
+        this.quotationSubServicesDetailLists.remove(quotationSubServices);
+        quotationSubServices.setQuotationParent(null);
+        return this;
+    }
+
+    public void setQuotationSubServicesDetailLists(Set<QuotationSubServices> quotationSubServices) {
+        this.quotationSubServicesDetailLists = quotationSubServices;
     }
 
     public Company getCompany() {

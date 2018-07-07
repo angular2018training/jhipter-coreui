@@ -1,0 +1,59 @@
+
+<div class="card ">
+    <div class="card-header">
+        <span jhiTranslate="nextlogixApp.quotationDomesticDelivery.detail.title">Quotation Domestic Delivery</span> {{quotationDomesticDelivery.id}}
+    </div>
+    <div class="card-body">
+
+<div *ngIf="quotationDomesticDelivery">
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.amount">Amount</span></dt>
+        <dd>
+            <span>{{quotationDomesticDelivery.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.districtType">District Type</span></dt>
+        <dd>
+            <div *ngIf="quotationDomesticDelivery.districtTypeId">
+                <a [routerLink]="['/district-type', quotationDomesticDelivery.districtTypeId]">{{quotationDomesticDelivery.districtTypeId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.region">Region</span></dt>
+        <dd>
+            <div *ngIf="quotationDomesticDelivery.regionId">
+                <a [routerLink]="['/region', quotationDomesticDelivery.regionId]">{{quotationDomesticDelivery.regionId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.weight">Weight</span></dt>
+        <dd>
+            <div *ngIf="quotationDomesticDelivery.weightId">
+                <a [routerLink]="['/weight', quotationDomesticDelivery.weightId]">{{quotationDomesticDelivery.weightId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="nextlogixApp.quotationDomesticDelivery.quotationParent">Quotation Parent</span></dt>
+        <dd>
+            <div *ngIf="quotationDomesticDelivery.quotationParentId">
+                <a [routerLink]="['/quotation', quotationDomesticDelivery.quotationParentId]">{{quotationDomesticDelivery.quotationParentId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+
+</div>
+</div>
+<div class="card-footer">
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['../../', 'quotation-domestic-delivery', quotationDomesticDelivery.id , 'edit']"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+</div>

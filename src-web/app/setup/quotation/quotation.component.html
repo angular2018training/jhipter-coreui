@@ -80,15 +80,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.quotation.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.quotation.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -116,21 +119,13 @@
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[quotation.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[quotation.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(quotation.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -149,5 +144,3 @@
 </div>
 
 </div>
-
-

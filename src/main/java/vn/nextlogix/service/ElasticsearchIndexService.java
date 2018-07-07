@@ -91,6 +91,10 @@ public class ElasticsearchIndexService {
 
     private final DistrictSearchRepository districtSearchRepository;
 
+    private final DistrictTypeRepository districtTypeRepository;
+
+    private final DistrictTypeSearchRepository districtTypeSearchRepository;
+
     private final FileUploadRepository fileUploadRepository;
 
     private final FileUploadSearchRepository fileUploadSearchRepository;
@@ -131,6 +135,14 @@ public class ElasticsearchIndexService {
 
     private final OrderStatusSearchRepository orderStatusSearchRepository;
 
+    private final OrderSubServicesRepository orderSubServicesRepository;
+
+    private final OrderSubServicesSearchRepository orderSubServicesSearchRepository;
+
+    private final OrderSubServicesTypeRepository orderSubServicesTypeRepository;
+
+    private final OrderSubServicesTypeSearchRepository orderSubServicesTypeSearchRepository;
+
     private final OrderUserRouteRepository orderUserRouteRepository;
 
     private final OrderUserRouteSearchRepository orderUserRouteSearchRepository;
@@ -159,6 +171,22 @@ public class ElasticsearchIndexService {
 
     private final QuotationSearchRepository quotationSearchRepository;
 
+    private final QuotationCodRepository quotationCodRepository;
+
+    private final QuotationCodSearchRepository quotationCodSearchRepository;
+
+    private final QuotationDomesticDeliveryRepository quotationDomesticDeliveryRepository;
+
+    private final QuotationDomesticDeliverySearchRepository quotationDomesticDeliverySearchRepository;
+
+    private final QuotationGiveBackRepository quotationGiveBackRepository;
+
+    private final QuotationGiveBackSearchRepository quotationGiveBackSearchRepository;
+
+    private final QuotationInsuranceRepository quotationInsuranceRepository;
+
+    private final QuotationInsuranceSearchRepository quotationInsuranceSearchRepository;
+
     private final QuotationItemRepository quotationItemRepository;
 
     private final QuotationItemSearchRepository quotationItemSearchRepository;
@@ -166,6 +194,26 @@ public class ElasticsearchIndexService {
     private final QuotationItemTypeRepository quotationItemTypeRepository;
 
     private final QuotationItemTypeSearchRepository quotationItemTypeSearchRepository;
+
+    private final QuotationPickupRepository quotationPickupRepository;
+
+    private final QuotationPickupSearchRepository quotationPickupSearchRepository;
+
+    private final QuotationReturnRepository quotationReturnRepository;
+
+    private final QuotationReturnSearchRepository quotationReturnSearchRepository;
+
+    private final QuotationSubServicesRepository quotationSubServicesRepository;
+
+    private final QuotationSubServicesSearchRepository quotationSubServicesSearchRepository;
+
+    private final QuotationTypeRepository quotationTypeRepository;
+
+    private final QuotationTypeSearchRepository quotationTypeSearchRepository;
+
+    private final RegionRepository regionRepository;
+
+    private final RegionSearchRepository regionSearchRepository;
 
     private final UserExtraInfoRepository userExtraInfoRepository;
 
@@ -190,6 +238,10 @@ public class ElasticsearchIndexService {
     private final WarehouseRepository warehouseRepository;
 
     private final WarehouseSearchRepository warehouseSearchRepository;
+
+    private final WeightRepository weightRepository;
+
+    private final WeightSearchRepository weightSearchRepository;
 
     private final UserRepository userRepository;
 
@@ -226,6 +278,8 @@ public class ElasticsearchIndexService {
         DetailFormSearchRepository detailFormSearchRepository,
         DistrictRepository districtRepository,
         DistrictSearchRepository districtSearchRepository,
+        DistrictTypeRepository districtTypeRepository,
+        DistrictTypeSearchRepository districtTypeSearchRepository,
         FileUploadRepository fileUploadRepository,
         FileUploadSearchRepository fileUploadSearchRepository,
         MasterFormRepository masterFormRepository,
@@ -246,6 +300,10 @@ public class ElasticsearchIndexService {
         OrderServicesTypeSearchRepository orderServicesTypeSearchRepository,
         OrderStatusRepository orderStatusRepository,
         OrderStatusSearchRepository orderStatusSearchRepository,
+        OrderSubServicesRepository orderSubServicesRepository,
+        OrderSubServicesSearchRepository orderSubServicesSearchRepository,
+        OrderSubServicesTypeRepository orderSubServicesTypeRepository,
+        OrderSubServicesTypeSearchRepository orderSubServicesTypeSearchRepository,
         OrderUserRouteRepository orderUserRouteRepository,
         OrderUserRouteSearchRepository orderUserRouteSearchRepository,
         OrderUserRouteTypeRepository orderUserRouteTypeRepository,
@@ -260,10 +318,28 @@ public class ElasticsearchIndexService {
         ProvinceSearchRepository provinceSearchRepository,
         QuotationRepository quotationRepository,
         QuotationSearchRepository quotationSearchRepository,
+        QuotationCodRepository quotationCodRepository,
+        QuotationCodSearchRepository quotationCodSearchRepository,
+        QuotationDomesticDeliveryRepository quotationDomesticDeliveryRepository,
+        QuotationDomesticDeliverySearchRepository quotationDomesticDeliverySearchRepository,
+        QuotationGiveBackRepository quotationGiveBackRepository,
+        QuotationGiveBackSearchRepository quotationGiveBackSearchRepository,
+        QuotationInsuranceRepository quotationInsuranceRepository,
+        QuotationInsuranceSearchRepository quotationInsuranceSearchRepository,
         QuotationItemRepository quotationItemRepository,
         QuotationItemSearchRepository quotationItemSearchRepository,
         QuotationItemTypeRepository quotationItemTypeRepository,
         QuotationItemTypeSearchRepository quotationItemTypeSearchRepository,
+        QuotationPickupRepository quotationPickupRepository,
+        QuotationPickupSearchRepository quotationPickupSearchRepository,
+        QuotationReturnRepository quotationReturnRepository,
+        QuotationReturnSearchRepository quotationReturnSearchRepository,
+        QuotationSubServicesRepository quotationSubServicesRepository,
+        QuotationSubServicesSearchRepository quotationSubServicesSearchRepository,
+        QuotationTypeRepository quotationTypeRepository,
+        QuotationTypeSearchRepository quotationTypeSearchRepository,
+        RegionRepository regionRepository,
+        RegionSearchRepository regionSearchRepository,
         UserExtraInfoRepository userExtraInfoRepository,
         UserExtraInfoSearchRepository userExtraInfoSearchRepository,
         UserGroupRepository userGroupRepository,
@@ -276,6 +352,8 @@ public class ElasticsearchIndexService {
         WardSearchRepository wardSearchRepository,
         WarehouseRepository warehouseRepository,
         WarehouseSearchRepository warehouseSearchRepository,
+        WeightRepository weightRepository,
+        WeightSearchRepository weightSearchRepository,
         ElasticsearchTemplate elasticsearchTemplate) {
         this.userRepository = userRepository;
         this.userSearchRepository = userSearchRepository;
@@ -305,6 +383,8 @@ public class ElasticsearchIndexService {
         this.detailFormSearchRepository = detailFormSearchRepository;
         this.districtRepository = districtRepository;
         this.districtSearchRepository = districtSearchRepository;
+        this.districtTypeRepository = districtTypeRepository;
+        this.districtTypeSearchRepository = districtTypeSearchRepository;
         this.fileUploadRepository = fileUploadRepository;
         this.fileUploadSearchRepository = fileUploadSearchRepository;
         this.masterFormRepository = masterFormRepository;
@@ -325,6 +405,10 @@ public class ElasticsearchIndexService {
         this.orderServicesTypeSearchRepository = orderServicesTypeSearchRepository;
         this.orderStatusRepository = orderStatusRepository;
         this.orderStatusSearchRepository = orderStatusSearchRepository;
+        this.orderSubServicesRepository = orderSubServicesRepository;
+        this.orderSubServicesSearchRepository = orderSubServicesSearchRepository;
+        this.orderSubServicesTypeRepository = orderSubServicesTypeRepository;
+        this.orderSubServicesTypeSearchRepository = orderSubServicesTypeSearchRepository;
         this.orderUserRouteRepository = orderUserRouteRepository;
         this.orderUserRouteSearchRepository = orderUserRouteSearchRepository;
         this.orderUserRouteTypeRepository = orderUserRouteTypeRepository;
@@ -339,10 +423,28 @@ public class ElasticsearchIndexService {
         this.provinceSearchRepository = provinceSearchRepository;
         this.quotationRepository = quotationRepository;
         this.quotationSearchRepository = quotationSearchRepository;
+        this.quotationCodRepository = quotationCodRepository;
+        this.quotationCodSearchRepository = quotationCodSearchRepository;
+        this.quotationDomesticDeliveryRepository = quotationDomesticDeliveryRepository;
+        this.quotationDomesticDeliverySearchRepository = quotationDomesticDeliverySearchRepository;
+        this.quotationGiveBackRepository = quotationGiveBackRepository;
+        this.quotationGiveBackSearchRepository = quotationGiveBackSearchRepository;
+        this.quotationInsuranceRepository = quotationInsuranceRepository;
+        this.quotationInsuranceSearchRepository = quotationInsuranceSearchRepository;
         this.quotationItemRepository = quotationItemRepository;
         this.quotationItemSearchRepository = quotationItemSearchRepository;
         this.quotationItemTypeRepository = quotationItemTypeRepository;
         this.quotationItemTypeSearchRepository = quotationItemTypeSearchRepository;
+        this.quotationPickupRepository = quotationPickupRepository;
+        this.quotationPickupSearchRepository = quotationPickupSearchRepository;
+        this.quotationReturnRepository = quotationReturnRepository;
+        this.quotationReturnSearchRepository = quotationReturnSearchRepository;
+        this.quotationSubServicesRepository = quotationSubServicesRepository;
+        this.quotationSubServicesSearchRepository = quotationSubServicesSearchRepository;
+        this.quotationTypeRepository = quotationTypeRepository;
+        this.quotationTypeSearchRepository = quotationTypeSearchRepository;
+        this.regionRepository = regionRepository;
+        this.regionSearchRepository = regionSearchRepository;
         this.userExtraInfoRepository = userExtraInfoRepository;
         this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
         this.userGroupRepository = userGroupRepository;
@@ -355,6 +457,8 @@ public class ElasticsearchIndexService {
         this.wardSearchRepository = wardSearchRepository;
         this.warehouseRepository = warehouseRepository;
         this.warehouseSearchRepository = warehouseSearchRepository;
+        this.weightRepository = weightRepository;
+        this.weightSearchRepository = weightSearchRepository;
         this.elasticsearchTemplate = elasticsearchTemplate;
     }
 
@@ -376,6 +480,7 @@ public class ElasticsearchIndexService {
                 reindexForClass(CustomerWarehouse.class, customerWarehouseRepository, customerWarehouseSearchRepository);
                 reindexForClass(DetailForm.class, detailFormRepository, detailFormSearchRepository);
                 reindexForClass(District.class, districtRepository, districtSearchRepository);
+                reindexForClass(DistrictType.class, districtTypeRepository, districtTypeSearchRepository);
                 reindexForClass(FileUpload.class, fileUploadRepository, fileUploadSearchRepository);
                 reindexForClass(MasterForm.class, masterFormRepository, masterFormSearchRepository);
                 reindexForClass(OrderConsignee.class, orderConsigneeRepository, orderConsigneeSearchRepository);
@@ -386,6 +491,8 @@ public class ElasticsearchIndexService {
                 reindexForClass(OrderServices.class, orderServicesRepository, orderServicesSearchRepository);
                 reindexForClass(OrderServicesType.class, orderServicesTypeRepository, orderServicesTypeSearchRepository);
                 reindexForClass(OrderStatus.class, orderStatusRepository, orderStatusSearchRepository);
+                reindexForClass(OrderSubServices.class, orderSubServicesRepository, orderSubServicesSearchRepository);
+                reindexForClass(OrderSubServicesType.class, orderSubServicesTypeRepository, orderSubServicesTypeSearchRepository);
                 reindexForClass(OrderUserRoute.class, orderUserRouteRepository, orderUserRouteSearchRepository);
                 reindexForClass(OrderUserRouteType.class, orderUserRouteTypeRepository, orderUserRouteTypeSearchRepository);
                 reindexForClass(PaymentType.class, paymentTypeRepository, paymentTypeSearchRepository);
@@ -393,14 +500,24 @@ public class ElasticsearchIndexService {
                 reindexForClass(PostOffice.class, postOfficeRepository, postOfficeSearchRepository);
                 reindexForClass(Province.class, provinceRepository, provinceSearchRepository);
                 reindexForClass(Quotation.class, quotationRepository, quotationSearchRepository);
+                reindexForClass(QuotationCod.class, quotationCodRepository, quotationCodSearchRepository);
+                reindexForClass(QuotationDomesticDelivery.class, quotationDomesticDeliveryRepository, quotationDomesticDeliverySearchRepository);
+                reindexForClass(QuotationGiveBack.class, quotationGiveBackRepository, quotationGiveBackSearchRepository);
+                reindexForClass(QuotationInsurance.class, quotationInsuranceRepository, quotationInsuranceSearchRepository);
                 reindexForClass(QuotationItem.class, quotationItemRepository, quotationItemSearchRepository);
                 reindexForClass(QuotationItemType.class, quotationItemTypeRepository, quotationItemTypeSearchRepository);
+                reindexForClass(QuotationPickup.class, quotationPickupRepository, quotationPickupSearchRepository);
+                reindexForClass(QuotationReturn.class, quotationReturnRepository, quotationReturnSearchRepository);
+                reindexForClass(QuotationSubServices.class, quotationSubServicesRepository, quotationSubServicesSearchRepository);
+                reindexForClass(QuotationType.class, quotationTypeRepository, quotationTypeSearchRepository);
+                reindexForClass(Region.class, regionRepository, regionSearchRepository);
                 reindexForClass(UserExtraInfo.class, userExtraInfoRepository, userExtraInfoSearchRepository);
                 reindexForClass(UserGroup.class, userGroupRepository, userGroupSearchRepository);
                 reindexForClass(UserPosition.class, userPositionRepository, userPositionSearchRepository);
                 reindexForClass(UserPostOffice.class, userPostOfficeRepository, userPostOfficeSearchRepository);
                 reindexForClass(Ward.class, wardRepository, wardSearchRepository);
                 reindexForClass(Warehouse.class, warehouseRepository, warehouseSearchRepository);
+                reindexForClass(Weight.class, weightRepository, weightSearchRepository);
                 reindexForClass(User.class, userRepository, userSearchRepository);
 
                 log.info("Elasticsearch: Successfully performed reindexing");

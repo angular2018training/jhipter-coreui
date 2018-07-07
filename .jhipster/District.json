@@ -14,6 +14,13 @@
             "relationshipName": "province",
             "otherEntityName": "province",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "districtType",
+            "otherEntityName": "districtType",
+            "otherEntityField": "id"
         }
     ],
     "fields": [

@@ -1,0 +1,30 @@
+
+{
+    "nextlogixApp": {
+        "quotationInsurance" : {
+            "home": {
+                "title": "Quotation Insurances",
+                "createLabel": "Thêm mới một Quotation Insurance",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Insurance",
+                "search": "Tìm Quotation Insurance"
+            },
+            "created": "Một Quotation Insurance mới được tạo với định danh {{ param }}",
+            "updated": "Một Quotation Insurance cập nhật với định danh {{ param }}",
+            "deleted": "Một Quotation Insurance đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Quotation Insurance {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Insurance"
+            },
+            "amountFrom": "Amount From",
+            "amountTo": "Amount To",
+            "feeAmountMin": "Fee Amount Min",
+            "feeAmountMax": "Fee Amount Max",
+            "feePercent": "Fee Percent",
+            "company": "Company",
+            "districtType": "District Type",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

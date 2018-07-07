@@ -1,0 +1,27 @@
+
+{
+    "nextlogixApp": {
+        "quotationGiveBack" : {
+            "home": {
+                "title": "Quotation Give Backs",
+                "createLabel": "Create a new Quotation Give Back",
+                "createOrEditLabel": "Create or edit a Quotation Give Back",
+                "search": "Search for Quotation Give Back"
+            },
+            "created": "A new Quotation Give Back is created with identifier {{ param }}",
+            "updated": "A Quotation Give Back is updated with identifier {{ param }}",
+            "deleted": "A Quotation Give Back is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Quotation Give Back {{ id }}?"
+            },
+            "detail": {
+                "title": "Quotation Give Back"
+            },
+            "feePercent": "Fee Percent",
+            "company": "Company",
+            "districtType": "District Type",
+            "region": "Region",
+            "quotationParent": "Quotation Parent"
+        }
+    }
+}

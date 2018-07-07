@@ -17,15 +17,15 @@
             "detail": {
                 "title": "Warehouse"
             },
-            "name": "Name",
-            "contactName": "Contact Name",
-            "contactPhone": "Contact Phone",
-            "address": "Address",
-            "createDate": "Create Date",
-            "company": "Company",
-            "province": "Province",
-            "district": "District",
-            "ward": "Ward"
+            "name": "Tên kho",
+            "contactName": "Người liên hệ",
+            "contactPhone": "Đ.thoại liên hệ",
+            "address": "Địa chỉ",
+            "createDate": "Ngày tạo",
+            "company": "Công ty",
+            "province": "Tỉnh / Thành",
+            "district": "Quận / Huyện",
+            "ward": "Phường / Xã"
         }
     }
 }

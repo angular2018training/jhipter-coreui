@@ -28,7 +28,9 @@
             "company": "Company",
             "bank": "Bank",
             "userVerify": "User Verify",
-            "paymentType": "Payment Type"
+            "paymentType": "Payment Type",
+            "verified": "Verified",
+            "notVerified": "Not verified yet"
         }
     }
 }

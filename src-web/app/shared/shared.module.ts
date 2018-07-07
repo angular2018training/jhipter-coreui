@@ -10,6 +10,7 @@ import { Principal } from './auth/principal.service';
 import { CSRFService } from './auth/csrf.service';
 import { AuthServerProvider } from './auth/auth-jwt.service';
 import { UserService } from './user/user.service';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { UserService } from './user/user.service';
         NextlogixSharedCommonModule
     ],
     declarations: [
-        HasAnyAuthorityDirective
+        HasAnyAuthorityDirective,
+        FilterPipe
     ],
     providers: [
         LoginService,
@@ -27,13 +29,15 @@ import { UserService } from './user/user.service';
         CSRFService,
         AuthServerProvider,
         UserService,
-        DatePipe
+        DatePipe,
+        FilterPipe
     ],
     entryComponents: [],
     exports: [
         NextlogixSharedCommonModule,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        FilterPipe
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

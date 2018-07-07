@@ -8,7 +8,13 @@ export class Quotation implements BaseEntity {
         public description?: string,
         public createDate?: any,
         public activeFrom?: any,
-        public quotationItemDetailLists?: BaseEntity[],
+        public quotationPickupDetailLists?: BaseEntity[],
+        public quotationDomesticDeliveryDetailLists?: BaseEntity[],
+        public quotationReturnDetailLists?: BaseEntity[],
+        public quotationGiveBackDetailLists?: BaseEntity[],
+        public quotationInsuranceDetailLists?: BaseEntity[],
+        public quotationCodDetailLists?: BaseEntity[],
+        public quotationSubServicesDetailLists?: BaseEntity[],
         public companyId?: number,
     ) {
         this.isActive = false;
