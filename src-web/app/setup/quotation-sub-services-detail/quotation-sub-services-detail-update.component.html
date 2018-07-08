@@ -6,125 +6,176 @@
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
-        <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!quotationSubServices.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="quotationSubServices.id" readonly />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.amountFrom" for="field_amountFrom">Amount From</label>
-            <input type="number" class="form-control" name="amountFrom" id="field_amountFrom"
-                [(ngModel)]="quotationSubServices.amountFrom" required/>
-            <div [hidden]="!(editForm.controls.amountFrom?.dirty && editForm.controls.amountFrom?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.amountFrom?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.amountFrom?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
+        <div class="row">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="form-group" [hidden]="!quotationSubServices.id">
+                <label for="id" jhiTranslate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id" [(ngModel)]="quotationSubServices.id" readonly />
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.amountTo" for="field_amountTo">Amount To</label>
-            <input type="number" class="form-control" name="amountTo" id="field_amountTo"
-                [(ngModel)]="quotationSubServices.amountTo" required/>
-            <div [hidden]="!(editForm.controls.amountTo?.dirty && editForm.controls.amountTo?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.amountTo?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.amountTo?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.amountFrom" for="field_amountFrom">Amount From</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="amountFrom" id="field_amountFrom" [(ngModel)]="quotationSubServices.amountFrom"
+                            required/>
+                        <div [hidden]="!(editForm.controls.amountFrom?.dirty && editForm.controls.amountFrom?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.amountFrom?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.amountFrom?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMin" for="field_feeAmountMin">Fee Amount Min</label>
-            <input type="number" class="form-control" name="feeAmountMin" id="field_feeAmountMin"
-                [(ngModel)]="quotationSubServices.feeAmountMin" required/>
-            <div [hidden]="!(editForm.controls.feeAmountMin?.dirty && editForm.controls.feeAmountMin?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.feeAmountMin?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.feeAmountMin?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.amountTo" for="field_amountTo">Amount To</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="amountTo" id="field_amountTo" [(ngModel)]="quotationSubServices.amountTo"
+                            required/>
+                        <div [hidden]="!(editForm.controls.amountTo?.dirty && editForm.controls.amountTo?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.amountTo?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.amountTo?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMax" for="field_feeAmountMax">Fee Amount Max</label>
-            <input type="number" class="form-control" name="feeAmountMax" id="field_feeAmountMax"
-                [(ngModel)]="quotationSubServices.feeAmountMax" required/>
-            <div [hidden]="!(editForm.controls.feeAmountMax?.dirty && editForm.controls.feeAmountMax?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.feeAmountMax?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.feeAmountMax?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMin" for="field_feeAmountMin">Fee Amount Min</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="feeAmountMin" id="field_feeAmountMin" [(ngModel)]="quotationSubServices.feeAmountMin"
+                            required/>
+                        <div [hidden]="!(editForm.controls.feeAmountMin?.dirty && editForm.controls.feeAmountMin?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.feeAmountMin?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.feeAmountMin?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.feeAmount" for="field_feeAmount">Fee Amount</label>
-            <input type="number" class="form-control" name="feeAmount" id="field_feeAmount"
-                [(ngModel)]="quotationSubServices.feeAmount" required/>
-            <div [hidden]="!(editForm.controls.feeAmount?.dirty && editForm.controls.feeAmount?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.feeAmount?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
-                <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.feeAmount?.errors?.number" jhiTranslate="entity.validation.number">
-                    This field should be a number.
-                </small>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.feeAmountMax" for="field_feeAmountMax">Fee Amount Max</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="feeAmountMax" id="field_feeAmountMax" [(ngModel)]="quotationSubServices.feeAmountMax"
+                            required/>
+                        <div [hidden]="!(editForm.controls.feeAmountMax?.dirty && editForm.controls.feeAmountMax?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.feeAmountMax?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.feeAmountMax?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.autoSelect" for="field_autoSelect">Auto Select</label>
-            <input type="checkbox" class="form-control" name="autoSelect" id="field_autoSelect"
-                [(ngModel)]="quotationSubServices.autoSelect" />
-            <div [hidden]="!(editForm.controls.autoSelect?.dirty && editForm.controls.autoSelect?.invalid)">
-                <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.autoSelect?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
-                </small>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.feeAmount" for="field_feeAmount">Fee Amount</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="number" class="form-control" name="feeAmount" id="field_feeAmount" [(ngModel)]="quotationSubServices.feeAmount"
+                            required/>
+                        <div [hidden]="!(editForm.controls.feeAmount?.dirty && editForm.controls.feeAmount?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.feeAmount?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.feeAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.company" for="field_company">Company</label>
-            <select class="form-control" id="field_company" name="company" [(ngModel)]="quotationSubServices.companyId"  required>
-                <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
-                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.orderSubServicesType" for="field_orderSubServicesType">Order Sub Services Type</label>
-            <select class="form-control" id="field_orderSubServicesType" name="orderSubServicesType" [(ngModel)]="quotationSubServices.orderSubServicesTypeId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="orderSubServicesTypeOption.id" *ngFor="let orderSubServicesTypeOption of ordersubservicestypes; trackBy: trackOrderSubServicesTypeById">{{orderSubServicesTypeOption.id}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.orderSubServices" for="field_orderSubServices">Order Sub Services</label>
-            <select class="form-control" id="field_orderSubServices" name="orderSubServices" [(ngModel)]="quotationSubServices.orderSubServicesId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="orderSubServicesOption.id" *ngFor="let orderSubServicesOption of ordersubservices; trackBy: trackOrderSubServicesById">{{orderSubServicesOption.id}}</option>
-            </select>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.autoSelect" for="field_autoSelect">Auto Select</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <input type="checkbox" class="form-control" name="autoSelect" id="field_autoSelect" [(ngModel)]="quotationSubServices.autoSelect"
+                        />
+                        <div [hidden]="!(editForm.controls.autoSelect?.dirty && editForm.controls.autoSelect?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.autoSelect?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.company" for="field_company">Company</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_company" name="company" [(ngModel)]="quotationSubServices.companyId" required>
+                            <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
+                            <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.orderSubServicesType" for="field_orderSubServicesType">Order Sub Services Type</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_orderSubServicesType" name="orderSubServicesType" [(ngModel)]="quotationSubServices.orderSubServicesTypeId">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="orderSubServicesTypeOption.id" *ngFor="let orderSubServicesTypeOption of ordersubservicestypes; trackBy: trackOrderSubServicesTypeById">{{orderSubServicesTypeOption.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-xs-12 form-group">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="form-control-label" jhiTranslate="nextlogixApp.quotationSubServices.orderSubServices" for="field_orderSubServices">Order Sub Services</label>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control" id="field_orderSubServices" name="orderSubServices" [(ngModel)]="quotationSubServices.orderSubServicesId">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="orderSubServicesOption.id" *ngFor="let orderSubServicesOption of ordersubservices; trackBy: trackOrderSubServicesById">{{orderSubServicesOption.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

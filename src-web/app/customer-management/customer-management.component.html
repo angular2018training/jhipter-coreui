@@ -67,19 +67,19 @@
                             <label class="col-form-label" for="field_isActive" jhiTranslate="nextlogixApp.customer.isActive">Is Active:</label>
 
                         </div>
-                        <div class="col-md-8 col-sm-12">
+                        <div class="col-md-8 col-sm-12 global-display-flex">
 
                             <div class="form-check form-check-inline mr-1" id="inline-radios">
                                 <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" [value]="null" [(ngModel)]="customerSearch.isActive">
-                                <label class="form-check-label" for="inlineRadio1">Tất cả</label>
+                                <label class="form-check-label" for="inlineRadio1" jhiTranslate="global.status.allStatus">All</label>
                             </div>
                             <div class="form-check form-check-inline mr-1">
                                 <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" [value]="true" [(ngModel)]="customerSearch.isActive">
-                                <label class="form-check-label" for="inlineRadio2">Kích hoạt</label>
+                                <label class="form-check-label" for="inlineRadio2" jhiTranslate="global.status.active">Kích hoạt</label>
                             </div>
                             <div class="form-check form-check-inline mr-1">
                                 <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio3" [value]="false" [(ngModel)]="customerSearch.isActive">
-                                <label class="form-check-label" for="inlineRadio3">Khóa</label>
+                                <label class="form-check-label" for="inlineRadio3" jhiTranslate="global.status.deactive">Khóa</label>
                             </div>
                             <!-- <input type="checkbox" class="form-control" name="isActive" id="field_isActive" [(ngModel)]="customerSearch.isActive"> -->
                         </div>
@@ -137,8 +137,8 @@
         <strong jhiTranslate="nextlogixApp.customer.home.title">Kết quả tìm kiếm</strong>
     </div>
     <div class="card-body">
-        <div class="table-responsive" *ngIf="customers">
-            <table class="table table-striped">
+        <div *ngIf="customers">
+            <table class="table table-striped table-bordered datatable table-bordered datatable">
                 <thead>
                     <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                         <th jhiSortBy="code">
@@ -195,7 +195,7 @@
                             </ng-container>
                         </td>
                         <td>{{customer.saleUserDTO?.name}}</td>
-                        <td>{{customer.createDate | date:'dd.MM.yyyy'}}</td>
+                        <td>{{customer.createDate | date:'dd/MM/yyyy'}}</td>
 
                         <td class="text-right">
                             <div class="btn-group flex-btn-group-container">

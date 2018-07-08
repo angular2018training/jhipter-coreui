@@ -12,13 +12,13 @@
             "updated": "A Quotation is updated with identifier {{ param }}",
             "deleted": "A Quotation is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Quotation {{ id }}?"
+                "question": "Are you sure you want to delete Quotation \"{{ id }}\"?"
             },
             "detail": {
                 "title": "Quotation"
             },
             "name": "Name",
-            "isActive": "Is Active",
+            "isActive": "Status",
             "description": "Description",
             "createDate": "Create Date",
             "activeFrom": "Active From",

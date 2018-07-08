@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
-import {AlertService} from '../../shared/alert/alert-service';
-import {ITEMS_QUERY_ALL} from '../../shared/';
+import { AlertService } from '../../shared/alert/alert-service';
+import { ITEMS_QUERY_ALL } from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -13,32 +13,30 @@ import { QuotationPopupService } from './quotation-popup.service';
 import { QuotationService } from '../../shared/service/quotation.service';
 import { QuotationDeleteDialogComponent } from './quotation-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {QuotationSearch} from '../../shared/model/quotation.search.model';
-    import { QuotationPickup } from '../../shared/model/quotation-pickup.model';
-    import { QuotationPickupService } from '../../shared/service/quotation-pickup.service';
+import { QuotationSearch } from '../../shared/model/quotation.search.model';
+import { QuotationPickup } from '../../shared/model/quotation-pickup.model';
+import { QuotationPickupService } from '../../shared/service/quotation-pickup.service';
 
-    import { QuotationDomesticDelivery } from '../../shared/model/quotation-domestic-delivery.model';
-    import { QuotationDomesticDeliveryService } from '../../shared/service/quotation-domestic-delivery.service';
+import { QuotationDomesticDelivery } from '../../shared/model/quotation-domestic-delivery.model';
+import { QuotationDomesticDeliveryService } from '../../shared/service/quotation-domestic-delivery.service';
 
-    import { QuotationReturn } from '../../shared/model/quotation-return.model';
-    import { QuotationReturnService } from '../../shared/service/quotation-return.service';
+import { QuotationReturn } from '../../shared/model/quotation-return.model';
+import { QuotationReturnService } from '../../shared/service/quotation-return.service';
 
-    import { QuotationGiveBack } from '../../shared/model/quotation-give-back.model';
-    import { QuotationGiveBackService } from '../../shared/service/quotation-give-back.service';
+import { QuotationGiveBack } from '../../shared/model/quotation-give-back.model';
+import { QuotationGiveBackService } from '../../shared/service/quotation-give-back.service';
 
-    import { QuotationInsurance } from '../../shared/model/quotation-insurance.model';
-    import { QuotationInsuranceService } from '../../shared/service/quotation-insurance.service';
+import { QuotationInsurance } from '../../shared/model/quotation-insurance.model';
+import { QuotationInsuranceService } from '../../shared/service/quotation-insurance.service';
 
-    import { QuotationCod } from '../../shared/model/quotation-cod.model';
-    import { QuotationCodService } from '../../shared/service/quotation-cod.service';
+import { QuotationCod } from '../../shared/model/quotation-cod.model';
+import { QuotationCodService } from '../../shared/service/quotation-cod.service';
 
-    import { QuotationSubServices } from '../../shared/model/quotation-sub-services.model';
-    import { QuotationSubServicesService } from '../../shared/service/quotation-sub-services.service';
+import { QuotationSubServices } from '../../shared/model/quotation-sub-services.model';
+import { QuotationSubServicesService } from '../../shared/service/quotation-sub-services.service';
 
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
-
+import { Company } from '../../shared/model/company.model';
+import { CompanyService } from '../../shared/service/company.service';
 
 @Component({
     selector: 'jhi-quotation',
@@ -46,7 +44,7 @@ import {QuotationSearch} from '../../shared/model/quotation.search.model';
 })
 export class QuotationComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     quotations: Quotation[];
     error: any;
     success: any;
@@ -61,21 +59,21 @@ currentAccount: any;
     predicate: any;
     previousPage: any;
     reverse: any;
-    quotationSearch : QuotationSearch;
+    quotationSearch: QuotationSearch;
 
-    quotationPickups : QuotationPickup[];
+    quotationPickups: QuotationPickup[];
 
-    quotationDomesticDeliveries : QuotationDomesticDelivery[];
+    quotationDomesticDeliveries: QuotationDomesticDelivery[];
 
-    quotationReturns : QuotationReturn[];
+    quotationReturns: QuotationReturn[];
 
-    quotationGiveBacks : QuotationGiveBack[];
+    quotationGiveBacks: QuotationGiveBack[];
 
-    quotationInsurances : QuotationInsurance[];
+    quotationInsurances: QuotationInsurance[];
 
-    quotationCods : QuotationCod[];
+    quotationCods: QuotationCod[];
 
-    quotationSubServices : QuotationSubServices[];
+    quotationSubServices: QuotationSubServices[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
@@ -83,7 +81,7 @@ currentAccount: any;
         private parseLinks: JhiParseLinks,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
-        private alertService :AlertService,
+        private alertService: AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
 
@@ -101,39 +99,39 @@ currentAccount: any;
         this.quotationSearch = new QuotationSearch();
 
         this.quotationSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
-                        this.activatedRoute.snapshot.params[' name'] : '';
+            this.activatedRoute.snapshot.params[' name'] : '';
         this.quotationSearch.isActive = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['isActive'] ?
-                        this.activatedRoute.snapshot.params[' isActive'] : '';
+            this.activatedRoute.snapshot.params[' isActive'] : null;
         this.quotationSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
-                        this.activatedRoute.snapshot.params[' description'] : '';
+            this.activatedRoute.snapshot.params[' description'] : '';
         this.quotationSearch.createDate = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['createDate'] ?
-                        this.activatedRoute.snapshot.params[' createDate'] : '';
+            this.activatedRoute.snapshot.params[' createDate'] : '';
         this.quotationSearch.activeFrom = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['activeFrom'] ?
-                        this.activatedRoute.snapshot.params[' activeFrom'] : '';
+            this.activatedRoute.snapshot.params[' activeFrom'] : '';
     }
 
     loadAll() {
-         var obj = {
-         page: this.page -1,
-         size: this.itemsPerPage,
-         sort: this.sort(),
-         name : this.quotationSearch.name,
-         isActive : this.quotationSearch.isActive,
-         description : this.quotationSearch.description,
-         createDate : this.quotationSearch.createDate,
-         activeFrom : this.quotationSearch.activeFrom,
-         companyId :this.currentAccount.companyId,
-         };
+        var obj = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            name: this.quotationSearch.name,
+            isActive: this.quotationSearch.isActive,
+            description: this.quotationSearch.description,
+            createDate: this.quotationSearch.createDate,
+            activeFrom: this.quotationSearch.activeFrom,
+            companyId: this.currentAccount.companyId,
+        };
 
         this.quotationService.searchExample(obj).subscribe(
-          (res: HttpResponse<Quotation[]>) => this.onSuccess(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
+            (res: HttpResponse<Quotation[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
 
     }
-    searchInForm(){
-          this.page = 0;
-          this.transition();
+    searchInForm() {
+        this.page = 0;
+        this.transition();
 
     }
     loadPage(page: number) {
@@ -143,17 +141,17 @@ currentAccount: any;
         }
     }
     transition() {
-        this.router.navigate(['/setup/quotation'], {queryParams:
+        this.router.navigate(['/setup/quotation'], {
+            queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,
                 search: this.currentSearch,
-                name : this.quotationSearch.name,
-                isActive : this.quotationSearch.isActive,
-                description : this.quotationSearch.description,
-                createDate : this.quotationSearch.createDate,
-                activeFrom : this.quotationSearch.activeFrom,
-                companyId :this.currentAccount.companyId,
+                name: this.quotationSearch.name,
+                isActive: this.quotationSearch.isActive,
+                description: this.quotationSearch.description,
+                createDate: this.quotationSearch.createDate,
+                activeFrom: this.quotationSearch.activeFrom,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -222,7 +220,7 @@ currentAccount: any;
         this.alertService.error(error.message, null, null);
     }
 
-    public deleteItem(id:number){
+    public deleteItem(id: number) {
         this.quotationPopupService
             .open(QuotationDeleteDialogComponent as Component, id);
     }

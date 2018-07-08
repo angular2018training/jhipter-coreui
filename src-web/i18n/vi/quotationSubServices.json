@@ -3,30 +3,30 @@
     "nextlogixApp": {
         "quotationSubServices" : {
             "home": {
-                "title": "Quotation Sub Services",
-                "createLabel": "Thêm mới một Quotation Sub Services",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Sub Services",
-                "search": "Tìm Quotation Sub Services"
+                "title": "Dịch vụ cộng thêm",
+                "createLabel": "Thêm mới một Dịch vụ cộng thêm",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Dịch vụ cộng thêm",
+                "search": "Tìm Dịch vụ cộng thêm"
             },
-            "created": "Một Quotation Sub Services mới được tạo với định danh {{ param }}",
-            "updated": "Một Quotation Sub Services cập nhật với định danh {{ param }}",
-            "deleted": "Một Quotation Sub Services đã xóa với định danh {{ param }}",
+            "created": "Một Dịch vụ cộng thêm mới được tạo với định danh {{ param }}",
+            "updated": "Một Dịch vụ cộng thêm cập nhật với định danh {{ param }}",
+            "deleted": "Một Dịch vụ cộng thêm đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Quotation Sub Services {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Dịch vụ cộng thêm {{ id }}?"
             },
             "detail": {
-                "title": "Quotation Sub Services"
+                "title": "Dịch vụ cộng thêm"
             },
-            "amountFrom": "Amount From",
-            "amountTo": "Amount To",
-            "feeAmountMin": "Fee Amount Min",
-            "feeAmountMax": "Fee Amount Max",
-            "feeAmount": "Fee Amount",
-            "autoSelect": "Auto Select",
-            "company": "Company",
-            "orderSubServicesType": "Order Sub Services Type",
-            "orderSubServices": "Order Sub Services",
-            "quotationParent": "Quotation Parent"
+            "amountFrom": "Giá trị từ",
+            "amountTo": "Giá trị đến",
+            "feeAmountMin": "Phí tối thiểu",
+            "feeAmountMax": "Phí tối đa",
+            "feeAmount": "Mức phí",
+            "autoSelect": "Tự động chọn",
+            "company": "Công ty",
+            "orderSubServicesType": "Loại dịch vụ cộng thêm",
+            "orderSubServices": "Dịch vụ phụ",
+            "quotationParent": "Bảng giá cha"
         }
     }
 }

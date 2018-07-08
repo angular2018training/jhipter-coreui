@@ -3,27 +3,27 @@
     "nextlogixApp": {
         "quotationCod" : {
             "home": {
-                "title": "Quotation Cods",
-                "createLabel": "Thêm mới một Quotation Cod",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Cod",
-                "search": "Tìm Quotation Cod"
+                "title": "Phí thu hộ COD",
+                "createLabel": "Thêm một Phí thu hộ COD",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Phí thu hộ COD",
+                "search": "Tìm Phí thu hộ COD"
             },
-            "created": "Một Quotation Cod mới được tạo với định danh {{ param }}",
-            "updated": "Một Quotation Cod cập nhật với định danh {{ param }}",
-            "deleted": "Một Quotation Cod đã xóa với định danh {{ param }}",
+            "created": "Một Phí thu hộ COD mới được tạo với định danh {{ param }}",
+            "updated": "Một Phí thu hộ COD cập nhật với định danh {{ param }}",
+            "deleted": "Một Phí thu hộ COD đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Quotation Cod {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Phí thu hộ COD {{ code }}?"
             },
             "detail": {
-                "title": "Quotation Cod"
+                "title": "Phí thu hộ COD"
             },
-            "amountFrom": "Amount From",
-            "amountTo": "Amount To",
-            "feeAmountMin": "Fee Amount Min",
-            "feeAmount": "Fee Amount",
-            "company": "Company",
-            "districtType": "District Type",
-            "quotationParent": "Quotation Parent"
+            "amountFrom": "Giá trị từ",
+            "amountTo": "Giá trị đến",
+            "feeAmountMin": "Tối thiểu",
+            "feeAmount": "Mức phí",
+            "company": "Công ty",
+            "districtType": "Loại hình",
+            "quotationParent": "Bảng giá cha"
         }
     }
 }

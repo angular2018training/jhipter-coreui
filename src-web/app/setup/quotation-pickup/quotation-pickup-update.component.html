@@ -7,15 +7,35 @@
         <strong jhiTranslate="nextlogixApp.quotationPickup.home.createOrEditLabel">Create or edit a Quotation Pickup</strong>
     </div>
     <div class="card-body">
-            <div>
+            <div class="row">
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!quotationPickup.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="quotationPickup.id" readonly />
                 </div>
-                <div class="form-group row">
-                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationPickup.amount" for="field_amount">Amount</label>
+               
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.amount" for="field_amount">Amount</label>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <input type="number" class="form-control" name="amount" id="field_amount" [(ngModel)]="quotationPickup.amount" required/>
+                            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group row">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.amount" for="field_amount">Amount</label>
                     <div class="col-md-4">
                     <input type="number" class="form-control" name="amount" id="field_amount"
                         [(ngModel)]="quotationPickup.amount" required/>
@@ -30,10 +50,29 @@
                         </small>
                     </div>
                     </div>
+                </div> -->
+
+                <div class="col-md-6 col-xs-12 form-group">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.province" for="field_province">Province</label>
+                        </div>
+                        <div class="col-md-9 col-sm-12">
+                            <select class="form-control" id="field_province" name="province" [(ngModel)]="quotationPickup.provinceId" required>
+                                <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
+                                <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                            </select>
+                            <div [hidden]="!(editForm.controls.province?.dirty && editForm.controls.province?.invalid)">
+                                <small class="form-text text-danger" [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationPickup.province" for="field_province">Province</label>
+                <!-- <div class="form-group row">
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.province" for="field_province">Province</label>
                     <div class="col-md-4">
                     <select class="form-control" id="field_province" name="province" [(ngModel)]="quotationPickup.provinceId"  required>
                         <option *ngIf="!editForm.value.province" [ngValue]="null" selected></option>
@@ -46,9 +85,9 @@
                         [hidden]="!editForm.controls.province?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div>
+                </div> -->
                 <div class="form-group row">
-                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationPickup.districtType" for="field_districtType">District Type</label>
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.districtType" for="field_districtType">District Type</label>
                     <div class="col-md-4">
                     <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="quotationPickup.districtTypeId"  required>
                         <option *ngIf="!editForm.value.districtType" [ngValue]="null" selected></option>
@@ -63,7 +102,7 @@
                     </small>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.quotationPickup.quotationParent" for="field_quotationParent">Quotation Parent</label>
+                    <label class="form-control-label" jhiTranslate="nextlogixApp.quotationPickup.quotationParent" for="field_quotationParent">Quotation Parent</label>
                     <div class="col-md-4">
                     <select class="form-control" id="field_quotationParent" name="quotationParent" [(ngModel)]="quotationPickup.quotationParentId" >
                         <option [ngValue]="null"></option>

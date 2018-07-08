@@ -19,7 +19,7 @@
             },
             "amount": "Amount",
             "company": "Company",
-            "districtType": "District Type",
+            "districtType": "Type",
             "region": "Region",
             "weight": "Weight",
             "quotationParent": "Quotation Parent"

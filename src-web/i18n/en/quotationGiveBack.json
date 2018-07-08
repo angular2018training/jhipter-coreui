@@ -19,7 +19,7 @@
             },
             "feePercent": "Fee Percent",
             "company": "Company",
-            "districtType": "District Type",
+            "districtType": "Type",
             "region": "Region",
             "quotationParent": "Quotation Parent"
         }

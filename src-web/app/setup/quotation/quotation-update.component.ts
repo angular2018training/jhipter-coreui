@@ -1,21 +1,21 @@
 
 import { Component, OnInit } from '@angular/core';
 
-import {Principal} from '../../shared/';
+import { Principal } from '../../shared/';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import {ITEMS_QUERY_ALL} from '../../shared/';
-import {AlertService} from '../../shared/alert/alert-service';
+import { ITEMS_QUERY_ALL } from '../../shared/';
+import { AlertService } from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
-import { JhiAlertService,  } from 'ng-jhipster';
+import { JhiAlertService, } from 'ng-jhipster';
 
 import { QuotationService } from '../../shared/service/quotation.service';
 
 import { Quotation } from '../../shared/model/quotation.model';
-            import { Company } from '../../shared/model/company.model';
-            import { CompanyService} from '../../shared/service/company.service';
+import { Company } from '../../shared/model/company.model';
+import { CompanyService } from '../../shared/service/company.service';
 
 @Component({
     selector: 'jhi-quotation-update',
@@ -25,14 +25,15 @@ export class QuotationUpdateComponent implements OnInit {
 
     private _quotation: Quotation;
     isSaving: boolean;
-    private currentAccount : any;
-        createDate: string;
-        activeFromDp: any;
+    private currentAccount: any;
+    createDate: string;
+    activeFrom: any;
+    oldActivateState: boolean;
 
     constructor(
         private alertService: AlertService,
         private quotationService: QuotationService,
-        private principal : Principal,
+        private principal: Principal,
         private companyService: CompanyService,
         private route: ActivatedRoute
     ) {
@@ -40,7 +41,7 @@ export class QuotationUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.route.data.subscribe(({quotation}) => {
+        this.route.data.subscribe(({ quotation }) => {
             this.quotation = quotation;
         });
         this.principal.identity().then((account) => {
@@ -55,7 +56,16 @@ export class QuotationUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-                this.quotation.createDate = moment(this.createDate, DATE_TIME_FORMAT);
+        this.quotation.createDate = moment(this.createDate, DATE_TIME_FORMAT);
+        if (!this.oldActivateState && this.quotation.isActive) {
+            const dateObj: Date = new Date();
+            this.activeFrom = {
+                year: dateObj.getUTCFullYear(),
+                month: dateObj.getUTCMonth() + 1,
+                day: dateObj.getUTCDate()
+            };
+            this.quotation.activeFrom = this.activeFrom;
+        }
         if (this.quotation.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.quotationService.update(this.quotation));
@@ -94,5 +104,22 @@ export class QuotationUpdateComponent implements OnInit {
     set quotation(quotation: Quotation) {
         this._quotation = quotation;
         this.createDate = moment(quotation.createDate).format(DATE_TIME_FORMAT);
+        if (!quotation || !quotation.id) {
+            const dateObj: Date = new Date();
+            this.activeFrom = {
+                year: dateObj.getUTCFullYear(),
+                month: dateObj.getUTCMonth() + 1,
+                day: dateObj.getUTCDate()
+            };
+            this.quotation.activeFrom = this.activeFrom;
+        } else {
+            this.activeFrom = {
+                year: quotation.activeFrom.getUTCFullYear(),
+                month: quotation.activeFrom.getUTCMonth() + 1,
+                day: quotation.activeFrom.getUTCDate()
+            };
+            this.quotation.activeFrom = this.activeFrom;
+            this.oldActivateState = this.quotation.isActive;
+        }
     }
 }

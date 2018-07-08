@@ -23,7 +23,7 @@
             "email": "Email",
             "phone": "Phone",
             "password": "Password",
-            "isActive": "Is Active",
+            "isActive": "Status",
             "createDate": "Create Date",
             "lastLoginDate": "Last Login Date",
             "apiToken": "Api Token",

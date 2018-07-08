@@ -23,7 +23,7 @@
             "feeAmountMax": "Fee Amount Max",
             "feePercent": "Fee Percent",
             "company": "Company",
-            "districtType": "District Type",
+            "districtType": "Type",
             "quotationParent": "Quotation Parent"
         }
     }
