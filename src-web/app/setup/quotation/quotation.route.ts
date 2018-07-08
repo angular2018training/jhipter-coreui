@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-    import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
+import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../../shared';
 import { Observable } from 'rxjs';
 import { Quotation } from '../../shared/model/quotation.model';
@@ -9,7 +9,7 @@ import { QuotationService } from '../../shared/service/quotation.service';
 import { QuotationComponent } from './quotation.component';
 import { QuotationDetailComponent } from './quotation-detail.component';
 import { QuotationUpdateComponent } from './quotation-update.component';
-    import { QuotationDeletePopupComponent } from './quotation-delete-dialog.component';
+import { QuotationDeletePopupComponent } from './quotation-delete-dialog.component';
 
 @Injectable({providedIn: 'root'})
 export class QuotationResolve implements Resolve<Quotation> {
@@ -25,7 +25,6 @@ resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return Observable.of(new Quotation());
 }
 }
-
 
 export const quotationRoute: Routes = [
     {

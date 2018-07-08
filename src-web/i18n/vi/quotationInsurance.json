@@ -3,28 +3,28 @@
     "nextlogixApp": {
         "quotationInsurance" : {
             "home": {
-                "title": "Quotation Insurances",
-                "createLabel": "Thêm mới một Quotation Insurance",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Insurance",
-                "search": "Tìm Quotation Insurance"
+                "title": "Phí bảo hiểm hàng hóa",
+                "createLabel": "Thêm mới Phí bảo hiểm hàng hóa",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Phí bảo hiểm hàng hóa",
+                "search": "Tìm Phí bảo hiểm hàng hóa"
             },
-            "created": "Một Quotation Insurance mới được tạo với định danh {{ param }}",
-            "updated": "Một Quotation Insurance cập nhật với định danh {{ param }}",
-            "deleted": "Một Quotation Insurance đã xóa với định danh {{ param }}",
+            "created": "Một Phí bảo hiểm hàng hóa mới được tạo với định danh {{ param }}",
+            "updated": "Một Phí bảo hiểm hàng hóa cập nhật với định danh {{ param }}",
+            "deleted": "Một Phí bảo hiểm hàng hóa đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Quotation Insurance {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Phí bảo hiểm hàng hóa {{ code }}?"
             },
             "detail": {
-                "title": "Quotation Insurance"
+                "title": "Phí bảo hiểm hàng hóa"
             },
-            "amountFrom": "Amount From",
-            "amountTo": "Amount To",
-            "feeAmountMin": "Fee Amount Min",
-            "feeAmountMax": "Fee Amount Max",
-            "feePercent": "Fee Percent",
-            "company": "Company",
-            "districtType": "District Type",
-            "quotationParent": "Quotation Parent"
+            "amountFrom": "Giá trị từ",
+            "amountTo": "Giá trị đến",
+            "feeAmountMin": "Phí tối thiểu",
+            "feeAmountMax": "Phí tối đa",
+            "feePercent": "Phần trăm",
+            "company": "Công ty",
+            "districtType": "Loại hình",
+            "quotationParent": "Bảng giá cha"
         }
     }
 }

@@ -3,26 +3,26 @@
     "nextlogixApp": {
         "quotationCod" : {
             "home": {
-                "title": "Quotation Cods",
-                "createLabel": "Create a new Quotation Cod",
-                "createOrEditLabel": "Create or edit a Quotation Cod",
-                "search": "Search for Quotation Cod"
+                "title": "Quotation CODs",
+                "createLabel": "Create a new Quotation COD",
+                "createOrEditLabel": "Create or edit a Quotation COD",
+                "search": "Search for Quotation COD"
             },
-            "created": "A new Quotation Cod is created with identifier {{ param }}",
-            "updated": "A Quotation Cod is updated with identifier {{ param }}",
-            "deleted": "A Quotation Cod is deleted with identifier {{ param }}",
+            "created": "A new Quotation COD is created with identifier {{ param }}",
+            "updated": "A Quotation COD is updated with identifier {{ param }}",
+            "deleted": "A Quotation COD is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Quotation Cod {{ id }}?"
+                "question": "Are you sure you want to delete Quotation COD {{ code }}?"
             },
             "detail": {
-                "title": "Quotation Cod"
+                "title": "Quotation COD"
             },
             "amountFrom": "Amount From",
             "amountTo": "Amount To",
             "feeAmountMin": "Fee Amount Min",
             "feeAmount": "Fee Amount",
             "company": "Company",
-            "districtType": "District Type",
+            "districtType": "Type",
             "quotationParent": "Quotation Parent"
         }
     }

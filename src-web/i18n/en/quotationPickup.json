@@ -20,7 +20,7 @@
             "amount": "Amount",
             "company": "Company",
             "province": "Province",
-            "districtType": "District Type",
+            "districtType": "Type",
             "quotationParent": "Quotation Parent"
         }
     }

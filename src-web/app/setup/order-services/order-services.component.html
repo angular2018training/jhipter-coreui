@@ -85,7 +85,7 @@
         </button>
     </div>
     <div class="card-body card-body-custom">
-        <div class="table-responsive" *ngIf="orderServices">
+        <div *ngIf="orderServices">
             <table class="table table-striped table-bordered datatable">
                 <thead>
                     <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">

@@ -17,10 +17,10 @@
             "detail": {
                 "title": "Quotation Item Type"
             },
-            "code": "Code",
-            "name": "Name",
-            "description": "Description",
-            "company": "Company"
+            "code": "Mã",
+            "name": "Tên",
+            "description": "Mô tả",
+            "company": "Công ty"
         }
     }
 }

@@ -12,15 +12,15 @@
             "updated": "Một Quotation Item cập nhật với định danh {{ param }}",
             "deleted": "Một Quotation Item đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Quotation Item {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Quotation Item {{ code }}?"
             },
             "detail": {
                 "title": "Quotation Item"
             },
             "quotationFile": "Quotation File",
-            "createDate": "Create Date",
+            "createDate": "Ngày tạo",
             "quotation": "Quotation",
-            "company": "Company"
+            "company": "Công ty"
         }
     }
 }

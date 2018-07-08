@@ -3,33 +3,33 @@
     "nextlogixApp": {
         "quotation" : {
             "home": {
-                "title": "Quotations",
-                "createLabel": "Thêm mới một Quotation",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation",
-                "search": "Tìm Quotation"
+                "title": "Danh sách bảng giá",
+                "createLabel": "Thêm mới một Bảng giá",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Bảng giá",
+                "search": "Tìm Bảng giá"
             },
-            "created": "Một Quotation mới được tạo với định danh {{ param }}",
-            "updated": "Một Quotation cập nhật với định danh {{ param }}",
-            "deleted": "Một Quotation đã xóa với định danh {{ param }}",
+            "created": "Một Bảng giá mới được tạo với định danh {{ param }}",
+            "updated": "Một Bảng giá cập nhật với định danh {{ param }}",
+            "deleted": "Một Bảng giá đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Quotation {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Bảng giá \"{{ id }}\"?"
             },
             "detail": {
-                "title": "Quotation"
+                "title": "Bảng giá"
             },
-            "name": "Name",
-            "isActive": "Is Active",
-            "description": "Description",
-            "createDate": "Create Date",
-            "activeFrom": "Active From",
-            "quotationPickupDetailList": "Quotation Pickup Detail List",
-            "quotationDomesticDeliveryDetailList": "Quotation Domestic Delivery Detail List",
-            "quotationReturnDetailList": "Quotation Return Detail List",
-            "quotationGiveBackDetailList": "Quotation Give Back Detail List",
-            "quotationInsuranceDetailList": "Quotation Insurance Detail List",
-            "quotationCodDetailList": "Quotation Cod Detail List",
-            "quotationSubServicesDetailList": "Quotation Sub Services Detail List",
-            "company": "Company"
+            "name": "Tên",
+            "isActive": "Trạng thái",
+            "description": "Mô tả",
+            "createDate": "Ngày tạo",
+            "activeFrom": "Ngày kích hoạt",
+            "quotationPickupDetailList": "Ds chi tiết cước lấy hàng",
+            "quotationDomesticDeliveryDetailList": "Ds chi tiết cước phát hàng",
+            "quotationReturnDetailList": "Ds Cước chuyển hàng",
+            "quotationGiveBackDetailList": "Ds chi tiết cước trả hàng",
+            "quotationInsuranceDetailList": "Ds chi tiết cước bảo hiểm",
+            "quotationCodDetailList": "Ds chi tiết cước thu hộ COD",
+            "quotationSubServicesDetailList": "Ds dịch vụ cộng thêm",
+            "company": "Công ty"
         }
     }
 }

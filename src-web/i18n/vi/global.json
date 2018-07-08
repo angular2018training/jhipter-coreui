@@ -1,5 +1,10 @@
 {
     "global": {
+        "status": {
+            "active": "Kích hoạt",
+            "deactive": "Khóa",
+            "allStatus": "Tất cả"
+        },
         "title": "Nextlogix",
         "browsehappy": "Bạn đang sử dụng một trình duyệt <strong>quá cũ</strong>. Vui lòng <a href=\"http://browsehappy.com/?locale=en\">nâng cấp trình duyệt</a> của bạn để có trải nghiệm tốt nhất.",
         "menu": {
@@ -171,6 +176,5 @@
     "action":{
       "change":"Chuyển"
     },
-    "footer": "Đây là chân trang của bạn"
-
+    "footer": "Đây là chân trang của bạn"    
 }

@@ -3,25 +3,25 @@
     "nextlogixApp": {
         "quotationPickup" : {
             "home": {
-                "title": "Quotation Pickups",
-                "createLabel": "Thêm mới một Quotation Pickup",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Quotation Pickup",
-                "search": "Tìm Quotation Pickup"
+                "title": "Phí lấy hàng",
+                "createLabel": "Thêm mới Phí lấy hàng",
+                "createOrEditLabel": "Thêm hoặc cập nhật Phí lấy hàng",
+                "search": "Tìm Phí lấy hàng"
             },
-            "created": "Một Quotation Pickup mới được tạo với định danh {{ param }}",
-            "updated": "Một Quotation Pickup cập nhật với định danh {{ param }}",
-            "deleted": "Một Quotation Pickup đã xóa với định danh {{ param }}",
+            "created": "Một Phí lấy hàng mới được tạo với định danh {{ param }}",
+            "updated": "Một Phí lấy hàng cập nhật với định danh {{ param }}",
+            "deleted": "Một Phí lấy hàng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Quotation Pickup {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Phí lấy hàng {{ code }}?"
             },
             "detail": {
-                "title": "Quotation Pickup"
+                "title": "Phí lấy hàng"
             },
-            "amount": "Amount",
-            "company": "Company",
-            "province": "Province",
-            "districtType": "District Type",
-            "quotationParent": "Quotation Parent"
+            "amount": "Mức phí",
+            "company": "Công ty",
+            "province": "Tỉnh/Thành",
+            "districtType": "Loại hình",
+            "quotationParent": "Bảng giá cha"
         }
     }
 }
