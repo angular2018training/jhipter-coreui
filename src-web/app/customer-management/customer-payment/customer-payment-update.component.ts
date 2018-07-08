@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,6 +15,8 @@ import { BankService } from '../../setup/bank';
 import { UserExtraInfoService } from '../../shared/service/user-extra-info.service';
 import { PaymentTypeService } from '../../shared/service/payment-type.service';
 import { CustomerPaymentService } from '../../shared/service/customer-payment.service';
+import { Validator } from '../../shared/util/validator';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'jhi-customer-payment-update',
@@ -30,8 +32,13 @@ export class CustomerPaymentUpdateComponent implements OnInit {
     userextrainfos: UserExtraInfo[];
 
     paymenttypes: PaymentType[];
-    dateVerify: string;
     customerId: number;
+
+    bsConfig = { dateInputFormat: 'DD/MM/YYYY' };
+
+    selectedFileName = '';
+
+    @ViewChild('editForm') editForm: NgForm;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -50,12 +57,27 @@ export class CustomerPaymentUpdateComponent implements OnInit {
             this.customerPayment = data.resolved.customerPayment;
             this.customerId = data.resolved.customerId;
         });
-        this.bankService.query()
-            .subscribe((res: HttpResponse<Bank[]>) => { this.banks = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.userExtraInfoService.query()
-            .subscribe((res: HttpResponse<UserExtraInfo[]>) => { this.userextrainfos = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.paymentTypeService.query()
-            .subscribe((res: HttpResponse<PaymentType[]>) => { this.paymenttypes = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.bankService.query({
+            'companyId.equals': this.customerPayment.companyId,
+            size: 10000
+        }).subscribe(
+            (res: HttpResponse<Bank[]>) => { this.banks = res.body; },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.userExtraInfoService.query({
+            'companyId.equals': this.customerPayment.companyId,
+            size: 10000
+        }).subscribe(
+            (res: HttpResponse<UserExtraInfo[]>) => { this.userextrainfos = res.body; },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.paymentTypeService.query({
+            'companyId.equals': this.customerPayment.companyId,
+            size: 10000
+        }).subscribe(
+            (res: HttpResponse<PaymentType[]>) => { this.paymenttypes = res.body; },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     byteSize(field) {
@@ -67,6 +89,9 @@ export class CustomerPaymentUpdateComponent implements OnInit {
     }
 
     setFileData(event, entity, field, isImage) {
+        if (event.target.files.length > 0) {
+            this.selectedFileName = event.target.files[0].name;
+        }
         this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
@@ -75,8 +100,11 @@ export class CustomerPaymentUpdateComponent implements OnInit {
     }
 
     save(isVerified = false) {
+        if (!Validator.isValidForm(this.editForm)) {
+            this.jhiAlertService.warning('Xin hãy nhập các giá trị bắt buộc.', null, null);
+            return;
+        }
         this.isSaving = true;
-        this.customerPayment.dateVerify = moment(this.dateVerify, DATE_TIME_FORMAT);
         this.customerPayment.isVerify = isVerified;
         if (this.customerPayment.id) {
             this.subscribeToSaveResponse(
@@ -98,8 +126,8 @@ export class CustomerPaymentUpdateComponent implements OnInit {
     }
 
     verifyData() {
-        this.dateVerify = moment().format(DATE_TIME_FORMAT);
         this.customerPayment.isVerify = true;
+        this.customerPayment.dateVerify = new Date();
         this.save(true);
     }
     private subscribeToSaveResponse(result: Observable<HttpResponse<CustomerPayment>>) {
@@ -139,9 +167,11 @@ export class CustomerPaymentUpdateComponent implements OnInit {
     }
 
     set customerPayment(customerPayment: CustomerPayment) {
-        this._customerPayment = customerPayment;
+        // tslint:disable-next-line:no-debugger
+        debugger;
         if (customerPayment.dateVerify) {
-            this.dateVerify = moment(customerPayment.dateVerify).format(DATE_TIME_FORMAT);
+            customerPayment.dateVerify = new Date(customerPayment.dateVerify);
         }
+        this._customerPayment = customerPayment;
     }
 }

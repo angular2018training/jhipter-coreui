@@ -86,9 +86,9 @@ export class CustomerPaymentService {
      * Convert a CustomerPayment to a JSON which can be sent to the server.
      */
     private convert(customerPayment: CustomerPayment): CustomerPayment {
-        const copy: CustomerPayment = Object.assign({}, customerPayment);
+        // const copy: CustomerPayment = Object.assign({}, customerPayment);
 
-        copy.dateVerify = customerPayment.dateVerify != null && customerPayment.dateVerify.isValid() ? customerPayment.dateVerify.toJSON() : null;
-        return copy;
+        // copy.dateVerify = customerPayment.dateVerify != null && customerPayment.dateVerify.isValid() ? customerPayment.dateVerify.toJSON() : null;
+        return customerPayment;
     }
 }

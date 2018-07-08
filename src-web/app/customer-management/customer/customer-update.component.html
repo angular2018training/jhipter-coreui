@@ -45,7 +45,7 @@
                             <label class="form-control-label" jhiTranslate="nextlogixApp.customer.password" for="field_password">Password</label>
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <input type="text" class="form-control" name="password" id="field_password" [(ngModel)]="customer.password" required/>
+                            <input type="password" class="form-control" name="password" id="field_password" [(ngModel)]="password" required/>
                             <div [hidden]="!(editForm.controls.password?.dirty && editForm.controls.password?.invalid)">
                                 <small class="form-text text-danger" [hidden]="!editForm.controls.password?.errors?.required" jhiTranslate="entity.validation.required">
                                     This field is required.
@@ -149,7 +149,7 @@
                         <div class="col-md-8 col-sm-12">
                             <select class="form-control" id="field_manageUser" name="manageUser" [(ngModel)]="customer.manageUserId">
                                 <option [ngValue]="null"></option>
-                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.email}}</option>
+                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                         <div class="col-md-8 col-sm-12">
                             <select class="form-control" id="field_saleUser" name="saleUser" [(ngModel)]="customer.saleUserId">
                                 <option [ngValue]="null"></option>
-                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.email}}</option>
+                                <option [ngValue]="userExtraInfoOption.id" *ngFor="let userExtraInfoOption of userextrainfos">{{userExtraInfoOption.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -239,9 +239,9 @@
                         <div class="col-md-8 col-sm-12">
                             <div class="input-group">
                                 <input id="field_createDate" type="text" class="form-control" name="createDate" [bsConfig]="bsConfig" bsDatepicker [(ngModel)]="customer.createDate"
-                                    required disabled #createDate="bsDatepicker">
+                                    required disabled>
                                 <span class="input-group-append">
-                                    <button type="button" class="btn btn-secondary" (click)="createDate.toggle()">
+                                    <button type="button" class="btn btn-secondary">
                                         <i class="fa fa-calendar"></i>
                                     </button>
                                 </span>
@@ -273,9 +273,9 @@
 
                             <div class="input-group">
                                 <input id="field_lastLoginDate" type="text" class="form-control" name="lastLoginDate" [bsConfig]="bsConfig" bsDatepicker
-                                    [(ngModel)]="customer.lastLoginDate" required disabled #createDate="bsDatepicker">
+                                    [(ngModel)]="customer.lastLoginDate" required disabled>
                                 <span class="input-group-append">
-                                    <button type="button" class="btn btn-secondary" (click)="createDate.toggle()">
+                                    <button type="button" class="btn btn-secondary">
                                         <i class="fa fa-calendar"></i>
                                     </button>
                                 </span>
@@ -310,12 +310,12 @@
         </div>
         <div class="card-footer">
             <div class="btn-group flex-btn-group-container">
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                    <i class="fa fa-ban"></i>&nbsp;
-                    <span jhiTranslate="entity.action.cancel">Cancel</span>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="backToList()">
+                    <i class="fa fa-undo"></i>&nbsp;
+                    <span jhiTranslate="entity.action.cancel">Back to list</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary pull-right">
+                <button type="submit" id="save-entity" [disabled]="isSaving" class="btn btn-success pull-right">
                     <i class="fa fa-save"></i>&nbsp;
                     <span jhiTranslate="entity.action.save">Save</span>
                 </button>
