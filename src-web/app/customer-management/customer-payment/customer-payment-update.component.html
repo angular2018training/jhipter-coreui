@@ -104,9 +104,10 @@
                                         jhiTranslate="entity.action.addblob">
                                 </label>
                                 <a *ngIf="customerPayment.idImage" class="btn btn-success btn-sm pull-left flex-center-text" (click)="openFile(customerPayment.idImageContentType, customerPayment.idImage)">
+                                    <!-- - {{selectedFileName}} - {{byteSize(customerPayment.idImageContentType)}} -->
                                     <span class="white-text">{{'entity.action.open'| translate}}</span>
                                 </a>
-                                <button *ngIf="customerPayment.idImage" type="button" (click)="customerPayment.idImage=null;customerPayment.idImageContentType=null;"
+                                <button *ngIf="customerPayment.idImage" type="button" (click)="customerPayment.idImage=null;customerPayment.idImageContentType=null;selectedFileName = ''"
                                     class="btn btn-secondary btn-xs pull-right">
                                     <i class=" fa fa-times"></i>
                                 </button>
@@ -137,8 +138,8 @@
                             <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.userVerify" for="field_userVerify">User Verify</label>
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <!-- <input id="field_userVerify" type="text" class="form-control" name="userVerify" [ngModel]="customerPayment.userVerifyId | filter : userextrainfos : 'id': 'name'"
-                                disabled> -->
+                            <input id="field_userVerify" type="text" class="form-control" name="userVerify" [ngModel]="customerPayment.userVerifyId | filter : userextrainfos : 'id': 'name'"
+                                disabled>
                         </div>
                     </div>
                 </div>
@@ -148,7 +149,15 @@
                             <label class="form-control-label" jhiTranslate="nextlogixApp.customerPayment.dateVerify" for="field_dateVerify">Date Verify</label>
                         </div>
                         <div class="col-md-8 col-sm-12">
-                            <input id="field_dateVerify" type="datetime-local" class="form-control" name="dateVerify" [ngModel]="dateVerify" disabled>
+                            <div class="input-group">
+                                <input id="field_createDate" type="text" class="form-control" name="createDate" [bsConfig]="bsConfig" bsDatepicker [ngModel]="customerPayment.dateVerify"
+                                    required disabled>
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,11 +165,11 @@
         </div>
         <div class="card-footer btn-group flex-btn-group-container">
             <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;
+                <i class="fa fa-ban"></i>&nbsp;
                 <span jhiTranslate="entity.action.cancel">Cancel</span>
             </button>
-            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                <fa-icon [icon]="'save'"></fa-icon>&nbsp;
+            <button type="submit" id="save-entity" [disabled]="isSaving" class="btn btn-success">
+                <i class="fa fa-save"></i>&nbsp;
                 <span jhiTranslate="entity.action.save">Save</span>
             </button>
         </div>
