@@ -128,13 +128,6 @@ entity PaymentType {
     description String
 }
 
-entity QuotationItemType {
-	id Long,
-    code String required,
-    name String required,
-    description String
-}
-
 entity OrderUserRouteType {
 	id Long,
     code String required,
@@ -143,6 +136,20 @@ entity OrderUserRouteType {
 }
 
 entity QuotationType {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity OrderPackageStatus {
+	id Long,
+    code String required,
+    name String required,
+    description String
+}
+
+entity OrderTransportStatus {
 	id Long,
     code String required,
     name String required,
@@ -159,6 +166,11 @@ entity Company {
     email String,
     website String,
     description String
+}
+
+// Enum
+enum OrderFeePay{
+	SENDER, RECEIVER
 }
 
 // OrderUserRoute
@@ -333,7 +345,10 @@ entity OrderMain {
     orderPrice Double,
     finalWeight Double required,
     customerOrderNumber String,
-    codAmount Double
+    codAmount Double,
+    description String,
+    orderFeePay OrderFeePay required,
+    isReturning Boolean
 }
 
 entity OrderPickup {
@@ -349,7 +364,8 @@ entity OrderConsignee {
 	id Long,
     address String required,
     consigneePhone String required,
-    consigneeName String
+    consigneeName String,
+    expectReceiptTime Instant
 }
 
 entity OrderFee {
@@ -371,6 +387,53 @@ entity OrderDelivery {
     createDate Instant required
 }
 
+entity OrderJourney {
+	id Long,
+    location String required,
+    note String,
+    referenceCode String,
+    createDate Instant required,
+    isPublic Boolean required
+}
+
+// Package Order
+entity OrderPackage {
+	id Long,
+	code String required,
+    note String,
+    quantity Integer required,
+    weight Integer required,
+    createDate Instant required
+}
+
+entity OrderPackageDetail {
+	id Long,
+	createDate Instant required,
+	receiveDate Instant
+}
+
+// Package Order
+entity OrderTransport {
+	id Long,
+	code String required,
+    note String,
+    quantity Integer required,
+    weight Integer required,
+    createDate Instant required,
+    transportMode String,
+    transportCode String,
+    transportStartTime Instant,
+    transportArriveTime Instant,
+    transportExspectArriveTime Instant
+}
+
+entity OrderTransportDetail {
+	id Long,
+	createDate Instant required,
+	receiveDate Instant
+}
+
+// Master - detail from
 entity MasterForm {
 	id Long,
     code String required,
@@ -390,7 +453,8 @@ entity DetailForm {
 
 relationship ManyToMany {
 	UserPostOffice{UserGroup required} to UserGroup,
-	OrderServices{quotation} to Quotation
+	OrderServices{quotation} to Quotation,
+	OrderMain{orderSubServices} to OrderSubServices
 }
 
 relationship ManyToOne {
@@ -407,7 +471,6 @@ relationship ManyToOne {
     CustomerType{company required} to Company,
     CustomerSource{company required} to Company,
     PaymentType{company required} to Company,
-    QuotationItemType{company required} to Company,
     OrderUserRouteType{company required} to Company,
     OrderUserRoute{company required} to Company,
     FileUpload{company required} to Company,
@@ -436,7 +499,14 @@ relationship ManyToOne {
     OrderConsignee{company required} to Company,
     OrderFee{company required} to Company,
     OrderDelivery{company required} to Company,
+    OrderJourney{company required} to Company,
+    OrderPackage{company required} to Company,
+    OrderPackageStatus{company required} to Company,
+    OrderPackageDetail{company required} to Company,
     Region{company required} to Company,
+    OrderTransportStatus{company required} to Company,
+    OrderTransport{company required} to Company,
+    OrderTransportDetail{company required} to Company,
 // Others
     Customer{manageUser} to UserExtraInfo,
     Customer{saleUser} to UserExtraInfo,
@@ -478,6 +548,30 @@ relationship ManyToOne {
     OrderUserRoute{orderUserRouteType required} to OrderUserRouteType,
     OrderUserRoute{ward} to District,
     OrderUserRoute{customer} to Customer,
+    OrderJourney{createUser} to UserExtraInfo,
+    OrderJourney{postOffice} to PostOffice,
+    OrderJourney{orderStatus required} to OrderStatus,
+    OrderJourney{orderMain required} to OrderMain,
+    OrderPackage{createPostOffice required} to PostOffice,
+    OrderPackage{currentPostOffice required} to PostOffice,
+    OrderPackage{destinationPostOffice required} to PostOffice,
+    OrderPackage{createUser required} to UserExtraInfo,
+    OrderPackage{orderPackageStatus required} to OrderPackageStatus,
+    OrderPackage{receiveUser} to UserExtraInfo,
+    OrderPackageDetail{createUser required} to UserExtraInfo,
+    OrderPackageDetail{receiveUser} to UserExtraInfo,
+    OrderPackageDetail{orderMain required} to OrderMain,
+    OrderTransport{transportStatus required} to OrderTransportStatus,
+    OrderTransport{createPostOffice required} to PostOffice,
+    OrderTransport{currentPostOffice required} to PostOffice,
+    OrderTransport{destinationPostOffice required} to PostOffice,
+    OrderTransport{createUser required} to UserExtraInfo,
+    OrderTransport{receiveUser} to UserExtraInfo,
+    OrderTransport{sendUser} to UserExtraInfo,
+    OrderTransportDetail{createUser required} to UserExtraInfo,
+    OrderTransportDetail{receiveUser} to UserExtraInfo,
+    OrderTransportDetail{orderMain} to OrderMain,
+    OrderTransportDetail{orderPackage} to OrderPackage,
     CustomerLegal{province required} to Province,
     CustomerLegal{district required} to District,
     Warehouse{province required} to Province,
@@ -517,7 +611,9 @@ relationship OneToMany {
     Customer{customerPostOfficeDetailList} to CustomerPostOffice{customerParent},
 	CustomerLegal{customerLegalFileUploadDetailList} to CustomerLegalFileUpload{customerLegalParent},
     Customer{customerWarehouseDetailList} to CustomerWarehouse{customerParent},
-    Customer{customerServicesDetailList} to CustomerServices{customerParent}
+    Customer{customerServicesDetailList} to CustomerServices{customerParent},
+    OrderPackage{orderPackageDetailList} to OrderPackageDetail{orderPackageParent},
+    OrderTransport{orderTransportDetailList} to OrderTransportDetail{orderTransportParent} 
 }
 
 relationship OneToOne {
