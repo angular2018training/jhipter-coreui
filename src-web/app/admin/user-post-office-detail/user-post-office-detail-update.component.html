@@ -14,26 +14,15 @@
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="nextlogixApp.userPostOffice.company" for="field_company">Company</label>
-            <select class="form-control" id="field_company" name="company" [(ngModel)]="userPostOffice.companyId"  required>
-                <option *ngIf="!editForm.value.company" [ngValue]="null" selected></option>
-                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.company?.dirty && editForm.controls.company?.invalid)">
-            <small class="form-text text-danger"
-                [hidden]="!editForm.controls.company?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="nextlogixApp.userPostOffice.postOffice" for="field_postOffice">Post Office</label>
-            <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userPostOffice.postOfficeId"  required>
+
+
+          <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userPostOffice.postOfficeId"  required  [disabled]="userPostOffice.id">
                 <option *ngIf="!editForm.value.postOffice" [ngValue]="null" selected></option>
-                <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postoffices; trackBy: trackPostOfficeById">{{postOfficeOption.id}}</option>
+                <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postOffices; trackBy: trackPostOfficeById">{{postOfficeOption.name}}</option>
             </select>
         </div>
-        <div [hidden]="!(editForm.controls.postOffice?.dirty && editForm.controls.postOffice?.invalid)">
+        <div [hidden]="!( editForm.controls.postOffice?.invalid)">
             <small class="form-text text-danger"
                 [hidden]="!editForm.controls.postOffice?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.
@@ -41,11 +30,16 @@
         </div>
         <div class="form-group">
             <label jhiTranslate="nextlogixApp.userPostOffice.userGroup" for="field_userGroup">User Group</label>
-            <select class="form-control" id="field_userGroup" multiple name="userGroup" [(ngModel)]="userPostOffice.userGroups" required>
-                <option [ngValue]="getSelected(userPostOffice.userGroups, userGroupOption)" *ngFor="let userGroupOption of usergroups; trackBy: trackUserGroupById">{{userGroupOption.name}}</option>
+          <ng-select  [items]="userGroups" [multiple]="true" class="bootstrap" (change)="changUserGroup"
+                      bindLabel="name" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="userPostOffice.userGroups">
+          </ng-select>
+            <select class="form-control" id="field_userGroup" multiple name="userGroup" [(ngModel)]="userPostOffice.userGroups" required [hidden]="true">
+                <option [ngValue]="getSelected(userPostOffice.userGroups, userGroupOption)" *ngFor="let userGroupOption of userGroups; trackBy: trackUserGroupById">{{userGroupOption.name}}</option>
             </select>
+
         </div>
-        <div [hidden]="!(editForm.controls.userGroup?.dirty && editForm.controls.userGroup?.invalid)">
+        <div [hidden]="!( editForm.controls.userGroup?.invalid)">
             <small class="form-text text-danger"
                 [hidden]="!editForm.controls.userGroup?.errors?.required" jhiTranslate="entity.validation.required">
                 This field is required.

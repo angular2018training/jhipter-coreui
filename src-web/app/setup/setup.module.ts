@@ -10,10 +10,11 @@ import {setupState} from "./setup.route";
 import {JhiLanguageService} from "ng-jhipster";
 import {JhiLanguageHelper} from '../shared/language/language.helper';
 import {NextlogixPostOfficeModule} from './post-office/post-office.module';
-import {NextlogixPositionModule} from './position/position.module';
 import {NextlogixOrderServicesModule} from './order-services/order-services.module';
 import {NextlogixOrderServicesTypeModule} from './order-services-type/order-services-type.module';
 import {NextlogixQuotationModule} from './quotation/quotation.module';
+import {NextlogixBankModule} from "./bank/bank.module";
+import {NextlogixPaymentTypeModule} from "./payment-type/payment-type.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -23,10 +24,11 @@ import {NextlogixQuotationModule} from './quotation/quotation.module';
     NextlogixWarehouseModule,
     NextlogixSharedLibsModule,
     NextlogixPostOfficeModule,
-    NextlogixPositionModule,
     NextlogixOrderServicesModule,
     NextlogixOrderServicesTypeModule,
     NextlogixQuotationModule,
+    NextlogixBankModule,
+    NextlogixPaymentTypeModule,
     RouterModule.forChild(setupState)
   ],
   declarations: [],

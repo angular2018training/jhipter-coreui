@@ -7,8 +7,8 @@ import { JhiAlertService,  } from 'ng-jhipster';
 import { WardService } from './ward.service';
 
 import { Ward } from './ward.model';
-import {District} from "../../shared/model/district.model";
-import {DistrictService} from "../../shared/service/district.service";
+import {District} from '../../shared/model/district.model';
+import {DistrictService} from '../../shared/service/district.service';
 
 @Component({
     selector: 'jhi-ward-update',

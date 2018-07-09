@@ -40,13 +40,15 @@ public class CustomerLegalCriteria implements Serializable {
 
     private StringFilter contractExpirationDate;
 
+    private LongFilter customerLegalFileUploadDetailListId;
+
     private LongFilter companyId;
 
     private LongFilter provinceId;
 
     private LongFilter districtId;
 
-    private LongFilter fileUploadId;
+    private LongFilter customerId;
 
     public CustomerLegalCriteria() {
     }
@@ -107,6 +109,14 @@ public class CustomerLegalCriteria implements Serializable {
         this.contractExpirationDate = contractExpirationDate;
     }
 
+    public LongFilter getCustomerLegalFileUploadDetailListId() {
+        return customerLegalFileUploadDetailListId;
+    }
+
+    public void setCustomerLegalFileUploadDetailListId(LongFilter customerLegalFileUploadDetailListId) {
+        this.customerLegalFileUploadDetailListId = customerLegalFileUploadDetailListId;
+    }
+
     public LongFilter getCompanyId() {
         return companyId;
     }
@@ -131,12 +141,12 @@ public class CustomerLegalCriteria implements Serializable {
         this.districtId = districtId;
     }
 
-    public LongFilter getFileUploadId() {
-        return fileUploadId;
+    public LongFilter getCustomerId() {
+        return customerId;
     }
 
-    public void setFileUploadId(LongFilter fileUploadId) {
-        this.fileUploadId = fileUploadId;
+    public void setCustomerId(LongFilter customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -149,10 +159,11 @@ public class CustomerLegalCriteria implements Serializable {
                 (contractContactPhone != null ? "contractContactPhone=" + contractContactPhone + ", " : "") +
                 (taxCode != null ? "taxCode=" + taxCode + ", " : "") +
                 (contractExpirationDate != null ? "contractExpirationDate=" + contractExpirationDate + ", " : "") +
+                (customerLegalFileUploadDetailListId != null ? "customerLegalFileUploadDetailListId=" + customerLegalFileUploadDetailListId + ", " : "") +
                 (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (provinceId != null ? "provinceId=" + provinceId + ", " : "") +
                 (districtId != null ? "districtId=" + districtId + ", " : "") +
-                (fileUploadId != null ? "fileUploadId=" + fileUploadId + ", " : "") +
+                (customerId != null ? "customerId=" + customerId + ", " : "") +
             "}";
     }
 

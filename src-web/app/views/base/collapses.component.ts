@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 })
 export class CollapsesComponent {
 
+  isCollapsed: boolean = false;
   constructor() { }
 
-  isCollapsed: boolean = false;
 
   collapsed(event: any): void {
     // console.log(event);

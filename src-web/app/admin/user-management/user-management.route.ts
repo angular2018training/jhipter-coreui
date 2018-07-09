@@ -4,14 +4,12 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActiva
 import {JhiPaginationUtil, JhiResolvePagingParams} from 'ng-jhipster';
 
 import { UserMgmtComponent } from './user-management.component';
-import { UserMgmtDetailComponent } from './user-management-detail.component';
-import {UserMgmtEditComponent} from './user-management-edit.component';
-import { UserDeleteDialogComponent } from './user-management-delete-dialog.component';
+import { UserMgmtDetailComponent } from './user-management-detail.component'
 
 import { Principal } from '../../shared';
-import {UserMgmtUpdateComponent} from "./user-management-update.component";
-import {UserService} from "../../shared/user/user.service";
-import {User} from "../../shared/user/user.model";
+import {UserMgmtUpdateComponent} from './user-management-update.component';
+import {UserService} from '../../shared/user/user.service';
+import {User} from '../../shared/user/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserResolve implements CanActivate {

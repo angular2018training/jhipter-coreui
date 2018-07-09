@@ -12,6 +12,8 @@ import {postOfficeRoute} from "./post-office/post-office.route";
 import {orderServicesRoute} from "./order-services/order-services.route";
 import {orderServicesTypeRoute} from "./order-services-type/order-services-type.route";
 import {quotationRoute} from "./quotation/quotation.route";
+import {bankRoute} from "./bank/bank.route";
+import {paymentTypeRoute} from "./payment-type/payment-type.route";
 const SETUP_ROUTES = [
   ...provinceRoute,
   ...districtRoute,
@@ -20,7 +22,9 @@ const SETUP_ROUTES = [
   ...postOfficeRoute,
   ...orderServicesRoute,
   ...orderServicesTypeRoute,
-  ...quotationRoute
+  ...quotationRoute,
+  ...bankRoute,
+  ...paymentTypeRoute
 ];
 
 export const setupState: Routes = [{

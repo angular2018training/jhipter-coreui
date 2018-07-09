@@ -13,10 +13,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface CustomerLegalRepository extends JpaRepository<CustomerLegal, Long>, JpaSpecificationExecutor<CustomerLegal> {
-    @Query("select distinct customer_legal from CustomerLegal customer_legal left join fetch customer_legal.fileUploads")
-    List<CustomerLegal> findAllWithEagerRelationships();
-
-    @Query("select customer_legal from CustomerLegal customer_legal left join fetch customer_legal.fileUploads where customer_legal.id =:id")
-    CustomerLegal findOneWithEagerRelationships(@Param("id") Long id);
+    
 
 }

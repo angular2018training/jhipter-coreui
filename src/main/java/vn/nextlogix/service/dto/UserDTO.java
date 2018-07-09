@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -56,6 +57,8 @@ public class UserDTO {
     private Long companyId;
 
     private UserExtraInfoDTO userExtraInfo;
+    
+    private List<PostOfficeDTO> offices;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -78,7 +81,11 @@ public class UserDTO {
             .map(Authority::getName)
             .collect(Collectors.toSet());
         this.companyId = user.getUserExtraInfo()!=null?(user.getUserExtraInfo().getCompany()!=null?user.getUserExtraInfo().getCompany().getId():null):null;
-
+        if(user.getUserExtraInfo()!=null) {
+        	UserExtraInfoDTO userExtraInfoDTO = new UserExtraInfoDTO();
+        	userExtraInfoDTO.setId(user.getUserExtraInfo().getId());
+        	this.userExtraInfo = userExtraInfoDTO;
+        }
     }
 
     public Long getId() {
@@ -204,7 +211,20 @@ public class UserDTO {
 	public void setUserExtraInfo(UserExtraInfoDTO userExtraInfo) {
 		this.userExtraInfo = userExtraInfo;
 	}
+	
+	
 
+	public List<PostOfficeDTO> getOffices() {
+		return offices;
+	}
+
+	public void setOffices(List<PostOfficeDTO> offices) {
+		this.offices = offices;
+	}
+	
+	
+
+	
 	@Override
 	public String toString() {
 		return "UserDTO [id=" + id + ", login=" + login + ", firstName=" + firstName + ", lastName=" + lastName

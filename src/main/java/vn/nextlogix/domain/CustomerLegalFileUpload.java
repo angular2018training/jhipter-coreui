@@ -32,6 +32,7 @@ public class CustomerLegalFileUpload implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    @JoinColumn(name="file_upload_id")
     private FileUpload fileUpload;
 
     @ManyToOne

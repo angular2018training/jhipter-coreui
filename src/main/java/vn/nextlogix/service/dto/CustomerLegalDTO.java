@@ -44,8 +44,6 @@ public class CustomerLegalDTO implements Serializable {
     private DistrictDTO  districtDTO;
 
 
-    private Set<FileUploadDTO> fileUploads = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -149,14 +147,6 @@ public class CustomerLegalDTO implements Serializable {
         this.districtId = districtId;
         }
 
-
-    public Set<FileUploadDTO> getFileUploads() {
-        return fileUploads;
-    }
-
-    public void setFileUploads(Set<FileUploadDTO> fileUploads) {
-        this.fileUploads = fileUploads;
-    }
 
     @Override
     public boolean equals(Object o) {

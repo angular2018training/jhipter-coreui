@@ -84,6 +84,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
       this.userSearch.createdDateTo = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['createdDateTo'] ?
         moment(this.activatedRoute.snapshot.queryParams['createdDateTo'], DATE_TIME_FORMAT).toDate() : null;
 
+      this.userSearch.postOfficeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['postOfficeId'] ?
+        this.activatedRoute.snapshot.queryParams['postOfficeId'] : null;
       if(this.userSearch.createdDateFrom == null || this.userSearch.createdDateTo ) {
         this.createdDate = null;
       }else {
@@ -95,8 +97,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             this.postOfficeService.query({"companyId.equals":this.currentAccount.companyId})
               .subscribe((res: HttpResponse<PostOffice[]>) => {
               this.postOffices = res.body;
-              this.userSearch.postOfficeId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['postOfficeId'] ?
-                this.activatedRoute.snapshot.queryParams['postOfficeId'] : null;
+
               }, (res: HttpErrorResponse) => this.onError(res.message));
             this.userGroupService.query({"companyId.equals":this.currentAccount.companyId})
               .subscribe((res: HttpResponse<UserGroup[]>) => {
@@ -141,7 +142,9 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
 
       this.transition();
     }
+  clear(){
 
+  }
     ngOnDestroy() {
         this.routeData.unsubscribe();
     }
@@ -175,8 +178,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             "email.contains": this.userSearch.email,
             "phone.contains": this.userSearch.phone,
             "activated.equals" :this.userSearch.activated,
-            "createdDate.greaterOrEqualThan":  this.userSearch.createdDateFrom?moment(this.userSearch.createdDateFrom).format('YYYY-MM-DD'):null,
-            "createdDate.lessOrEqualThan": this.userSearch.createdDateTo?moment(this.userSearch.createdDateTo).format('YYYY-MM-DD'):null,
+            "createdDate.greaterOrEqualThan":  this.userSearch.createdDateFrom?moment(this.userSearch.createdDateFrom).toISOString():null,
+            "createdDate.lessOrEqualThan": this.userSearch.createdDateTo?moment(this.userSearch.createdDateTo).toISOString():null,
             "companyId.equals":this.currentAccount.companyId,
             "postOfficeId.equals":this.userSearch.postOfficeId,
             "userGroupId.equals":this.userSearch.userGroupId,
@@ -188,6 +191,9 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
 
     trackIdentity(index, item: User) {
         return item.id;
+    }
+    trackByPostOfficeId(index, item: PostOffice) {
+      return item.id;
     }
 
     sort() {

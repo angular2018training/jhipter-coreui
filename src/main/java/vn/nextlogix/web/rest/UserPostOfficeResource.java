@@ -2,6 +2,7 @@ package vn.nextlogix.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import vn.nextlogix.exception.ApplicationException;
+import vn.nextlogix.exception.BusinessException;
 import vn.nextlogix.service.UserPostOfficeService;
 import vn.nextlogix.web.rest.errors.BadRequestAlertException;
 import vn.nextlogix.web.rest.util.HeaderUtil;
@@ -58,10 +59,11 @@ public class UserPostOfficeResource {
      * @param userPostOfficeDTO the userPostOfficeDTO to create
      * @return the ResponseEntity with status 201 (Created) and with body the new userPostOfficeDTO, or with status 400 (Bad Request) if the userPostOffice has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @throws BusinessException 
      */
     @PostMapping("/user-post-offices")
     @Timed
-    public ResponseEntity<UserPostOfficeDTO> createUserPostOffice(@Valid @RequestBody UserPostOfficeDTO userPostOfficeDTO) throws URISyntaxException {
+    public ResponseEntity<UserPostOfficeDTO> createUserPostOffice(@Valid @RequestBody UserPostOfficeDTO userPostOfficeDTO) throws URISyntaxException, BusinessException {
         log.debug("REST request to save UserPostOffice : {}", userPostOfficeDTO);
         if (userPostOfficeDTO.getId() != null) {
             throw new BadRequestAlertException("A new userPostOffice cannot already have an ID", ENTITY_NAME, "idexists");
@@ -80,10 +82,11 @@ public class UserPostOfficeResource {
      * or with status 400 (Bad Request) if the userPostOfficeDTO is not valid,
      * or with status 500 (Internal Server Error) if the userPostOfficeDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @throws BusinessException 
      */
     @PutMapping("/user-post-offices")
     @Timed
-    public ResponseEntity<UserPostOfficeDTO> updateUserPostOffice(@Valid @RequestBody UserPostOfficeDTO userPostOfficeDTO) throws URISyntaxException {
+    public ResponseEntity<UserPostOfficeDTO> updateUserPostOffice(@Valid @RequestBody UserPostOfficeDTO userPostOfficeDTO) throws URISyntaxException, BusinessException {
         log.debug("REST request to update UserPostOffice : {}", userPostOfficeDTO);
         if (userPostOfficeDTO.getId() == null) {
             return createUserPostOffice(userPostOfficeDTO);

@@ -18,6 +18,7 @@ import vn.nextlogix.domain.*; // for static metamodels
 import vn.nextlogix.repository.CustomerLegalRepository;
 import vn.nextlogix.repository.search.CustomerLegalSearchRepository;
 
+
     import vn.nextlogix.repository.search.CompanySearchRepository;
     import vn.nextlogix.service.mapper.CompanyMapper;
 
@@ -51,6 +52,7 @@ public class CustomerLegalQueryService extends QueryService<CustomerLegal> {
     private final CustomerLegalMapper customerLegalMapper;
 
     private final CustomerLegalSearchRepository customerLegalSearchRepository;
+
 
 
         private final CompanySearchRepository companySearchRepository;
@@ -133,6 +135,9 @@ public class CustomerLegalQueryService extends QueryService<CustomerLegal> {
             if (criteria.getContractExpirationDate() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContractExpirationDate(), CustomerLegal_.contractExpirationDate));
             }
+            if (criteria.getCustomerLegalFileUploadDetailListId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerLegalFileUploadDetailListId(), CustomerLegal_.customerLegalFileUploadDetailLists, CustomerLegalFileUpload_.id));
+            }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), CustomerLegal_.company, Company_.id));
             }
@@ -142,8 +147,8 @@ public class CustomerLegalQueryService extends QueryService<CustomerLegal> {
             if (criteria.getDistrictId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getDistrictId(), CustomerLegal_.district, District_.id));
             }
-            if (criteria.getFileUploadId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getFileUploadId(), CustomerLegal_.fileUploads, FileUpload_.id));
+            if (criteria.getCustomerId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getCustomerId(), CustomerLegal_.customer, Customer_.id));
             }
         }
         return specification;

@@ -1,5 +1,6 @@
 package vn.nextlogix.service;
 
+import vn.nextlogix.exception.BusinessException;
 import vn.nextlogix.service.dto.UserPostOfficeDTO;
 import vn.nextlogix.service.dto.UserPostOfficeSearchDTO;
 import org.springframework.data.domain.Page;
@@ -15,8 +16,9 @@ public interface UserPostOfficeService {
      *
      * @param userPostOfficeDTO the entity to save
      * @return the persisted entity
+     * @throws BusinessException 
      */
-    UserPostOfficeDTO save(UserPostOfficeDTO userPostOfficeDTO);
+    UserPostOfficeDTO save(UserPostOfficeDTO userPostOfficeDTO) throws BusinessException;
 
     /**
      * Get all the userPostOffices.

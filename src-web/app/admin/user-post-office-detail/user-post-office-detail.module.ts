@@ -8,6 +8,7 @@ import {
     UserPostOfficeDetailListComponent,
     UserPostOfficeDetailDeleteDialogComponent
 } from './';
+import {NgSelectModule} from "@ng-select/ng-select";
 
 
 
@@ -15,7 +16,7 @@ import {
     imports: [
         NextlogixSharedModule,
         RouterModule,
-
+      NgSelectModule
 ],
 declarations: [
     UserPostOfficeDetailUpdateComponent,

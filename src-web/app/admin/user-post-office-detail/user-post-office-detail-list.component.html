@@ -15,41 +15,40 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                <th><span jhiTranslate="global.field.id">ID</span></th>
-                <th><span jhiTranslate="nextlogixApp.userPostOffice.company">Company</span></th>
                 <th><span jhiTranslate="nextlogixApp.userPostOffice.postOffice">Post Office</span></th>
+                  <th><span jhiTranslate="nextlogixApp.userPostOffice.userGroup"></span></th>
                 <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let userPostOffice of userPostOffices ;trackBy: trackId">
-                    <td><a [routerLink]="[ userPostOffice.id,'view']">{{userPostOffice.id}}</a></td>
                     <td>
-        <div *ngIf="userPostOffice.companyId">
-        <a [routerLink]="['../company', 'detail',userPostOffice.companyId ]" >{{userPostOffice.companyDTO?.name}}</a>
-    </div>
-    </td>
+                      <div *ngIf="userPostOffice.postOfficeId">
+                        <a [routerLink]="['../post-office', 'detail',userPostOffice.postOfficeId ]" >{{userPostOffice.postOfficeDTO?.name}}</a>
+                      </div>
+                    </td>
                     <td>
-        <div *ngIf="userPostOffice.postOfficeId">
-        <a [routerLink]="['../post-office', 'detail',userPostOffice.postOfficeId ]" >{{userPostOffice.postOfficeDTO?.name}}</a>
-    </div>
-    </td>
-    <td class="text-right">
-        <div class="btn-group flex-btn-group-container">
 
-            <button type="button"
-                    (click)="editDetailForm(userPostOffice.id)"
-                    class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-            </button>
-            <button type="button" (click)="deleteDetailForm(userPostOffice.id)"
-                    class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-            </button>
-        </div>
-    </td>
+                        <span *ngFor="let userGroup of userPostOffice.userGroups; let i = index">
+                            <span>{{userGroup.name}}</span><br>
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+
+                            <button type="button"
+                                    (click)="editDetailForm(userPostOffice.id)"
+                                    class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil"></i>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="button" (click)="deleteDetailForm(userPostOffice.id)"
+                                    class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
     </tr>
     </tbody>
     </table>

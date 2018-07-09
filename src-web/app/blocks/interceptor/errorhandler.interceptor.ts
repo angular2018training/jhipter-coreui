@@ -56,7 +56,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
                           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
                             this.addErrorAlert(httpErrorResponse.error.message, httpErrorResponse.error.message, httpErrorResponse.error.params);
                           } else {
-                            this.addErrorAlert(httpErrorResponse.error);
+                            this.addErrorAlert(httpErrorResponse.error,httpErrorResponse.error);
                           }
                           break;
 
@@ -65,10 +65,12 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
                           break;
 
                         default:
-                          if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
-                            this.addErrorAlert(httpErrorResponse.error.message);
-                          } else {
-                            this.addErrorAlert(httpErrorResponse.error);
+                          if (httpErrorResponse.error !== '' &&  httpErrorResponse.error.detail) {
+                            this.addErrorAlert('Unknown exception ',httpErrorResponse.error.detail);
+                          } else if(httpErrorResponse.error !== '' && httpErrorResponse.error.message){
+                            this.addErrorAlert('Unknown exception ',httpErrorResponse.error.message);
+                          }else {
+                            this.addErrorAlert(httpErrorResponse.error,httpErrorResponse.error);
                           }
                       }
                         //this.eventManager.broadcast({name: 'nextLogixApp.httpError', content: err});

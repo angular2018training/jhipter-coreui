@@ -333,7 +333,20 @@
     </tabset>
   </app-aside>
 </div>
-<app-footer>
+<app-footer [fixed]="true">
   <span><a href="https://coreui.io">CoreUI</a> &copy; 2018 creativeLabs.</span>
-  <span class="ml-auto">Powered by <a href="https://coreui.io/angular">CoreUI for Angular</a></span>
+  <div class="pull-right ml-auto">
+    <form (ngSubmit)="changeOffice()">
+      <select name="currentOffice" [(ngModel)]="currentPostOfficeId">
+        <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postOffices; trackBy: trackPostOfficeById" >{{postOfficeOption.code}} - {{postOfficeOption.name}}</option>
+      </select>
+      <button type="submit"
+              class="btn btn-sm">
+        <i class="fa fa-refresh fa-lg "></i>
+        <span class="d-none d-md-inline" jhiTranslate="action.change">Delete</span>
+      </button>
+    </form>
+  </div>
+
+
 </app-footer>

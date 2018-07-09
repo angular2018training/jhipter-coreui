@@ -3,11 +3,13 @@ package vn.nextlogix.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import vn.nextlogix.domain.User;
+import vn.nextlogix.repository.UserPostOfficeRepository;
 import vn.nextlogix.repository.UserRepository;
 import vn.nextlogix.security.SecurityUtils;
 import vn.nextlogix.service.MailService;
 import vn.nextlogix.service.UserService;
 import vn.nextlogix.service.dto.UserDTO;
+import vn.nextlogix.service.mapper.PostOfficeMapper;
 import vn.nextlogix.web.rest.errors.*;
 import vn.nextlogix.web.rest.vm.KeyAndPasswordVM;
 import vn.nextlogix.web.rest.vm.ManagedUserVM;
@@ -20,8 +22,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import vn.nextlogix.service.dto.AuthorityDTO;
 import vn.nextlogix.service.dto.PasswordChangeDTO;
+import vn.nextlogix.service.dto.PostOfficeDTO;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing the current user's account.
@@ -37,12 +44,19 @@ public class AccountResource {
     private final UserService userService;
 
     private final MailService mailService;
+    
+    private final UserPostOfficeRepository userPostOfficeRepository;
+    
+    private final PostOfficeMapper postOfficeMapper;
+    
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,UserPostOfficeRepository userPostOfficeRepository,PostOfficeMapper postOfficeMapper) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.userPostOfficeRepository = userPostOfficeRepository;
+        this.postOfficeMapper = postOfficeMapper;
     }
 
     /**
@@ -103,9 +117,16 @@ public class AccountResource {
     @GetMapping("/account")
     @Timed
     public UserDTO getAccount() {
-        return userService.getUserWithAuthorities()
-            .map(UserDTO::new)
-            .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+    	Optional<UserDTO> userDTO = userService.getUserWithAuthorities()
+        .map(UserDTO::new);
+    	if(userDTO.isPresent()) {
+    		if(userDTO.get().getUserExtraInfo()!=null && userDTO.get().getUserExtraInfo().getId() !=null) {
+    			 List<PostOfficeDTO> postOffices =  this.userPostOfficeRepository.findByUserExtraInfoParent_Id(userDTO.get().getUserExtraInfo().getId()).stream().map(userPostOffice -> userPostOffice.getPostOffice()).filter(postOffice -> postOffice!=null).map(postOffice ->postOfficeMapper.toDto(postOffice)).collect(Collectors.toList());
+    			 userDTO.get().setOffices(postOffices);
+    		}
+    	}
+        return 
+        		userDTO.orElseThrow(() -> new InternalServerErrorException("User could not be found"));
     }
 
     /**

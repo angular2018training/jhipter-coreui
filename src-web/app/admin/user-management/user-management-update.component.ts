@@ -90,4 +90,8 @@ export class UserMgmtUpdateComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
+    openFile(contentType, field) {
+      return this.dataUtils.openFile(contentType, field);
+    }
 }

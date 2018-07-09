@@ -13,6 +13,7 @@ public interface UserPostOfficeMapper extends EntityMapper<UserPostOfficeDTO, Us
 
     @Mapping(source = "company.id", target = "companyId")
     @Mapping(source = "postOffice.id", target = "postOfficeId")
+    @Mapping(source = "postOffice", target = "postOfficeDTO")
     @Mapping(source = "userExtraInfoParent.id", target = "userExtraInfoParentId")
     UserPostOfficeDTO toDto(UserPostOffice userPostOffice);
 

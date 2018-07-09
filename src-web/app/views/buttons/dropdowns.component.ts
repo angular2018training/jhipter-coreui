@@ -4,7 +4,12 @@ import { Component } from '@angular/core';
   templateUrl: 'dropdowns.component.html',
 })
 export class DropdownsComponent {
+  disabled: boolean = false;
 
+  isDropup: boolean = true;
+
+  autoClose: boolean = false;
+  
   constructor() { }
 
   items: string[] = [
@@ -35,9 +40,5 @@ export class DropdownsComponent {
     this.status.isOpen = value;
   }
 
-  disabled: boolean = false;
-
-  isDropup: boolean = true;
-
-  autoClose: boolean = false;
+  
 }

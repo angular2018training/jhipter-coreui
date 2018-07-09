@@ -2,7 +2,6 @@ package vn.nextlogix.service.dto;
 
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.InstantFilter;
-import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 

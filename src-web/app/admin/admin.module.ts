@@ -11,7 +11,6 @@ import {
   UserMgmtComponent,
   UserDeleteDialogComponent,
   UserMgmtDetailComponent,
-  UserMgmtEditComponent,
   UserMgmtDeleteDialogComponent,
   LogsComponent,
   JhiMetricsMonitoringModalComponent,
@@ -57,7 +56,6 @@ import {NextlogixUserPostOfficeDetailModule} from './user-post-office-detail/use
     UserMgmtComponent,
     UserDeleteDialogComponent,
     UserMgmtDetailComponent,
-    UserMgmtEditComponent,
     UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
@@ -71,7 +69,6 @@ import {NextlogixUserPostOfficeDetailModule} from './user-post-office-detail/use
     ElasticsearchReindexModalComponent
   ],
   entryComponents: [
-    UserMgmtEditComponent,
     UserMgmtDeleteDialogComponent,
     JhiHealthModalComponent,
     JhiMetricsMonitoringModalComponent,

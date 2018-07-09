@@ -1,0 +1,3 @@
+id;code;name;address;sort_order;phone;latitude;longitude;description;company_id;province_id;district_id
+1;"HCM_BT";"Bình Thạnh";"Bùi Đình Túy";1;"028123456789";234;123;"Bùi Đình Túy";1;1;1
+2;HCM_Q10;Quận 10;Lý Thường Kiệt;2;028123456789;234;123;Lý Thường Kiệt;1;1;10

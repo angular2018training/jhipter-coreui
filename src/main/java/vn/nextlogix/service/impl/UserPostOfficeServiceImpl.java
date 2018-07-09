@@ -2,9 +2,8 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.UserPostOfficeService;
 import vn.nextlogix.domain.UserPostOffice;
-
-
-    import vn.nextlogix.repository.UserPostOfficeRepository;
+import vn.nextlogix.exception.BusinessException;
+import vn.nextlogix.repository.UserPostOfficeRepository;
     import org.elasticsearch.search.sort.SortBuilders;
     import org.elasticsearch.search.sort.SortOrder;
 
@@ -94,10 +93,12 @@ public class UserPostOfficeServiceImpl implements UserPostOfficeService {
      *
      * @param userPostOfficeDTO the entity to save
      * @return the persisted entity
+     * @throws BusinessException 
      */
     @Override
-    public UserPostOfficeDTO save(UserPostOfficeDTO userPostOfficeDTO) {
+    public UserPostOfficeDTO save(UserPostOfficeDTO userPostOfficeDTO) throws BusinessException {
         log.debug("Request to save UserPostOffice : {}", userPostOfficeDTO);
+        checkExists(userPostOfficeDTO);
         UserPostOffice userPostOffice = userPostOfficeMapper.toEntity(userPostOfficeDTO);
         userPostOffice = userPostOfficeRepository.save(userPostOffice);
         UserPostOfficeDTO result = userPostOfficeMapper.toDto(userPostOffice);
@@ -105,7 +106,17 @@ public class UserPostOfficeServiceImpl implements UserPostOfficeService {
         return result;
     }
 
-    /**
+    private void checkExists(UserPostOfficeDTO userPostOfficeDTO) throws BusinessException {
+		if(userPostOfficeDTO.getId() ==null) {
+			Long userExtraInfoId = userPostOfficeDTO.getUserExtraInfoParentId();
+			Long postOfficeId = userPostOfficeDTO.getPostOfficeId();
+			List<UserPostOffice>  userPostOffice = userPostOfficeRepository.findByUserExtraInfoParent_IdAndPostOfficeId(userExtraInfoId,postOfficeId);
+			if(userPostOffice.size()>0) throw new BusinessException("userPostOffice.duplicate.record");
+		}
+		
+	}
+
+	/**
      * Get all the userPostOffices.
      *
      * @param pageable the pagination information

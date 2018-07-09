@@ -97,7 +97,7 @@ currentAccount: any;
     }
 
     loadAll() {
-         var obj = {
+         let obj = {
          page: this.page -1,
          size: this.itemsPerPage,
          sort: this.sort(),

@@ -2,7 +2,13 @@ package vn.nextlogix.service.impl;
 
 import vn.nextlogix.service.CustomerLegalService;
 import vn.nextlogix.domain.CustomerLegal;
-import vn.nextlogix.repository.CustomerLegalRepository;
+
+
+    import vn.nextlogix.repository.CustomerLegalRepository;
+    import org.elasticsearch.search.sort.SortBuilders;
+    import org.elasticsearch.search.sort.SortOrder;
+
+    import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import vn.nextlogix.repository.search.CustomerLegalSearchRepository;
 import vn.nextlogix.service.dto.CustomerLegalDTO;
 import vn.nextlogix.service.dto.CustomerLegalSearchDTO;
@@ -21,6 +27,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+
 
 
     import vn.nextlogix.repository.search.CompanySearchRepository;
@@ -54,6 +64,7 @@ public class CustomerLegalServiceImpl implements CustomerLegalService {
     private final CustomerLegalMapper customerLegalMapper;
 
     private final CustomerLegalSearchRepository customerLegalSearchRepository;
+
 
 
         private final CompanySearchRepository companySearchRepository;
@@ -113,6 +124,21 @@ public class CustomerLegalServiceImpl implements CustomerLegalService {
             .map(customerLegalMapper::toDto);
     }
 
+
+    /**
+     *  get all the customerLegals where Customer is null.
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true) 
+    public List<CustomerLegalDTO> findAllWhereCustomerIsNull() {
+        log.debug("Request to get all customerLegals where Customer is null");
+        return StreamSupport
+            .stream(customerLegalRepository.findAll().spliterator(), false)
+            .filter(customerLegal -> customerLegal.getCustomer() == null)
+            .map(customerLegalMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
     /**
      * Get one customerLegal by id.
      *
@@ -123,7 +149,7 @@ public class CustomerLegalServiceImpl implements CustomerLegalService {
     @Transactional(readOnly = true)
     public CustomerLegalDTO findOne(Long id) {
         log.debug("Request to get CustomerLegal : {}", id);
-        CustomerLegal customerLegal = customerLegalRepository.findOneWithEagerRelationships(id);
+        CustomerLegal customerLegal = customerLegalRepository.findOne(id);
         return customerLegalMapper.toDto(customerLegal);
     }
 
@@ -162,24 +188,38 @@ public class CustomerLegalServiceImpl implements CustomerLegalService {
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
             BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
             if(StringUtils.isNotBlank(searchDto.getContractCustomerName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractCustomerName", "*"+searchDto.getContractCustomerName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractCustomerName", "*"+searchDto.getContractCustomerName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getContractAddress())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractAddress", "*"+searchDto.getContractAddress()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractAddress", "*"+searchDto.getContractAddress()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getContractContactName())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractContactName", "*"+searchDto.getContractContactName()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractContactName", "*"+searchDto.getContractContactName()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getContractContactPhone())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractContactPhone", "*"+searchDto.getContractContactPhone()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractContactPhone", "*"+searchDto.getContractContactPhone()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getTaxCode())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("taxCode", "*"+searchDto.getTaxCode()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("taxCode", "*"+searchDto.getTaxCode()+"*"));
             }
             if(StringUtils.isNotBlank(searchDto.getContractExpirationDate())) {
-            boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractExpirationDate", "*"+searchDto.getContractExpirationDate()+"*"));
+                 boolQueryBuilder.must(QueryBuilders.wildcardQuery("contractExpirationDate", "*"+searchDto.getContractExpirationDate()+"*"));
             }
-            SearchQuery  query = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable).build();
+            if(searchDto.getCompanyId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("company.id", searchDto.getCompanyId()));
+            }
+            if(searchDto.getProvinceId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("province.id", searchDto.getProvinceId()));
+            }
+            if(searchDto.getDistrictId() !=null) {
+                boolQueryBuilder.must(QueryBuilders.matchQuery("district.id", searchDto.getDistrictId()));
+            }
+            NativeSearchQueryBuilder queryBuilder = nativeSearchQueryBuilder.withQuery(boolQueryBuilder).withPageable(pageable);
+
+            pageable.getSort().forEach(sort -> {
+            queryBuilder.withSort(SortBuilders.fieldSort(sort.getProperty()).order(sort.getDirection() ==org.springframework.data.domain.Sort.Direction.ASC?SortOrder.ASC:SortOrder.DESC).unmappedType("long"));
+            });
+            NativeSearchQuery query = queryBuilder.build();
             Page<CustomerLegal> customerLegalPage= customerLegalSearchRepository.search(query);
             List<CustomerLegalDTO> customerLegalList =  StreamSupport
             .stream(customerLegalPage.spliterator(), false)

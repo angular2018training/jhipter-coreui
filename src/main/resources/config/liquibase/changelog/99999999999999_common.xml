@@ -64,6 +64,38 @@
               separator=";"
               tableName="user_extra_info">
     </loadData>
+    
+     <loadData encoding="UTF-8"
+              file="config/liquibase/customer_type.csv"
+              separator=";"
+              tableName="customer_type">
+    </loadData>
+    
+     <loadData encoding="UTF-8"
+              file="config/liquibase/customer_source.csv"
+              separator=";"
+              tableName="customer_source">
+    </loadData>
+    
+     <loadData encoding="UTF-8"
+              file="config/liquibase/post_office.csv"
+              separator=";" 
+              tableName="post_office">
+               <column name="id" type="NUMERIC"/>
+               <column name="code" type="string"/>
+               <column name="name" type="string"/>
+               <column name="address" type="string"/>
+              <column name="sort_order" type="NUMERIC"/>
+                <column name="phone" type="NUMERIC"/>
+              <column name="latitude" type="NUMERIC"/>
+              <column name="longitude" type="NUMERIC"/>
+              <column name="description" type="string"/>
+              <column name="company_id" type="NUMERIC"/>
+              <column name="province_id" type="NUMERIC"/>
+              <column name="district_id" type="NUMERIC"/>
+              
+    </loadData>
+    
 
 
 

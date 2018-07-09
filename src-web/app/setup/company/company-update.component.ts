@@ -7,10 +7,10 @@ import { JhiAlertService,  } from 'ng-jhipster';
 import { CompanyService } from './company.service';
 
 import { Company } from './company.model';
-import {Province} from "../../shared/model/province.model";
-import {District} from "../../shared/model/district.model";
-import {ProvinceService} from "../../shared/service/province.service";
-import {DistrictService} from "../../shared/service/district.service";
+import {Province} from '../../shared/model/province.model';
+import {District} from '../../shared/model/district.model';
+import {ProvinceService} from '../../shared/service/province.service';
+import {DistrictService} from '../../shared/service/district.service';
 
 @Component({
     selector: 'jhi-company-update',

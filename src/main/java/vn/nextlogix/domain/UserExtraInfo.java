@@ -61,10 +61,6 @@ public class UserExtraInfo implements Serializable {
     @Column(name = "contract_expiration_date")
     private Instant contractExpirationDate;
 
-    @OneToMany(mappedBy = "userExtraInfo")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<UserPosition> userPositions = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -179,30 +175,7 @@ public class UserExtraInfo implements Serializable {
         this.contractExpirationDate = contractExpirationDate;
     }
 
-    public Set<UserPosition> getUserPositions() {
-        return userPositions;
-    }
-
-    public UserExtraInfo userPositions(Set<UserPosition> userPositions) {
-        this.userPositions = userPositions;
-        return this;
-    }
-
-    public UserExtraInfo addUserPosition(UserPosition userPosition) {
-        this.userPositions.add(userPosition);
-        userPosition.setUserExtraInfo(this);
-        return this;
-    }
-
-    public UserExtraInfo removeUserPosition(UserPosition userPosition) {
-        this.userPositions.remove(userPosition);
-        userPosition.setUserExtraInfo(null);
-        return this;
-    }
-
-    public void setUserPositions(Set<UserPosition> userPositions) {
-        this.userPositions = userPositions;
-    }
+    
 
     public Company getCompany() {
         return company;

@@ -1,4 +1,4 @@
-import {UserExtraInfo} from "../model/user-extra-info.model";
+import {UserExtraInfo} from '../model/user-extra-info.model';
 export class User {
     public id?: any;
     public login?: string;

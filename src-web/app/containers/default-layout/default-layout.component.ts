@@ -6,6 +6,8 @@ import {Title} from "@angular/platform-browser";
 import { ToasterModule, ToasterService, ToasterConfig }  from 'angular2-toaster/angular2-toaster';
 import { JhiLanguageHelper } from '../../shared';
 import {JhiLanguageService} from "ng-jhipster";
+import {Principal} from "../../shared/auth/principal.service";
+import {PostOffice} from "../../shared/model/post-office.model";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
@@ -15,10 +17,13 @@ export class DefaultLayoutComponent implements OnInit{
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
+  public postOffices :any;
   languages: any[];
-
+  currentPostOfficeId : number;
   constructor( private loginService: LoginService, private router: Router,private titleService: Title, private jhiLanguageHelper: JhiLanguageHelper,
-               private languageService: JhiLanguageService,private toasterService: ToasterService) {
+               private languageService: JhiLanguageService,private toasterService: ToasterService,
+                private principal : Principal
+    ) {
     console.log('languageService'+languageService);
     this.languages = new Array();
     this.changes = new MutationObserver((mutations) => {
@@ -28,6 +33,8 @@ export class DefaultLayoutComponent implements OnInit{
     this.changes.observe(<Element>this.element, {
       attributes: true
     });
+    this.postOffices = [];
+    this.currentPostOfficeId = null;
   }
   logout() {
     this.loginService.logout();
@@ -42,6 +49,9 @@ export class DefaultLayoutComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.principal.getAuthenticationState().subscribe(data => {
+
+    })
     this.jhiLanguageHelper.getAll().then((languages) => {
       this.languages = languages;
     });
@@ -50,11 +60,24 @@ export class DefaultLayoutComponent implements OnInit{
         this.jhiLanguageHelper.updateTitle(this.getPageTitle(this.router.routerState.snapshot.root));
       }
     });
+    this.principal.identity().then((account) => {
+      this.postOffices = account.offices;
+      this.currentPostOfficeId = this.principal.currentOffice;
+    });
+
   }
   changeLanguage(languageKey: string) {
     this.languageService.changeLanguage(languageKey);
   }
   getLanguage (){
     return this.languageService.currentLang;
+  }
+
+  trackPostOfficeById(index: number, item: PostOffice) {
+    return item.id;
+  }
+
+  changeOffice(){
+    this.principal.currentOffice = this.currentPostOfficeId;
   }
 }

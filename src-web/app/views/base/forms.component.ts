@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
   templateUrl: 'forms.component.html'
 })
 export class FormsComponent {
-
-  constructor() { }
-
+  
   isCollapsed: boolean = false;
   iconCollapse: string = "icon-arrow-up";
+  constructor() { }
+
 
   collapsed(event: any): void {
     // console.log(event);

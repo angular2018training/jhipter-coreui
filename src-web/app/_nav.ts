@@ -10,7 +10,7 @@ export const navItems = [
   },
   {
     name: 'Administration',
-    url: '/dashboard',
+    url: '/admin',
     icon: 'icon-cursor',
     children: [
       {
@@ -53,6 +53,12 @@ export const navItems = [
         url: '/admin/elasticsearch-reindex',
         icon: 'icon-cursor'
       },
+      {
+        name: 'User group',
+        url: '/admin/user-group',
+        icon: 'icon-cursor'
+      },
+
 
 
     ]
@@ -63,268 +69,57 @@ export const navItems = [
     icon: 'icon-cursor',
     children: [
       {
-        name: 'Position',
-        url: '/setup/position',
+        name: 'Post Office',
+        url: '/setup/post-office',
         icon: 'icon-cursor'
       },
       {
-        name: 'Metrics',
-        url: '/admin/jhi-metrics',
+        name: 'Province',
+        url: '/setup/province',
         icon: 'icon-cursor'
       },
       {
-        name: 'Health',
-        url: '/admin/jhi-health',
+        name: 'Order Services',
+        url: '/setup/order-services',
         icon: 'icon-cursor'
       },
       {
-        name: 'Configuration',
-        url: '/admin/jhi-configuration',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Audits',
-        url: '/admin/audits',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Logs',
-        url: '/admin/logs',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'API',
-        url: '/admin/docs',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Elastic search Reindex',
-        url: '/admin/elasticsearch-reindex',
+        name: 'Order Services Type',
+        url: '/setup/order-services-type',
         icon: 'icon-cursor'
       },
 
+      {
+        name: 'Quotation',
+        url: '/setup/quotation',
+        icon: 'icon-cursor'
+      },
+
+      {
+        name: 'Bank',
+        url: '/setup/bank',
+        icon: 'icon-cursor'
+      },
+      {
+        name: 'Payment type',
+        url: '/setup/payment-type',
+        icon: 'icon-cursor'
+      },
 
     ]
   },
   {
-    title: true,
-    name: 'Theme'
-  },
-  {
-    name: 'Colors',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
-  {
-    name: 'Typography',
-    url: '/theme/typography',
-    icon: 'icon-pencil'
-  },
-  {
-    title: true,
-    name: 'Components'
-  },
-  {
-    name: 'Base',
-    url: '/base',
-    icon: 'icon-puzzle',
-    children: [
-      {
-        name: 'Cards',
-        url: '/base/cards',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Carousels',
-        url: '/base/carousels',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Collapses',
-        url: '/base/collapses',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Forms',
-        url: '/base/forms',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Pagination',
-        url: '/base/paginations',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Popovers',
-        url: '/base/popovers',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Progress',
-        url: '/base/progress',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Switches',
-        url: '/base/switches',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tables',
-        url: '/base/tables',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tabs',
-        url: '/base/tabs',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tooltips',
-        url: '/base/tooltips',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'Buttons',
-    url: '/buttons',
+    name: 'Customer Management',
+    url: '/customer-management',
     icon: 'icon-cursor',
     children: [
       {
-        name: 'Buttons',
-        url: '/buttons/buttons',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Dropdowns',
-        url: '/buttons/dropdowns',
-        icon: 'icon-cursor'
-      },
-      {
-        name: 'Brand Buttons',
-        url: '/buttons/brand-buttons',
+        name: 'Customer',
+        url: '/customer-management',
         icon: 'icon-cursor'
       }
     ]
-  },
-
-  {
-    name: 'Charts',
-    url: '/charts',
-    icon: 'icon-pie-chart'
-  },
-  {
-    name: 'Icons',
-    url: '/icons',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'CoreUI Icons',
-        url: '/icons/coreui-icons',
-        icon: 'icon-star',
-        badge: {
-          variant: 'success',
-          text: 'NEW'
-        }
-      },
-      {
-        name: 'Flags',
-        url: '/icons/flags',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Font Awesome',
-        url: '/icons/font-awesome',
-        icon: 'icon-star',
-        badge: {
-          variant: 'secondary',
-          text: '4.7'
-        }
-      },
-      {
-        name: 'Simple Line Icons',
-        url: '/icons/simple-line-icons',
-        icon: 'icon-star'
-      }
-    ]
-  },
-  {
-    name: 'Notifications',
-    url: '/notifications',
-    icon: 'icon-bell',
-    children: [
-      {
-        name: 'Alerts',
-        url: '/notifications/alerts',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Badges',
-        url: '/notifications/badges',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Modals',
-        url: '/notifications/modals',
-        icon: 'icon-bell'
-      }
-    ]
-  },
-  {
-    name: 'Widgets',
-    url: '/widgets',
-    icon: 'icon-calculator',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    divider: true
-  },
-  {
-    title: true,
-    name: 'Extras',
-  },
-  {
-    name: 'Pages',
-    url: '/pages',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 404',
-        url: '/404',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 500',
-        url: '/500',
-        icon: 'icon-star'
-      }
-    ]
-  },
-  {
-    name: 'Download CoreUI',
-    url: 'http://coreui.io/angular/',
-    icon: 'icon-cloud-download',
-    class: 'mt-auto',
-    variant: 'success'
-  },
-  {
-    name: 'Try CoreUI PRO',
-    url: 'http://coreui.io/pro/angular/',
-    icon: 'icon-layers',
-    variant: 'danger'
   }
+
+
 ];

@@ -62,7 +62,7 @@
         <div class="col-md-4 col-form-label">
           <select class="form-control" id="field_postOffice" name="postOffice" [(ngModel)]="userSearch.postOfficeId" >
             <option  [ngValue]="null" ></option>
-            <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postOffices; trackBy: trackPostOfficeById">{{postOfficeOption.code}} - {{postOfficeOption.name}}</option>
+            <option [ngValue]="postOfficeOption.id" *ngFor="let postOfficeOption of postOffices; trackBy: trackByPostOfficeId" [selected]="userSearch.postOfficeId ===postOfficeOption.id ">{{postOfficeOption.code}} - {{postOfficeOption.name}}</option>
           </select>
         </div>
         <label class="col-md-2 col-form-label" for="field_userGroup"

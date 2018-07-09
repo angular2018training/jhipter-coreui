@@ -155,9 +155,6 @@ public class ElasticsearchIndexService {
 
     private final PaymentTypeSearchRepository paymentTypeSearchRepository;
 
-    private final PositionRepository positionRepository;
-
-    private final PositionSearchRepository positionSearchRepository;
 
     private final PostOfficeRepository postOfficeRepository;
 
@@ -223,9 +220,6 @@ public class ElasticsearchIndexService {
 
     private final UserGroupSearchRepository userGroupSearchRepository;
 
-    private final UserPositionRepository userPositionRepository;
-
-    private final UserPositionSearchRepository userPositionSearchRepository;
 
     private final UserPostOfficeRepository userPostOfficeRepository;
 
@@ -310,8 +304,6 @@ public class ElasticsearchIndexService {
         OrderUserRouteTypeSearchRepository orderUserRouteTypeSearchRepository,
         PaymentTypeRepository paymentTypeRepository,
         PaymentTypeSearchRepository paymentTypeSearchRepository,
-        PositionRepository positionRepository,
-        PositionSearchRepository positionSearchRepository,
         PostOfficeRepository postOfficeRepository,
         PostOfficeSearchRepository postOfficeSearchRepository,
         ProvinceRepository provinceRepository,
@@ -344,8 +336,6 @@ public class ElasticsearchIndexService {
         UserExtraInfoSearchRepository userExtraInfoSearchRepository,
         UserGroupRepository userGroupRepository,
         UserGroupSearchRepository userGroupSearchRepository,
-        UserPositionRepository userPositionRepository,
-        UserPositionSearchRepository userPositionSearchRepository,
         UserPostOfficeRepository userPostOfficeRepository,
         UserPostOfficeSearchRepository userPostOfficeSearchRepository,
         WardRepository wardRepository,
@@ -415,8 +405,6 @@ public class ElasticsearchIndexService {
         this.orderUserRouteTypeSearchRepository = orderUserRouteTypeSearchRepository;
         this.paymentTypeRepository = paymentTypeRepository;
         this.paymentTypeSearchRepository = paymentTypeSearchRepository;
-        this.positionRepository = positionRepository;
-        this.positionSearchRepository = positionSearchRepository;
         this.postOfficeRepository = postOfficeRepository;
         this.postOfficeSearchRepository = postOfficeSearchRepository;
         this.provinceRepository = provinceRepository;
@@ -449,8 +437,6 @@ public class ElasticsearchIndexService {
         this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
         this.userGroupRepository = userGroupRepository;
         this.userGroupSearchRepository = userGroupSearchRepository;
-        this.userPositionRepository = userPositionRepository;
-        this.userPositionSearchRepository = userPositionSearchRepository;
         this.userPostOfficeRepository = userPostOfficeRepository;
         this.userPostOfficeSearchRepository = userPostOfficeSearchRepository;
         this.wardRepository = wardRepository;
@@ -496,7 +482,6 @@ public class ElasticsearchIndexService {
                 reindexForClass(OrderUserRoute.class, orderUserRouteRepository, orderUserRouteSearchRepository);
                 reindexForClass(OrderUserRouteType.class, orderUserRouteTypeRepository, orderUserRouteTypeSearchRepository);
                 reindexForClass(PaymentType.class, paymentTypeRepository, paymentTypeSearchRepository);
-                reindexForClass(Position.class, positionRepository, positionSearchRepository);
                 reindexForClass(PostOffice.class, postOfficeRepository, postOfficeSearchRepository);
                 reindexForClass(Province.class, provinceRepository, provinceSearchRepository);
                 reindexForClass(Quotation.class, quotationRepository, quotationSearchRepository);
@@ -513,7 +498,6 @@ public class ElasticsearchIndexService {
                 reindexForClass(Region.class, regionRepository, regionSearchRepository);
                 reindexForClass(UserExtraInfo.class, userExtraInfoRepository, userExtraInfoSearchRepository);
                 reindexForClass(UserGroup.class, userGroupRepository, userGroupSearchRepository);
-                reindexForClass(UserPosition.class, userPositionRepository, userPositionSearchRepository);
                 reindexForClass(UserPostOffice.class, userPostOfficeRepository, userPostOfficeSearchRepository);
                 reindexForClass(Ward.class, wardRepository, wardSearchRepository);
                 reindexForClass(Warehouse.class, warehouseRepository, warehouseSearchRepository);

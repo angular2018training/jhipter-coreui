@@ -112,9 +112,6 @@ public class UserExtraInfoQueryService extends QueryService<UserExtraInfo> {
             if (criteria.getContractExpirationDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getContractExpirationDate(), UserExtraInfo_.contractExpirationDate));
             }
-            if (criteria.getUserPositionId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getUserPositionId(), UserExtraInfo_.userPositions, UserPosition_.id));
-            }
             if (criteria.getCompanyId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getCompanyId(), UserExtraInfo_.company, Company_.id));
             }

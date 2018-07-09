@@ -1,5 +1,6 @@
 package vn.nextlogix.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -49,6 +50,11 @@ public class CustomerLegal implements Serializable {
     @Column(name = "contract_expiration_date", nullable = false)
     private String contractExpirationDate;
 
+    @OneToMany(mappedBy = "customerLegalParent")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<CustomerLegalFileUpload> customerLegalFileUploadDetailLists = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
     private Company company;
@@ -61,12 +67,9 @@ public class CustomerLegal implements Serializable {
     @NotNull
     private District district;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "customer_legal_file_upload",
-               joinColumns = @JoinColumn(name="customer_legals_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="file_uploads_id", referencedColumnName="id"))
-    private Set<FileUpload> fileUploads = new HashSet<>();
+    @OneToOne(mappedBy = "legal")
+    @JsonIgnore
+    private Customer customer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -155,6 +158,31 @@ public class CustomerLegal implements Serializable {
         this.contractExpirationDate = contractExpirationDate;
     }
 
+    public Set<CustomerLegalFileUpload> getCustomerLegalFileUploadDetailLists() {
+        return customerLegalFileUploadDetailLists;
+    }
+
+    public CustomerLegal customerLegalFileUploadDetailLists(Set<CustomerLegalFileUpload> customerLegalFileUploads) {
+        this.customerLegalFileUploadDetailLists = customerLegalFileUploads;
+        return this;
+    }
+
+    public CustomerLegal addCustomerLegalFileUploadDetailList(CustomerLegalFileUpload customerLegalFileUpload) {
+        this.customerLegalFileUploadDetailLists.add(customerLegalFileUpload);
+        customerLegalFileUpload.setCustomerLegalParent(this);
+        return this;
+    }
+
+    public CustomerLegal removeCustomerLegalFileUploadDetailList(CustomerLegalFileUpload customerLegalFileUpload) {
+        this.customerLegalFileUploadDetailLists.remove(customerLegalFileUpload);
+        customerLegalFileUpload.setCustomerLegalParent(null);
+        return this;
+    }
+
+    public void setCustomerLegalFileUploadDetailLists(Set<CustomerLegalFileUpload> customerLegalFileUploads) {
+        this.customerLegalFileUploadDetailLists = customerLegalFileUploads;
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -194,27 +222,17 @@ public class CustomerLegal implements Serializable {
         this.district = district;
     }
 
-    public Set<FileUpload> getFileUploads() {
-        return fileUploads;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public CustomerLegal fileUploads(Set<FileUpload> fileUploads) {
-        this.fileUploads = fileUploads;
+    public CustomerLegal customer(Customer customer) {
+        this.customer = customer;
         return this;
     }
 
-    public CustomerLegal addFileUpload(FileUpload fileUpload) {
-        this.fileUploads.add(fileUpload);
-        return this;
-    }
-
-    public CustomerLegal removeFileUpload(FileUpload fileUpload) {
-        this.fileUploads.remove(fileUpload);
-        return this;
-    }
-
-    public void setFileUploads(Set<FileUpload> fileUploads) {
-        this.fileUploads = fileUploads;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

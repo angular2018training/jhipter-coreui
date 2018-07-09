@@ -5,14 +5,17 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
-import { UserGroup, UserGroupService } from '../user-group';
 import { UserPostOffice } from '../../shared/model/user-post-office.model';
 import { Company } from '../../shared/model/company.model';
-import { PostOffice } from '../../setup/post-office';
 import { AlertService } from '../../shared/alert/alert-service';
 import { UserPostOfficeService } from '../../shared/service/user-post-office.service';
 import { CompanyService } from '../../shared/service/company.service';
 import { PostOfficeService } from '../../shared/service/post-office.service';
+import {PostOffice} from "../../shared/model/post-office.model";
+import {UserGroup} from "../../shared/model/user-group.model";
+import {UserGroupService} from "../../shared/service/user-group.service";
+import {Principal} from "../../shared/auth/principal.service";
+import {ITEMS_QUERY_ALL} from "../../shared/constants/pagination.constants";
 
 @Component({
     selector: 'jhi-user-post-office-detail-update',
@@ -25,10 +28,10 @@ export class UserPostOfficeDetailUpdateComponent implements OnInit {
 
     companies: Company[];
 
-    postoffices: PostOffice[];
+    postOffices: PostOffice[];
 
-    usergroups: UserGroup[];
-
+    userGroups: UserGroup[];
+    currentAccount : any;
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: AlertService,
@@ -36,18 +39,22 @@ export class UserPostOfficeDetailUpdateComponent implements OnInit {
         private companyService: CompanyService,
         private postOfficeService: PostOfficeService,
         private userGroupService: UserGroupService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private principal:Principal
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.companyService.query()
-            .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.postOfficeService.query()
-            .subscribe((res: HttpResponse<PostOffice[]>) => { this.postoffices = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.userGroupService.query()
-            .subscribe((res: HttpResponse<UserGroup[]>) => { this.usergroups = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.principal.identity().then((account) => {
+          this.currentAccount = account;
+          this.postOfficeService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
+            .subscribe((res: HttpResponse<PostOffice[]>) => { this.postOffices = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+          this.userGroupService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
+            .subscribe((res: HttpResponse<UserGroup[]>) => { this.userGroups = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        });
+
+
     }
 
     clear() {
@@ -56,6 +63,7 @@ export class UserPostOfficeDetailUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.userPostOffice.companyId= this.currentAccount.companyId;
         if (this.userPostOffice.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.userPostOfficeService.update(this.userPostOffice));

@@ -10,6 +10,7 @@ import vn.nextlogix.domain.UserGroup_;
 import vn.nextlogix.domain.User_;
 import vn.nextlogix.repository.AuthorityRepository;
 import vn.nextlogix.repository.UserExtraInfoRepository;
+import vn.nextlogix.repository.UserPostOfficeRepository;
 import vn.nextlogix.config.Constants;
 import vn.nextlogix.repository.UserRepository;
 import vn.nextlogix.repository.search.UserExtraInfoSearchRepository;
@@ -64,8 +65,10 @@ public class UserService {
     private final UserExtraInfoRepository userExtraInfoRepository;
     
     private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
+    
+    private final UserPostOfficeRepository userPostOfficeRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager,UserExtraInfoMapper userExtraInfoMapper,UserExtraInfoRepository userExtraInfoRepository,UserExtraInfoSearchRepository userExtraInfoSearchRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager,UserExtraInfoMapper userExtraInfoMapper,UserExtraInfoRepository userExtraInfoRepository,UserExtraInfoSearchRepository userExtraInfoSearchRepository,UserPostOfficeRepository userPostOfficeRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
@@ -74,6 +77,7 @@ public class UserService {
         this.userExtraInfoMapper = userExtraInfoMapper;
         this.userExtraInfoRepository = userExtraInfoRepository;
         this.userExtraInfoSearchRepository =userExtraInfoSearchRepository;
+        this.userPostOfficeRepository = userPostOfficeRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -299,6 +303,9 @@ public class UserService {
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
     }
+   
+    
+
 
     /**
      * Not activated users should be automatically deleted after 3 days.
@@ -331,6 +338,15 @@ public class UserService {
 
 	public List<AuthorityDTO> getAuthoritiesAll() {
 		return authorityRepository.findAll().stream().map(AuthorityDTO ::new).collect(Collectors.toList());
+	}
+
+	public List<AuthorityDTO> getAuthoritiesByPostOffice(Long postOfficeId) {
+		getUserWithAuthorities()
+         .ifPresent(user -> {
+        	 user.getAuthorities().addAll(this.userPostOfficeRepository.getAllAuthoritiesByUserExtraInfoParent_User_IdAndPostOfficeId(user.getId(), postOfficeId));
+        	 
+         });
+		return null;
 	}
 
 	

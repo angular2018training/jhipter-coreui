@@ -4,6 +4,7 @@ import vn.nextlogix.service.dto.CustomerLegalDTO;
 import vn.nextlogix.service.dto.CustomerLegalSearchDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 /**
  * Service Interface for managing CustomerLegal.
@@ -25,6 +26,12 @@ public interface CustomerLegalService {
      * @return the list of entities
      */
     Page<CustomerLegalDTO> findAll(Pageable pageable);
+    /**
+     * Get all the CustomerLegalDTO where Customer is null.
+     *
+     * @return the list of entities
+     */
+    List<CustomerLegalDTO> findAllWhereCustomerIsNull();
 
     /**
      * Get the "id" customerLegal.
