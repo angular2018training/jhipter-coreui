@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
+
+import {AlertService} from '../../shared/alert/alert-service';
+import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -12,11 +15,7 @@ import { CompanyDeleteDialogComponent } from './company-delete-dialog.component'
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {CompanySearch} from './company.search.model';
 
-import {Province} from '../province/province.model';
-import {ProvinceService} from "../province/province.service";
 
-import {District} from '../district/district.model';
-import {DistrictService} from "../district/district.service";
 @Component({
     selector: 'jhi-company',
     templateUrl: './company.component.html'
@@ -39,22 +38,16 @@ currentAccount: any;
     previousPage: any;
     reverse: any;
     companySearch : CompanySearch;
-
-    provinces : Province[];
-
-    districts : District[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
         private companyService: CompanyService,
         private parseLinks: JhiParseLinks,
-        private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
+        private alertService :AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
-        private provinceService: ProvinceService,
-        private districtService: DistrictService,
 
         private companyPopupService: CompanyPopupService
     ) {
@@ -66,8 +59,6 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.provinces =[];
-        this.districts =[];
 
         this.companySearch = new CompanySearch();
 
@@ -85,10 +76,6 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' website'] : '';
         this.companySearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
                         this.activatedRoute.snapshot.params[' description'] : '';
-        this.companySearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['provinceId'] ?
-                         this.activatedRoute.snapshot.params['provinceId'] : '';
-        this.companySearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
-                         this.activatedRoute.snapshot.params['districtId'] : '';
     }
 
     loadAll() {
@@ -103,8 +90,6 @@ currentAccount: any;
          email : this.companySearch.email,
          website : this.companySearch.website,
          description : this.companySearch.description,
-           provinceId : this.companySearch.provinceId,
-           districtId : this.companySearch.districtId,
          };
 
         this.companyService.searchExample(obj).subscribe(
@@ -137,8 +122,6 @@ currentAccount: any;
                 email : this.companySearch.email,
                 website : this.companySearch.website,
                 description : this.companySearch.description,
-                provinceId : this.companySearch.provinceId,
-                districtId : this.companySearch.districtId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -169,22 +152,12 @@ currentAccount: any;
     }
 
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            this.loadAll();
         });
         this.registerChangeInCompanies();
-        this.provinceService.query().subscribe(
-            (res: HttpResponse<Province[]>) => this.provinces = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-        this.districtService.query().subscribe(
-            (res: HttpResponse<District[]>) => this.districts = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-
     }
 
     ngOnDestroy() {
@@ -214,7 +187,7 @@ currentAccount: any;
         this.companies = data;
     }
     private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.alertService.error(error.message, null, null);
     }
 
     public deleteItem(id:number){

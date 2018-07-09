@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
+
+import {AlertService} from '../../shared/alert/alert-service';
+import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -11,18 +14,12 @@ import { WarehouseService } from './warehouse.service';
 import { WarehouseDeleteDialogComponent } from './warehouse-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {WarehouseSearch} from './warehouse.search.model';
+    import { Company, CompanyService } from '../company';
+    import { Province, ProvinceService } from '../province';
+    import { District, DistrictService } from '../district';
+    import { Ward, WardService } from '../ward';
 
-import {Company} from '../company/company.model';
-import {CompanyService} from "../company/company.service";
 
-import {Province} from '../province/province.model';
-import {ProvinceService} from "../province/province.service";
-
-import {District} from '../district/district.model';
-import {DistrictService} from "../district/district.service";
-
-import {Ward} from '../ward/ward.model';
-import {WardService} from "../ward/ward.service";
 @Component({
     selector: 'jhi-warehouse',
     templateUrl: './warehouse.component.html'
@@ -46,8 +43,6 @@ currentAccount: any;
     reverse: any;
     warehouseSearch : WarehouseSearch;
 
-    companies : Company[];
-
     provinces : Province[];
 
     districts : District[];
@@ -58,12 +53,11 @@ currentAccount: any;
     constructor(
         private warehouseService: WarehouseService,
         private parseLinks: JhiParseLinks,
-        private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
+        private alertService :AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
-        private companyService: CompanyService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
         private wardService: WardService,
@@ -78,7 +72,6 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.companies =[];
         this.provinces =[];
         this.districts =[];
         this.wards =[];
@@ -93,10 +86,10 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' contactPhone'] : '';
         this.warehouseSearch.address = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['address'] ?
                         this.activatedRoute.snapshot.params[' address'] : '';
+        this.warehouseSearch.testStr = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['testStr'] ?
+                        this.activatedRoute.snapshot.params[' testStr'] : '';
         this.warehouseSearch.createDate = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['createDate'] ?
                         this.activatedRoute.snapshot.params[' createDate'] : '';
-        this.warehouseSearch.companyId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['companyId'] ?
-                         this.activatedRoute.snapshot.params['companyId'] : '';
         this.warehouseSearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['provinceId'] ?
                          this.activatedRoute.snapshot.params['provinceId'] : '';
         this.warehouseSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
@@ -114,11 +107,12 @@ currentAccount: any;
          contactName : this.warehouseSearch.contactName,
          contactPhone : this.warehouseSearch.contactPhone,
          address : this.warehouseSearch.address,
+         testStr : this.warehouseSearch.testStr,
          createDate : this.warehouseSearch.createDate,
-           companyId : this.warehouseSearch.companyId,
-           provinceId : this.warehouseSearch.provinceId,
-           districtId : this.warehouseSearch.districtId,
-           wardId : this.warehouseSearch.wardId,
+         companyId :this.currentAccount.companyId,
+         provinceId :this.warehouseSearch.provinceId,
+         districtId :this.warehouseSearch.districtId,
+         wardId :this.warehouseSearch.wardId,
          };
 
         this.warehouseService.searchExample(obj).subscribe(
@@ -148,11 +142,12 @@ currentAccount: any;
                 contactName : this.warehouseSearch.contactName,
                 contactPhone : this.warehouseSearch.contactPhone,
                 address : this.warehouseSearch.address,
+                testStr : this.warehouseSearch.testStr,
                 createDate : this.warehouseSearch.createDate,
-                companyId : this.warehouseSearch.companyId,
-                provinceId : this.warehouseSearch.provinceId,
-                districtId : this.warehouseSearch.districtId,
-                wardId : this.warehouseSearch.wardId,
+                companyId :this.currentAccount.companyId,
+                provinceId :this.warehouseSearch.provinceId,
+                districtId :this.warehouseSearch.districtId,
+                wardId :this.warehouseSearch.wardId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -183,32 +178,24 @@ currentAccount: any;
     }
 
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            this.loadAll();
+            this.provinceService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<Province[]>) => this.provinces = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.districtService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<District[]>) => this.districts = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.wardService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<Ward[]>) => this.wards = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
         this.registerChangeInWarehouses();
-        this.companyService.query().subscribe(
-            (res: HttpResponse<Company[]>) => this.companies = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-        this.provinceService.query().subscribe(
-            (res: HttpResponse<Province[]>) => this.provinces = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-        this.districtService.query().subscribe(
-            (res: HttpResponse<District[]>) => this.districts = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-        this.wardService.query().subscribe(
-            (res: HttpResponse<Ward[]>) => this.wards = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-
     }
 
     ngOnDestroy() {
@@ -238,7 +225,7 @@ currentAccount: any;
         this.warehouses = data;
     }
     private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.alertService.error(error.message, null, null);
     }
 
     public deleteItem(id:number){

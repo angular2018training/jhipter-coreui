@@ -1,4 +1,7 @@
+export * from './quotation-type.model';
+export * from './quotation-type.search.model';
 export * from './quotation-type-popup.service';
+export * from './quotation-type.service';
 export * from './quotation-type-update.component';
 export * from './quotation-type-delete-dialog.component';
 export * from './quotation-type-detail.component';

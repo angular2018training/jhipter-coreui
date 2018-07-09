@@ -2,8 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { Weight } from '../../shared/model/weight.model';
-import { WeightService } from '../../shared/service/weight.service';
+import { Weight } from './weight.model';
+import { WeightService } from './weight.service';
 
 @Injectable()
 export class WeightPopupService {

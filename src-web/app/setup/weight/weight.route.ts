@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
     import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../../shared';
 import { Observable } from 'rxjs';
-import { Weight } from '../../shared/model/weight.model';
-import { WeightService } from '../../shared/service/weight.service';
+import { Weight } from './weight.model';
+import { WeightService } from './weight.service';
 import { WeightComponent } from './weight.component';
 import { WeightDetailComponent } from './weight-detail.component';
 import { WeightUpdateComponent } from './weight-update.component';

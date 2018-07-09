@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { QuotationType } from '../../shared/model/quotation-type.model';
-import { QuotationTypeService } from '../../shared/service/quotation-type.service';
+import { QuotationType } from './quotation-type.model';
+import { QuotationTypeService } from './quotation-type.service';
 
 @Component({
     selector: 'jhi-quotation-type-detail',

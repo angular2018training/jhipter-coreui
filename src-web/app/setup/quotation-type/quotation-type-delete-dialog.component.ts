@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { QuotationType } from '../../shared/model/quotation-type.model';
+import { QuotationType } from './quotation-type.model';
 import { QuotationTypePopupService } from './quotation-type-popup.service';
-import { QuotationTypeService } from '../../shared/service/quotation-type.service';
+import { QuotationTypeService } from './quotation-type.service';
 
 @Component({
     selector: 'jhi-quotation-type-delete-dialog',

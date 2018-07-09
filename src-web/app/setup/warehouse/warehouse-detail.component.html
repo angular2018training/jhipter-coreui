@@ -24,15 +24,13 @@
         <dd>
             <span>{{warehouse.address}}</span>
         </dd>
+        <dt><span jhiTranslate="nextlogixApp.warehouse.testStr">Test Str</span></dt>
+        <dd>
+            <span>{{warehouse.testStr}}</span>
+        </dd>
         <dt><span jhiTranslate="nextlogixApp.warehouse.createDate">Create Date</span></dt>
         <dd>
             <span>{{warehouse.createDate | date:'medium'}}</span>
-        </dd>
-        <dt><span jhiTranslate="nextlogixApp.warehouse.company">Company</span></dt>
-        <dd>
-            <div *ngIf="warehouse.companyId">
-                <a [routerLink]="['/company', warehouse.companyId]">{{warehouse.companyId}}</a>
-            </div>
         </dd>
         <dt><span jhiTranslate="nextlogixApp.warehouse.province">Province</span></dt>
         <dd>

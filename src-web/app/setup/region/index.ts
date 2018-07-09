@@ -1,4 +1,7 @@
+export * from './region.model';
+export * from './region.search.model';
 export * from './region-popup.service';
+export * from './region.service';
 export * from './region-update.component';
 export * from './region-delete-dialog.component';
 export * from './region-detail.component';

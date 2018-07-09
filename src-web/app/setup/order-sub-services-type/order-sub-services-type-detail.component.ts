@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { OrderSubServicesType } from '../../shared/model/order-sub-services-type.model';
-import { OrderSubServicesTypeService } from '../../shared/service/order-sub-services-type.service';
+import { OrderSubServicesType } from './order-sub-services-type.model';
+import { OrderSubServicesTypeService } from './order-sub-services-type.service';
 
 @Component({
     selector: 'jhi-order-sub-services-type-detail',

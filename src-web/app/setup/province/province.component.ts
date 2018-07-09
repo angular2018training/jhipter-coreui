@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
+
+import {AlertService} from '../../shared/alert/alert-service';
+import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -11,9 +14,9 @@ import { ProvinceService } from './province.service';
 import { ProvinceDeleteDialogComponent } from './province-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {ProvinceSearch} from './province.search.model';
+    import { Company, CompanyService } from '../company';
 
-import {Company} from '../company/company.model';
-import {CompanyService} from "../company/company.service";
+
 @Component({
     selector: 'jhi-province',
     templateUrl: './province.component.html'
@@ -36,19 +39,16 @@ currentAccount: any;
     previousPage: any;
     reverse: any;
     provinceSearch : ProvinceSearch;
-
-    companies : Company[];
     @ViewChild(NgForm) searchForm: NgForm;
 
     constructor(
         private provinceService: ProvinceService,
         private parseLinks: JhiParseLinks,
-        private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
+        private alertService :AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
-        private companyService: CompanyService,
 
         private provincePopupService: ProvincePopupService
     ) {
@@ -60,7 +60,6 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-        this.companies =[];
 
         this.provinceSearch = new ProvinceSearch();
 
@@ -70,8 +69,6 @@ currentAccount: any;
                         this.activatedRoute.snapshot.params[' name'] : '';
         this.provinceSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
                         this.activatedRoute.snapshot.params[' description'] : '';
-        this.provinceSearch.companyId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['companyId'] ?
-                         this.activatedRoute.snapshot.params['companyId'] : '';
     }
 
     loadAll() {
@@ -82,7 +79,7 @@ currentAccount: any;
          code : this.provinceSearch.code,
          name : this.provinceSearch.name,
          description : this.provinceSearch.description,
-           companyId : this.provinceSearch.companyId,
+         companyId :this.currentAccount.companyId,
          };
 
         this.provinceService.searchExample(obj).subscribe(
@@ -111,7 +108,7 @@ currentAccount: any;
                 code : this.provinceSearch.code,
                 name : this.provinceSearch.name,
                 description : this.provinceSearch.description,
-                companyId : this.provinceSearch.companyId,
+                companyId :this.currentAccount.companyId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -142,17 +139,12 @@ currentAccount: any;
     }
 
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            this.loadAll();
         });
         this.registerChangeInProvinces();
-        this.companyService.query().subscribe(
-            (res: HttpResponse<Company[]>) => this.companies = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-
     }
 
     ngOnDestroy() {
@@ -182,7 +174,7 @@ currentAccount: any;
         this.provinces = data;
     }
     private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.alertService.error(error.message, null, null);
     }
 
     public deleteItem(id:number){

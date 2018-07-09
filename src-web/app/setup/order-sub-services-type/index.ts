@@ -1,4 +1,7 @@
+export * from './order-sub-services-type.model';
+export * from './order-sub-services-type.search.model';
 export * from './order-sub-services-type-popup.service';
+export * from './order-sub-services-type.service';
 export * from './order-sub-services-type-update.component';
 export * from './order-sub-services-type-delete-dialog.component';
 export * from './order-sub-services-type-detail.component';

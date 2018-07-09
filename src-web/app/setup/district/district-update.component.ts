@@ -9,15 +9,12 @@ import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
 
-import { DistrictService } from '../../shared/service/district.service';
+import { DistrictService } from './district.service';
 
-import { District } from '../../shared/model/district.model';
-            import { Company } from '../../shared/model/company.model';
-            import { CompanyService} from '../../shared/service/company.service';
-            import { Province } from '../../shared/model/province.model';
-            import { ProvinceService} from '../../shared/service/province.service';
-            import { DistrictType } from '../../shared/model/district-type.model';
-            import { DistrictTypeService} from '../../shared/service/district-type.service';
+import { District } from './district.model';
+            import { Company, CompanyService } from '../company';
+            import { Province, ProvinceService } from '../province';
+            import { DistrictType, DistrictTypeService } from '../district-type';
 
 @Component({
     selector: 'jhi-district-update',

@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Weight } from '../../shared/model/weight.model';
-import { WeightService } from '../../shared/service/weight.service';
+import { Weight } from './weight.model';
+import { WeightService } from './weight.service';
 
 @Component({
     selector: 'jhi-weight-detail',

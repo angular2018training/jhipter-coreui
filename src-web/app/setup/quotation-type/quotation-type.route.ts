@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
     import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../../shared';
 import { Observable } from 'rxjs';
-import { QuotationType } from '../../shared/model/quotation-type.model';
-import { QuotationTypeService } from '../../shared/service/quotation-type.service';
+import { QuotationType } from './quotation-type.model';
+import { QuotationTypeService } from './quotation-type.service';
 import { QuotationTypeComponent } from './quotation-type.component';
 import { QuotationTypeDetailComponent } from './quotation-type-detail.component';
 import { QuotationTypeUpdateComponent } from './quotation-type-update.component';

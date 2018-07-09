@@ -7,6 +7,7 @@ export class WarehouseSearch implements BaseEntity {
     public contactName?: string,
     public contactPhone?: string,
     public address?: string,
+    public testStr?: string,
     public createDate?: any,
     public companyId?: number,
     public provinceId?: number,

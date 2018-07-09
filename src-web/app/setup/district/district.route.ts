@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
     import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../../shared';
 import { Observable } from 'rxjs';
-import { District } from '../../shared/model/district.model';
-import { DistrictService } from '../../shared/service/district.service';
+import { District } from './district.model';
+import { DistrictService } from './district.service';
 import { DistrictComponent } from './district.component';
 import { DistrictDetailComponent } from './district-detail.component';
 import { DistrictUpdateComponent } from './district-update.component';

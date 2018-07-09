@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import {AlertService} from '../../shared/alert/alert-service';
 import { NextlogixSharedModule } from '../../shared';
 import {
 OrderServicesTypeComponent,

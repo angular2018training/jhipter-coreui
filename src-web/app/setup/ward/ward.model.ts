@@ -6,6 +6,7 @@ export class Ward implements BaseEntity {
         public code?: string,
         public name?: string,
         public description?: string,
+        public companyId?: number,
         public districtId?: number,
     ) {
     }

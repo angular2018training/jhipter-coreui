@@ -20,12 +20,6 @@
         <dd>
             <span>{{province.description}}</span>
         </dd>
-        <dt><span jhiTranslate="nextlogixApp.province.company">Company</span></dt>
-        <dd>
-            <div *ngIf="province.companyId">
-                <a [routerLink]="['/company', province.companyId]">{{province.companyId}}</a>
-            </div>
-        </dd>
     </dl>
 
 

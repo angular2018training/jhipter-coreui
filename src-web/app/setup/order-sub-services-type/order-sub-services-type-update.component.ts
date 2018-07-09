@@ -9,11 +9,10 @@ import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
 
-import { OrderSubServicesTypeService } from '../../shared/service/order-sub-services-type.service';
+import { OrderSubServicesTypeService } from './order-sub-services-type.service';
 
-import { OrderSubServicesType } from '../../shared/model/order-sub-services-type.model';
-            import { Company } from '../../shared/model/company.model';
-            import { CompanyService} from '../../shared/service/company.service';
+import { OrderSubServicesType } from './order-sub-services-type.model';
+            import { Company, CompanyService } from '../company';
 
 @Component({
     selector: 'jhi-order-sub-services-type-update',

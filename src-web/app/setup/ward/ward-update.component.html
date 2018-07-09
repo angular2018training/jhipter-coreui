@@ -1,4 +1,7 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+
+
+<form name="editForm" role="form" class="form-horizontal" novalidate (ngSubmit)="save()" #editForm="ngForm">
 <div class="card">
     <div class="card-header">
         <strong jhiTranslate="nextlogixApp.ward.home.createOrEditLabel">Create or edit a Ward</strong>
@@ -11,8 +14,9 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="ward.id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.ward.code" for="field_code">Code</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.ward.code" for="field_code">Code</label>
+                    <div class="col-md-4">
                     <input type="text" class="form-control" name="code" id="field_code"
                         [(ngModel)]="ward.code" required/>
                     <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
@@ -21,9 +25,11 @@
                         This field is required.
                         </small>
                     </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.ward.name" for="field_name">Name</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.ward.name" for="field_name">Name</label>
+                    <div class="col-md-4">
                     <input type="text" class="form-control" name="name" id="field_name"
                         [(ngModel)]="ward.name" required/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
@@ -32,19 +38,24 @@
                         This field is required.
                         </small>
                     </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.ward.description" for="field_description">Description</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.ward.description" for="field_description">Description</label>
+                    <div class="col-md-4">
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="ward.description" />
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nextlogixApp.ward.district" for="field_district">District</label>
+                <div class="form-group row">
+                    <label class="col-md-2 form-control-label" jhiTranslate="nextlogixApp.ward.district" for="field_district">District</label>
+                    <div class="col-md-4">
                     <select class="form-control" id="field_district" name="district" [(ngModel)]="ward.districtId"  required>
                         <option *ngIf="!editForm.value.district" [ngValue]="null" selected></option>
                         <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
                     </select>
+                    </div>
                 </div>
                 <div [hidden]="!(editForm.controls.district?.dirty && editForm.controls.district?.invalid)">
                     <small class="form-text text-danger"
@@ -55,11 +66,11 @@
             </div>
     </div>
     <div class="card-footer">
-        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
         <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <i class="fa fa-dot-circle-o"></i>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+        <button type="reset" class="btn btn-danger" id="cancel-save" (click)="previousState()">
+            <i class="fa fa-undo"></i>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
     </div>
 </div>

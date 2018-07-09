@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { DistrictType } from '../../shared/model/district-type.model';
+import { DistrictType } from './district-type.model';
 import { DistrictTypePopupService } from './district-type-popup.service';
-import { DistrictTypeService } from '../../shared/service/district-type.service';
+import { DistrictTypeService } from './district-type.service';
 
 @Component({
     selector: 'jhi-district-type-delete-dialog',

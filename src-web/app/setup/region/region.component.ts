@@ -8,15 +8,13 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { Region } from '../../shared/model/region.model';
+import { Region } from './region.model';
 import { RegionPopupService } from './region-popup.service';
-import { RegionService } from '../../shared/service/region.service';
+import { RegionService } from './region.service';
 import { RegionDeleteDialogComponent } from './region-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {RegionSearch} from '../../shared/model/region.search.model';
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
+import {RegionSearch} from './region.search.model';
+    import { Company, CompanyService } from '../company';
 
 
 @Component({

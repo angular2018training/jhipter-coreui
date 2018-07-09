@@ -8,9 +8,9 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 
-import { WeightService } from '../../shared/service/weight.service';
+import { WeightService } from './weight.service';
 
-import { Weight } from '../../shared/model/weight.model';
+import { Weight } from './weight.model';
 
 @Component({
     selector: 'jhi-weight-update',

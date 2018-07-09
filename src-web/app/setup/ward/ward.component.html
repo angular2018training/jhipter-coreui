@@ -19,6 +19,7 @@
                 <label class="col-md-2 col-form-label" for="field_code"
                        jhiTranslate="nextlogixApp.ward.code">Code:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="wardSearch.code" />
                 </div>
@@ -27,6 +28,7 @@
                 <label class="col-md-2 col-form-label" for="field_name"
                        jhiTranslate="nextlogixApp.ward.name">Name:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="name" id="field_name"
                            [(ngModel)]="wardSearch.name" />
                 </div>
@@ -35,10 +37,12 @@
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.ward.description">Description:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="wardSearch.description" />
                 </div>
             </div>
+
 
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_district"
@@ -62,15 +66,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.ward.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.ward.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -94,27 +101,19 @@
                     <td>{{ward.description}}</td>
                     <td>
         <div *ngIf="ward.districtId">
-        <a [routerLink]="['../district', 'detail',ward.districtId ]" >{{ward.districtDTO.name}}</a>
+        <a [routerLink]="['../district', 'detail',ward.districtId ]" >{{ward.districtDTO?.name}}</a>
     </div>
     </td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[ward.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <fa-icon [icon]="'eye'"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[ward.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(ward.id)"
                     class="btn btn-danger btn-sm">
-                <fa-icon [icon]="'times'"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -133,5 +132,3 @@
 </div>
 
 </div>
-
-

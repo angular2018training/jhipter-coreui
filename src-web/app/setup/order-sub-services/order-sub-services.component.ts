@@ -8,15 +8,13 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { OrderSubServices } from '../../shared/model/order-sub-services.model';
+import { OrderSubServices } from './order-sub-services.model';
 import { OrderSubServicesPopupService } from './order-sub-services-popup.service';
-import { OrderSubServicesService } from '../../shared/service/order-sub-services.service';
+import { OrderSubServicesService } from './order-sub-services.service';
 import { OrderSubServicesDeleteDialogComponent } from './order-sub-services-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {OrderSubServicesSearch} from '../../shared/model/order-sub-services.search.model';
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
+import {OrderSubServicesSearch} from './order-sub-services.search.model';
+    import { Company, CompanyService } from '../company';
 
 
 @Component({
@@ -114,7 +112,6 @@ currentAccount: any;
                 name : this.orderSubServicesSearch.name,
                 isActive : this.orderSubServicesSearch.isActive,
                 description : this.orderSubServicesSearch.description,
-                companyId :this.currentAccount.companyId,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });

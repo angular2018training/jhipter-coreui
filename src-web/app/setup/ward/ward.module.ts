@@ -21,7 +21,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         NextlogixSharedModule,
-    RouterModule.forChild(ENTITY_STATES)
+RouterModule.forChild(ENTITY_STATES)
 ],
 declarations: [
     WardComponent,

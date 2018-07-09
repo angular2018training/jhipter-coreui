@@ -16,7 +16,7 @@ import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
       // set below to true to make alerts look like toast
       alertAsToast: true,
       i18nEnabled: true,
-      defaultI18nLang: 'en',
+      defaultI18nLang: 'vi',
       alertTimeout: 60000
 
     }),

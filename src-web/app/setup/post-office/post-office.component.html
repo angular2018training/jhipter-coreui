@@ -23,72 +23,14 @@
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="postOfficeSearch.code" />
                 </div>
+              <label class="col-md-2 col-form-label" for="field_name"
+                     jhiTranslate="nextlogixApp.postOffice.name">Name:</label>
+              <div class="col-md-4">
+
+                <input type="text" class="form-control" name="name" id="field_name"
+                       [(ngModel)]="postOfficeSearch.name" />
+              </div>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_name"
-                       jhiTranslate="nextlogixApp.postOffice.name">Name:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           [(ngModel)]="postOfficeSearch.name" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_address"
-                       jhiTranslate="nextlogixApp.postOffice.address">Address:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="address" id="field_address"
-                           [(ngModel)]="postOfficeSearch.address" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_sortOrder"
-                       jhiTranslate="nextlogixApp.postOffice.sortOrder">Sort Order:</label>
-                <div class="col-md-4">
-
-                    <input type="number" class="form-control" name="sortOrder" id="field_sortOrder"
-                           [(ngModel)]="postOfficeSearch.sortOrder" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_phone"
-                       jhiTranslate="nextlogixApp.postOffice.phone">Phone:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="phone" id="field_phone"
-                           [(ngModel)]="postOfficeSearch.phone" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_latitude"
-                       jhiTranslate="nextlogixApp.postOffice.latitude">Latitude:</label>
-                <div class="col-md-4">
-
-                    <input type="number" class="form-control" name="latitude" id="field_latitude"
-                           [(ngModel)]="postOfficeSearch.latitude" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_longitude"
-                       jhiTranslate="nextlogixApp.postOffice.longitude">Longitude:</label>
-                <div class="col-md-4">
-
-                    <input type="number" class="form-control" name="longitude" id="field_longitude"
-                           [(ngModel)]="postOfficeSearch.longitude" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_description"
-                       jhiTranslate="nextlogixApp.postOffice.description">Description:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="description" id="field_description"
-                           [(ngModel)]="postOfficeSearch.description" />
-                </div>
-            </div>
-
-
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_province"
                        jhiTranslate="nextlogixApp.postOffice.province">>Province:</label>
@@ -98,19 +40,15 @@
                     <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
                     </select>
                 </div>
+              <label class="col-md-2 col-form-label" for="field_district"
+                     jhiTranslate="nextlogixApp.postOffice.district">>District:</label>
+              <div class="col-md-4">
+                <select class="form-control" id="field_district" name="district" [(ngModel)]="postOfficeSearch.districtId">
+                  <option [ngValue]="null"></option>
+                  <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
+                </select>
+              </div>
             </div>
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_district"
-                       jhiTranslate="nextlogixApp.postOffice.district">>District:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_district" name="district" [(ngModel)]="postOfficeSearch.districtId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
-                    </select>
-                </div>
-            </div>
-
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">
@@ -122,15 +60,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.postOffice.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.postOffice.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -138,59 +79,29 @@
             <table class="table table-striped">
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.postOffice.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.postOffice.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="address"><span jhiTranslate="nextlogixApp.postOffice.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="sortOrder"><span jhiTranslate="nextlogixApp.postOffice.sortOrder">Sort Order</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="phone"><span jhiTranslate="nextlogixApp.postOffice.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="latitude"><span jhiTranslate="nextlogixApp.postOffice.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="longitude"><span jhiTranslate="nextlogixApp.postOffice.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.postOffice.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.postOffice.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="districtId"><span jhiTranslate="nextlogixApp.postOffice.district">District</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let postOffice of postOffices ;trackBy: trackId">
-                    <td><a [routerLink]="[ postOffice.id,'view']">{{postOffice.id}}</a></td>
                     <td>{{postOffice.code}}</td>
                     <td>{{postOffice.name}}</td>
-                    <td>{{postOffice.address}}</td>
-                    <td>{{postOffice.sortOrder}}</td>
-                    <td>{{postOffice.phone}}</td>
-                    <td>{{postOffice.latitude}}</td>
-                    <td>{{postOffice.longitude}}</td>
+                    <td>{{postOffice.address}}, {{postOffice.districtDTO?.name}}, {{postOffice.provinceDTO?.name}}</td>
                     <td>{{postOffice.description}}</td>
-                    <td>
-        <div *ngIf="postOffice.provinceId">
-        <a [routerLink]="['../province', 'detail',postOffice.provinceId ]" >{{postOffice.provinceDTO?.name}}</a>
-    </div>
-    </td>
-                    <td>
-        <div *ngIf="postOffice.districtId">
-        <a [routerLink]="['../district', 'detail',postOffice.districtId ]" >{{postOffice.districtDTO?.name}}</a>
-    </div>
-    </td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[postOffice.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[postOffice.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(postOffice.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -209,5 +120,3 @@
 </div>
 
 </div>
-
-

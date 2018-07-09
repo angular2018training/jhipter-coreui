@@ -1,14 +1,19 @@
+
 import { Component, OnInit } from '@angular/core';
+
+import {Principal} from '../../shared/';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {ITEMS_QUERY_ALL} from '../../shared/';
+import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
 
 import { WardService } from './ward.service';
 
 import { Ward } from './ward.model';
-import {District} from '../../shared/model/district.model';
-import {DistrictService} from '../../shared/service/district.service';
+            import { Company, CompanyService } from '../company';
+            import { District, DistrictService } from '../district';
 
 @Component({
     selector: 'jhi-ward-update',
@@ -18,12 +23,15 @@ export class WardUpdateComponent implements OnInit {
 
     private _ward: Ward;
     isSaving: boolean;
+    private currentAccount : any;
 
     districts: District[];
 
     constructor(
-        private jhiAlertService: JhiAlertService,
+        private alertService: AlertService,
         private wardService: WardService,
+        private principal : Principal,
+        private companyService: CompanyService,
         private districtService: DistrictService,
         private route: ActivatedRoute
     ) {
@@ -34,8 +42,12 @@ export class WardUpdateComponent implements OnInit {
         this.route.data.subscribe(({ward}) => {
             this.ward = ward;
         });
-        this.districtService.query()
+        this.principal.identity().then((account) => {
+            this.currentAccount = account;
+            this.districtService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
             .subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        });
+
     }
 
     previousState() {
@@ -48,6 +60,7 @@ export class WardUpdateComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.wardService.update(this.ward));
         } else {
+            this.ward.companyId = this.currentAccount.companyId;
             this.subscribeToSaveResponse(
                 this.wardService.create(this.ward));
         }
@@ -68,7 +81,11 @@ export class WardUpdateComponent implements OnInit {
     }
 
     private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
+        this.alertService.error(errorMessage, null, null);
+    }
+
+    trackCompanyById(index: number, item: Company) {
+        return item.id;
     }
 
     trackDistrictById(index: number, item: District) {

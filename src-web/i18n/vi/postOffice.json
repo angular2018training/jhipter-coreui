@@ -3,31 +3,31 @@
     "nextlogixApp": {
         "postOffice" : {
             "home": {
-                "title": "Post Offices",
-                "createLabel": "Thêm mới một Post Office",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Post Office",
-                "search": "Tìm Post Office"
+                "title": "Danh sách chi nhánh",
+                "createLabel": "Thêm mới một Chi nhánh",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Chi nhánh",
+                "search": "Tìm Chi nhánh"
             },
-            "created": "Một Post Office mới được tạo với định danh {{ param }}",
-            "updated": "Một Post Office cập nhật với định danh {{ param }}",
-            "deleted": "Một Post Office đã xóa với định danh {{ param }}",
+            "created": "Một Chi nhánh mới được tạo với định danh {{ param }}",
+            "updated": "Một Chi nhánh cập nhật với định danh {{ param }}",
+            "deleted": "Một Chi nhánh đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Post Office {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Chi nhánh {{ id }}?"
             },
             "detail": {
-                "title": "Post Office"
+                "title": "Chi nhánh"
             },
-            "code": "Code",
-            "name": "Name",
-            "address": "Address",
-            "sortOrder": "Sort Order",
-            "phone": "Phone",
+            "code": "Mã",
+            "name": "Tên",
+            "address": "Địa chỉ",
+            "sortOrder": "Thứ tự",
+            "phone": "Điện thoại",
             "latitude": "Latitude",
             "longitude": "Longitude",
-            "description": "Description",
+            "description": "Mô tả",
             "company": "Company",
-            "province": "Province",
-            "district": "District"
+            "province": "Tỉnh / Thành phố",
+            "district": "Quận / Huyện"
         }
     }
 }

@@ -1,16 +1,16 @@
+
 import { Component, OnInit } from '@angular/core';
+
+import {Principal} from '../../shared/';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {ITEMS_QUERY_ALL} from '../../shared/';
+import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
-import { JhiAlertService,  } from 'ng-jhipster';
 
 import { CompanyService } from './company.service';
 
 import { Company } from './company.model';
-import {Province} from '../../shared/model/province.model';
-import {District} from '../../shared/model/district.model';
-import {ProvinceService} from '../../shared/service/province.service';
-import {DistrictService} from '../../shared/service/district.service';
 
 @Component({
     selector: 'jhi-company-update',
@@ -20,16 +20,11 @@ export class CompanyUpdateComponent implements OnInit {
 
     private _company: Company;
     isSaving: boolean;
-
-    provinces: Province[];
-
-    districts: District[];
+    private currentAccount : any;
 
     constructor(
-        private jhiAlertService: JhiAlertService,
         private companyService: CompanyService,
-        private provinceService: ProvinceService,
-        private districtService: DistrictService,
+        private principal : Principal,
         private route: ActivatedRoute
     ) {
     }
@@ -39,10 +34,10 @@ export class CompanyUpdateComponent implements OnInit {
         this.route.data.subscribe(({company}) => {
             this.company = company;
         });
-        this.provinceService.query()
-            .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.districtService.query()
-            .subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.principal.identity().then((account) => {
+            this.currentAccount = account;
+        });
+
     }
 
     previousState() {
@@ -72,18 +67,6 @@ export class CompanyUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackProvinceById(index: number, item: Province) {
-        return item.id;
-    }
-
-    trackDistrictById(index: number, item: District) {
-        return item.id;
     }
     get company() {
         return this._company;

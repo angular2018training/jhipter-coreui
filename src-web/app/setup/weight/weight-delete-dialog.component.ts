@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Weight } from '../../shared/model/weight.model';
+import { Weight } from './weight.model';
 import { WeightPopupService } from './weight-popup.service';
-import { WeightService } from '../../shared/service/weight.service';
+import { WeightService } from './weight.service';
 
 @Component({
     selector: 'jhi-weight-delete-dialog',

@@ -1,6 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
+
+import {Principal} from '../../shared/';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {ITEMS_QUERY_ALL} from '../../shared/';
+import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
 
@@ -17,12 +22,12 @@ export class PaymentTypeUpdateComponent implements OnInit {
 
     private _paymentType: PaymentType;
     isSaving: boolean;
-
-    companies: Company[];
+    private currentAccount : any;
 
     constructor(
-        private jhiAlertService: JhiAlertService,
+        private alertService: AlertService,
         private paymentTypeService: PaymentTypeService,
+        private principal : Principal,
         private companyService: CompanyService,
         private route: ActivatedRoute
     ) {
@@ -33,8 +38,10 @@ export class PaymentTypeUpdateComponent implements OnInit {
         this.route.data.subscribe(({paymentType}) => {
             this.paymentType = paymentType;
         });
-        this.companyService.query()
-            .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.principal.identity().then((account) => {
+            this.currentAccount = account;
+        });
+
     }
 
     previousState() {
@@ -47,6 +54,7 @@ export class PaymentTypeUpdateComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.paymentTypeService.update(this.paymentType));
         } else {
+            this.paymentType.companyId = this.currentAccount.companyId;
             this.subscribeToSaveResponse(
                 this.paymentTypeService.create(this.paymentType));
         }
@@ -67,7 +75,7 @@ export class PaymentTypeUpdateComponent implements OnInit {
     }
 
     private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
+        this.alertService.error(errorMessage, null, null);
     }
 
     trackCompanyById(index: number, item: Company) {

@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Region } from '../../shared/model/region.model';
+import { Region } from './region.model';
 import { RegionPopupService } from './region-popup.service';
-import { RegionService } from '../../shared/service/region.service';
+import { RegionService } from './region.service';
 
 @Component({
     selector: 'jhi-region-delete-dialog',

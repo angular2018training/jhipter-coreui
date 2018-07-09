@@ -31,8 +31,8 @@
                 </button>
                 <button type="reset" class="btn btn-primary btn-danger" (click)="clear()">
                     <i class="fa fa-undo"></i> {{'common.button.reset' |translate }}
-                </button>                
-            </div>            
+                </button>
+            </div>
         </div>
     </div>
 </form>
@@ -75,12 +75,10 @@
                             <td class="text-right">
                                 <div class="pull-left btn-group flex-btn-group-container">
                                     <button type="submit" [routerLink]="[userGroup.id,'edit']" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-pencil"></i>&nbsp;
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                        <i class="fa fa-pencil"></i>
                                     </button>
                                     <button (click)="deleteItem(userGroup.id)" class="btn btn-danger btn-sm">
-                                        <i class="fa fa-times"></i>&nbsp;
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                        <i class="fa fa-times"></i>
                                     </button>
                                 </div>
                             </td>
