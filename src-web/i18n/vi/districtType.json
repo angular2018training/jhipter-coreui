@@ -3,23 +3,23 @@
     "nextlogixApp": {
         "districtType" : {
             "home": {
-                "title": "District Types",
-                "createLabel": "Thêm mới một District Type",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật District Type",
-                "search": "Tìm District Type"
+                "title": "Danh sách Loại Quận / Huyện",
+                "createLabel": "Thêm mới một Loại Quận / Huyện",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Loại Quận / Huyện",
+                "search": "Tìm Loại Quận / Huyện"
             },
-            "created": "Một District Type mới được tạo với định danh {{ param }}",
-            "updated": "Một District Type cập nhật với định danh {{ param }}",
-            "deleted": "Một District Type đã xóa với định danh {{ param }}",
+            "created": "Một Loại Quận / Huyện mới được tạo với định danh {{ param }}",
+            "updated": "Một Loại Quận / Huyện cập nhật với định danh {{ param }}",
+            "deleted": "Một Loại Quận / Huyện đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa District Type {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Loại Quận / Huyện {{ id }}?"
             },
             "detail": {
-                "title": "District Type"
+                "title": "Loại Quận / Huyện"
             },
-            "code": "Code",
-            "name": "Name",
-            "description": "Description",
+            "code": "Mã",
+            "name": "Tên",
+            "description": "Mô tả",
             "company": "Company"
         }
     }

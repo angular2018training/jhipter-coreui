@@ -23,65 +23,31 @@
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="districtSearch.code" />
                 </div>
+              <label class="col-md-2 col-form-label" for="field_name"
+                     jhiTranslate="nextlogixApp.district.name">Name:</label>
+              <div class="col-md-4">
+
+                <input type="text" class="form-control" name="name" id="field_name"
+                       [(ngModel)]="districtSearch.name" />
+              </div>
             </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_name"
-                       jhiTranslate="nextlogixApp.district.name">Name:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           [(ngModel)]="districtSearch.name" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_pickupActive"
-                       jhiTranslate="nextlogixApp.district.pickupActive">Pickup Active:</label>
-                <div class="col-md-4">
-
-                    <input type="checkbox" class="form-control" name="pickupActive" id="field_pickupActive"
-                           [(ngModel)]="districtSearch.pickupActive" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_deliveryActive"
-                       jhiTranslate="nextlogixApp.district.deliveryActive">Delivery Active:</label>
-                <div class="col-md-4">
-
-                    <input type="checkbox" class="form-control" name="deliveryActive" id="field_deliveryActive"
-                           [(ngModel)]="districtSearch.deliveryActive" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_description"
-                       jhiTranslate="nextlogixApp.district.description">Description:</label>
-                <div class="col-md-4">
-
-                    <input type="text" class="form-control" name="description" id="field_description"
-                           [(ngModel)]="districtSearch.description" />
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_province"
-                       jhiTranslate="nextlogixApp.district.province">>Province:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_province" name="province" [(ngModel)]="districtSearch.provinceId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_districtType"
                        jhiTranslate="nextlogixApp.district.districtType">>District Type:</label>
                 <div class="col-md-4">
                     <select class="form-control" id="field_districtType" name="districtType" [(ngModel)]="districtSearch.districtTypeId">
                     <option [ngValue]="null"></option>
-                    <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districttypes; trackBy: trackDistrictTypeById">{{districtTypeOption.name}}</option>
+                    <option [ngValue]="districtTypeOption.id" *ngFor="let districtTypeOption of districtTypes; trackBy: trackDistrictTypeById">{{districtTypeOption.name}}</option>
                     </select>
                 </div>
+              <label class="col-md-2 col-form-label" for="field_province"
+                     jhiTranslate="nextlogixApp.district.province">>Province:</label>
+              <div class="col-md-4">
+                <select class="form-control" id="field_province" name="province" [(ngModel)]="districtSearch.provinceId">
+                  <option [ngValue]="null"></option>
+                  <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
+                </select>
+              </div>
             </div>
 
         </div>
@@ -114,7 +80,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.district.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.district.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="pickupActive"><span jhiTranslate="nextlogixApp.district.pickupActive">Pickup Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -127,7 +92,6 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let district of districts ;trackBy: trackId">
-                    <td><a [routerLink]="[ district.id,'view']">{{district.id}}</a></td>
                     <td>{{district.code}}</td>
                     <td>{{district.name}}</td>
                     <td>{{district.pickupActive}}</td>

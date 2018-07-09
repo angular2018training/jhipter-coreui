@@ -95,6 +95,7 @@ export const customerManagementState: Routes = [
     },
     data: {
       authorities: ['ROLE_ADMIN'],
+      pageTitle: 'nextlogixApp.customerLegal.home.title',
       title: 'Customer Management'
     },
     canActivate: [UserRouteAccessService]
@@ -108,6 +109,11 @@ export const customerManagementState: Routes = [
     children: [
       {
         path: 'customer',
+      data: {
+  authorities: ['ROLE_USER'],
+    pageTitle: 'nextlogixApp.customerLegal.home.title',
+    title: 'nextlogixApp.customerLegal.home.title'
+},
         component: CustomerUpdateComponent
       },
       {

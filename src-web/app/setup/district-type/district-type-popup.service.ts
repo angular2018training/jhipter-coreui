@@ -2,8 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { DistrictType } from '../../shared/model/district-type.model';
-import { DistrictTypeService } from '../../shared/service/district-type.service';
+import { DistrictType } from './district-type.model';
+import { DistrictTypeService } from './district-type.service';
 
 @Injectable()
 export class DistrictTypePopupService {

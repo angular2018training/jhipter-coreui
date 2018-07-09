@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { OrderSubServices } from '../../shared/model/order-sub-services.model';
+import { OrderSubServices } from './order-sub-services.model';
 import { OrderSubServicesPopupService } from './order-sub-services-popup.service';
-import { OrderSubServicesService } from '../../shared/service/order-sub-services.service';
+import { OrderSubServicesService } from './order-sub-services.service';
 
 @Component({
     selector: 'jhi-order-sub-services-delete-dialog',

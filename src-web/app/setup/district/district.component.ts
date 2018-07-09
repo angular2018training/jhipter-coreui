@@ -8,21 +8,15 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { District } from '../../shared/model/district.model';
+import { District } from './district.model';
 import { DistrictPopupService } from './district-popup.service';
-import { DistrictService } from '../../shared/service/district.service';
+import { DistrictService } from './district.service';
 import { DistrictDeleteDialogComponent } from './district-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {DistrictSearch} from '../../shared/model/district.search.model';
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
-    import { Province } from '../../shared/model/province.model';
-    import { ProvinceService } from '../../shared/service/province.service';
-
-    import { DistrictType } from '../../shared/model/district-type.model';
-    import { DistrictTypeService } from '../../shared/service/district-type.service';
-
+import {DistrictSearch} from './district.search.model';
+    import { Company, CompanyService } from '../company';
+    import { Province, ProvinceService } from '../province';
+    import { DistrictType, DistrictTypeService } from '../district-type';
 
 
 @Component({

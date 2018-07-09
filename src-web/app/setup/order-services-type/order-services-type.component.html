@@ -23,20 +23,18 @@
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="orderServicesTypeSearch.code" />
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_name"
-                       jhiTranslate="nextlogixApp.orderServicesType.name">Name:</label>
-                <div class="col-md-4">
+              <label class="col-md-2 col-form-label" for="field_name"
+                     jhiTranslate="nextlogixApp.orderServicesType.name">Name:</label>
+              <div class="col-md-4">
 
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           [(ngModel)]="orderServicesTypeSearch.name" />
-                </div>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       [(ngModel)]="orderServicesTypeSearch.name" />
+              </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.orderServicesType.description">Description:</label>
-                <div class="col-md-4">
+                <div class="col-md-10">
 
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="orderServicesTypeSearch.description" />
@@ -55,15 +53,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.orderServicesType.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.orderServicesType.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -71,7 +72,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.orderServicesType.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.orderServicesType.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.orderServicesType.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -80,28 +80,19 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let orderServicesType of orderServicesTypes ;trackBy: trackId">
-                    <td><a [routerLink]="[ orderServicesType.id,'view']">{{orderServicesType.id}}</a></td>
                     <td>{{orderServicesType.code}}</td>
                     <td>{{orderServicesType.name}}</td>
                     <td>{{orderServicesType.description}}</td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[orderServicesType.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[orderServicesType.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(orderServicesType.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -120,5 +111,3 @@
 </div>
 
 </div>
-
-

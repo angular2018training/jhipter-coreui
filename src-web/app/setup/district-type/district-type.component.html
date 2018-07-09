@@ -23,20 +23,18 @@
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="districtTypeSearch.code" />
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_name"
-                       jhiTranslate="nextlogixApp.districtType.name">Name:</label>
-                <div class="col-md-4">
+              <label class="col-md-2 col-form-label" for="field_name"
+                     jhiTranslate="nextlogixApp.districtType.name">Name:</label>
+              <div class="col-md-4">
 
-                    <input type="text" class="form-control" name="name" id="field_name"
-                           [(ngModel)]="districtTypeSearch.name" />
-                </div>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       [(ngModel)]="districtTypeSearch.name" />
+              </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.districtType.description">Description:</label>
-                <div class="col-md-4">
+                <div class="col-md-10">
 
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="districtTypeSearch.description" />
@@ -74,7 +72,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.districtType.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.districtType.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.districtType.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -83,7 +80,6 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let districtType of districtTypes ;trackBy: trackId">
-                    <td><a [routerLink]="[ districtType.id,'view']">{{districtType.id}}</a></td>
                     <td>{{districtType.code}}</td>
                     <td>{{districtType.name}}</td>
                     <td>{{districtType.description}}</td>

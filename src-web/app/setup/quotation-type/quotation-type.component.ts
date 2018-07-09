@@ -8,12 +8,12 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { QuotationType } from '../../shared/model/quotation-type.model';
+import { QuotationType } from './quotation-type.model';
 import { QuotationTypePopupService } from './quotation-type-popup.service';
-import { QuotationTypeService } from '../../shared/service/quotation-type.service';
+import { QuotationTypeService } from './quotation-type.service';
 import { QuotationTypeDeleteDialogComponent } from './quotation-type-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {QuotationTypeSearch} from '../../shared/model/quotation-type.search.model';
+import {QuotationTypeSearch} from './quotation-type.search.model';
 
 
 @Component({

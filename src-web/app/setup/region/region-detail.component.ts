@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { Region } from '../../shared/model/region.model';
-import { RegionService } from '../../shared/service/region.service';
+import { Region } from './region.model';
+import { RegionService } from './region.service';
 
 @Component({
     selector: 'jhi-region-detail',

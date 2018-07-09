@@ -8,12 +8,12 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { Weight } from '../../shared/model/weight.model';
+import { Weight } from './weight.model';
 import { WeightPopupService } from './weight-popup.service';
-import { WeightService } from '../../shared/service/weight.service';
+import { WeightService } from './weight.service';
 import { WeightDeleteDialogComponent } from './weight-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {WeightSearch} from '../../shared/model/weight.search.model';
+import {WeightSearch} from './weight.search.model';
 
 
 @Component({

@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { District } from '../../shared/model/district.model';
-import { DistrictService } from '../../shared/service/district.service';
+import { District } from './district.model';
+import { DistrictService } from './district.service';
 
 @Component({
     selector: 'jhi-district-detail',

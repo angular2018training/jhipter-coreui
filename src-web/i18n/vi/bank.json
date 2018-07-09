@@ -3,23 +3,23 @@
     "nextlogixApp": {
         "bank" : {
             "home": {
-                "title": "Banks",
-                "createLabel": "Thêm mới một Bank",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Bank",
-                "search": "Tìm Bank"
+                "title": "Danh sách Ngân hàng",
+                "createLabel": "Thêm mới một Ngân hàng",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Ngân hàng",
+                "search": "Tìm Ngân hàng"
             },
-            "created": "Một Bank mới được tạo với định danh {{ param }}",
-            "updated": "Một Bank cập nhật với định danh {{ param }}",
-            "deleted": "Một Bank đã xóa với định danh {{ param }}",
+            "created": "Một Ngân hàng mới được tạo với định danh {{ param }}",
+            "updated": "Một Ngân hàng cập nhật với định danh {{ param }}",
+            "deleted": "Một Ngân hàng đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Bank {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Ngân hàng {{ id }}?"
             },
             "detail": {
-                "title": "Bank"
+                "title": "Ngân hàng"
             },
-            "code": "Code",
-            "name": "Name",
-            "description": "Description",
+            "code": "Mã",
+            "name": "Tên",
+            "description": "Mô tả",
             "company": "Company"
         }
     }

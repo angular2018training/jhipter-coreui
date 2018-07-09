@@ -8,9 +8,9 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 
-import { QuotationTypeService } from '../../shared/service/quotation-type.service';
+import { QuotationTypeService } from './quotation-type.service';
 
-import { QuotationType } from '../../shared/model/quotation-type.model';
+import { QuotationType } from './quotation-type.model';
 
 @Component({
     selector: 'jhi-quotation-type-update',

@@ -20,12 +20,6 @@
         <dd>
             <span>{{paymentType.description}}</span>
         </dd>
-        <dt><span jhiTranslate="nextlogixApp.paymentType.company">Company</span></dt>
-        <dd>
-            <div *ngIf="paymentType.companyId">
-                <a [routerLink]="['/company', paymentType.companyId]">{{paymentType.companyId}}</a>
-            </div>
-        </dd>
     </dl>
 
 

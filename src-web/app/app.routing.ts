@@ -116,7 +116,10 @@ export const routes: Routes = [
         path: 'customer-management',
         loadChildren: () => NextlogixCustomerManagmentModule,
         data: {
-          breadcrumb: 'Customer Management '
+          breadcrumb: 'Customer Management ',
+          authorities: ['ROLE_ADMIN'],
+          pageTitle: 'nextlogixApp.customerLegal.home.title',
+          title: 'Customer Management'
         }
       },
       {

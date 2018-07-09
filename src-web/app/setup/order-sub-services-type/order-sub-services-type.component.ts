@@ -8,15 +8,13 @@ import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { OrderSubServicesType } from '../../shared/model/order-sub-services-type.model';
+import { OrderSubServicesType } from './order-sub-services-type.model';
 import { OrderSubServicesTypePopupService } from './order-sub-services-type-popup.service';
-import { OrderSubServicesTypeService } from '../../shared/service/order-sub-services-type.service';
+import { OrderSubServicesTypeService } from './order-sub-services-type.service';
 import { OrderSubServicesTypeDeleteDialogComponent } from './order-sub-services-type-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {OrderSubServicesTypeSearch} from '../../shared/model/order-sub-services-type.search.model';
-    import { Company } from '../../shared/model/company.model';
-    import { CompanyService } from '../../shared/service/company.service';
-
+import {OrderSubServicesTypeSearch} from './order-sub-services-type.search.model';
+    import { Company, CompanyService } from '../company';
 
 
 @Component({

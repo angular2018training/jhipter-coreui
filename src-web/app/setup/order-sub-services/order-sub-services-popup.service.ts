@@ -2,8 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { OrderSubServices } from '../../shared/model/order-sub-services.model';
-import { OrderSubServicesService } from '../../shared/service/order-sub-services.service';
+import { OrderSubServices } from './order-sub-services.model';
+import { OrderSubServicesService } from './order-sub-services.service';
 
 @Injectable()
 export class OrderSubServicesPopupService {

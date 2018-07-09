@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
     import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../../shared';
 import { Observable } from 'rxjs';
-import { Region } from '../../shared/model/region.model';
-import { RegionService } from '../../shared/service/region.service';
+import { Region } from './region.model';
+import { RegionService } from './region.service';
 import { RegionComponent } from './region.component';
 import { RegionDetailComponent } from './region-detail.component';
 import { RegionUpdateComponent } from './region-update.component';

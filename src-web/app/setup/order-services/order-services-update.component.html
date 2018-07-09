@@ -89,18 +89,16 @@
                 </div>
 
             </div>
-
+        </div>
             <div class="card-footer">
-                <div class="btn-group flex-btn-group-container">
-                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                        <i class="fa fa-dot-circle-o"></i>&nbsp;
-                        <span jhiTranslate="entity.action.save">Save</span>
-                    </button>
-                    <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()">
-                        <i class="fa fa-undo"></i>&nbsp;
-                        <span jhiTranslate="entity.action.cancel">Cancel</span>
-                    </button>
-                </div>
+               <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                      <i class="fa fa-dot-circle-o"></i>&nbsp;
+                      <span jhiTranslate="entity.action.save">Save</span>
+                  </button>
+                  <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()">
+                      <i class="fa fa-undo"></i>&nbsp;
+                      <span jhiTranslate="entity.action.cancel">Cancel</span>
+                  </button>
             </div>
         </div>
 </form>

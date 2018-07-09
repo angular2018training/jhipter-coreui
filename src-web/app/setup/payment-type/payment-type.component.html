@@ -19,6 +19,7 @@
                 <label class="col-md-2 col-form-label" for="field_code"
                        jhiTranslate="nextlogixApp.paymentType.code">Code:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="paymentTypeSearch.code" />
                 </div>
@@ -27,6 +28,7 @@
                 <label class="col-md-2 col-form-label" for="field_name"
                        jhiTranslate="nextlogixApp.paymentType.name">Name:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="name" id="field_name"
                            [(ngModel)]="paymentTypeSearch.name" />
                 </div>
@@ -35,22 +37,12 @@
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.paymentType.description">Description:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="paymentTypeSearch.description" />
                 </div>
             </div>
 
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_company"
-                       jhiTranslate="nextlogixApp.paymentType.company">>Company:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_company" name="company" [(ngModel)]="paymentTypeSearch.companyId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
-                    </select>
-                </div>
-            </div>
 
         </div>
         <div class="card-footer">
@@ -63,15 +55,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.paymentType.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.paymentType.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -83,7 +78,6 @@
                 <th jhiSortBy="code"><span jhiTranslate="nextlogixApp.paymentType.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="name"><span jhiTranslate="nextlogixApp.paymentType.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.paymentType.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.paymentType.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -93,29 +87,16 @@
                     <td>{{paymentType.code}}</td>
                     <td>{{paymentType.name}}</td>
                     <td>{{paymentType.description}}</td>
-                    <td>
-        <div *ngIf="paymentType.companyId">
-        <a [routerLink]="['../company', 'detail',paymentType.companyId ]" >{{paymentType.companyDTO?.name}}</a>
-    </div>
-    </td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[paymentType.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[paymentType.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(paymentType.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -134,5 +115,3 @@
 </div>
 
 </div>
-
-

@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@a
     import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../../shared';
 import { Observable } from 'rxjs';
-import { OrderSubServicesType } from '../../shared/model/order-sub-services-type.model';
-import { OrderSubServicesTypeService } from '../../shared/service/order-sub-services-type.service';
+import { OrderSubServicesType } from './order-sub-services-type.model';
+import { OrderSubServicesTypeService } from './order-sub-services-type.service';
 import { OrderSubServicesTypeComponent } from './order-sub-services-type.component';
 import { OrderSubServicesTypeDetailComponent } from './order-sub-services-type-detail.component';
 import { OrderSubServicesTypeUpdateComponent } from './order-sub-services-type-update.component';

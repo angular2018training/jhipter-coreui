@@ -6,18 +6,17 @@ import {NgForm} from '@angular/forms';
 import {AlertService} from '../../shared/alert/alert-service';
 import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiParseLinks, } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
+import { PostOffice } from './post-office.model';
 import { PostOfficePopupService } from './post-office-popup.service';
+import { PostOfficeService } from './post-office.service';
 import { PostOfficeDeleteDialogComponent } from './post-office-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import {PostOffice} from "../../shared/model/post-office.model";
-import {PostOfficeSearch} from "../../shared/model/post-office.search.model";
-import {Province} from "../province/province.model";
-import {District} from "../../shared/model/district.model";
-import {PostOfficeService} from "../../shared/service/post-office.service";
-import {ProvinceService} from "../../shared/service/province.service";
-import {DistrictService} from "../../shared/service/district.service";
+import {PostOfficeSearch} from './post-office.search.model';
+    import { Company, CompanyService } from '../company';
+    import { Province, ProvinceService } from '../province';
+    import { District, DistrictService } from '../district';
 
 
 @Component({
@@ -74,30 +73,30 @@ currentAccount: any;
 
         this.postOfficeSearch = new PostOfficeSearch();
 
-        this.postOfficeSearch.code = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['code'] ?
-                        this.activatedRoute.snapshot.queryParams[' code'] : '';
-        this.postOfficeSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['name'] ?
-                        this.activatedRoute.snapshot.queryParams[' name'] : '';
-        this.postOfficeSearch.address = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['address'] ?
-                        this.activatedRoute.snapshot.queryParams[' address'] : '';
-        this.postOfficeSearch.sortOrder = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['sortOrder'] ?
-                        this.activatedRoute.snapshot.queryParams[' sortOrder'] : '';
-        this.postOfficeSearch.phone = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['phone'] ?
-                        this.activatedRoute.snapshot.queryParams[' phone'] : '';
-        this.postOfficeSearch.latitude = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['latitude'] ?
-                        this.activatedRoute.snapshot.queryParams[' latitude'] : '';
-        this.postOfficeSearch.longitude = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['longitude'] ?
-                        this.activatedRoute.snapshot.queryParams[' longitude'] : '';
-        this.postOfficeSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['description'] ?
-                        this.activatedRoute.snapshot.queryParams[' description'] : '';
-        this.postOfficeSearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['provinceId'] ?
-                         this.activatedRoute.snapshot.queryParams['provinceId'] : '';
-        this.postOfficeSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['districtId'] ?
-                         this.activatedRoute.snapshot.queryParams['districtId'] : '';
+        this.postOfficeSearch.code = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['code'] ?
+                        this.activatedRoute.snapshot.params[' code'] : '';
+        this.postOfficeSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
+                        this.activatedRoute.snapshot.params[' name'] : '';
+        this.postOfficeSearch.address = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['address'] ?
+                        this.activatedRoute.snapshot.params[' address'] : '';
+        this.postOfficeSearch.sortOrder = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['sortOrder'] ?
+                        this.activatedRoute.snapshot.params[' sortOrder'] : '';
+        this.postOfficeSearch.phone = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['phone'] ?
+                        this.activatedRoute.snapshot.params[' phone'] : '';
+        this.postOfficeSearch.latitude = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['latitude'] ?
+                        this.activatedRoute.snapshot.params[' latitude'] : '';
+        this.postOfficeSearch.longitude = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['longitude'] ?
+                        this.activatedRoute.snapshot.params[' longitude'] : '';
+        this.postOfficeSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
+                        this.activatedRoute.snapshot.params[' description'] : '';
+        this.postOfficeSearch.provinceId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['provinceId'] ?
+                         this.activatedRoute.snapshot.params['provinceId'] : '';
+        this.postOfficeSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
+                         this.activatedRoute.snapshot.params['districtId'] : '';
     }
 
     loadAll() {
-         let obj = {
+         var obj = {
          page: this.page -1,
          size: this.itemsPerPage,
          sort: this.sort(),

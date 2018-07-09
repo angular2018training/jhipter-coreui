@@ -2,22 +2,24 @@ export const navItems = [
   {
     name: 'Dashboard',
     url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
+    icon: 'icon-speedometer'
   },
   {
-    name: 'Administration',
+    name: 'Hệ thống',
     url: '/admin',
-    icon: 'icon-cursor',
+    icon: 'fa fa-gears',
     children: [
       {
-        name: 'User management',
+        name: 'Người dùng',
         url: '/admin/user-management',
-        icon: 'icon-cursor'
+        icon: 'icon-user'
       },
+      {
+        name: 'Nhóm người dùng',
+        url: '/admin/user-group',
+        icon: 'fa fa-group'
+      }
+      /*,
       {
         name: 'Metrics',
         url: '/admin/jhi-metrics',
@@ -52,71 +54,76 @@ export const navItems = [
         name: 'Elastic search Reindex',
         url: '/admin/elasticsearch-reindex',
         icon: 'icon-cursor'
-      },
-      {
-        name: 'User group',
-        url: '/admin/user-group',
-        icon: 'icon-cursor'
-      },
-
-
-
+      }*/
     ]
   },
   {
-    name: 'Set up',
+    name: 'Danh mục',
     url: '/setup',
-    icon: 'icon-cursor',
+    icon: 'fa fa-list-alt',
     children: [
       {
-        name: 'Post Office',
+        name: 'Bưu cục',
         url: '/setup/post-office',
-        icon: 'icon-cursor'
+        icon: 'fa fa-check'
       },
       {
-        name: 'Province',
+        name: 'Tỉnh / Thành phố',
         url: '/setup/province',
-        icon: 'icon-cursor'
+        icon: 'fa fa-check'
       },
       {
-        name: 'Order Services',
+        name: 'Quận / Huyện',
+        url: '/setup/district',
+        icon: 'fa fa-check'
+      },
+      {
+        name: 'Dịch vụ',
         url: '/setup/order-services',
-        icon: 'icon-cursor'
+        icon: 'fa fa-check'
       },
       {
-        name: 'Order Services Type',
+        name: 'Loại dịch vụ',
         url: '/setup/order-services-type',
-        icon: 'icon-cursor'
+        icon: 'fa fa-check'
       },
-
       {
-        name: 'Quotation',
-        url: '/setup/quotation',
-        icon: 'icon-cursor'
+        name: 'Dịch vụ cộng thêm',
+        url: '/setup/order-sub-services',
+        icon: 'fa fa-check'
       },
-
       {
-        name: 'Bank',
+        name: 'Phương thức tính',
+        url: '/setup/order-sub-services-type',
+        icon: 'fa fa-check'
+      },
+      {
+        name: 'Trạng thái',
+        url: '/setup/order-status',
+        icon: 'fa fa-check'
+      },
+      {
+        name: 'Ngân hàng',
         url: '/setup/bank',
-        icon: 'icon-cursor'
+        icon: 'fa fa-check'
       },
       {
-        name: 'Payment type',
+        name: 'Lịch thanh toán',
         url: '/setup/payment-type',
-        icon: 'icon-cursor'
+        icon: 'fa fa-check'
       },
 
     ]
   },
   {
-    name: 'Customer Management',
+    name: 'Khách hàng',
     url: '/customer-management',
-    icon: 'icon-cursor',
+    icon: 'fa fa-shopping-basket',
     children: [
       {
-        name: 'Customer',
+        name: 'Khách hàng',
         url: '/customer-management',
-        icon: 'icon-cursor'
+        icon: 'fa fa-user-circle-o'
       }
     ]
   }

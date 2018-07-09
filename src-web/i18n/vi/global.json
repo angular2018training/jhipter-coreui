@@ -128,7 +128,7 @@
         "export":{
           "excel":"Xuất Excel"
         },
-        "create" :"Tạo mới"
+        "create" :"Thêm mới"
       }
     },
     "entity": {
@@ -136,11 +136,11 @@
             "addblob": "Thêm nội dung",
             "addimage": "Thêm ảnh",
             "back": "Quay lại",
-            "cancel": "Hủy",
+            "cancel": "Hủy bỏ",
             "delete": "Xóa",
             "edit": "Sửa",
             "open": "Mở",
-            "save": "Lưu",
+            "save": "Lưu lại",
             "view": "Xem"
         },
         "detail": {
@@ -176,5 +176,5 @@
     "action":{
       "change":"Chuyển"
     },
-    "footer": "Đây là chân trang của bạn"    
+    "footer": "Đây là chân trang của bạn"
 }

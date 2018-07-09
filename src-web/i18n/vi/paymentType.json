@@ -3,23 +3,23 @@
     "nextlogixApp": {
         "paymentType" : {
             "home": {
-                "title": "Payment Types",
-                "createLabel": "Thêm mới một Payment Type",
-                "createOrEditLabel": "Thêm mới hoặc cập nhật Payment Type",
-                "search": "Tìm Payment Type"
+                "title": "Danh sách Lịch thanh toán",
+                "createLabel": "Thêm mới một Lịch thanh toán",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Lịch thanh toán",
+                "search": "Tìm Lịch thanh toán"
             },
-            "created": "Một Payment Type mới được tạo với định danh {{ param }}",
-            "updated": "Một Payment Type cập nhật với định danh {{ param }}",
-            "deleted": "Một Payment Type đã xóa với định danh {{ param }}",
+            "created": "Một Lịch thanh toán mới được tạo với định danh {{ param }}",
+            "updated": "Một Lịch thanh toán cập nhật với định danh {{ param }}",
+            "deleted": "Một Lịch thanh toán đã xóa với định danh {{ param }}",
             "delete": {
-                "question": "Bạn có chắc là muốn xóa Payment Type {{ id }}?"
+                "question": "Bạn có chắc là muốn xóa Lịch thanh toán {{ id }}?"
             },
             "detail": {
-                "title": "Payment Type"
+                "title": "Lịch thanh toán"
             },
-            "code": "Code",
-            "name": "Name",
-            "description": "Description",
+            "code": "Mã",
+            "name": "Tên",
+            "description": "Mô tả",
             "company": "Company"
         }
     }

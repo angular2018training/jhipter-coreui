@@ -19,6 +19,7 @@
                 <label class="col-md-2 col-form-label" for="field_name"
                        jhiTranslate="nextlogixApp.warehouse.name">Name:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="name" id="field_name"
                            [(ngModel)]="warehouseSearch.name" />
                 </div>
@@ -27,6 +28,7 @@
                 <label class="col-md-2 col-form-label" for="field_contactName"
                        jhiTranslate="nextlogixApp.warehouse.contactName">Contact Name:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="contactName" id="field_contactName"
                            [(ngModel)]="warehouseSearch.contactName" />
                 </div>
@@ -35,6 +37,7 @@
                 <label class="col-md-2 col-form-label" for="field_contactPhone"
                        jhiTranslate="nextlogixApp.warehouse.contactPhone">Contact Phone:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="contactPhone" id="field_contactPhone"
                            [(ngModel)]="warehouseSearch.contactPhone" />
                 </div>
@@ -43,14 +46,25 @@
                 <label class="col-md-2 col-form-label" for="field_address"
                        jhiTranslate="nextlogixApp.warehouse.address">Address:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="address" id="field_address"
                            [(ngModel)]="warehouseSearch.address" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="field_testStr"
+                       jhiTranslate="nextlogixApp.warehouse.testStr">Test Str:</label>
+                <div class="col-md-4">
+
+                    <input type="text" class="form-control" name="testStr" id="field_testStr"
+                           [(ngModel)]="warehouseSearch.testStr" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_createDate"
                        jhiTranslate="nextlogixApp.warehouse.createDate">Create Date:</label>
                 <div class="col-md-4">
+
                     <div class="d-flex">
                         <input id="field_createDate" type="datetime-local" class="form-control" name="createDate" [(ngModel)]="warehouseSearch.createDate"
                         />
@@ -58,17 +72,6 @@
                 </div>
             </div>
 
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_company"
-                       jhiTranslate="nextlogixApp.warehouse.company">>Company:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_company" name="company" [(ngModel)]="warehouseSearch.companyId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.name}}</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-group row">
                 <label class="col-md-2 col-form-label" for="field_province"
@@ -114,15 +117,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.warehouse.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.warehouse.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -135,8 +141,8 @@
                 <th jhiSortBy="contactName"><span jhiTranslate="nextlogixApp.warehouse.contactName">Contact Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="contactPhone"><span jhiTranslate="nextlogixApp.warehouse.contactPhone">Contact Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="address"><span jhiTranslate="nextlogixApp.warehouse.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="testStr"><span jhiTranslate="nextlogixApp.warehouse.testStr">Test Str</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="createDate"><span jhiTranslate="nextlogixApp.warehouse.createDate">Create Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="companyId"><span jhiTranslate="nextlogixApp.warehouse.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.warehouse.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="districtId"><span jhiTranslate="nextlogixApp.warehouse.district">District</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="wardId"><span jhiTranslate="nextlogixApp.warehouse.ward">Ward</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -150,12 +156,8 @@
                     <td>{{warehouse.contactName}}</td>
                     <td>{{warehouse.contactPhone}}</td>
                     <td>{{warehouse.address}}</td>
+                    <td>{{warehouse.testStr}}</td>
                     <td>{{warehouse.createDate | date:'medium'}}</td>
-                    <td>
-        <div *ngIf="warehouse.companyId">
-        <a [routerLink]="['../company', 'detail',warehouse.companyId ]" >{{warehouse.companyDTO?.name}}</a>
-    </div>
-    </td>
                     <td>
         <div *ngIf="warehouse.provinceId">
         <a [routerLink]="['../province', 'detail',warehouse.provinceId ]" >{{warehouse.provinceDTO?.name}}</a>
@@ -174,21 +176,13 @@
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[warehouse.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[warehouse.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(warehouse.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -207,5 +201,3 @@
 </div>
 
 </div>
-
-

@@ -19,6 +19,7 @@
                 <label class="col-md-2 col-form-label" for="field_code"
                        jhiTranslate="nextlogixApp.company.code">Code:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="code" id="field_code"
                            [(ngModel)]="companySearch.code" />
                 </div>
@@ -27,6 +28,7 @@
                 <label class="col-md-2 col-form-label" for="field_name"
                        jhiTranslate="nextlogixApp.company.name">Name:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="name" id="field_name"
                            [(ngModel)]="companySearch.name" />
                 </div>
@@ -35,6 +37,7 @@
                 <label class="col-md-2 col-form-label" for="field_address"
                        jhiTranslate="nextlogixApp.company.address">Address:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="address" id="field_address"
                            [(ngModel)]="companySearch.address" />
                 </div>
@@ -43,6 +46,7 @@
                 <label class="col-md-2 col-form-label" for="field_phone"
                        jhiTranslate="nextlogixApp.company.phone">Phone:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="phone" id="field_phone"
                            [(ngModel)]="companySearch.phone" />
                 </div>
@@ -51,6 +55,7 @@
                 <label class="col-md-2 col-form-label" for="field_email"
                        jhiTranslate="nextlogixApp.company.email">Email:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="email" id="field_email"
                            [(ngModel)]="companySearch.email" />
                 </div>
@@ -59,6 +64,7 @@
                 <label class="col-md-2 col-form-label" for="field_website"
                        jhiTranslate="nextlogixApp.company.website">Website:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="website" id="field_website"
                            [(ngModel)]="companySearch.website" />
                 </div>
@@ -67,33 +73,12 @@
                 <label class="col-md-2 col-form-label" for="field_description"
                        jhiTranslate="nextlogixApp.company.description">Description:</label>
                 <div class="col-md-4">
+
                     <input type="text" class="form-control" name="description" id="field_description"
                            [(ngModel)]="companySearch.description" />
                 </div>
             </div>
 
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_province"
-                       jhiTranslate="nextlogixApp.company.province">>Province:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_province" name="province" [(ngModel)]="companySearch.provinceId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-2 col-form-label" for="field_district"
-                       jhiTranslate="nextlogixApp.company.district">>District:</label>
-                <div class="col-md-4">
-                    <select class="form-control" id="field_district" name="district" [(ngModel)]="companySearch.districtId">
-                    <option [ngValue]="null"></option>
-                    <option [ngValue]="districtOption.id" *ngFor="let districtOption of districts; trackBy: trackDistrictById">{{districtOption.name}}</option>
-                    </select>
-                </div>
-            </div>
 
         </div>
         <div class="card-footer">
@@ -106,15 +91,18 @@
             <button type="reset" class="btn btn-primary btn-success">
                 <i class="fa fa-file-excel-o"></i> {{'common.button.export.excel' |translate }}
             </button>
-            <button type="submit" class="btn btn-primary btn-warning pull-right" [routerLink]="[ 'new']">
-                <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
-            </button>
+
         </div>
     </div>
 </form>
 <div class="card">
     <div class="card-header">
-        <strong jhiTranslate="nextlogixApp.company.home.title">Kết quả tìm kiếm</strong>
+        <i class="fa fa-align-justify"></i><strong jhiTranslate="nextlogixApp.company.home.title">Kết quả tìm kiếm</strong>
+        <div class="card-header-actions">
+           <button type="submit" class="btn btn-primary btn-warning" [routerLink]="[ 'new']">
+               <i class="fa fa-plus-circle"></i> {{'common.button.create' |translate }}
+           </button>
+        </div>
     </div>
     <div class="card-body">
 
@@ -130,8 +118,6 @@
                 <th jhiSortBy="email"><span jhiTranslate="nextlogixApp.company.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="website"><span jhiTranslate="nextlogixApp.company.website">Website</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="description"><span jhiTranslate="nextlogixApp.company.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="provinceId"><span jhiTranslate="nextlogixApp.company.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="districtId"><span jhiTranslate="nextlogixApp.company.district">District</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 </tr>
                 </thead>
@@ -145,34 +131,16 @@
                     <td>{{company.email}}</td>
                     <td>{{company.website}}</td>
                     <td>{{company.description}}</td>
-                    <td>
-        <div *ngIf="company.provinceId">
-        <a [routerLink]="['../province', 'detail',company.provinceId ]" >{{company.provinceDTO?.name}}</a>
-    </div>
-    </td>
-                    <td>
-        <div *ngIf="company.districtId">
-        <a [routerLink]="['../district', 'detail',company.districtId ]" >{{company.districtDTO?.name}}</a>
-    </div>
-    </td>
     <td class="text-right">
         <div class="btn-group flex-btn-group-container">
             <button type="submit"
-                    [routerLink]="[company.id,'view' ]"
-                    class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-            </button>
-            <button type="submit"
                     [routerLink]="[company.id,'edit']"
                     class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                <i class="fa fa-edit "></i>
             </button>
             <button (click)="deleteItem(company.id)"
                     class="btn btn-danger btn-sm">
-                <i class="fa fa-times"></i>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                <i class="fa fa-trash-o "></i>
             </button>
         </div>
     </td>
@@ -191,5 +159,3 @@
 </div>
 
 </div>
-
-

@@ -1,21 +1,23 @@
+
 import { Component, OnInit } from '@angular/core';
+
+import {Principal} from '../../shared/';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {ITEMS_QUERY_ALL} from '../../shared/';
+import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from '../../shared/constants/input.constants';
 import { JhiAlertService,  } from 'ng-jhipster';
-import {Warehouse} from "../../shared/model/warehouse.model";
-import {Company} from "../../shared/model/company.model";
-import {Province} from "../../shared/model/province.model";
-import {District} from "../../shared/model/district.model";
-import {Ward} from "../../shared/model/ward.model";
-import {WarehouseService} from "../../shared/service/warehouse.service";
-import {CompanyService} from "../../shared/service/company.service";
-import {ProvinceService} from "../../shared/service/province.service";
-import {DistrictService} from "../../shared/service/district.service";
-import {WardService} from "../../shared/service/ward.service";
 
+import { WarehouseService } from './warehouse.service';
+
+import { Warehouse } from './warehouse.model';
+            import { Company, CompanyService } from '../company';
+            import { Province, ProvinceService } from '../province';
+            import { District, DistrictService } from '../district';
+            import { Ward, WardService } from '../ward';
 
 @Component({
     selector: 'jhi-warehouse-update',
@@ -25,19 +27,19 @@ export class WarehouseUpdateComponent implements OnInit {
 
     private _warehouse: Warehouse;
     isSaving: boolean;
-
-    companies: Company[];
+    private currentAccount : any;
 
     provinces: Province[];
 
     districts: District[];
 
     wards: Ward[];
-    createDate: string;
+        createDate: string;
 
     constructor(
-        private jhiAlertService: JhiAlertService,
+        private alertService: AlertService,
         private warehouseService: WarehouseService,
+        private principal : Principal,
         private companyService: CompanyService,
         private provinceService: ProvinceService,
         private districtService: DistrictService,
@@ -51,14 +53,16 @@ export class WarehouseUpdateComponent implements OnInit {
         this.route.data.subscribe(({warehouse}) => {
             this.warehouse = warehouse;
         });
-        this.companyService.query()
-            .subscribe((res: HttpResponse<Company[]>) => { this.companies = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.provinceService.query()
+        this.principal.identity().then((account) => {
+            this.currentAccount = account;
+            this.provinceService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
             .subscribe((res: HttpResponse<Province[]>) => { this.provinces = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.districtService.query()
+            this.districtService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
             .subscribe((res: HttpResponse<District[]>) => { this.districts = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.wardService.query()
+            this.wardService.query({"companyId.equals":this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL})
             .subscribe((res: HttpResponse<Ward[]>) => { this.wards = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        });
+
     }
 
     previousState() {
@@ -72,6 +76,7 @@ export class WarehouseUpdateComponent implements OnInit {
             this.subscribeToSaveResponse(
                 this.warehouseService.update(this.warehouse));
         } else {
+            this.warehouse.companyId = this.currentAccount.companyId;
             this.subscribeToSaveResponse(
                 this.warehouseService.create(this.warehouse));
         }
@@ -92,7 +97,7 @@ export class WarehouseUpdateComponent implements OnInit {
     }
 
     private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
+        this.alertService.error(errorMessage, null, null);
     }
 
     trackCompanyById(index: number, item: Company) {

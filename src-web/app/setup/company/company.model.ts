@@ -10,8 +10,6 @@ export class Company implements BaseEntity {
         public email?: string,
         public website?: string,
         public description?: string,
-        public provinceId?: number,
-        public districtId?: number,
     ) {
     }
 }

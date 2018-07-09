@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy,ViewChild } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm} from '@angular/forms';
+
+import {AlertService} from '../../shared/alert/alert-service';
+import {ITEMS_QUERY_ALL} from '../../shared/';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -11,9 +14,10 @@ import { WardService } from './ward.service';
 import { WardDeleteDialogComponent } from './ward-delete-dialog.component';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import {WardSearch} from './ward.search.model';
+    import { Company, CompanyService } from '../company';
+    import { District, DistrictService } from '../district';
 
-import {District} from '../district/district.model';
-import {DistrictService} from "../district/district.service";
+
 @Component({
     selector: 'jhi-ward',
     templateUrl: './ward.component.html'
@@ -43,9 +47,9 @@ currentAccount: any;
     constructor(
         private wardService: WardService,
         private parseLinks: JhiParseLinks,
-        private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
+        private alertService :AlertService,
         private router: Router,
         private eventManager: JhiEventManager,
         private districtService: DistrictService,
@@ -60,17 +64,18 @@ currentAccount: any;
             this.predicate = data.pagingParams.predicate;
 
         });
-         this.districts =[];
+        this.districts =[];
 
         this.wardSearch = new WardSearch();
+
         this.wardSearch.code = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['code'] ?
-        this.activatedRoute.snapshot.params['code'] : '';
+                        this.activatedRoute.snapshot.params[' code'] : '';
         this.wardSearch.name = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['name'] ?
-        this.activatedRoute.snapshot.params['name'] : '';
+                        this.activatedRoute.snapshot.params[' name'] : '';
         this.wardSearch.description = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['description'] ?
-        this.activatedRoute.snapshot.params['description'] : '';
+                        this.activatedRoute.snapshot.params[' description'] : '';
         this.wardSearch.districtId = this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['districtId'] ?
-        this.activatedRoute.snapshot.params['districtId'] : '';
+                         this.activatedRoute.snapshot.params['districtId'] : '';
     }
 
     loadAll() {
@@ -81,13 +86,19 @@ currentAccount: any;
          code : this.wardSearch.code,
          name : this.wardSearch.name,
          description : this.wardSearch.description,
-           districtId : this.wardSearch.districtId,
+         companyId :this.currentAccount.companyId,
+         districtId :this.wardSearch.districtId,
          };
 
         this.wardService.searchExample(obj).subscribe(
-          (res: HttpResponse<District[]>) => this.onSuccess(res.body, res.headers),
+          (res: HttpResponse<Ward[]>) => this.onSuccess(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+    }
+    searchInForm(){
+          this.page = 0;
+          this.transition();
 
     }
     loadPage(page: number) {
@@ -96,35 +107,28 @@ currentAccount: any;
             this.transition();
         }
     }
-  searchInForm(){
-      this.page = 0;
-      this.transition();
-
-    }
     transition() {
-      this.router.navigate(['/setup/ward', {
-        page: this.page,
-        size: this.itemsPerPage,
-        code : this.wardSearch.code!=null?this.wardSearch.code:'',
-        name : this.wardSearch.name!=null?this.wardSearch.name:'',
-        description : this.wardSearch.description!=null?this.wardSearch.description:'',
-        districtId : this.wardSearch.districtId!=null?this.wardSearch.districtId:'',
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }]);
+        this.router.navigate(['/setup/ward'], {queryParams:
+            {
+                page: this.page,
+                size: this.itemsPerPage,
+                search: this.currentSearch,
+                code : this.wardSearch.code,
+                name : this.wardSearch.name,
+                description : this.wardSearch.description,
+                companyId :this.currentAccount.companyId,
+                districtId :this.wardSearch.districtId,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }
+        });
         this.loadAll();
     }
 
     clear() {
         this.page = 0;
         this.currentSearch = '';
-        this.wardSearch = new WardSearch();
         this.router.navigate(['/setup/ward', {
             page: this.page,
-            size: this.itemsPerPage,
-            code : this.wardSearch.code!=null?this.wardSearch.code:'',
-            name : this.wardSearch.name!=null?this.wardSearch.name:'',
-            description : this.wardSearch.description!=null?this.wardSearch.description:'',
-            districtId : this.wardSearch.districtId!=null?this.wardSearch.districtId:'',
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
         this.loadAll();
@@ -135,7 +139,7 @@ currentAccount: any;
         }
         this.page = 0;
         this.currentSearch = query;
-        this.router.navigate(['/ward', {
+        this.router.navigate(['/setup/ward', {
             search: this.currentSearch,
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -144,17 +148,16 @@ currentAccount: any;
     }
 
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
+            this.loadAll();
+            this.districtService.query({"companyId.equals": this.currentAccount.companyId,"pageSize":ITEMS_QUERY_ALL }).subscribe(
+                (res: HttpResponse<District[]>) => this.districts = res.body,
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
         this.registerChangeInWards();
-        this.districtService.query().subscribe(
-            (res: HttpResponse<District[]>) => this.districts = res.body,
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-
-
     }
 
     ngOnDestroy() {
@@ -184,7 +187,7 @@ currentAccount: any;
         this.wards = data;
     }
     private onError(error) {
-        this.jhiAlertService.error(error.message, null, null);
+        this.alertService.error(error.message, null, null);
     }
 
     public deleteItem(id:number){

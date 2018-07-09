@@ -9,11 +9,10 @@ import {AlertService} from '../../shared/alert/alert-service';
 import { Observable } from 'rxjs';
 import { JhiAlertService,  } from 'ng-jhipster';
 
-import { RegionService } from '../../shared/service/region.service';
+import { RegionService } from './region.service';
 
-import { Region } from '../../shared/model/region.model';
-            import { Company } from '../../shared/model/company.model';
-            import { CompanyService} from '../../shared/service/company.service';
+import { Region } from './region.model';
+            import { Company, CompanyService } from '../company';
 
 @Component({
     selector: 'jhi-region-update',

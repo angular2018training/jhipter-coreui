@@ -2,8 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
-import { QuotationType } from '../../shared/model/quotation-type.model';
-import { QuotationTypeService } from '../../shared/service/quotation-type.service';
+import { QuotationType } from './quotation-type.model';
+import { QuotationTypeService } from './quotation-type.service';
 
 @Injectable()
 export class QuotationTypePopupService {
